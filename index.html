@@ -4,79 +4,78 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Portfolio</title>
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(to bottom, #87CEEB, #B0E0E6);
-            color: #333;
-            text-align: center;
-        }
-        .container {
-            max-width: 900px;
-            margin: 80px auto;
-            background: rgba(255, 255, 255, 0.8);
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-        }
-        h1 {
-            color: #005f73;
-            font-size: 36px;
-        }
-        p {
-            font-size: 18px;
-        }
-        .nav-buttons {
-            margin-top: 30px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-        .cloud-button {
-            padding: 20px 40px;
-            border: none;
-            background: white;
-            color: #005f73;
-            font-size: 18px;
-            cursor: pointer;
-            transition: 0.3s;
-            border-radius: 50px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-            position: relative;
-        }
-        .cloud-button::before {
-            content: '\2601';
-            font-size: 24px;
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        .cloud-button:hover {
-            background: #E0FFFF;
-        }
-        @media (max-width: 600px) {
-            .nav-buttons {
-                flex-direction: column;
-            }
-        }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
-<body>
-    <div class="container">
-        <h1>Hi, I'm Jonas!</h1>
-        <p>Passionate about building scalable and reliable data architectures for businesses.</p>
-        
-        <div class="nav-buttons">
-            <button class="cloud-button" onclick="navigate('experience.html')">Work Experience</button>
-            <button class="cloud-button" onclick="navigate('projects.html')">Personal Projects</button>
-            <button class="cloud-button" onclick="navigate('socials.html')">Socials</button>
+<body class="bg-black text-white text-center font-[Poppins]">
+    <div class="max-w-3xl mx-auto bg-white bg-opacity-90 p-10 mt-20 rounded-xl shadow-2xl">
+        <div class="flex justify-center">
+            <img src="logo.png" alt="Sea and Wind Logo" class="w-20 h-20 animate-bounce">
+        </div>
+        <h1 class="text-5xl font-extrabold text-blue-900 mt-6">Hi, I'm Jonas <span class="text-yellow-500">😊</span></h1>
+        <div class="my-6"></div>
+        <p class="text-xl mt-4 text-gray-700">I build scalable data applications & architectures for enterprises.</p>
+        <div class="my-12"></div>
+        <p class="text-l mt-4 text-gray-700">Learn more about my experiences here!</p>
+        <div class="mt-4 flex flex-col sm:flex-row justify-center gap-9">
+            <button class="px-8 py-4 bg-blue-900 text-white font-semibold rounded-full shadow-lg hover:bg-blue-700 hover:scale-105 active:bg-green-500 transform transition duration-300" onclick="navigate('resume.html')">
+                📄 Resume
+            </button>
+            <button class="px-8 py-4 bg-blue-900 text-white font-semibold rounded-full shadow-lg hover:bg-blue-700 hover:scale-105 active:bg-green-500 transform transition duration-300" onclick="navigate('socials.html')">
+                🌊 Socials
+            </button>
         </div>
     </div>
-    
+
+    <!-- Skills Section -->
+    <div class="max-w-4xl mx-auto bg-white bg-opacity-90 p-10 mt-10 rounded-xl shadow-2xl">
+        <h2 class="text-3xl font-extrabold text-blue-900 mb-6">My Expertise</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-6">
+            <div class="flex flex-col items-center">
+                <img src="aws.png" alt="AWS Logo" class="w-20 h-20">
+                <p class="text-xl mt-2 text-gray-700">AWS</p>
+            </div>
+            <div class="flex flex-col items-center">
+                <img src="gcp.png" alt="GCP Logo" class="w-20 h-20">
+                <p class="text-xl mt-2 text-gray-700">GCP</p>
+            </div>
+            <div class="flex flex-col items-center">
+                <img src="azure.png" alt="Azure Logo" class="w-20 h-20">
+                <p class="text-xl mt-2 text-gray-700">Azure</p>
+            </div>
+            <div class="flex flex-col items-center">
+                <img src="snowflake.png" alt="Snowflake Logo" class="w-20 h-20">
+                <p class="text-xl mt-2 text-gray-700">Snowflake</p>
+            </div>
+            <div class="flex flex-col items-center">
+                <img src="databricks.jpg" alt="Databricks Logo" class="w-20 h-20">
+                <p class="text-xl mt-2 text-gray-700">Databricks</p>
+            </div>
+            <div class="flex flex-col items-center">
+                <img src="neo4j.png" alt="Neo4j Logo" class="w-20 h-20">
+                <p class="text-xl mt-2 text-gray-700">Neo4j</p>
+            </div>          
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="max-w-lg mx-auto bg-white bg-opacity-90 p-8 mt-10 rounded-xl shadow-lg">
+        <h2 class="text-3xl font-extrabold text-blue-900 mb-6">Contact Me</h2>
+        <form action="https://formspree.io/f/mpwqaadp" method="POST" class="flex flex-col space-y-4">
+            <input type="text" name="name" placeholder="Your Name" required
+                   class="px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-gray-900">
+            <input type="email" name="email" placeholder="Your Email" required
+                   class="px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-gray-900">
+            <textarea name="message" placeholder="Your Message" rows="4" required
+                      class="px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-gray-900"></textarea>
+            <button type="submit"
+                    class="px-6 py-3 bg-blue-900 text-white font-semibold rounded-full shadow-md hover:bg-blue-700 hover:scale-105 active:bg-green-500 transform transition duration-300">
+                    📧
+                Send Message
+            </button>
+        </form>
+    </div>
+
     <script>
         function navigate(page) {
             window.location.href = page;
