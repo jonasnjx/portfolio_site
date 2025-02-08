@@ -16,7 +16,7 @@
         }
         .timeline-item:hover {
             transform: scale(1.05);
-            background-color: rgba(37, 99, 235, 0.1);
+            background-color: rgba(245, 246, 248, 0.1);
             border-radius: 8px;
         }
         .timeline-item::before {
@@ -26,12 +26,12 @@
             top: 20px;
             width: 16px;
             height: 16px;
-            background-color: #1d4ed8;
+            background-color: #f8fafd;
             border-radius: 50%;
             border: 3px solid white;
         }
         .timeline-item:hover::before {
-            background-color: #2563eb;
+            background-color: #f6f7f8;
         }
         .timeline-item::after {
             content: '';
@@ -40,25 +40,25 @@
             top: 40px;
             width: 2px;
             height: calc(100% - 40px);
-            background-color: #1d4ed8;
+            background-color: #f3f5fa;
         }
     </style>
 </head>
-<body class="bg-black text-white text-center font-[Poppins]">
-    <div class="max-w-4xl mx-auto bg-white bg-opacity-95 p-12 mt-16 rounded-xl shadow-xl">
-        <h1 class="text-6xl font-extrabold text-blue-900 mb-10">Resume</h1>
-        <div class="mt-6 text-gray-700 text-left">
-            <div class="border-l-4 border-blue-900 pl-8">
-                <h2 class="text-4xl font-extrabold mb-6">Work Experience</h2>
+<body class="bg-black text-white text-center font-[Sans-serif]">
+    <div class="max-w-4xl mx-auto bg-black bg-opacity-95 p-12 mt-16 rounded-xl shadow-xl border-4 border-white">
+        <h1 class="text-6xl font-extrabold text-white mb-10 shadow-lg">Resume</h1>
+        <div class="mt-6 text-white-700 text-left">
+            <div class="border-l-4 border-white-900 pl-8">
+                <h2 class="text-4xl font-bold mb-6 ">💼 Work Experience</h2>
                 <div class="timeline-item">
                     <h3 class="text-xl font-bold">Data Engineer, A*STAR, Singapore</h3>
-                    <p class="text-gray-700 mb-4">Aug 2024 – Present</p>
+                    <p class="text-white-700 mb-4">Aug 2024 – Present</p>
                     <ul class="list-disc pl-6">
                     </ul>
                 </div>
                 <div class="timeline-item">
                     <h3 class="text-xl font-bold">Data & AI Analyst, Accenture, Singapore</h3>
-                    <p class="text-gray-700 mb-4">Jul 2021 – Jul 2024</p>
+                    <p class="text-white-700 mb-4">Jul 2021 – Jul 2024</p>
                     <ul class="list-disc pl-6">
                         <li>Developed data pipelines in AWS using Lambda and S3 to load unstructured data into Redshift tables</li>
                         <li>Enhanced pipelines using CloudWatch and EventBridge for logging and event-driven error handling capabilities</li>
@@ -71,10 +71,10 @@
                     </ul>
                 </div>
 
-                <h2 class="text-4xl font-extrabold mb-6 mt-12">Internship Experience</h2>
+                <h2 class="text-4xl font-bold mb-6 mt-12 ">💻 Internship Experience</h2>
                 <div class="timeline-item">
                     <h3 class="text-xl font-bold">Data Science Intern, Vertex Holdings, Singapore</h3>
-                    <p class="text-gray-700 mb-4">Jan 2021 – Apr 2021</p>
+                    <p class="text-white-700 mb-4">Jan 2021 – Apr 2021</p>
                     <ul class="list-disc pl-6">
                         <li>Developed a multi-step custom machine learning model using LightGBM and ELMo, tackling class imbalance and bias</li>
                         <li>Achieved a model accuracy of 86% and presented the solution to stakeholders and internal team for deployment</li>
@@ -82,37 +82,39 @@
                 </div>
                 <div class="timeline-item">
                     <h3 class="text-xl font-bold">Data Analytics Student Consultant, UPS, Singapore</h3>
-                    <p class="text-gray-700 mb-4">Feb 2021 – Apr 2021</p>
+                    <p class="text-white-700 mb-4">Feb 2021 – Apr 2021</p>
                     <ul class="list-disc pl-6">
                         <li>Optimised supply chain network design using time-series forecasting to evaluate shortest network paths</li>
                     </ul>
                 </div>
                 <div class="timeline-item">
                     <h3 class="text-xl font-bold">Data Science Intern, Kuehne+Nagel, Singapore</h3>
-                    <p class="text-gray-700 mb-4">Nov 2020 – Jan 2021</p>
+                    <p class="text-white-700 mb-4">Nov 2020 – Jan 2021</p>
                     <ul class="list-disc pl-6">
                         <li>Automated supply chain reporting using Tableau, Python and SQL</li>
                     </ul>
                 </div>
                 <div class="timeline-item">
                     <h3 class="text-xl font-bold">Data Analytics Intern, Shopee, Singapore</h3>
-                    <p class="text-gray-700 mb-4">May 2020 – Jul 2020</p>
+                    <p class="text-white-700 mb-4">May 2020 – Jul 2020</p>
                     <ul class="list-disc pl-6">
                         <li>Automated warehouse productivity reporting using Python, PySpark and Google Sheets API</li>
                     </ul>
                 </div>
                 <div class="timeline-item">
                     <h3 class="text-xl font-bold">Data Digital Engineering Intern, Air Liquide, Singapore</h3>
-                    <p class="text-gray-700 mb-4">Dec 2019 – May 2020</p>
+                    <p class="text-white-700 mb-4">Dec 2019 – May 2020</p>
                     <ul class="list-disc pl-6">
                         <li>Automated stakeholder reporting using Power BI and Python for data transformation</li>
                     </ul>
                 </div>
             </div>
         </div>
-        <button class="mt-10 px-8 py-4 bg-blue-900 text-white font-semibold rounded-full shadow-lg hover:bg-blue-700 hover:scale-105 transform transition duration-300" onclick="window.location.href='index.html'">
-            ⬅ Back to Home
-        </button>
+        <div class="text-right">
+            <button class="mt-10 px-8 py-4 bg-red-900 text-white font-semibold rounded-full shadow-lg hover:bg-blue-700 hover:scale-105 transform transition duration-300" onclick="window.location.href='index.html'">
+                ⬅ Back
+            </button>
+        </div>
     </div>
 </body>
 </html>
