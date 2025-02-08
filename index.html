@@ -1,43 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cursive:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
-<body class="bg-black text-white text-center font-[Poppins]">
-    <!-- Work in Progress Banner -->
-    <div class="bg-red-500 text-white font-semibold py-3 shadow-md">
-        🚧🚧🚧 Work in progress! Stay tuned for updates ~ 🚧🚧🚧
+
+<body class="bg-black text-white text-center font-[Sans-serif] text-xl">
+
+    <!-- Top Navigation Bar -->
+    <div class="fixed top-0 left-0 w-full bg-black shadow-md py-3 flex justify-between items-center space-x-4">
+        <!-- Home Button (Active State) -->
+        <button id="homeButton" class="flex-grow px-6 py-3 bg-blue-700 text-white font-semibold rounded-full shadow-lg scale-105 cursor-default">
+            🏠 Home
+        </button>
+        <button class="flex-grow px-6 py-3 bg-red-900 text-white font-semibold rounded-full shadow-lg hover:bg-blue-700 hover:scale-105 active:bg-blue-900 transform transition duration-300" onclick="navigate('resume.html')">
+            📄 Resume
+        </button>
+        <button class="flex-grow px-6 py-3 bg-red-900 text-white font-semibold rounded-full shadow-lg hover:bg-blue-700 hover:scale-105 active:bg-blue-900 transform transition duration-300" onclick="navigate('projects.html')">
+            💻 Projects
+        </button>
+        <button class="flex-grow px-6 py-3 bg-red-900 text-white font-semibold rounded-full shadow-lg hover:bg-blue-700 hover:scale-105 active:bg-blue-900 transform transition duration-300" onclick="navigate('socials.html')">
+            ⛅ Socials
+        </button>
     </div>
-    <div class="max-w-3xl mx-auto bg-white bg-opacity-90 p-10 mt-20 rounded-xl shadow-2xl">
-        <div class="flex justify-center">
-            <img src="assets/logo.png" alt="Sea and Wind Logo" class="w-20 h-20 animate-bounce">
+
+    <script>
+        function navigate(url) {
+            window.location.href = url;
+        }
+        </script>
+    
+    <!-- Start Section -->
+    <div class="w-full bg-black bg-opacity-90 p-10 mt-20 rounded-xl shadow-2xl">
+        <div class="max-w-3xl mx-auto">
+            <div class="flex justify-center">
+                <img src="assets/profile.jpg" alt="Profile Image" class="w-72 h-72 object-cover rounded-full border-4 border-white shadow-lg mx-auto">
+            </div>
+            <div class="my-12"></div>
+            <h1 class="text-7xl font-bold font-Cursive text-white mt-6 text-center tracking-wide shadow-md">
+                Hi, I'm Jonas!<span class="text-yellow-500"></span>
+            </h1>
+            <div class="my-9"></div>
+            <p class="text-xl mt-4 text-grey-500">
+                💼 <span class="underline">Data and Cloud Engineer </span>
+            </p>
+            <p class="text-lg mt-4 text-grey-500">
+                Agency for Science, Technology and Research (A*STAR)
+            </p>
         </div>
-        <h1 class="text-5xl font-extrabold text-blue-900 mt-6">Hi, I'm Jonas <span class="text-yellow-500">😊</span></h1>
-        <div class="my-6"></div>
-        <p class="text-xl mt-4 text-gray-700">I build scalable data applications & architectures for enterprises.</p>
-        <div class="my-12"></div>
-        <p class="text-l mt-4 text-gray-700">Learn more about my experiences here!</p>
-        <div class="mt-4 flex flex-col sm:flex-row justify-center gap-9">
-            <button class="px-8 py-4 bg-green-900 text-white font-semibold rounded-full shadow-lg hover:bg-blue-700 hover:scale-105 active:bg-green-500 transform transition duration-300" onclick="navigate('resume.html')">
-                📄 Resume
-            </button>
-            <button class="px-8 py-4 bg-green-900 text-white font-semibold rounded-full shadow-lg hover:bg-blue-700 hover:scale-105 active:bg-green-500 transform transition duration-300" onclick="navigate('projects.html')">
-                💻 Projects
-            </button>
-            <button class="px-8 py-4 bg-green-900 text-white font-semibold rounded-full shadow-lg hover:bg-blue-700 hover:scale-105 active:bg-green-500 transform transition duration-300" onclick="navigate('socials.html')">
-                🌊 Socials
-            </button>
+    </div>
+
+    <!-- Line Separator -->
+    <hr class="my-4 border-t-2 border-gray-400">
+
+    <!-- Introduction Section -->
+    <div class="w-full bg-black bg-opacity-90 p-10 mt-5 rounded-xl shadow-2xl">
+        <div class="max-w-5xl mx-auto">
+            <h1 class="text-4xl font-bold font-Cursive text-white mt-6 text-left tracking-wide shadow-md ">
+                🎃 About Me<span class="text-yellow-500"></span>
+            </h1>
+            <div class="my-6"></div>
+            <p class="text-lg mt-3 text-grey-500 text-left"> 🔳 <span class="underline">Business Analytics</span> Degree from Nanyang Technological University (NTU)</p>
+            <p class="text-lg mt-3 text-grey-500 text-left"> 🔳 Certified in AWS and Azure</p>
+            <p class="text-lg mt-3 text-grey-500 text-left"> 🔳 Certified in Tableau</p>
         </div>
     </div>
 
     <!-- Skills Section -->
-    <div class="max-w-4xl mx-auto bg-white p-10 mt-10 rounded-xl shadow-2xl">
-        <h2 class="text-3xl font-extrabold text-blue-900 mb-6">Skills</h2>
-        <div class="grid grid-cols-2 sm:grid-cols-3 gap-6">
+    <div class="max-w-full mx-auto bg-white p-5 mt-10 rounded-xl shadow-2xl">
+        <div class="grid grid-cols-6 gap-6">
             <div class="flex flex-col items-center">
                 <img src="assets/aws.png" alt="AWS Logo" class="w-20 h-20">
                 <p class="text-xl mt-2 text-gray-700">AWS</p>
@@ -68,8 +103,8 @@
     <!-- Contact Section -->
     <!-- Floating Contact Button -->
     <button id="contactButton"
-        class="fixed bottom-8 right-8 bg-blue-900 text-white px-6 py-3 rounded-full shadow-lg hover:bg-blue-700 transition-transform transform hover:scale-110">
-        📞 Contact Me
+        class="fixed bottom-6 right-6 bg-orange-600 text-white px-4 py-2 rounded-full shadow-lg hover:bg-blue-700 transition-transform transform hover:scale-110">
+        📧 Contact Me
     </button>
 
     <!-- Contact Form Modal -->
@@ -105,7 +140,7 @@
             contactModal.classList.add("hidden");
         });
 
-        // Close modal when clicking outside the form
+        // close model when clicking outside the form
         contactModal.addEventListener("click", (e) => {
             if (e.target === contactModal) {
                 contactModal.classList.add("hidden");
