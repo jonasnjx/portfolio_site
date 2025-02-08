@@ -66,22 +66,52 @@
     </div>
 
     <!-- Contact Section -->
-    <div class="max-w-lg mx-auto bg-white bg-opacity-90 p-8 mt-10 rounded-xl shadow-lg">
-        <h2 class="text-3xl font-extrabold text-blue-900 mb-6"> Contact Me</h2>
-        <form action="https://formspree.io/f/mpwqaadp" method="POST" class="flex flex-col space-y-4">
-            <input type="text" name="name" placeholder="Your Name" required
-                   class="px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-gray-900">
-            <input type="email" name="email" placeholder="Your Email" required
-                   class="px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-gray-900">
-            <textarea name="message" placeholder="Your Message" rows="4" required
-                      class="px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-gray-900"></textarea>
-            <button type="submit"
-                    class="px-6 py-3 bg-blue-900 text-white font-semibold rounded-full shadow-md hover:bg-blue-700 hover:scale-105 active:bg-green-500 transform transition duration-300">
-                    📧
-                Send Message
-            </button>
-        </form>
+    <!-- Floating Contact Button -->
+    <button id="contactButton"
+        class="fixed bottom-8 right-8 bg-blue-900 text-white px-6 py-3 rounded-full shadow-lg hover:bg-blue-700 transition-transform transform hover:scale-110">
+        📞 Contact Me
+    </button>
+
+    <!-- Contact Form Modal -->
+    <div id="contactModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="max-w-lg mx-auto bg-white bg-opacity-90 p-8 rounded-xl shadow-lg relative">
+            <button id="closeModal" class="absolute top-2 right-2 text-gray-600 hover:text-red-500 text-2xl">&times;</button>
+            <h2 class="text-3xl font-extrabold text-blue-900 mb-6">Contact Me</h2>
+            <form action="https://formspree.io/f/mpwqaadp" method="POST" class="flex flex-col space-y-4">
+                <input type="text" name="name" placeholder="Your Name" required
+                       class="px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-gray-900">
+                <input type="email" name="email" placeholder="Your Email" required
+                       class="px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-gray-900">
+                <textarea name="message" placeholder="Your Message" rows="4" required
+                          class="px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-gray-900"></textarea>
+                <button type="submit"
+                        class="px-6 py-3 bg-blue-900 text-white font-semibold rounded-full shadow-md hover:bg-blue-700 hover:scale-105 active:bg-green-500 transform transition duration-300">
+                    📧 Send Message
+                </button>
+            </form>
+        </div>
     </div>
+
+    <script>
+        const contactButton = document.getElementById("contactButton");
+        const contactModal = document.getElementById("contactModal");
+        const closeModal = document.getElementById("closeModal");
+
+        contactButton.addEventListener("click", () => {
+            contactModal.classList.remove("hidden");
+        });
+
+        closeModal.addEventListener("click", () => {
+            contactModal.classList.add("hidden");
+        });
+
+        // Close modal when clicking outside the form
+        contactModal.addEventListener("click", (e) => {
+            if (e.target === contactModal) {
+                contactModal.classList.add("hidden");
+            }
+        });
+    </script>
 
     <script>
         function navigate(page) {
