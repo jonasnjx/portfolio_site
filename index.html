@@ -9,10 +9,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Cursive:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 
-<body class="bg-black text-white text-center font-[Sans-serif] text-xl">
+<body class="bg-black text-white text-center font-[Sans-serif] text-base sm:text-xl">
 
     <!-- Top Navigation Bar -->
-    <div class="fixed top-0 left-0 w-full bg-black shadow-lg py-4 flex justify-center items-center space-x-6 z-50">
+    <div class="fixed top-0 left-0 w-full bg-black shadow-lg py-4 flex justify-center items-center space-x-4 sm:space-x-6 z-50">
         <!-- Navigation Buttons -->
         <button id="homeButton" class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-full shadow-xl transform transition duration-300 hover:bg-blue-700 hover:scale-105 cursor-pointer border-2 border-white">
             🏠 Home
@@ -32,23 +32,23 @@
         function navigate(url) {
             window.location.href = url;
         }
-        </script>
+    </script>
     
     <!-- Start Section -->
     <div class="w-full bg-black bg-opacity-90 p-10 mt-20 rounded-xl shadow-2xl">
         <div class="max-w-3xl mx-auto">
             <div class="flex justify-center">
-                <img src="assets/profile.jpg" alt="Profile Image" class="w-72 h-72 object-cover rounded-full border-4 border-white shadow-lg mx-auto">
+                <img src="assets/profile.jpg" alt="Profile Image" class="w-36 h-36 sm:w-72 sm:h-72 object-cover rounded-full border-4 border-white shadow-lg mx-auto">
             </div>
             <div class="my-12"></div>
-            <h1 class="text-7xl font-bold font-Cursive text-white mt-6 text-center tracking-wide shadow-md">
+            <h1 class="text-4xl sm:text-7xl font-bold font-Cursive text-white mt-6 text-center tracking-wide shadow-md">
                 Hi, I'm Jonas!<span class="text-yellow-500"></span>
             </h1>
             <div class="my-9"></div>
-            <p class="text-xl mt-4 text-grey-500">
+            <p class="text-lg sm:text-xl mt-4 text-grey-500">
                 💼 <span class="underline">Data and Cloud Engineer </span>
             </p>
-            <p class="text-lg mt-4 text-grey-500">
+            <p class="text-base sm:text-lg mt-4 text-grey-500">
                 Agency for Science, Technology and Research (A*STAR)
             </p>
         </div>
@@ -60,15 +60,15 @@
     <!-- Introduction Section -->
     <div class="w-full bg-black bg-opacity-90 p-1 mt-5 rounded-xl shadow-2xl">
         <div class="max-w-5xl mx-auto">
-            <h1 class="text-4xl font-bold font-Cursive text-white mt-6 text-left tracking-wide shadow-md ">
+            <h1 class="text-3xl sm:text-4xl font-bold font-Cursive text-white mt-6 text-left tracking-wide shadow-md">
                 🎃 About Me<span class="text-yellow-500"></span>
             </h1>
             <div class="my-6"></div>
-            <p class="text-lg mt-3 text-grey-500 text-left"> 🔳 Degree in <span class="underline">Business Analytics</span> from Nanyang Technological University (NTU)</p>
-            <p class="text-lg mt-3 text-grey-500 text-left"> 🔳 AWS Professional Certification: <span class="underline">MLS-C01, SAA-C02</span></p>
-            <p class="text-lg mt-3 text-grey-500 text-left"> 🔳 Azure Professional Certification: <span class="underline">AZ-900</span></p>
-            <p class="text-lg mt-3 text-grey-500 text-left"> 🔳 Experienced in building and deploying <span class="underline">scalable data pipelines and architectures</span>.</p>
-            <p class="text-lg mt-3 text-grey-500 text-left"> 🔳 Also passionate about <span class="underline">Machine Learning</span> and <span class="underline">App Development</span>.</p>    
+            <p class="text-base sm:text-lg mt-3 text-grey-500 text-left"> 🔳 Degree in <span class="underline">Business Analytics</span> from Nanyang Technological University (NTU)</p>
+            <p class="text-base sm:text-lg mt-3 text-grey-500 text-left"> 🔳 AWS Professional Certification: <span class="underline">MLS-C01, SAA-C02</span></p>
+            <p class="text-base sm:text-lg mt-3 text-grey-500 text-left"> 🔳 Azure Professional Certification: <span class="underline">AZ-900</span></p>
+            <p class="text-base sm:text-lg mt-3 text-grey-500 text-left"> 🔳 Experienced in building and deploying <span class="underline">scalable data pipelines and architectures</span>.</p>
+            <p class="text-base sm:text-lg mt-3 text-grey-500 text-left"> 🔳 Also passionate about <span class="underline">Machine Learning</span> and <span class="underline">App Development</span>.</p>    
         </div>
 
     <!-- Skills Section -->
@@ -129,7 +129,6 @@
         </div>
     </div>
 
-
     <script>
         const contactButton = document.getElementById("contactButton");
         const contactModal = document.getElementById("contactModal");
@@ -149,12 +148,6 @@
                 contactModal.classList.add("hidden");
             }
         });
-    </script>
-
-    <script>
-        function navigate(page) {
-            window.location.href = page;
-        }
     </script>
 </body>
 </html>
