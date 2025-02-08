@@ -68,7 +68,7 @@
             <p class="text-lg mt-3 text-grey-500 text-left"> 🔳 AWS Professional Certification: <span class="underline">MLS-C01, SAA-C02</span></p>
             <p class="text-lg mt-3 text-grey-500 text-left"> 🔳 Azure Professional Certification: <span class="underline">AZ-900</span></p>
             <p class="text-lg mt-3 text-grey-500 text-left"> 🔳 Experienced in building and deploying <span class="underline">scalable data pipelines and architectures</span>.</p>
-            <p class="text-lg mt-3 text-grey-500 text-left"> 🔳 Also passionate about <span class="underline">machine learning</span> and <span class="underline">app development</span>.</p>    
+            <p class="text-lg mt-3 text-grey-500 text-left"> 🔳 Also passionate about <span class="underline">Machine Learning</span> and <span class="underline">App Development</span>.</p>    
         </div>
 
     <!-- Skills Section -->
@@ -104,29 +104,30 @@
     <!-- Contact Section -->
     <!-- Floating Contact Button -->
     <button id="contactButton"
-        class="fixed bottom-6 right-6 bg-orange-600 text-white px-4 py-2 rounded-full shadow-lg hover:bg-blue-700 transition-transform transform hover:scale-110">
-        📧 Contact Me
+        class="fixed top-28 right-6 bg-gray-600 text-white px-6 py-3 rounded-md border-2 border-white shadow-lg hover:bg-gray-500 hover:scale-110 active:bg-gray-700 transition-all duration-300 transform hover:translate-y-1 focus:outline-none focus:ring-2 focus:ring-white">
+        💬 Contact Me
     </button>
 
     <!-- Contact Form Modal -->
-    <div id="contactModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-        <div class="max-w-lg mx-auto bg-white bg-opacity-90 p-8 rounded-xl shadow-lg relative">
-            <button id="closeModal" class="absolute top-2 right-2 text-gray-600 hover:text-red-500 text-2xl">&times;</button>
-            <h2 class="text-3xl font-extrabold text-blue-900 mb-6">Contact Me</h2>
+    <div id="contactModal" class="hidden fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center">
+        <div class="max-w-lg mx-auto bg-black p-8 rounded-xl shadow-lg relative border-4 border-white">
+            <button id="closeModal" class="absolute top-2 right-2 text-white hover:text-red-500 text-2xl font-bold">&times;</button>
+            <h2 class="text-4xl font-extrabold text-white mb-6">Email Me</h2>
             <form action="https://formspree.io/f/mpwqaadp" method="POST" class="flex flex-col space-y-4">
                 <input type="text" name="name" placeholder="Your Name" required
-                       class="px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-gray-900">
+                    class="px-4 py-3 border-4 border-white rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-white bg-black font-bold">
                 <input type="email" name="email" placeholder="Your Email" required
-                       class="px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-gray-900">
+                    class="px-4 py-3 border-4 border-white rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-white bg-black font-bold">
                 <textarea name="message" placeholder="Your Message" rows="4" required
-                          class="px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-gray-900"></textarea>
+                        class="px-4 py-3 border-4 border-white rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-white bg-black font-bold"></textarea>
                 <button type="submit"
-                        class="px-6 py-3 bg-blue-900 text-white font-semibold rounded-full shadow-md hover:bg-blue-700 hover:scale-105 active:bg-green-500 transform transition duration-300">
-                    📧 Send Message
+                    class="px-4 py-2 bg-green-900 text-white font-semibold rounded-md shadow-md hover:bg-green-600 hover:scale-105 active:bg-green-800 transform transition duration-300 w-auto">
+                    Send
                 </button>
             </form>
         </div>
     </div>
+
 
     <script>
         const contactButton = document.getElementById("contactButton");
