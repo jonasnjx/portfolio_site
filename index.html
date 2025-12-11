@@ -1,152 +1,346 @@
 <!DOCTYPE html>
 <html lang="en">
-    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
+    <meta name="description" content="Jonas - AI Cloud & Data Engineer Portfolio">
+    <title>Jonas | AI Cloud & Data Engineer</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cursive:wght@300;400;600&display=swap" rel="stylesheet">
-</head>
-
-<body class="bg-black text-white text-center font-[Sans-serif] text-base sm:text-xl">
-
-    <!-- Top Navigation Bar -->
-    <div class="fixed top-0 left-0 w-full bg-black shadow-lg py-4 flex justify-center items-center space-x-4 sm:space-x-6 z-50">
-        <!-- Navigation Buttons -->
-        <button id="homeButton" class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-full shadow-xl transform transition duration-300 hover:bg-blue-700 hover:scale-105 cursor-pointer border-2 border-white">
-            🏠 Home
-        </button>
-        <button class="px-6 py-3 bg-red-700 text-white font-semibold rounded-full shadow-xl transform transition duration-300 hover:bg-blue-700 hover:scale-105 active:bg-blue-900 cursor-pointer border-2 border-white" onclick="navigate('resume.html')">
-            📄 Resume
-        </button>
-        <button class="px-6 py-3 bg-red-700 text-white font-semibold rounded-full shadow-xl transform transition duration-300 hover:bg-blue-700 hover:scale-105 active:bg-blue-900 cursor-pointer border-2 border-white" onclick="navigate('projects.html')">
-            💻 Projects
-        </button>
-        <button class="px-6 py-3 bg-red-700 text-white font-semibold rounded-full shadow-xl transform transition duration-300 hover:bg-blue-700 hover:scale-105 active:bg-blue-900 cursor-pointer border-2 border-white" onclick="navigate('socials.html')">
-            ⛅ Socials
-        </button>
-    </div>
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script>
-        function navigate(url) {
-            window.location.href = url;
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        dark: {
+                            900: '#070b14',
+                            800: '#0c1222',
+                            700: '#111827',
+                            600: '#1e293b',
+                        },
+                        accent: {
+                            DEFAULT: '#3b82f6',
+                            dark: '#2563eb',
+                            glow: 'rgba(59, 130, 246, 0.3)',
+                        }
+                    }
+                }
+            }
         }
     </script>
+    <style>
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #3b82f6 #0c1222;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #070b14 0%, #0c1222 50%, #070b14 100%);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6, #60a5fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .card {
+            background: linear-gradient(145deg, #111827, #0c1222);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+        }
+        
+        .card:hover {
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.1);
+        }
+        
+        .glow {
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+        }
+        
+        .glow-hover:hover {
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.4);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #3b82f6;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+        
+        .skill-card {
+            transition: all 0.3s ease;
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+            opacity: 0;
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in { transform: translateY(20px); }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        
+        /* Mobile menu animation */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+        
+        /* Profile image glow */
+        .profile-glow {
+            position: relative;
+        }
+        
+        .profile-glow::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            z-index: -1;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+
+<body class="gradient-bg min-h-screen text-white font-sans">
     
-    <!-- Start Section -->
-    <div class="w-full bg-black bg-opacity-90 p-10 mt-20 rounded-xl shadow-2xl">
-        <div class="max-w-3xl mx-auto">
-            <div class="flex justify-center">
-                <img src="assets/profile.jpg" alt="Profile Image" class="w-36 h-36 sm:w-72 sm:h-72 object-cover rounded-full border-4 border-white shadow-lg mx-auto">
-            </div>
-            <div class="my-12"></div>
-            <h1 class="text-4xl sm:text-7xl font-bold font-Cursive text-white mt-6 text-center tracking-wide shadow-md">
-                Hi, I'm Jonas!<span class="text-yellow-500"></span>
-            </h1>
-            <div class="my-9"></div>
-            <p class="text-lg sm:text-xl mt-4 text-grey-500">
-                💼 <span class="underline">Data and Cloud Engineer </span>
-            </p>
-            <p class="text-base sm:text-lg mt-4 text-grey-500">
-                🏢 Agency for Science, Technology and Research (A*STAR)
-            </p>
-        </div>
-    </div>
-
-    <!-- Line Separator -->
-    <hr class="my-4 border-t-2 border-gray-400">
-
-    <!-- Introduction Section -->
-    <div class="w-full bg-black bg-opacity-90 p-1 mt-5 rounded-xl shadow-2xl">
-        <div class="max-w-5xl mx-auto">
-            <h1 class="text-3xl sm:text-4xl font-bold font-Cursive text-white mt-6 text-left tracking-wide shadow-md">
-                🌱 About Me<span class="text-yellow-500"></span>
-            </h1>
-            <div class="my-6"></div>
-            <p class="text-base sm:text-lg mt-3 text-grey-500 text-left"> 🎔 Degree in <span class="underline">Business Analytics</span> from Nanyang Technological University (NTU)</p>
-            <p class="text-base sm:text-lg mt-3 text-grey-500 text-left"> 🎔 AWS Professional Certification: <span class="underline">MLS-C01, SAA-C02</span></p>
-            <p class="text-base sm:text-lg mt-3 text-grey-500 text-left"> 🎔 Azure Professional Certification: <span class="underline">AZ-900</span></p>
-            <p class="text-base sm:text-lg mt-3 text-grey-500 text-left"> 🎔 Experienced in building and deploying <span class="underline">scalable data pipelines and architectures</span>.</p>
-            <p class="text-base sm:text-lg mt-3 text-grey-500 text-left"> 🎔 Also passionate about <span class="underline">Machine Learning</span> and <span class="underline">App Development</span>.</p>    
-        </div>
-
-    <!-- Skills Section -->
-    <div class="max-w-full mx-auto bg-white p-8 mt-10 rounded-xl shadow-2xl">
-        <h2 class="text-3xl font-semibold text-center mb-6 text-gray-800">🚀 Area of Expertise </h2>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-8">
-            <div class="flex flex-col items-center transform transition duration-300 hover:scale-105 hover:shadow-lg p-4 rounded-lg hover:bg-gray-50">
-                <img src="assets/aws.png" alt="AWS Logo" class="w-24 h-24 mb-2">
-                <p class="text-xl text-gray-700">AWS</p>
-            </div>
-            <div class="flex flex-col items-center transform transition duration-300 hover:scale-105 hover:shadow-lg p-4 rounded-lg hover:bg-gray-50">
-                <img src="assets/gcp.png" alt="GCP Logo" class="w-24 h-24 mb-2">
-                <p class="text-xl text-gray-700">GCP</p>
-            </div>
-            <div class="flex flex-col items-center transform transition duration-300 hover:scale-105 hover:shadow-lg p-4 rounded-lg hover:bg-gray-50">
-                <img src="assets/azure.png" alt="Azure Logo" class="w-24 h-24 mb-2">
-                <p class="text-xl text-gray-700">Azure</p>
-            </div>
-            <div class="flex flex-col items-center transform transition duration-300 hover:scale-105 hover:shadow-lg p-4 rounded-lg hover:bg-gray-50">
-                <img src="assets/snowflake.png" alt="Snowflake Logo" class="w-24 h-24 mb-2">
-                <p class="text-xl text-gray-700">Snowflake</p>
-            </div>
-            <div class="flex flex-col items-center transform transition duration-300 hover:scale-105 hover:shadow-lg p-4 rounded-lg hover:bg-gray-50">
-                <img src="assets/databricks.jpg" alt="Databricks Logo" class="w-24 h-24 mb-2">
-                <p class="text-xl text-gray-700">Databricks</p>
-            </div>
-            <div class="flex flex-col items-center transform transition duration-300 hover:scale-105 hover:shadow-lg p-4 rounded-lg hover:bg-gray-50">
-                <img src="assets/neo4j.png" alt="Neo4j Logo" class="w-24 h-24 mb-2">
-                <p class="text-xl text-gray-700">Neo4j</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Contact Section -->
-    <!-- Floating Contact Button -->
-    <button id="contactButton"
-        class="fixed top-28 right-6 bg-gray-600 text-white px-6 py-3 rounded-md border-2 border-white shadow-lg hover:bg-gray-500 hover:scale-110 active:bg-gray-700 transition-all duration-300 transform hover:translate-y-1 focus:outline-none focus:ring-2 focus:ring-white">
-        💬 Contact Me
-    </button>
-
-    <!-- Contact Form Modal -->
-    <div id="contactModal" class="hidden fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center">
-        <div class="max-w-lg mx-auto bg-black p-8 rounded-xl shadow-lg relative border-4 border-white">
-            <button id="closeModal" class="absolute top-2 right-2 text-white hover:text-red-500 text-2xl font-bold">&times;</button>
-            <h2 class="text-4xl font-extrabold text-white mb-6">Email Me</h2>
-            <form action="https://formspree.io/f/mpwqaadp" method="POST" class="flex flex-col space-y-4">
-                <input type="text" name="name" placeholder="Your Name" required
-                    class="px-4 py-3 border-4 border-white rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-white bg-black font-bold">
-                <input type="email" name="email" placeholder="Your Email" required
-                    class="px-4 py-3 border-4 border-white rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-white bg-black font-bold">
-                <textarea name="message" placeholder="Your Message" rows="4" required
-                        class="px-4 py-3 border-4 border-white rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-white bg-black font-bold"></textarea>
-                <button type="submit"
-                    class="px-4 py-2 bg-green-900 text-white font-semibold rounded-md shadow-md hover:bg-green-600 hover:scale-105 active:bg-green-800 transform transition duration-300 w-auto">
-                    Send
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full bg-dark-900/80 backdrop-blur-md border-b border-dark-600 z-50">
+        <div class="max-w-6xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <a href="index.html" class="text-xl font-bold gradient-text">Jonas.</a>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="nav-link active text-accent font-medium">Home</a>
+                    <a href="resume.html" class="nav-link text-gray-300 hover:text-white transition">Resume</a>
+                    <a href="projects.html" class="nav-link text-gray-300 hover:text-white transition">Projects</a>
+                    <a href="socials.html" class="nav-link text-gray-300 hover:text-white transition">Connect</a>
+                    </a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button id="menuBtn" class="md:hidden text-white p-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
                 </button>
-            </form>
+            </div>
         </div>
-    </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 h-full w-64 bg-dark-800 border-l border-dark-600 md:hidden">
+            <div class="p-6">
+                <button id="closeMenu" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+                <div class="flex flex-col space-y-6 mt-12">
+                    <a href="index.html" class="text-accent font-medium text-lg">Home</a>
+                    <a href="resume.html" class="text-gray-300 hover:text-white text-lg transition">Resume</a>
+                    <a href="projects.html" class="text-gray-300 hover:text-white text-lg transition">Projects</a>
+                    <a href="socials.html" class="text-gray-300 hover:text-white text-lg transition">Connect</a>
+                    <a href="mailto:ngjingxun1997@gmail.com" class="mt-4 px-5 py-3 bg-accent text-white font-semibold rounded-lg w-full text-center block">
+                        Get in Touch
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center px-6 pt-20 relative overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0 z-0">
+            <img src="assets/sea.jpg" alt="" class="w-full h-full object-cover opacity-20">
+            <div class="absolute inset-0 bg-gradient-to-b from-dark-900/50 via-dark-900/80 to-dark-900"></div>
+        </div>
+        
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            
+            <!-- Profile Image -->
+            <div class="fade-in delay-1 mb-8">
+                <div class="profile-glow inline-block rounded-full">
+                    <img src="assets/profile.jpg" alt="Jonas" class="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover">
+                </div>
+            </div>
+            
+            <!-- Heading -->
+            <h1 class="fade-in delay-2 text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
+                Hi, I'm <span class="gradient-text">Jonas</span>
+            </h1>
+            
+            <!-- Subtitle -->
+            <p class="fade-in delay-3 text-xl md:text-2xl text-gray-400 mb-4 font-mono">
+                AI Cloud & Data Engineer
+            </p>
+            
+            <!-- Tagline -->
+            <p class="fade-in delay-3 text-lg text-gray-500 mb-8 max-w-2xl mx-auto">
+                Bridging the gap between AI and data engineering in today's era of AI possibilities
+            </p>
+            
+            <!-- CTA Buttons -->
+            <div class="fade-in delay-4 flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="resume.html" class="px-8 py-3 bg-accent hover:bg-accent-dark text-white font-semibold rounded-lg transition glow-hover">
+                    View Resume
+                </a>
+                <a href="projects.html" class="px-8 py-3 border border-accent text-accent hover:bg-accent hover:text-white font-semibold rounded-lg transition">
+                    See Projects
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-20 px-6">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">
+                About <span class="gradient-text">Me</span>
+            </h2>
+            
+            <div class="card rounded-2xl p-8 md:p-10 transition-all duration-300">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Left: Background -->
+                    <div>
+                        <h3 class="text-accent font-mono text-sm uppercase tracking-wider mb-4">Background</h3>
+                        <ul class="space-y-4 text-gray-300">
+                            <li class="flex items-start gap-3">
+                                <span class="text-accent mt-1">▹</span>
+                                <span>3x AWS, Azure and Snowflake Certified</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-accent mt-1">▹</span>
+                                <span>Business Analytics (Honours) from NTU</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-accent mt-1">▹</span>
+                                <span>Experienced in production-grade pipelines & quick POCs</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Right: Hobbies -->
+                    <div>
+                        <h3 class="text-accent font-mono text-sm uppercase tracking-wider mb-4">Hobbies</h3>
+                        <ul class="space-y-4 text-gray-300">
+                            <li class="flex items-start gap-3">
+                                <span class="text-accent mt-1">▹</span>
+                                <span>Dance (Hip-hop)</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-accent mt-1">▹</span>
+                                <span>Photography, skateboarding & running</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section class="py-20 px-6">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">
+                Tech <span class="gradient-text">Stack</span>
+            </h2>
+            
+            <div class="card rounded-2xl p-8 transition-all duration-300">
+                <div class="space-y-6 text-center">
+                    <!-- AWS -->
+                    <div>
+                        <span class="text-white font-medium">AWS</span>
+                        <p class="text-gray-400 mt-2">Sagemaker · ECS · Glue · Lambda · S3 Iceberg · CloudFormation · CodePipeline</p>
+                    </div>
+                    
+                    <!-- Other Tools -->
+                    <div class="pt-4 border-t border-dark-600">
+                        <div class="flex flex-wrap justify-center gap-x-8 gap-y-2">
+                            <span class="text-white">Azure</span>
+                            <span class="text-white">GCP</span>
+                            <span class="text-white">Snowflake</span>
+                            <span class="text-white">Databricks</span>
+                            <span class="text-white">Python</span>
+                            <span class="text-white">SQL</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 border-t border-dark-600">
+        <div class="max-w-5xl mx-auto text-center">
+            <p class="text-gray-400 mb-2">
+                Let's connect at <a href="mailto:ngjingxun1997@gmail.com" class="text-accent hover:underline">ngjingxun1997@gmail.com</a>
+            </p>
+            <p class="text-gray-500 text-sm">
+                © 2024 Jonas. Built with passion.
+            </p>
+        </div>
+    </footer>
 
     <script>
-        const contactButton = document.getElementById("contactButton");
-        const contactModal = document.getElementById("contactModal");
-        const closeModal = document.getElementById("closeModal");
-
-        contactButton.addEventListener("click", () => {
-            contactModal.classList.remove("hidden");
-        });
-
-        closeModal.addEventListener("click", () => {
-            contactModal.classList.add("hidden");
-        });
-
-        // close model when clicking outside the form
-        contactModal.addEventListener("click", (e) => {
-            if (e.target === contactModal) {
-                contactModal.classList.add("hidden");
-            }
+        // Mobile menu toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        menuBtn.addEventListener('click', () => mobileMenu.classList.add('open'));
+        closeMenu.addEventListener('click', () => mobileMenu.classList.remove('open'));
+        
+        // Close mobile menu on link click
+        document.querySelectorAll('#mobileMenu a').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.remove('open'));
         });
     </script>
 </body>

@@ -3,121 +3,304 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resume</title>
+    <meta name="description" content="Jonas - Resume & Work Experience">
+    <title>Resume | Jonas</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        dark: {
+                            900: '#070b14',
+                            800: '#0c1222',
+                            700: '#111827',
+                            600: '#1e293b',
+                        },
+                        accent: {
+                            DEFAULT: '#3b82f6',
+                            dark: '#2563eb',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        .timeline-item {
+        .gradient-bg {
+            background: linear-gradient(135deg, #070b14 0%, #0c1222 50%, #070b14 100%);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6, #60a5fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .card {
+            background: linear-gradient(145deg, #111827, #0c1222);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+        }
+        
+        .card:hover {
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+        
+        .nav-link {
             position: relative;
-            padding: 20px;
-            margin-left: 40px;
-            cursor: pointer;
-            transition: transform 0.3s ease, background-color 0.3s ease;
         }
-        .timeline-item:hover {
-            transform: scale(1.05);
-            background-color: rgba(245, 246, 248, 0.1);
-            border-radius: 8px;
-        }
-        .timeline-item::before {
+        
+        .nav-link::after {
             content: '';
             position: absolute;
-            left: -30px;
-            top: 20px;
-            width: 16px;
-            height: 16px;
-            background-color: #f8fafd;
-            border-radius: 50%;
-            border: 3px solid white;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #3b82f6;
+            transition: width 0.3s ease;
         }
-        .timeline-item:hover::before {
-            background-color: #f6f7f8;
+        
+        .nav-link:hover::after {
+            width: 100%;
         }
-        .timeline-item::after {
-            content: '';
-            position: absolute;
-            left: -22px;
-            top: 40px;
-            width: 2px;
-            height: calc(100% - 40px);
-            background-color: #f3f5fa;
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+        
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .mobile-menu.open {
+            transform: translateX(0);
         }
     </style>
 </head>
-<body class="bg-black text-white text-center font-[Sans-serif]">
-    <div class="max-w-4xl mx-auto bg-black bg-opacity-95 p-12 mt-16 rounded-xl shadow-xl border-4 border-white">
-        <h1 class="text-6xl font-extrabold text-white mb-10 shadow-lg">📄Resume</h1>
-        <div class="mt-6 text-white-700 text-left">
-            <div class="border-l-4 border-white-900 pl-8">
-                <h2 class="text-4xl font-bold mb-6 mt-12">
-                    💼<span class="underline">Work Experience</span>
-                </h2>
-                <div class="timeline-item">
-                    <h3 class="text-xl font-bold">📌Data Engineer, A*STAR, Singapore</h3>
-                    <p class="text-white-700 mb-4">Aug 2024 – Present</p>
-                    <ul class="list-disc pl-6">
-                    </ul>
+
+<body class="gradient-bg min-h-screen text-white font-sans relative">
+    <!-- Background Image -->
+    <div class="fixed inset-0 z-0">
+        <img src="assets/sea.jpg" alt="" class="w-full h-full object-cover opacity-20">
+        <div class="absolute inset-0 bg-gradient-to-b from-dark-900/50 via-dark-900/80 to-dark-900"></div>
+    </div>
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full bg-dark-900/80 backdrop-blur-md border-b border-dark-600 z-50">
+        <div class="max-w-6xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="index.html" class="text-xl font-bold gradient-text">Jonas.</a>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="nav-link text-gray-300 hover:text-white transition">Home</a>
+                    <a href="resume.html" class="nav-link active text-accent font-medium">Resume</a>
+                    <a href="projects.html" class="nav-link text-gray-300 hover:text-white transition">Projects</a>
+                    <a href="socials.html" class="nav-link text-gray-300 hover:text-white transition">Connect</a>
                 </div>
-                <div class="timeline-item">
-                    <h3 class="text-xl font-bold">Data & AI Analyst, Accenture, Singapore</h3>
-                    <p class="text-white-700 mb-4">Jul 2021 – Jul 2024</p>
-                    <ul class="list-disc pl-6">
-                        <li>Developed data pipelines in AWS using Lambda and S3 to load unstructured data into Redshift tables</li>
-                        <li>Enhanced pipelines using CloudWatch and EventBridge for logging and event-driven error handling capabilities</li>
-                        <li>Trained clustering models like DBSCAN to automate detection of harmful web requests for enhanced cybersecurity</li>
-                        <li>Automated CI/CD and MLOps deployments using AWS CloudFormation and CodePipeline</li>
-                        <li>Integrated visualisations into applications for clients to enhance their data capabilities, using Tableau and GCP Looker</li>
-                        <li>Developed proposals for GenAI-powered voice bots and presented research on image creation algorithms like NeRF</li>
-                        <li>Ensured security compliance of Accenture Internal Cloud (AWS, GCP, Azure) by remediating security violations</li>
-                    </ul>
-                    </ul>
-                </div>
-                <h2 class="text-4xl font-bold mb-6 mt-12">
-                    💻<span class="underline">Internship Experience</span>
-                </h2>
-                <div class="timeline-item">
-                    <h3 class="text-xl font-bold">Data Science Intern, Vertex Holdings, Singapore</h3>
-                    <p class="text-white-700 mb-4">Jan 2021 – Apr 2021</p>
-                    <ul class="list-disc pl-6">
-                        <li>Developed a multi-step custom machine learning model using LightGBM and ELMo, tackling class imbalance and bias</li>
-                        <li>Achieved a model accuracy of 86% and presented the solution to stakeholders and internal team for deployment</li>
-                    </ul>
-                </div>
-                <div class="timeline-item">
-                    <h3 class="text-xl font-bold">Data Analytics Student Consultant, UPS, Singapore</h3>
-                    <p class="text-white-700 mb-4">Feb 2021 – Apr 2021</p>
-                    <ul class="list-disc pl-6">
-                        <li>Optimised supply chain network design using time-series forecasting to evaluate shortest network paths</li>
-                    </ul>
-                </div>
-                <div class="timeline-item">
-                    <h3 class="text-xl font-bold">Data Science Intern, Kuehne+Nagel, Singapore</h3>
-                    <p class="text-white-700 mb-4">Nov 2020 – Jan 2021</p>
-                    <ul class="list-disc pl-6">
-                        <li>Automated supply chain reporting using Tableau, Python and SQL</li>
-                    </ul>
-                </div>
-                <div class="timeline-item">
-                    <h3 class="text-xl font-bold">Data Analytics Intern, Shopee, Singapore</h3>
-                    <p class="text-white-700 mb-4">May 2020 – Jul 2020</p>
-                    <ul class="list-disc pl-6">
-                        <li>Automated warehouse productivity reporting using Python, PySpark and Google Sheets API</li>
-                    </ul>
-                </div>
-                <div class="timeline-item">
-                    <h3 class="text-xl font-bold">Data Digital Engineering Intern, Air Liquide, Singapore</h3>
-                    <p class="text-white-700 mb-4">Dec 2019 – May 2020</p>
-                    <ul class="list-disc pl-6">
-                        <li>Automated stakeholder reporting using Power BI and Python for data transformation</li>
-                    </ul>
+                
+                <button id="menuBtn" class="md:hidden text-white p-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 h-full w-64 bg-dark-800 border-l border-dark-600 md:hidden">
+            <div class="p-6">
+                <button id="closeMenu" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+                <div class="flex flex-col space-y-6 mt-12">
+                    <a href="index.html" class="text-gray-300 hover:text-white text-lg transition">Home</a>
+                    <a href="resume.html" class="text-accent font-medium text-lg">Resume</a>
+                    <a href="projects.html" class="text-gray-300 hover:text-white text-lg transition">Projects</a>
+                    <a href="socials.html" class="text-gray-300 hover:text-white text-lg transition">Connect</a>
                 </div>
             </div>
         </div>
-        <div class="text-right">
-            <button class="mt-10 px-8 py-4 bg-red-900 text-white font-semibold rounded-full shadow-lg hover:bg-blue-700 hover:scale-105 transform transition duration-300" onclick="window.location.href='index.html'">
-                ⬅ Back
-            </button>
+    </nav>
+
+    <!-- Resume Content -->
+    <main class="pt-28 pb-20 px-6 relative z-10">
+        <div class="max-w-4xl mx-auto">
+            
+            <!-- Header -->
+            <div class="text-center mb-16">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">
+                    My <span class="gradient-text">Resume</span>
+                </h1>
+                <p class="text-gray-400">A quick glance at my professional journey thus far</p>
+            </div>
+
+            <!-- Work Experience -->
+            <section class="mb-16">
+                <h2 class="text-2xl font-bold mb-8">
+                    <span class="text-accent">▹</span> Work Experience
+                </h2>
+                
+                <div class="space-y-8">
+                    
+                    <!-- Certis -->
+                    <div class="card rounded-xl p-6 md:p-8 transition-all duration-300">
+                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-2">
+                            <h3 class="text-xl font-semibold text-white">Senior Data Engineer</h3>
+                            <span class="text-accent font-mono text-sm">Aug 2025 – Present</span>
+                        </div>
+                        <p class="text-gray-400 mb-4">Certis, Singapore</p>
+                    </div>
+
+                    <!-- A*STAR -->
+                    <div class="card rounded-xl p-6 md:p-8 transition-all duration-300">
+                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-2">
+                            <h3 class="text-xl font-semibold text-white">Senior Data Engineer</h3>
+                            <span class="text-accent font-mono text-sm">Aug 2024 – Jun 2025</span>
+                        </div>
+                        <p class="text-gray-400 mb-5">A*STAR, Singapore</p>
+                        
+                        <ul class="space-y-4 text-gray-300 text-sm">
+                            <li>
+                                <p>Led the technical integration of Alation, a data catalog tool, coordinating with 13 system owners and the infra team</p>
+                                <ul class="mt-2 ml-5 space-y-1 text-gray-400">
+                                    <li>– Managed Agent installation and configuration within Linux VMs</li>
+                                    <li>– Worked with network teams to establish secure connectivity for metadata extraction and catalog sync</li>
+                                    <li>– Built catalog features to support IM8 data governance requirements, including sensitivity classification and lineage</li>
+                                </ul>
+                            </li>
+                            <li>Built 8 ADF pipelines to transform and load unstructured data from 3-tier Blob storage into Snowflake daily</li>
+                            <li>Created an interactive RAG application using Node.js and Neo4j to present data flows, deployed via Azure App Service</li>
+                            <li>Implemented PGP encryption/decryption using Python and SQL worksheets for ERP system integration</li>
+                            <li>Developed enterprise architecture for A*STAR using ArchiMate to connect business logic with applications and data</li>
+                            <li>Built a multi-agent GenAI chatbot using Snowflake Streamlit, Cortex Analyst, and Microsoft AutoGen</li>
+                        </ul>
+                    </div>
+
+                    <!-- Accenture -->
+                    <div class="card rounded-xl p-6 md:p-8 transition-all duration-300">
+                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-2">
+                            <h3 class="text-xl font-semibold text-white">AI Cloud Engineer</h3>
+                            <span class="text-accent font-mono text-sm">Jul 2021 – Jul 2024</span>
+                        </div>
+                        <p class="text-gray-400 mb-2">Accenture, Singapore</p>
+
+                        <ul class="space-y-4 text-gray-300 text-sm">
+                            <li>
+                                <li>Delivered cloud and analytics solutions to clients in finance, manufacturing, and government agencies</p>
+                                </li>
+                                <p>Built serverless data pipelines on AWS (Lambda, S3, Redshift) to ingest and process unstructured logs</p>
+                                <ul class="mt-2 ml-5 space-y-1 text-gray-400">
+                                    <li>– Implemented code logic to support changing log formats and prevent failures during ingestion</li>
+                                    <li>– Set up CloudWatch alarms with Slack alerts to catch and respond to pipeline errors quickly</li>
+                                    <li>– Used CloudFormation and CodePipeline for automated, end-to-end CI/CD deployments</li>
+                                    <li>– Trained a clustering model (DBSCAN) on SageMaker to flag suspicious traffic</li>
+                                    <li>– Built QuickSight dashboards and managed user access for reporting and monitoring</li>
+                                </ul>
+                            </li>
+                            <li>Managed cloud security fixes across AWS, GCP, and Azure, including key rotation and traffic encryption</li>
+                            <li>Developed dashboards using Tableau, GCP Looker, and custom Python/Dash applications</li>
+                            <li>Researched NeRF image synthesis algorithms and proposed GenAI solutions to automate call centers</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Internships -->
+            <section>
+                <h2 class="text-2xl font-bold mb-8">
+                    <span class="text-accent">▹</span> Internship Experience
+                </h2>
+                
+                <div class="space-y-6">
+                    
+                    <!-- Vertex Holdings -->
+                    <div class="card rounded-xl p-6 transition-all duration-300">
+                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-2">
+                            <h3 class="text-lg font-semibold text-white">Data Science Intern</h3>
+                            <span class="text-accent font-mono text-sm">Jan – Apr 2021</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Vertex Holdings, Singapore</p>
+                        <p class="text-gray-300 text-sm">Trained a model using LightGBM and ELMo, achieving 86% accuracy on imbalanced data</p>
+                    </div>
+
+                    <!-- UPS -->
+                    <div class="card rounded-xl p-6 transition-all duration-300">
+                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-2">
+                            <h3 class="text-lg font-semibold text-white">Data Analytics Consultant</h3>
+                            <span class="text-accent font-mono text-sm">Feb – Apr 2021</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">UPS, Singapore</p>
+                        <p class="text-gray-300 text-sm">Optimised supply chain networks using time-series forecasting and network modeling</p>
+                    </div>
+
+                    <!-- Kuehne+Nagel -->
+                    <div class="card rounded-xl p-6 transition-all duration-300">
+                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-2">
+                            <h3 class="text-lg font-semibold text-white">Data Science Intern</h3>
+                            <span class="text-accent font-mono text-sm">Nov 2020 – Jan 2021</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Kuehne+Nagel, Singapore</p>
+                        <p class="text-gray-300 text-sm">Automated supply chain reporting using Tableau, Python and SQL</p>
+                    </div>
+
+                    <!-- Shopee -->
+                    <div class="card rounded-xl p-6 transition-all duration-300">
+                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-2">
+                            <h3 class="text-lg font-semibold text-white">Data Analytics Intern</h3>
+                            <span class="text-accent font-mono text-sm">May – Jul 2020</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Shopee, Singapore</p>
+                        <p class="text-gray-300 text-sm">Automated warehouse productivity reports using Python, PySpark, and Google Sheets API</p>
+                    </div>
+
+                    <!-- Air Liquide -->
+                    <div class="card rounded-xl p-6 transition-all duration-300">
+                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-2">
+                            <h3 class="text-lg font-semibold text-white">Digital Engineering Intern</h3>
+                            <span class="text-accent font-mono text-sm">Dec 2019 – May 2020</span>
+                        </div>
+                        <p class="text-gray-400 mb-3">Air Liquide, Singapore</p>
+                        <p class="text-gray-300 text-sm">Streamlined stakeholder reporting using Power BI and Python</p>
+                    </div>
+                </div>
+            </section>
+
         </div>
-    </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 border-t border-dark-600 relative z-10">
+        <div class="max-w-5xl mx-auto text-center">
+            <p class="text-gray-400 mb-2">
+                Let's connect at <a href="mailto:ngjingxun1997@gmail.com" class="text-accent hover:underline">ngjingxun1997@gmail.com</a>
+            </p>
+            <p class="text-gray-500 text-sm">© 2024 Jonas. Built with passion.</p>
+        </div>
+    </footer>
+
+    <script>
+        const menuBtn = document.getElementById('menuBtn');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        menuBtn.addEventListener('click', () => mobileMenu.classList.add('open'));
+        closeMenu.addEventListener('click', () => mobileMenu.classList.remove('open'));
+        
+        document.querySelectorAll('#mobileMenu a').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+        });
+    </script>
 </body>
 </html>
