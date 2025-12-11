@@ -1,39 +1,70 @@
+# Portfolio Website
 
-# Introduction
+A modern, responsive portfolio website built with HTML, Tailwind CSS, and vanilla JavaScript.
 
-An interactive portfolio website that can be customised easily.
+## Features
 
----
+- **Responsive Design** — Fully optimized for desktop, tablet, and mobile devices
+- **Dark Theme** — Sleek dark blue aesthetic with subtle animations
+- **Dynamic Background** — Sea-themed imagery with gradient overlays
+- **Clean Navigation** — Consistent header with mobile hamburger menu
+- **Contact Integration** — Direct email link for easy communication
 
 ## Pages
 
-### **1. Homepage (`index.html`)**
-- **Description**: 
-  - A welcome home page.
-  - Includes buttons to navigate to the Resume and Socials pages.
+| Page | Description |
+|------|-------------|
+| **Home** | Hero section with profile, about me, hobbies, and tech stack |
+| **Resume** | Professional experience with nested bullet points for detailed achievements |
+| **Projects** | Showcase of personal projects and side work |
+| **Connect** | Social media links (LinkedIn, GitHub) |
 
-### **2. Resume Page (`resume.html`)**
-- **Description**:
-  - Displays work experiences in an interactive timeline format.
+## Tech Stack
 
-### **3. Socials Page (`socials.html`)**
-- **Description**:
-  - Lists social media links.
-
----
-
+- HTML5
+- Tailwind CSS (CDN)
+- Vanilla JavaScript
+- Google Fonts (Space Grotesk, JetBrains Mono)
 
 ## File Structure
 
 ```
-portfolio-website/
-│
-├── assets/                 # Contains icons
-├── index.html              # Homepage
-├── resume.html             # Resume page
-├── socials.html            # Socials page
-├── server.js               # Node.js server
-├── package.json            # Project dependencies
-└── README.md               # Project documentation
+portfolio_site/
+├── assets/
+│   ├── profile.jpg
+│   ├── sea.jpg
+│   └── ...
+├── index.html
+├── resume.html
+├── projects.html
+├── socials.html
+├── server.js
+└── README.md
 ```
 
+## Getting Started
+
+Simply open `index.html` in your browser, or run a local server:
+
+```bash
+# Using Node.js
+npm install express
+node server.js
+
+# Or using Python
+python -m http.server 3000
+```
+
+Then visit `http://localhost:3000`
+
+## Deployment
+
+This site can be deployed to any static hosting service:
+- GitHub Pages
+- Netlify
+- Vercel
+- Cloudflare Pages
+
+## License
+
+MIT
