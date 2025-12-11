@@ -17,6 +17,7 @@ A modern, responsive portfolio website built with HTML, Tailwind CSS, and vanill
 | **Home** | Hero section with profile, about me, hobbies, and tech stack |
 | **Resume** | Professional experience with nested bullet points for detailed achievements |
 | **Projects** | Showcase of personal projects and side work |
+| **Case Studies** | Industry insights and research on AI & Data Engineering trends |
 | **Connect** | Social media links (LinkedIn, GitHub) |
 
 ## Tech Stack
@@ -37,6 +38,7 @@ portfolio_site/
 ├── index.html
 ├── resume.html
 ├── projects.html
+├── casestudies.html
 ├── socials.html
 ├── server.js
 └── README.md

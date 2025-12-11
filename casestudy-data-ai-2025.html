@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bridging the Gap Between Data Engineering and AI in 2025">
+    <title>Data Engineering & AI 2025 | Jonas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        dark: {
+                            900: '#070b14',
+                            800: '#0c1222',
+                            700: '#111827',
+                            600: '#1e293b',
+                        },
+                        accent: {
+                            DEFAULT: '#3b82f6',
+                            dark: '#2563eb',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #070b14 0%, #0c1222 50%, #070b14 100%);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6, #60a5fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .card {
+            background: linear-gradient(145deg, #111827, #0c1222);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #3b82f6;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+        
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+        
+        .menu-backdrop {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        
+        .menu-backdrop.open {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+
+<body class="gradient-bg min-h-screen text-white font-sans relative">
+    <!-- Background Image -->
+    <div class="fixed inset-0 z-0">
+        <img src="assets/sea.jpg" alt="" class="w-full h-full object-cover opacity-20">
+        <div class="absolute inset-0 bg-gradient-to-b from-dark-900/50 via-dark-900/80 to-dark-900"></div>
+    </div>
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full bg-dark-900/80 backdrop-blur-md border-b border-dark-600 z-50">
+        <div class="max-w-6xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="index.html" class="text-xl font-bold gradient-text">Jonas.</a>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="nav-link text-gray-300 hover:text-white transition">Home</a>
+                    <a href="resume.html" class="nav-link text-gray-300 hover:text-white transition">Resume</a>
+                    <a href="projects.html" class="nav-link text-gray-300 hover:text-white transition">Projects</a>
+                    <a href="casestudies.html" class="nav-link active text-accent font-medium">Case Studies</a>
+                    <a href="socials.html" class="nav-link text-gray-300 hover:text-white transition">Connect</a>
+                </div>
+                
+                <button id="menuBtn" class="md:hidden text-white p-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Backdrop -->
+    <div id="menuBackdrop" class="menu-backdrop fixed inset-0 bg-black/70 z-[100] md:hidden"></div>
+    
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 h-screen w-72 z-[110] md:hidden" style="background: #070b14;">
+        <div class="p-6 h-full border-l border-gray-800">
+            <button id="closeMenu" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+            <div class="flex flex-col space-y-6 mt-12">
+                <a href="index.html" class="text-gray-300 hover:text-white text-lg transition">Home</a>
+                <a href="resume.html" class="text-gray-300 hover:text-white text-lg transition">Resume</a>
+                <a href="projects.html" class="text-gray-300 hover:text-white text-lg transition">Projects</a>
+                <a href="casestudies.html" class="text-accent font-medium text-lg">Case Studies</a>
+                <a href="socials.html" class="text-gray-300 hover:text-white text-lg transition">Connect</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Article Content -->
+    <main class="pt-28 pb-20 px-6 relative z-10">
+        <div class="max-w-3xl mx-auto">
+            
+            <!-- Back Button -->
+            <a href="casestudies.html" class="inline-flex items-center gap-2 text-gray-400 hover:text-accent transition mb-8">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                </svg>
+                <span>Back to Case Studies</span>
+            </a>
+            
+            <!-- Header -->
+            <header class="mb-12">
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="text-xs font-mono text-accent bg-accent/10 px-2 py-1 rounded">2025</span>
+                    <span class="text-xs text-gray-500">Data Engineering & AI</span>
+                </div>
+                <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight">
+                    Bridging the Gap Between <span class="gradient-text">Data Engineering</span> and <span class="gradient-text">AI</span>
+                </h1>
+                <p class="text-gray-400 text-lg">In This New Era of AI (2025)</p>
+            </header>
+
+            <!-- Introduction -->
+            <div class="card rounded-2xl p-6 md:p-8 mb-8">
+                <p class="text-gray-300 leading-relaxed">
+                    As AI continues to reshape the technology landscape, the role of data engineering has never been more critical. 
+                    This article summarizes key findings from industry reports on how data engineering and AI are converging in 2025, 
+                    highlighting the technologies and practices that are defining the future of data infrastructure.
+                </p>
+            </div>
+
+            <!-- Key Findings -->
+            <div class="space-y-6">
+                
+                <!-- Finding 1 -->
+                <div class="card rounded-2xl p-6 md:p-8">
+                    <div class="flex items-start gap-4 mb-4">
+                        <span class="flex-shrink-0 w-10 h-10 bg-accent/20 rounded-lg flex items-center justify-center text-accent font-bold">1</span>
+                        <h2 class="text-xl md:text-2xl font-semibold text-white">Streaming-First Ingestion Is Now Standard</h2>
+                    </div>
+                    <ul class="space-y-3 text-gray-300 ml-14">
+                        <li class="flex items-start gap-2">
+                            <span class="text-accent mt-1">▹</span>
+                            <span>Modern data engineering favors fully managed, event-driven architectures that can handle real-time data flows at scale.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-accent mt-1">▹</span>
+                            <span>Change Data Capture (CDC) is now built-in, supporting real-time machine learning, LLM fine-tuning, and low-latency Retrieval-Augmented Generation (RAG) pipelines.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-accent mt-1">▹</span>
+                            <span>Transformation, schema evolution, and observability are increasingly embedded at the ingestion layer itself.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Finding 2 -->
+                <div class="card rounded-2xl p-6 md:p-8">
+                    <div class="flex items-start gap-4 mb-4">
+                        <span class="flex-shrink-0 w-10 h-10 bg-accent/20 rounded-lg flex items-center justify-center text-accent font-bold">2</span>
+                        <h2 class="text-xl md:text-2xl font-semibold text-white">Modern Data Lakes & Open Table Formats</h2>
+                    </div>
+                    <ul class="space-y-3 text-gray-300 ml-14">
+                        <li class="flex items-start gap-2">
+                            <span class="text-accent mt-1">▹</span>
+                            <span>Compute and storage are now fully decoupled, enabling multiple data processing engines to operate on the same data.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-accent mt-1">▹</span>
+                            <span>Open table formats like Apache Hudi, Apache Iceberg, and Delta Lake provide ACID transactions, schema evolution, and time-travel capabilities.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-accent mt-1">▹</span>
+                            <span>These technologies transform raw data lakes into reliable, consistent, and queryable warehouse-grade storage.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Finding 3 -->
+                <div class="card rounded-2xl p-6 md:p-8">
+                    <div class="flex items-start gap-4 mb-4">
+                        <span class="flex-shrink-0 w-10 h-10 bg-accent/20 rounded-lg flex items-center justify-center text-accent font-bold">3</span>
+                        <h2 class="text-xl md:text-2xl font-semibold text-white">Orchestration & Automation</h2>
+                    </div>
+                    <ul class="space-y-3 text-gray-300 ml-14">
+                        <li class="flex items-start gap-2">
+                            <span class="text-accent mt-1">▹</span>
+                            <span>Natural language-based pipeline creation and automated remediation are becoming mainstream practices.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-accent mt-1">▹</span>
+                            <span>Orchestration tools are critical for future-ready data engineering, serving as the backbone for AI infrastructure.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Finding 4 -->
+                <div class="card rounded-2xl p-6 md:p-8">
+                    <div class="flex items-start gap-4 mb-4">
+                        <span class="flex-shrink-0 w-10 h-10 bg-accent/20 rounded-lg flex items-center justify-center text-accent font-bold">4</span>
+                        <h2 class="text-xl md:text-2xl font-semibold text-white">Observability</h2>
+                    </div>
+                    <ul class="space-y-3 text-gray-300 ml-14">
+                        <li class="flex items-start gap-2">
+                            <span class="text-accent mt-1">▹</span>
+                            <span>Real-time monitoring of data quality, lineage, and drift is essential for maintaining trust and reliability in data systems.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-accent mt-1">▹</span>
+                            <span>Proactive observability enables teams to detect and resolve issues before they impact downstream AI/ML workloads.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Finding 5 -->
+                <div class="card rounded-2xl p-6 md:p-8">
+                    <div class="flex items-start gap-4 mb-4">
+                        <span class="flex-shrink-0 w-10 h-10 bg-accent/20 rounded-lg flex items-center justify-center text-accent font-bold">5</span>
+                        <h2 class="text-xl md:text-2xl font-semibold text-white">Vector Databases</h2>
+                    </div>
+                    <ul class="space-y-3 text-gray-300 ml-14">
+                        <li class="flex items-start gap-2">
+                            <span class="text-accent mt-1">▹</span>
+                            <span>Advanced retrieval methods now combine dense and sparse vectors, with reranking technologies for improved search relevance.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-accent mt-1">▹</span>
+                            <span>Cascading retrieval is now built-in, supporting complex AI workloads and high-performance semantic search.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Finding 6 -->
+                <div class="card rounded-2xl p-6 md:p-8">
+                    <div class="flex items-start gap-4 mb-4">
+                        <span class="flex-shrink-0 w-10 h-10 bg-accent/20 rounded-lg flex items-center justify-center text-accent font-bold">6</span>
+                        <h2 class="text-xl md:text-2xl font-semibold text-white">Modern Data Catalogs</h2>
+                    </div>
+                    <ul class="space-y-3 text-gray-300 ml-14">
+                        <li class="flex items-start gap-2">
+                            <span class="text-accent mt-1">▹</span>
+                            <span>Collaborative workspaces with embedded context, Git-style versioning, and deep integrations are now expected.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-accent mt-1">▹</span>
+                            <span>Modern catalogs support enhanced governance, better data management, seamless sharing, and regulatory compliance.</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Sources -->
+            <div class="mt-12 card rounded-2xl p-6 md:p-8">
+                <h3 class="text-lg font-semibold text-white mb-4">Sources</h3>
+                <ul class="space-y-2 text-gray-400 text-sm">
+                    <li>
+                        <a href="https://lakefs.io/blog/the-state-of-data-ai-engineering-2025/" target="_blank" class="text-accent hover:underline">
+                            lakeFS - The State of Data and AI Engineering 2025
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.infoq.com/articles/ai-ml-data-engineering-trends-2025/" target="_blank" class="text-accent hover:underline">
+                            InfoQ - AI/ML and Data Engineering Trends 2025
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Back to Case Studies -->
+            <div class="mt-8 text-center">
+                <a href="casestudies.html" class="inline-flex items-center gap-2 px-6 py-3 bg-accent hover:bg-accent-dark text-white font-semibold rounded-lg transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                    <span>Back to Case Studies</span>
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 border-t border-dark-600 relative z-10">
+        <div class="max-w-5xl mx-auto text-center">
+            <p class="text-gray-400 mb-2">
+                Let's connect at <a href="mailto:ngjingxun1997@gmail.com" class="text-accent hover:underline">ngjingxun1997@gmail.com</a>
+            </p>
+            <p class="text-gray-500 text-sm">© 2024 Jonas. Built with passion.</p>
+        </div>
+    </footer>
+
+    <script>
+        const menuBtn = document.getElementById('menuBtn');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuBackdrop = document.getElementById('menuBackdrop');
+        
+        function openMenu() {
+            mobileMenu.classList.add('open');
+            menuBackdrop.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeMenuFn() {
+            mobileMenu.classList.remove('open');
+            menuBackdrop.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+        
+        menuBtn.addEventListener('click', openMenu);
+        closeMenu.addEventListener('click', closeMenuFn);
+        menuBackdrop.addEventListener('click', closeMenuFn);
+        
+        document.querySelectorAll('#mobileMenu a').forEach(link => {
+            link.addEventListener('click', closeMenuFn);
+        });
+    </script>
+</body>
+</html>
+
