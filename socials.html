@@ -89,6 +89,17 @@
             transform: translateX(0);
         }
         
+        .menu-backdrop {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        
+        .menu-backdrop.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        
         .social-icon {
             transition: transform 0.3s ease;
         }
@@ -127,9 +138,12 @@
             </div>
         </div>
         
+        <!-- Mobile Menu Backdrop -->
+        <div id="menuBackdrop" class="menu-backdrop fixed inset-0 bg-black/60 z-[60] md:hidden"></div>
+        
         <!-- Mobile Menu -->
-        <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 h-full w-64 bg-dark-800 border-l border-dark-600 md:hidden">
-            <div class="p-6">
+        <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 h-full w-64 z-[70] md:hidden" style="background-color: #0c1222;">
+            <div class="p-6 h-full border-l border-dark-600">
                 <button id="closeMenu" class="absolute top-4 right-4 text-gray-400 hover:text-white">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
@@ -219,12 +233,26 @@
         const menuBtn = document.getElementById('menuBtn');
         const closeMenu = document.getElementById('closeMenu');
         const mobileMenu = document.getElementById('mobileMenu');
+        const menuBackdrop = document.getElementById('menuBackdrop');
         
-        menuBtn.addEventListener('click', () => mobileMenu.classList.add('open'));
-        closeMenu.addEventListener('click', () => mobileMenu.classList.remove('open'));
+        function openMenu() {
+            mobileMenu.classList.add('open');
+            menuBackdrop.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeMenuFn() {
+            mobileMenu.classList.remove('open');
+            menuBackdrop.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+        
+        menuBtn.addEventListener('click', openMenu);
+        closeMenu.addEventListener('click', closeMenuFn);
+        menuBackdrop.addEventListener('click', closeMenuFn);
         
         document.querySelectorAll('#mobileMenu a').forEach(link => {
-            link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+            link.addEventListener('click', closeMenuFn);
         });
     </script>
 </body>
