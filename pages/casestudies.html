@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Jonas - Projects & Side Projects">
-    <title>Projects | Jonas</title>
+    <meta name="description" content="Jonas - Case Studies on AI and Data Engineering">
+    <title>Case Studies | Jonas</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -99,36 +99,28 @@
             opacity: 1;
             visibility: visible;
         }
-        
-        .project-icon {
-            transition: transform 0.3s ease;
-        }
-        
-        .card:hover .project-icon {
-            transform: scale(1.1);
-        }
     </style>
 </head>
 
 <body class="gradient-bg min-h-screen text-white font-sans relative">
     <!-- Background Image -->
     <div class="fixed inset-0 z-0">
-        <img src="assets/sea.jpg" alt="" class="w-full h-full object-cover opacity-20">
+        <img src="/assets/sea.jpg" alt="" class="w-full h-full object-cover opacity-20">
         <div class="absolute inset-0 bg-gradient-to-b from-dark-900/50 via-dark-900/80 to-dark-900"></div>
     </div>
     
     <!-- Navigation -->
-    <nav class="fixed top-0 left-0 w-full bg-dark-900/80 backdrop-blur-md border-b border-dark-600 z-50 relative">
+    <nav class="fixed top-0 left-0 w-full bg-dark-900/80 backdrop-blur-md border-b border-dark-600 z-50">
         <div class="max-w-6xl mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
-                <a href="index.html" class="text-xl font-bold gradient-text">Jonas.</a>
+                <a href="/" class="text-xl font-bold gradient-text">Jonas.</a>
                 
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="index.html" class="nav-link text-gray-300 hover:text-white transition">Home</a>
-                    <a href="resume.html" class="nav-link text-gray-300 hover:text-white transition">Resume</a>
-                    <a href="projects.html" class="nav-link active text-accent font-medium">Projects</a>
-                    <a href="casestudies.html" class="nav-link text-gray-300 hover:text-white transition">Case Studies</a>
-                    <a href="socials.html" class="nav-link text-gray-300 hover:text-white transition">Connect</a>
+                    <a href="/" class="nav-link text-gray-300 hover:text-white transition">Home</a>
+                    <a href="/resume" class="nav-link text-gray-300 hover:text-white transition">Resume</a>
+                    <a href="/projects" class="nav-link text-gray-300 hover:text-white transition">Projects</a>
+                    <a href="/casestudies" class="nav-link active text-accent font-medium">Case Studies</a>
+                    <a href="/connect" class="nav-link text-gray-300 hover:text-white transition">Connect</a>
                 </div>
                 
                 <button id="menuBtn" class="md:hidden text-white p-2">
@@ -152,73 +144,104 @@
                 </svg>
             </button>
             <div class="flex flex-col space-y-6 mt-12">
-                <a href="index.html" class="text-gray-300 hover:text-white text-lg transition">Home</a>
-                <a href="resume.html" class="text-gray-300 hover:text-white text-lg transition">Resume</a>
-                <a href="projects.html" class="text-accent font-medium text-lg">Projects</a>
-                <a href="casestudies.html" class="text-gray-300 hover:text-white text-lg transition">Case Studies</a>
-                <a href="socials.html" class="text-gray-300 hover:text-white text-lg transition">Connect</a>
+                <a href="/" class="text-gray-300 hover:text-white text-lg transition">Home</a>
+                <a href="/resume" class="text-gray-300 hover:text-white text-lg transition">Resume</a>
+                <a href="/projects" class="text-gray-300 hover:text-white text-lg transition">Projects</a>
+                <a href="/casestudies" class="text-accent font-medium text-lg">Case Studies</a>
+                <a href="/connect" class="text-gray-300 hover:text-white text-lg transition">Connect</a>
             </div>
         </div>
     </div>
 
-    <!-- Projects Content -->
+    <!-- Case Studies Listing -->
     <main class="pt-28 pb-20 px-6 relative z-10">
-        <div class="max-w-3xl mx-auto">
+        <div class="max-w-4xl mx-auto">
             
             <!-- Header -->
-            <div class="text-center mb-16">
+            <div class="text-center mb-12">
                 <h1 class="text-4xl md:text-5xl font-bold mb-4">
-                    My <span class="gradient-text">Projects</span>
+                    Case <span class="gradient-text">Studies</span>
                 </h1>
-                <p class="text-gray-400">Things I've built for fun and learning</p>
+                <p class="text-gray-400">Insights on AI, data engineering, and emerging technologies</p>
             </div>
 
-            <!-- Projects -->
+            <!-- Case Study Cards -->
             <div class="space-y-6">
                 
-                <!-- Project: Save the Villagers -->
-                <a href="https://simple-de-game.vercel.app/" target="_blank" class="card rounded-2xl p-8 block group">
-                    <div class="flex items-center gap-4 mb-4">
-                        <div class="w-14 h-14 bg-dark-600 rounded-xl flex items-center justify-center project-icon">
-                            <span class="text-3xl">💧</span>
+                <!-- Case Study: Context Engineering -->
+                <a href="https://context-engineering-slides.vercel.app/" target="_blank" class="card rounded-2xl p-6 md:p-8 block group">
+                    <div class="flex flex-col md:flex-row md:items-center gap-4">
+                        <div class="flex-shrink-0">
+                            <div class="w-14 h-14 bg-accent/20 rounded-xl flex items-center justify-center">
+                                <span class="text-2xl">🧠</span>
+                            </div>
                         </div>
-                        <div>
-                            <h3 class="text-xl font-semibold text-white group-hover:text-accent transition">Save the Villagers!</h3>
-                            <p class="text-gray-500 text-sm font-mono">Web Game</p>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="text-xs font-mono text-accent bg-accent/10 px-2 py-1 rounded">2026</span>
+                                <span class="text-xs text-gray-500">Context Engineering</span>
+                            </div>
+                            <h2 class="text-xl md:text-2xl font-semibold text-white group-hover:text-accent transition mb-2">
+                                Context Engineering for Data Engineers
+                            </h2>
+                            <p class="text-gray-400 text-sm md:text-base">
+                                As AI scales, the audience for data engineering has shifted from humans to AI agents. Exploring why it's critical to recognise the growing importance of context engineering, and how data engineers can shape the way agents consume, interpret, and act on data.
+                            </p>
                         </div>
-                    </div>
-                    <p class="text-gray-400 mb-4">
-                        A simple drag-and-drop game — save the village and improve your data engineering skills!
-                    </p>
-                    <div class="flex items-center gap-2 text-accent text-sm font-medium">
-                        <span>Play Now</span>
-                        <svg class="w-4 h-4 group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                        </svg>
+                        <div class="flex-shrink-0">
+                            <svg class="w-6 h-6 text-gray-500 group-hover:text-accent group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                            </svg>
+                        </div>
                     </div>
                 </a>
 
-                <!-- Project 1: Typing Game -->
-                <a href="https://jonasnjx.github.io/simple_web_game/" target="_blank" class="card rounded-2xl p-8 block group">
-                    <div class="flex items-center gap-4 mb-4">
-                        <div class="w-14 h-14 bg-dark-600 rounded-xl flex items-center justify-center project-icon">
-                            <span class="text-3xl">⌨️</span>
+                <!-- Case Study: Data Engineering & AI -->
+                <a href="/casestudies/data-ai-2025" class="card rounded-2xl p-6 md:p-8 block group">
+                    <div class="flex flex-col md:flex-row md:items-center gap-4">
+                        <div class="flex-shrink-0">
+                            <div class="w-14 h-14 bg-accent/20 rounded-xl flex items-center justify-center">
+                                <span class="text-2xl">🤖</span>
+                            </div>
                         </div>
-                        <div>
-                            <h3 class="text-xl font-semibold text-white group-hover:text-accent transition">Simple Typing Game</h3>
-                            <p class="text-gray-500 text-sm font-mono">Web Game</p>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="text-xs font-mono text-accent bg-accent/10 px-2 py-1 rounded">2025</span>
+                                <span class="text-xs text-gray-500">Data Engineering & AI</span>
+                            </div>
+                            <h2 class="text-xl md:text-2xl font-semibold text-white group-hover:text-accent transition mb-2">
+                                Bridging the Gap Between Data Engineering and AI
+                            </h2>
+                            <p class="text-gray-400 text-sm md:text-base">
+                                Key findings from industry reports on how streaming-first ingestion, open table formats, vector databases, and modern catalogs are shaping the future of data infrastructure.
+                            </p>
                         </div>
-                    </div>
-                    <p class="text-gray-400 mb-4">
-                        A fun browser-based typing game to test and improve your typing speed. Built with vanilla JavaScript.
-                    </p>
-                    <div class="flex items-center gap-2 text-accent text-sm font-medium">
-                        <span>Play Now</span>
-                        <svg class="w-4 h-4 group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                        </svg>
+                        <div class="flex-shrink-0">
+                            <svg class="w-6 h-6 text-gray-500 group-hover:text-accent group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                            </svg>
+                        </div>
                     </div>
                 </a>
+
+                <!-- More Case Studies Coming Soon -->
+                <div class="card rounded-2xl p-6 md:p-8 opacity-60">
+                    <div class="flex flex-col md:flex-row md:items-center gap-4">
+                        <div class="flex-shrink-0">
+                            <div class="w-14 h-14 bg-gray-600/20 rounded-xl flex items-center justify-center">
+                                <span class="text-2xl">📝</span>
+                            </div>
+                        </div>
+                        <div class="flex-1">
+                            <h2 class="text-xl font-semibold text-gray-400 mb-2">
+                                More Case Studies Coming Soon
+                            </h2>
+                            <p class="text-gray-500 text-sm">
+                                Stay tuned for more insights on cloud architecture, MLOps, and data engineering best practices.
+                            </p>
+                        </div>
+                    </div>
+                </div>
 
             </div>
 

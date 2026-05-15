@@ -4,27 +4,13 @@ const path = require('path');
 const app = express();
 const PORT = 3000;
 
-// Serve static files
 app.use(express.static(__dirname));
 
-// Routes for pages
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
-});
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
+app.get('/resume', (req, res) => res.sendFile(path.join(__dirname, 'pages/resume.html')));
+app.get('/projects', (req, res) => res.sendFile(path.join(__dirname, 'pages/projects.html')));
+app.get('/casestudies', (req, res) => res.sendFile(path.join(__dirname, 'pages/casestudies.html')));
+app.get('/connect', (req, res) => res.sendFile(path.join(__dirname, 'pages/connect.html')));
+app.get('/casestudies/data-ai-2025', (req, res) => res.sendFile(path.join(__dirname, 'pages/casestudies/data-ai-2025.html')));
 
-app.get('/resume.html', (req, res) => {
-    res.sendFile(path.join(__dirname, 'resume.html'));
-});
-
-app.get('/projects.html', (req, res) => {
-    res.sendFile(path.join(__dirname, 'projects.html'));
-});
-
-app.get('/socials.html', (req, res) => {
-    res.sendFile(path.join(__dirname, 'socials.html'));
-});
-
-// Start the server
-app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
-});
+app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));

@@ -2,70 +2,55 @@
 
 A modern, responsive portfolio website built with HTML, Tailwind CSS, and vanilla JavaScript.
 
-## Features
-
-- **Responsive Design** — Fully optimized for desktop, tablet, and mobile devices
-- **Dark Theme** — Sleek dark blue aesthetic with subtle animations
-- **Dynamic Background** — Sea-themed imagery with gradient overlays
-- **Clean Navigation** — Consistent header with mobile hamburger menu
-- **Contact Integration** — Direct email link for easy communication
-
-## Pages
-
-| Page | Description |
-|------|-------------|
-| **Home** | Hero section with profile, about me, hobbies, and tech stack |
-| **Resume** | Professional experience with nested bullet points for detailed achievements |
-| **Projects** | Showcase of personal projects and side work |
-| **Case Studies** | Industry insights and research on AI & Data Engineering trends |
-| **Connect** | Social media links (LinkedIn, GitHub) |
-
 ## Tech Stack
 
 - HTML5
 - Tailwind CSS (CDN)
 - Vanilla JavaScript
+- Express.js (local dev server)
 - Google Fonts (Space Grotesk, JetBrains Mono)
+
+## Getting Started
+
+```bash
+npm install
+npm start
+```
+
+Then visit `http://localhost:3000`. The site must be served through Express — opening HTML files directly in the browser won't work due to absolute routing paths.
+
+## Pages
+
+| Route | Description |
+|-------|-------------|
+| `/` | Hero section with profile, about me, hobbies, and tech stack |
+| `/resume` | Professional experience and internships |
+| `/projects` | Showcase of personal projects |
+| `/casestudies` | Industry insights and research on AI & Data Engineering |
+| `/connect` | Social media links (LinkedIn, GitHub) |
 
 ## File Structure
 
 ```
-portfolio_site/
-├── assets/
-│   ├── profile.jpg
-│   ├── sea.jpg
-│   └── ...
-├── index.html
-├── resume.html
-├── projects.html
-├── casestudies.html
-├── socials.html
-├── server.js
-└── README.md
+index.html
+pages/
+  resume.html
+  projects.html
+  casestudies.html
+  connect.html
+  casestudies/
+    data-ai-2025.html
+assets/
+server.js
 ```
-
-## Getting Started
-
-Simply open `index.html` in your browser, or run a local server:
-
-```bash
-# Using Node.js
-npm install express
-node server.js
-
-# Or using Python
-python -m http.server 3000
-```
-
-Then visit `http://localhost:3000`
 
 ## Deployment
 
-This site can be deployed to any static hosting service:
-- GitHub Pages
-- Netlify
-- Vercel
-- Cloudflare Pages
+Since routing is handled by Express, deploy to a platform that supports Node.js servers:
+- Render
+- Railway
+- Fly.io
+- Vercel (with a `vercel.json` rewrites config)
 
 ## License
 
