@@ -1,19 +1,9 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "server.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/assets/(.*)",
-      "dest": "/assets/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "server.js"
-    }
+  "rewrites": [
+    { "source": "/resume", "destination": "/pages/resume.html" },
+    { "source": "/projects", "destination": "/pages/projects.html" },
+    { "source": "/casestudies", "destination": "/pages/casestudies.html" },
+    { "source": "/casestudies/data-ai-2025", "destination": "/pages/casestudies/data-ai-2025.html" },
+    { "source": "/connect", "destination": "/pages/connect.html" }
   ]
 }
