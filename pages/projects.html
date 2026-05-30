@@ -94,7 +94,19 @@
 
             <section>
                 <div class="project-row">
-                    <p class="font-mono text-xs mb-3" style="color: var(--muted);">2026 &middot; Three.js &middot; WebGL &middot; ES Modules</p>
+                    <div class="flex flex-wrap items-center gap-2 mb-3">
+                        <span class="font-mono text-xs" style="color: var(--muted);">2026 &middot; Three.js &middot; WebGL &middot; ES Modules</span>
+                        <div style="position: relative; display: inline-block;">
+                            <span class="status-badge updating" id="portfolio-badge">
+                                <span class="status-pulse"></span>
+                                Updating
+                            </span>
+                            <div class="status-tooltip" id="portfolio-tooltip">
+                                <p class="font-mono text-xs mb-2" style="color: var(--muted);">In Progress</p>
+                                <div id="ticket-list"><p class="text-xs" style="color: var(--muted);">Loading&hellip;</p></div>
+                            </div>
+                        </div>
+                    </div>
                     <h2 class="text-base font-semibold mb-1">
                         <a href="/" class="title transition" style="color: var(--ink);">3D Portfolio Room &rarr;</a>
                     </h2>
@@ -102,7 +114,10 @@
                 </div>
 
                 <div class="project-row">
-                    <p class="font-mono text-xs mb-3" style="color: var(--muted);">2025 &middot; Web Game &middot; JavaScript</p>
+                    <div class="flex flex-wrap items-center gap-2 mb-3">
+                        <span class="font-mono text-xs" style="color: var(--muted);">2025 &middot; Web Game &middot; JavaScript</span>
+                        <span class="status-badge completed">Completed</span>
+                    </div>
                     <h2 class="text-base font-semibold mb-1">
                         <a href="https://simple-de-game.vercel.app/" target="_blank" class="title transition" style="color: var(--ink);">Save the Villagers! &rarr;</a>
                     </h2>
@@ -110,7 +125,10 @@
                 </div>
 
                 <div class="project-row">
-                    <p class="font-mono text-xs mb-3" style="color: var(--muted);">2024 &middot; Web Game &middot; Vanilla JS</p>
+                    <div class="flex flex-wrap items-center gap-2 mb-3">
+                        <span class="font-mono text-xs" style="color: var(--muted);">2024 &middot; Web Game &middot; Vanilla JS</span>
+                        <span class="status-badge completed">Completed</span>
+                    </div>
                     <h2 class="text-base font-semibold mb-1">
                         <a href="https://jonasnjx.github.io/simple_web_game/" target="_blank" class="title transition" style="color: var(--ink);">Simple Typing Game &rarr;</a>
                     </h2>
