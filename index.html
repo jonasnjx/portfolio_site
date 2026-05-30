@@ -299,18 +299,19 @@
 
         /* ── Pause overlay ────────────────────────────────── */
         #pause-overlay .card {
-            background: linear-gradient(145deg, #111827, #0c1222);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            border-radius: 16px;
+            background: var(--bg);
+            border: 1px solid rgba(226,222,213,0.14);
+            border-radius: 6px;
             padding: 2rem;
             max-width: 320px;
             width: 90%;
-            text-align: center;
+            text-align: left;
         }
 
         #pause-overlay h2 {
             font-size: 1.25rem;
-            font-weight: 700;
+            font-weight: 500;
+            color: var(--ink);
             margin-bottom: 1.5rem;
         }
 
@@ -331,32 +332,32 @@
             bottom: 15%;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(7, 11, 20, 0.9);
-            border: 2px solid rgba(96, 165, 250, 0.5);
+            background: rgba(15,17,23,0.92);
+            border: 1px solid rgba(226,222,213,0.2);
             border-radius: 4px;
-            padding: 0.65rem 1.4rem;
-            font-family: 'Press Start 2P', monospace;
-            font-size: 0.5rem;
-            color: #e2e8f0;
+            padding: 0.55rem 1.2rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--ink);
             display: flex;
             align-items: center;
             gap: 0.5rem;
             opacity: 0;
             transition: opacity 0.2s;
             pointer-events: none;
+            white-space: nowrap;
         }
 
         #prompt.visible { opacity: 1; }
 
         #prompt .key {
-            background: #1e293b;
-            border: 1px solid #334155;
-            border-bottom: 3px solid #334155;
-            border-radius: 4px;
+            background: var(--bg-2);
+            border: 1px solid rgba(226,222,213,0.14);
+            border-radius: 3px;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            padding: 1px 6px;
-            color: #3b82f6;
+            font-size: 0.68rem;
+            padding: 1px 5px;
+            color: var(--accent);
         }
 
         /* HUD legend */
@@ -364,10 +365,10 @@
             position: absolute;
             top: 1.25rem;
             left: 1.25rem;
-            font-family: 'Press Start 2P', monospace;
-            font-size: 0.45rem;
-            color: rgba(255,255,255,0.35);
-            line-height: 2.2;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.62rem;
+            color: rgba(236,236,236,0.4);
+            line-height: 1.8;
         }
 
         /* Skip button (always visible during play) */
@@ -375,7 +376,7 @@
         .modal-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(7, 11, 20, 0.9);
+            background: rgba(15,17,23,0.88);
             backdrop-filter: blur(4px);
             z-index: 200;
             display: flex;
@@ -386,9 +387,9 @@
         .modal-overlay.hidden { display: none; }
 
         .modal-box {
-            background: linear-gradient(145deg, #111827, #0c1222);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            border-radius: 16px;
+            background: var(--bg);
+            border: 1px solid rgba(226,222,213,0.14);
+            border-radius: 6px;
             padding: 2rem;
             width: 90%;
             max-width: 560px;
@@ -401,48 +402,57 @@
             right: 1rem;
             background: none;
             border: none;
-            color: #64748b;
-            font-size: 1.25rem;
+            color: var(--muted);
+            font-size: 1.1rem;
             cursor: pointer;
             line-height: 1;
-            transition: color 0.2s;
+            transition: color 0.15s;
         }
 
-        .modal-close:hover { color: white; }
+        .modal-close:hover { color: var(--ink); }
 
         .modal-box h2 {
-            font-size: 1.25rem;
-            font-weight: 700;
+            font-size: 1.15rem;
+            font-weight: 500;
+            color: var(--ink);
             margin-bottom: 1.25rem;
         }
+
+        /* Hairline row — replaces rgba(255,255,255,0.04) inset cards */
+        .modal-row {
+            border-top: 1px solid rgba(226,222,213,0.1);
+            padding: 0.9rem 0;
+        }
+
+        .modal-row:last-child { border-bottom: 1px solid rgba(226,222,213,0.1); }
 
         .modal-actions {
             display: flex;
             gap: 0.75rem;
             margin-top: 1.5rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid rgba(226,222,213,0.1);
         }
 
         .modal-actions a, .modal-actions button {
             flex: 1;
             text-align: center;
-            padding: 0.7rem 1rem;
-            border-radius: 8px;
-            font-size: 0.875rem;
-            font-weight: 600;
+            padding: 0.65rem 1rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 500;
             text-decoration: none;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: opacity 0.15s;
         }
 
         .btn-outline {
             background: transparent;
-            border: 1px solid rgba(59, 130, 246, 0.4);
-            color: #3b82f6;
+            border: 1px solid rgba(226,222,213,0.2);
+            color: var(--ink);
         }
 
-        .btn-outline:hover {
-            background: rgba(59, 130, 246, 0.1);
-        }
+        .btn-outline:hover { background: var(--bg-2); }
 
         video {
             width: 100%;
@@ -466,7 +476,7 @@
         padding:0.75rem;
         font-family:'JetBrains Mono',monospace;
     ">
-        <div id="chat-output" style="max-height:80px;overflow-y:auto;font-size:0.75rem;color:#94a3b8;margin-bottom:0.5rem;line-height:1.7;"></div>
+        <div id="chat-output" style="max-height:80px;overflow-y:auto;font-size:0.75rem;color:var(--muted);margin-bottom:0.5rem;line-height:1.7;"></div>
         <div style="display:flex;align-items:center;gap:0.6rem;">
             <span style="color:#60a5fa;font-size:0.75rem;">></span>
             <input id="chat-input" type="text" placeholder="type /help for commands"
@@ -566,7 +576,7 @@
     <div id="pause-overlay" class="overlay hidden">
         <div class="card">
             <h2>Paused</h2>
-            <p style="color:#94a3b8;font-size:0.75rem;margin-bottom:1rem;">Press Enter or click Resume</p>
+            <p style="color:var(--muted);font-size:0.78rem;margin-bottom:1rem;">Press Enter or click Resume</p>
             <button class="btn-primary" id="resume-btn">Resume</button>
             <a href="/home" class="btn-skip">Exit to classic site →</a>
         </div>
@@ -584,45 +594,50 @@
 
     <!-- ── Resume modal ──────────────────────────────────── -->
     <div id="resume-modal" class="modal-overlay hidden">
-        <div class="modal-box" style="max-width:580px;max-height:82vh;overflow-y:auto;">
+        <div class="modal-box" style="max-width:560px;max-height:82vh;overflow-y:auto;">
             <button class="modal-close" data-close="resume-modal">✕</button>
             <h2>Resume</h2>
-            <div style="display:flex;flex-direction:column;gap:0.8rem;margin-bottom:1.2rem;">
-                <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:0.8rem;">
-                    <div style="display:flex;justify-content:space-between;gap:0.5rem;">
-                        <div><div style="font-weight:600;font-size:0.88rem;">Senior Data Engineer</div><div style="color:#94a3b8;font-size:0.76rem;">Certis · Singapore</div></div>
-                        <span style="color:#60a5fa;font-family:'JetBrains Mono',monospace;font-size:0.7rem;white-space:nowrap;">Aug 2025 – Present</span>
+            <div class="modal-row">
+                <div style="display:flex;justify-content:space-between;align-items:baseline;gap:0.5rem;">
+                    <div>
+                        <div style="font-size:0.88rem;font-weight:500;color:var(--ink);">Senior Data Engineer</div>
+                        <div style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--muted);">Certis · Singapore</div>
                     </div>
+                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);white-space:nowrap;">Aug 2025 – Present</span>
                 </div>
-                <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:0.8rem;">
-                    <div style="display:flex;justify-content:space-between;gap:0.5rem;">
-                        <div><div style="font-weight:600;font-size:0.88rem;">Senior Data Engineer</div><div style="color:#94a3b8;font-size:0.76rem;">A*STAR · Singapore</div></div>
-                        <span style="color:#60a5fa;font-family:'JetBrains Mono',monospace;font-size:0.7rem;white-space:nowrap;">Aug 2024 – Jun 2025</span>
+            </div>
+            <div class="modal-row">
+                <div style="display:flex;justify-content:space-between;align-items:baseline;gap:0.5rem;margin-bottom:0.5rem;">
+                    <div>
+                        <div style="font-size:0.88rem;font-weight:500;color:var(--ink);">Senior Data Engineer</div>
+                        <div style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--muted);">A*STAR · Singapore</div>
                     </div>
-                    <ul style="margin-top:0.45rem;padding-left:1rem;color:#94a3b8;font-size:0.74rem;line-height:1.6;">
-                        <li>Led Alation data catalog integration across 13 system owners</li>
-                        <li>Built 8 ADF pipelines Blob → Snowflake; RAG app on Azure</li>
-                        <li>Multi-agent GenAI chatbot with Snowflake Cortex + AutoGen</li>
-                    </ul>
+                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);white-space:nowrap;">Aug 2024 – Jun 2025</span>
                 </div>
-                <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:0.8rem;">
-                    <div style="display:flex;justify-content:space-between;gap:0.5rem;">
-                        <div><div style="font-weight:600;font-size:0.88rem;">AI Cloud Engineer</div><div style="color:#94a3b8;font-size:0.76rem;">Accenture · Singapore</div></div>
-                        <span style="color:#60a5fa;font-family:'JetBrains Mono',monospace;font-size:0.7rem;white-space:nowrap;">Jul 2021 – Jul 2024</span>
+                <ul style="padding-left:1rem;color:var(--muted);font-size:0.76rem;line-height:1.65;">
+                    <li>Led Alation data catalog integration across 13 system owners</li>
+                    <li>Built 8 ADF pipelines Blob → Snowflake; RAG app on Azure</li>
+                    <li>Multi-agent GenAI chatbot with Snowflake Cortex + AutoGen</li>
+                </ul>
+            </div>
+            <div class="modal-row">
+                <div style="display:flex;justify-content:space-between;align-items:baseline;gap:0.5rem;margin-bottom:0.5rem;">
+                    <div>
+                        <div style="font-size:0.88rem;font-weight:500;color:var(--ink);">AI Cloud Engineer</div>
+                        <div style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--muted);">Accenture · Singapore</div>
                     </div>
-                    <ul style="margin-top:0.45rem;padding-left:1rem;color:#94a3b8;font-size:0.74rem;line-height:1.6;">
-                        <li>Serverless pipelines — Lambda, S3, Redshift, SageMaker (DBSCAN)</li>
-                        <li>CI/CD with CloudFormation + CodePipeline; CloudWatch alerting</li>
-                        <li>Cloud security across AWS, GCP, Azure; Tableau & Looker dashboards</li>
-                    </ul>
+                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);white-space:nowrap;">Jul 2021 – Jul 2024</span>
                 </div>
-                <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:0.75rem;">
-                    <div style="font-weight:600;font-size:0.82rem;color:#94a3b8;margin-bottom:0.25rem;">Internships</div>
-                    <div style="color:#94a3b8;font-size:0.74rem;line-height:1.6;">Vertex Holdings · UPS · Kuehne+Nagel</div>
-                </div>
-                <div style="background:rgba(59,130,246,0.08);border-radius:8px;padding:0.6rem;font-size:0.74rem;color:#94a3b8;">
-                    <span style="color:#60a5fa;font-weight:600;">3× Certified:</span> AWS · Azure · Snowflake · NTU Business Analytics (Hons)
-                </div>
+                <ul style="padding-left:1rem;color:var(--muted);font-size:0.76rem;line-height:1.65;">
+                    <li>Serverless pipelines — Lambda, S3, Redshift, SageMaker (DBSCAN)</li>
+                    <li>CI/CD with CloudFormation + CodePipeline; CloudWatch alerting</li>
+                    <li>Cloud security across AWS, GCP, Azure; Tableau &amp; Looker dashboards</li>
+                </ul>
+            </div>
+            <div class="modal-row" style="border-bottom:1px solid rgba(226,222,213,0.1);">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);margin-bottom:0.2rem;">Internships</div>
+                <div style="font-size:0.78rem;color:var(--muted);">Vertex Holdings · UPS · Kuehne+Nagel · Shopee · Air Liquide</div>
+                <div style="margin-top:0.5rem;font-size:0.76rem;color:var(--muted);">3&times; certified — AWS · Azure · Snowflake &nbsp;&middot;&nbsp; NTU Business Analytics (Hons)</div>
             </div>
             <div class="modal-actions">
                 <a href="/resume" class="btn-primary" style="display:flex;align-items:center;justify-content:center;">Full Resume →</a>
@@ -632,27 +647,25 @@
 
     <!-- ── Projects modal ────────────────────────────────── -->
     <div id="terminal-modal" class="modal-overlay hidden">
-        <div class="modal-box" style="max-width:540px;max-height:82vh;overflow-y:auto;">
+        <div class="modal-box" style="max-width:500px;">
             <button class="modal-close" data-close="terminal-modal">✕</button>
             <h2>Projects</h2>
-            <div style="display:flex;flex-direction:column;gap:0.7rem;margin-bottom:1.2rem;">
-                <a href="https://simple-de-game.vercel.app/" target="_blank" style="background:rgba(255,255,255,0.04);border-radius:8px;padding:0.8rem;text-decoration:none;display:block;" onmouseover="this.style.background='rgba(59,130,246,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.04)'">
-                    <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.3rem;">
-                        <span style="font-size:1.2rem;">💧</span>
-                        <div style="flex:1"><div style="font-weight:600;font-size:0.86rem;">Save the Villagers!</div><div style="color:#94a3b8;font-size:0.72rem;font-family:'JetBrains Mono',monospace;">Web Game</div></div>
-                        <span style="color:#60a5fa;font-size:0.76rem;">Play →</span>
-                    </div>
-                    <p style="color:#94a3b8;font-size:0.76rem;">Drag-and-drop game to improve your data engineering skills</p>
-                </a>
-                <a href="https://jonasnjx.github.io/simple_web_game/" target="_blank" style="background:rgba(255,255,255,0.04);border-radius:8px;padding:0.8rem;text-decoration:none;display:block;" onmouseover="this.style.background='rgba(59,130,246,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.04)'">
-                    <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.3rem;">
-                        <span style="font-size:1.2rem;">⌨️</span>
-                        <div style="flex:1"><div style="font-weight:600;font-size:0.86rem;">Simple Typing Game</div><div style="color:#94a3b8;font-size:0.72rem;font-family:'JetBrains Mono',monospace;">Web Game</div></div>
-                        <span style="color:#60a5fa;font-size:0.76rem;">Play →</span>
-                    </div>
-                    <p style="color:#94a3b8;font-size:0.76rem;">Browser typing speed test built with vanilla JavaScript</p>
-                </a>
-            </div>
+            <a href="https://simple-de-game.vercel.app/" target="_blank" class="modal-row" style="display:block;text-decoration:none;">
+                <div style="display:flex;justify-content:space-between;align-items:baseline;gap:0.5rem;margin-bottom:0.2rem;">
+                    <div style="font-size:0.88rem;font-weight:500;color:var(--ink);">Save the Villagers!</div>
+                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent);">Play →</span>
+                </div>
+                <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);margin-bottom:0.25rem;">Web Game</div>
+                <p style="font-size:0.78rem;color:var(--muted);">Drag-and-drop game about data engineering pipelines</p>
+            </a>
+            <a href="https://jonasnjx.github.io/simple_web_game/" target="_blank" class="modal-row" style="display:block;text-decoration:none;border-bottom:1px solid rgba(226,222,213,0.1);">
+                <div style="display:flex;justify-content:space-between;align-items:baseline;gap:0.5rem;margin-bottom:0.2rem;">
+                    <div style="font-size:0.88rem;font-weight:500;color:var(--ink);">Simple Typing Game</div>
+                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent);">Play →</span>
+                </div>
+                <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);margin-bottom:0.25rem;">Web Game</div>
+                <p style="font-size:0.78rem;color:var(--muted);">Browser typing speed test built with vanilla JavaScript</p>
+            </a>
             <div class="modal-actions">
                 <a href="/projects" class="btn-primary" style="display:flex;align-items:center;justify-content:center;">All Projects →</a>
             </div>
@@ -661,38 +674,25 @@
 
     <!-- ── Case Studies modal ───────────────────────────── -->
     <div id="casestudies-modal" class="modal-overlay hidden">
-        <div class="modal-box" style="max-width:520px;max-height:82vh;overflow-y:auto;">
+        <div class="modal-box" style="max-width:500px;">
             <button class="modal-close" data-close="casestudies-modal">✕</button>
             <h2>Case Studies</h2>
-            <p style="color:#94a3b8;font-size:0.85rem;margin-bottom:1.1rem;">In-depth articles on AI, data engineering, and the industry.</p>
-            <div style="display:flex;flex-direction:column;gap:0.7rem;margin-bottom:1.25rem;">
-                <a href="https://context-engineering-slides.vercel.app/" target="_blank"
-                   style="background:rgba(255,255,255,0.04);border-radius:8px;padding:0.85rem;text-decoration:none;display:block;"
-                   onmouseover="this.style.background='rgba(59,130,246,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.04)'">
-                    <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.3rem;">
-                        <span style="font-size:1.2rem;">🧠</span>
-                        <div style="flex:1">
-                            <div style="font-weight:600;font-size:0.88rem;">Context Engineering for Data Engineers</div>
-                            <div style="color:#94a3b8;font-size:0.72rem;font-family:'JetBrains Mono',monospace;">Article · 2026</div>
-                        </div>
-                        <span style="color:#60a5fa;font-size:0.76rem;">Read →</span>
-                    </div>
-                    <p style="color:#94a3b8;font-size:0.76rem;">Why the audience for data engineering has shifted from humans to AI agents — and what that means for us.</p>
-                </a>
-                <a href="/casestudies/data-ai-2025" target="_blank"
-                   style="background:rgba(255,255,255,0.04);border-radius:8px;padding:0.85rem;text-decoration:none;display:block;"
-                   onmouseover="this.style.background='rgba(59,130,246,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.04)'">
-                    <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.3rem;">
-                        <span style="font-size:1.2rem;">🤖</span>
-                        <div style="flex:1">
-                            <div style="font-weight:600;font-size:0.88rem;">Bridging Data Engineering and AI</div>
-                            <div style="color:#94a3b8;font-size:0.72rem;font-family:'JetBrains Mono',monospace;">Article · 2025</div>
-                        </div>
-                        <span style="color:#60a5fa;font-size:0.76rem;">Read →</span>
-                    </div>
-                    <p style="color:#94a3b8;font-size:0.76rem;">Streaming-first ingestion, open table formats, vector databases — how they're shaping the future of data infrastructure.</p>
-                </a>
-            </div>
+            <a href="https://context-engineering-slides.vercel.app/" target="_blank" class="modal-row" style="display:block;text-decoration:none;">
+                <div style="display:flex;justify-content:space-between;align-items:baseline;gap:0.5rem;margin-bottom:0.2rem;">
+                    <div style="font-size:0.88rem;font-weight:500;color:var(--ink);">Context Engineering for Data Engineers</div>
+                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent);white-space:nowrap;">Read →</span>
+                </div>
+                <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);margin-bottom:0.25rem;">Article · 2026</div>
+                <p style="font-size:0.78rem;color:var(--muted);">Why the audience for data engineering has shifted from humans to AI agents.</p>
+            </a>
+            <a href="/casestudies/data-ai-2025" target="_blank" class="modal-row" style="display:block;text-decoration:none;border-bottom:1px solid rgba(226,222,213,0.1);">
+                <div style="display:flex;justify-content:space-between;align-items:baseline;gap:0.5rem;margin-bottom:0.2rem;">
+                    <div style="font-size:0.88rem;font-weight:500;color:var(--ink);">Bridging Data Engineering and AI</div>
+                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent);white-space:nowrap;">Read →</span>
+                </div>
+                <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);margin-bottom:0.25rem;">Article · 2025</div>
+                <p style="font-size:0.78rem;color:var(--muted);">Streaming-first ingestion, open table formats, vector databases, and modern catalogs.</p>
+            </a>
             <div class="modal-actions">
                 <a href="/casestudies" class="btn-primary" style="display:flex;align-items:center;justify-content:center;">All Case Studies →</a>
             </div>
@@ -701,42 +701,30 @@
 
     <!-- ── Telephone / Contact modal ─────────────────────── -->
     <div id="telephone-modal" class="modal-overlay hidden">
-        <div class="modal-box" style="max-width:440px;">
+        <div class="modal-box" style="max-width:420px;">
             <button class="modal-close" data-close="telephone-modal">✕</button>
-            <h2>📞 Let's Talk</h2>
-            <p style="color:#94a3b8;font-size:0.85rem;margin-bottom:1.25rem;">Reach out on any platform — always happy to connect.</p>
-            <div style="display:flex;flex-direction:column;gap:0.65rem;margin-bottom:1.25rem;">
-                <a href="https://www.linkedin.com/in/jonasnjx/" target="_blank"
-                   style="display:flex;align-items:center;gap:0.75rem;background:rgba(0,119,181,0.12);border:1px solid rgba(0,119,181,0.3);border-radius:8px;padding:0.75rem 1rem;text-decoration:none;transition:background 0.2s;"
-                   onmouseover="this.style.background='rgba(0,119,181,0.22)'" onmouseout="this.style.background='rgba(0,119,181,0.12)'">
-                    <span style="font-size:1.4rem;">💼</span>
-                    <div>
-                        <div style="font-weight:600;font-size:0.88rem;">LinkedIn</div>
-                        <div style="color:#94a3b8;font-size:0.75rem;">linkedin.com/in/jonasnjx</div>
-                    </div>
-                    <span style="margin-left:auto;color:#0ea5e9;font-size:0.78rem;">→</span>
-                </a>
-                <a href="https://github.com/jonasnjx" target="_blank"
-                   style="display:flex;align-items:center;gap:0.75rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:0.75rem 1rem;text-decoration:none;transition:background 0.2s;"
-                   onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.04)'">
-                    <span style="font-size:1.4rem;">🐙</span>
-                    <div>
-                        <div style="font-weight:600;font-size:0.88rem;">GitHub</div>
-                        <div style="color:#94a3b8;font-size:0.75rem;">github.com/jonasnjx</div>
-                    </div>
-                    <span style="margin-left:auto;color:#94a3b8;font-size:0.78rem;">→</span>
-                </a>
-                <a href="mailto:ngjingxun1997@gmail.com"
-                   style="display:flex;align-items:center;gap:0.75rem;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);border-radius:8px;padding:0.75rem 1rem;text-decoration:none;transition:background 0.2s;"
-                   onmouseover="this.style.background='rgba(59,130,246,0.15)'" onmouseout="this.style.background='rgba(59,130,246,0.08)'">
-                    <span style="font-size:1.4rem;">✉️</span>
-                    <div>
-                        <div style="font-weight:600;font-size:0.88rem;">Email</div>
-                        <div style="color:#94a3b8;font-size:0.75rem;">ngjingxun1997@gmail.com</div>
-                    </div>
-                    <span style="margin-left:auto;color:#60a5fa;font-size:0.78rem;">→</span>
-                </a>
-            </div>
+            <h2>Contact</h2>
+            <a href="https://www.linkedin.com/in/jonasnjx/" target="_blank" class="modal-row" style="display:flex;justify-content:space-between;align-items:center;text-decoration:none;">
+                <div>
+                    <div style="font-size:0.88rem;font-weight:500;color:var(--ink);">LinkedIn</div>
+                    <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);">linkedin.com/in/jonasnjx</div>
+                </div>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent);">→</span>
+            </a>
+            <a href="https://github.com/jonasnjx" target="_blank" class="modal-row" style="display:flex;justify-content:space-between;align-items:center;text-decoration:none;">
+                <div>
+                    <div style="font-size:0.88rem;font-weight:500;color:var(--ink);">GitHub</div>
+                    <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);">github.com/jonasnjx</div>
+                </div>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent);">→</span>
+            </a>
+            <a href="mailto:ngjingxun1997@gmail.com" class="modal-row" style="display:flex;justify-content:space-between;align-items:center;text-decoration:none;border-bottom:1px solid rgba(226,222,213,0.1);">
+                <div>
+                    <div style="font-size:0.88rem;font-weight:500;color:var(--ink);">Email</div>
+                    <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);">ngjingxun1997@gmail.com</div>
+                </div>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent);">→</span>
+            </a>
             <div class="modal-actions">
                 <a href="/connect" class="btn-primary" style="display:flex;align-items:center;justify-content:center;">Visit Connect Page →</a>
             </div>
@@ -748,8 +736,8 @@
         <div class="modal-box" style="max-width:360px;text-align:center;">
             <button class="modal-close" data-close="clock-modal">✕</button>
             <h2 style="margin-bottom:0.5rem;">🕐 Singapore Time</h2>
-            <div id="clock-date" style="font-size:0.82rem;color:#94a3b8;margin-bottom:1rem;font-family:'JetBrains Mono',monospace;"></div>
-            <div id="clock-time" style="font-size:2.4rem;font-family:'Press Start 2P',monospace;color:#60a5fa;letter-spacing:0.05em;line-height:1.3;"></div>
+            <div id="clock-date" style="font-size:0.72rem;color:var(--muted);margin-bottom:0.75rem;font-family:'JetBrains Mono',monospace;"></div>
+            <div id="clock-time" style="font-size:2.2rem;font-family:'JetBrains Mono',monospace;color:var(--ink);letter-spacing:0.04em;line-height:1.3;"></div>
         </div>
     </div>
 
