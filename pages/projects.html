@@ -37,6 +37,15 @@
         .mobile-menu.open { transform: translateX(0); }
         .menu-backdrop { opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
         .menu-backdrop.open { opacity: 1; visibility: visible; }
+        .status-badge { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; padding: 0.15rem 0.55rem; border-radius: 3px; display: inline-flex; align-items: center; gap: 0.35rem; user-select: none; }
+        .status-badge.completed { color: var(--muted); background: var(--rule); }
+        .status-badge.updating { color: #92400e; background: #fef3c7; cursor: pointer; }
+        .status-pulse { width: 6px; height: 6px; border-radius: 50%; background: #f59e0b; display: inline-block; flex-shrink: 0; animation: blink 2s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        .status-tooltip { position: absolute; top: calc(100% + 8px); left: 0; background: var(--paper); border: 1px solid var(--rule); padding: 0.75rem 1rem; border-radius: 4px; min-width: 280px; z-index: 50; box-shadow: 0 4px 12px rgba(0,0,0,0.08); display: none; }
+        .status-tooltip a { display: flex; align-items: baseline; gap: 0.5rem; font-size: 0.8rem; color: var(--ink); padding: 0.35rem 0; border-bottom: 1px solid var(--rule); text-decoration: none; transition: color 0.1s; }
+        .status-tooltip a:last-child { border-bottom: none; padding-bottom: 0; }
+        .status-tooltip a:hover { color: var(--accent); }
     </style>
 </head>
 <body class="min-h-screen font-sans">
@@ -85,9 +94,10 @@
 
             <section>
                 <div class="project-row">
-                    <div class="flex flex-wrap gap-2 mb-3">
+                    <div class="flex flex-wrap items-center gap-2 mb-3">
                         <span class="tag">Web Game</span>
                         <span class="tag">JavaScript</span>
+                        <span class="status-badge completed">Completed</span>
                     </div>
                     <h2 class="text-base font-semibold mb-1">
                         <a href="https://simple-de-game.vercel.app/" target="_blank" class="title transition" style="color: var(--ink);">Save the Villagers! &rarr;</a>
@@ -96,9 +106,10 @@
                 </div>
 
                 <div class="project-row">
-                    <div class="flex flex-wrap gap-2 mb-3">
+                    <div class="flex flex-wrap items-center gap-2 mb-3">
                         <span class="tag">Web Game</span>
                         <span class="tag">Vanilla JS</span>
+                        <span class="status-badge completed">Completed</span>
                     </div>
                     <h2 class="text-base font-semibold mb-1">
                         <a href="https://jonasnjx.github.io/simple_web_game/" target="_blank" class="title transition" style="color: var(--ink);">Simple Typing Game &rarr;</a>
@@ -107,10 +118,20 @@
                 </div>
 
                 <div class="project-row">
-                    <div class="flex flex-wrap gap-2 mb-3">
+                    <div class="flex flex-wrap items-center gap-2 mb-3">
                         <span class="tag">Three.js</span>
                         <span class="tag">WebGL</span>
                         <span class="tag">ES Modules</span>
+                        <div style="position: relative; display: inline-block;">
+                            <span class="status-badge updating" id="portfolio-badge">
+                                <span class="status-pulse"></span>
+                                Updating
+                            </span>
+                            <div class="status-tooltip" id="portfolio-tooltip">
+                                <p class="font-mono text-xs mb-2" style="color: var(--muted);">In Progress</p>
+                                <div id="ticket-list"><p class="text-xs" style="color: var(--muted);">Loading&hellip;</p></div>
+                            </div>
+                        </div>
                     </div>
                     <h2 class="text-base font-semibold mb-1">
                         <a href="/" class="title transition" style="color: var(--ink);">3D Portfolio Room &rarr;</a>
@@ -140,6 +161,45 @@
         closeMenu.addEventListener('click', closeMenuFn);
         menuBackdrop.addEventListener('click', closeMenuFn);
         document.querySelectorAll('#mobileMenu a').forEach(l => l.addEventListener('click', closeMenuFn));
+
+        const badge = document.getElementById('portfolio-badge');
+        const tooltip = document.getElementById('portfolio-tooltip');
+        const ticketList = document.getElementById('ticket-list');
+        let loaded = false;
+        let hideTimer;
+
+        badge.addEventListener('mouseenter', () => {
+            clearTimeout(hideTimer);
+            tooltip.style.display = 'block';
+            if (!loaded) fetchTickets();
+        });
+        badge.addEventListener('mouseleave', () => {
+            hideTimer = setTimeout(() => { tooltip.style.display = 'none'; }, 180);
+        });
+        tooltip.addEventListener('mouseenter', () => clearTimeout(hideTimer));
+        tooltip.addEventListener('mouseleave', () => {
+            hideTimer = setTimeout(() => { tooltip.style.display = 'none'; }, 180);
+        });
+
+        async function fetchTickets() {
+            loaded = true;
+            try {
+                const res = await fetch('/api/roadmap');
+                const issues = await res.json();
+                if (!issues.length) {
+                    ticketList.innerHTML = '<p class="text-xs" style="color: var(--muted);">Nothing in progress right now.</p>';
+                    return;
+                }
+                ticketList.innerHTML = issues.map(issue =>
+                    `<a href="${issue.url}" target="_blank" rel="noopener">
+                        <span class="font-mono text-xs" style="color: var(--muted); flex-shrink: 0;">${issue.identifier}</span>
+                        <span style="color: var(--ink);">${issue.title}</span>
+                    </a>`
+                ).join('');
+            } catch {
+                ticketList.innerHTML = '<p class="text-xs" style="color: var(--muted);">Unable to load tickets.</p>';
+            }
+        }
     </script>
 </body>
 </html>

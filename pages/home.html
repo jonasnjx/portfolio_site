@@ -147,6 +147,11 @@
                 </div>
             </section>
 
+            <section class="pb-12" id="roadmap-section" style="display:none;">
+                <p class="font-mono text-xs uppercase tracking-widest mb-4" style="color: var(--muted);">Currently Building</p>
+                <div class="rows-wrap" id="roadmap-list"></div>
+            </section>
+
         </div>
     </main>
 
@@ -168,6 +173,23 @@
         closeMenu.addEventListener('click', closeMenuFn);
         menuBackdrop.addEventListener('click', closeMenuFn);
         document.querySelectorAll('#mobileMenu a').forEach(l => l.addEventListener('click', closeMenuFn));
+
+        (async function loadRoadmap() {
+            try {
+                const res = await fetch('/api/roadmap');
+                const issues = await res.json();
+                if (!issues.length) return;
+                const section = document.getElementById('roadmap-section');
+                const list = document.getElementById('roadmap-list');
+                list.innerHTML = issues.map(issue => `
+                    <div class="row">
+                        <p class="font-mono text-xs mb-1" style="color: var(--muted);">${issue.identifier}</p>
+                        <a href="${issue.url}" target="_blank" rel="noopener" style="color: var(--ink);">${issue.title}</a>
+                    </div>
+                `).join('');
+                section.style.display = '';
+            } catch {}
+        })();
     </script>
 </body>
 </html>
