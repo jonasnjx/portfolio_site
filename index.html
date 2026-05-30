@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Press+Start+2P&display=swap" rel="stylesheet">
     <script type="importmap">
     {
         "imports": {
@@ -150,8 +150,8 @@
         }
 
         #onboarding-overlay .tag {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.55rem;
             color: #f97316;
             text-transform: uppercase;
             letter-spacing: 0.15em;
@@ -245,8 +245,8 @@
         }
 
         .customizer-title {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.65rem;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.48rem;
             color: #f97316;
             text-transform: uppercase;
             letter-spacing: 0.1em;
@@ -256,7 +256,7 @@
         .char-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 0.5rem;
+            gap: 0.4rem;
         }
 
         .char-card {
@@ -276,8 +276,8 @@
         .char-card canvas {
             border-radius: 4px;
             display: block;
-            width: 72px !important;
-            height: 88px !important;
+            width: 56px !important;
+            height: 68px !important;
         }
 
         .char-card span {
@@ -332,11 +332,12 @@
             bottom: 15%;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(7, 11, 20, 0.85);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            border-radius: 8px;
-            padding: 0.6rem 1.2rem;
-            font-size: 0.875rem;
+            background: rgba(7, 11, 20, 0.9);
+            border: 2px solid rgba(96, 165, 250, 0.5);
+            border-radius: 4px;
+            padding: 0.65rem 1.4rem;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.5rem;
             color: #e2e8f0;
             display: flex;
             align-items: center;
@@ -364,10 +365,10 @@
             position: absolute;
             top: 1.25rem;
             left: 1.25rem;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            color: rgba(255,255,255,0.3);
-            line-height: 1.8;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.45rem;
+            color: rgba(255,255,255,0.35);
+            line-height: 2.2;
         }
 
         /* Skip button (always visible during play) */
@@ -476,6 +477,24 @@
 </head>
 <body>
 
+    <!-- Chat command overlay -->
+    <div id="chat-overlay" class="hidden" style="
+        position:fixed; bottom:1.5rem; left:50%; transform:translateX(-50%);
+        z-index:150; width:min(500px, 90vw);
+        background:rgba(10,13,24,0.95);
+        border:2px solid #60a5fa;
+        border-radius:4px;
+        padding:0.75rem;
+        font-family:'Press Start 2P',monospace;
+    ">
+        <div id="chat-output" style="max-height:80px;overflow-y:auto;font-size:0.42rem;color:#94a3b8;margin-bottom:0.5rem;line-height:1.8;"></div>
+        <div style="display:flex;align-items:center;gap:0.6rem;">
+            <span style="color:#f97316;font-size:0.55rem;">></span>
+            <input id="chat-input" type="text" placeholder="type /help for commands"
+                   style="flex:1;background:none;border:none;outline:none;color:#e2e8f0;font-family:'Press Start 2P',monospace;font-size:0.42rem;">
+        </div>
+    </div>
+
     <!-- Pet speech bubble -->
     <div id="pet-bubble" style="
         position:fixed; z-index:300; pointer-events:none;
@@ -518,8 +537,8 @@
     <div id="onboarding-overlay" class="overlay hidden">
         <div class="card">
             <div class="tag">// JONAS PORTFOLIO SITE</div>
-            <h1>Welcome to my room!</h1>
-            <p>Roam around freely and click on anything that catches your eye. My resume, projects and contact details are all hiding in here somewhere... go find them!</p>
+            <h1>Welcome!</h1>
+            <p>Roam freely and click on anything that catches your eye!</p>
 
             <div class="controls-legend">
                 <div class="key-group">
@@ -535,6 +554,10 @@
                     <span>interact</span>
                 </div>
                 <div class="key-group">
+                    <span class="key">Enter</span>
+                    <span>chat</span>
+                </div>
+                <div class="key-group">
                     <span class="key">Esc</span>
                     <span>pause</span>
                 </div>
@@ -544,16 +567,28 @@
                 <div class="customizer-title">// choose your character</div>
                 <div class="char-grid" id="char-options">
                     <button class="char-card selected" data-char="robot">
-                        <canvas id="preview-robot" width="72" height="88"></canvas>
+                        <canvas id="preview-robot" width="112" height="136"></canvas>
                         <span>Robot</span>
                     </button>
-                    <button class="char-card" data-char="hulk">
-                        <canvas id="preview-hulk" width="72" height="88"></canvas>
-                        <span>Hulk</span>
+                    <button class="char-card" data-char="kong">
+                        <canvas id="preview-kong" width="112" height="136"></canvas>
+                        <span>King Kong</span>
+                    </button>
+                    <button class="char-card" data-char="spider">
+                        <canvas id="preview-spider" width="112" height="136"></canvas>
+                        <span>Spider-Man</span>
+                    </button>
+                    <button class="char-card" data-char="wonder">
+                        <canvas id="preview-wonder" width="112" height="136"></canvas>
+                        <span>Wonder Woman</span>
                     </button>
                     <button class="char-card" data-char="maleficent">
-                        <canvas id="preview-maleficent" width="72" height="88"></canvas>
+                        <canvas id="preview-maleficent" width="112" height="136"></canvas>
                         <span>Maleficent</span>
+                    </button>
+                    <button class="char-card" data-char="hulk">
+                        <canvas id="preview-hulk" width="112" height="136"></canvas>
+                        <span>Hulk</span>
                     </button>
                 </div>
             </div>
@@ -584,7 +619,7 @@
     <!-- ── HUD ───────────────────────────────────────────── -->
     <div id="hud">
         <div id="hud-legend">
-            WASD move · Mouse look · Space jump · Click interact · Esc pause
+            WASD · Mouse · Space jump · Click · Enter chat · Esc pause
         </div>
         <div id="prompt">
             <span id="prompt-text">Interact</span>
@@ -595,7 +630,7 @@
     <div id="resume-modal" class="modal-overlay hidden">
         <div class="modal-box" style="max-width:580px;max-height:82vh;overflow-y:auto;">
             <button class="modal-close" data-close="resume-modal">✕</button>
-            <h2>Résumé</h2>
+            <h2>Resume</h2>
             <div style="display:flex;flex-direction:column;gap:0.8rem;margin-bottom:1.2rem;">
                 <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:0.8rem;">
                     <div style="display:flex;justify-content:space-between;gap:0.5rem;">
@@ -634,7 +669,7 @@
                 </div>
             </div>
             <div class="modal-actions">
-                <a href="/resume" class="btn-primary" style="display:flex;align-items:center;justify-content:center;">Full Résumé →</a>
+                <a href="/resume" class="btn-primary" style="display:flex;align-items:center;justify-content:center;">Full Resume →</a>
                 <a href="/assets/jonas-resume.pdf" download class="btn-outline">Download PDF</a>
             </div>
         </div>

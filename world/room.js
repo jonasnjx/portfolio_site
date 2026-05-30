@@ -153,27 +153,30 @@ function buildPlant(scene, x, z, phase = 0) {
     scene.add(leaf2);
 }
 
-// ── Sofa ───────────────────────────────────────────────────────────
+// ── Sofa — against east wall, facing window ────────────────────────
 function buildSofa(scene) {
-    const body = flat(0x1e3a5f);
-    const cush = flat(0x1d4ed8);
-    const leg  = flat(0x0f172a);
-    // Seat
-    scene.add(box(2.6, 0.44, 0.88, body, 0, 0.22, 4.2));
-    // Back
-    scene.add(box(2.6, 0.68, 0.20, body, 0, 0.68, 4.58));
-    // Armrests
-    scene.add(box(0.20, 0.58, 0.88, body, -1.2, 0.38, 4.2));
-    scene.add(box(0.20, 0.58, 0.88, body,  1.2, 0.38, 4.2));
-    // Cushions
-    scene.add(box(0.95, 0.12, 0.72, cush, -0.7, 0.50, 4.15));
-    scene.add(box(0.95, 0.12, 0.72, cush,  0.7, 0.50, 4.15));
-    // Legs
-    [[-1.1, -0.36], [1.1, -0.36], [-1.1, 0.36], [1.1, 0.36]].forEach(([dx, dz]) =>
-        scene.add(box(0.09, 0.19, 0.09, leg, dx, 0.095, 4.2 + dz))
+    const g    = new THREE.Group();
+    g.position.set(3.6, 0, 2.0);
+    g.rotation.y = Math.PI / 2; // seat faces east (toward window)
+
+    const body = flat(0x1e3a5f), cush = flat(0x1d4ed8), leg = flat(0x0f172a);
+
+    function gb(w, h, d, mat, x = 0, y = 0, z = 0) {
+        const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat);
+        m.position.set(x, y, z); m.castShadow = true; return m;
+    }
+
+    g.add(gb(2.4, 0.44, 0.88, body, 0,  0.22, 0));    // seat
+    g.add(gb(2.4, 0.68, 0.20, body, 0,  0.68, 0.40));  // back
+    g.add(gb(0.20, 0.58, 0.88, body, -1.1, 0.38, 0));   // arm L
+    g.add(gb(0.20, 0.58, 0.88, body,  1.1, 0.38, 0));   // arm R
+    g.add(gb(0.90, 0.12, 0.72, cush, -0.65, 0.50, -0.04));
+    g.add(gb(0.90, 0.12, 0.72, cush,  0.65, 0.50, -0.04));
+    g.add(gb(0.30, 0.30, 0.10, flat(0xfbbf24), -0.85, 0.72, 0.28)); // pillow
+    [[-1.0,-0.34],[1.0,-0.34],[-1.0,0.34],[1.0,0.34]].forEach(([dx,dz]) =>
+        g.add(gb(0.09, 0.19, 0.09, leg, dx, 0.095, dz))
     );
-    // Throw pillow
-    scene.add(box(0.32, 0.32, 0.10, flat(0xfbbf24), -0.9, 0.72, 4.02));
+    scene.add(g);
 }
 
 // ── Bookshelf — against west wall, facing east into room ───────────
@@ -208,15 +211,32 @@ function buildBookshelf(scene) {
     });
 }
 
-// ── Resume desk ────────────────────────────────────────────────────
+// ── Resume desk — centre north ─────────────────────────────────────
 function buildResumeDesk(scene) {
-    const x = -2.0, z = -4.0;
+    const x = 0, z = -4.5;
     scene.add(box(1.7, 0.10, 0.85, flat(COLORS.deskTop), x, 0.86, z));
     [[-0.72, -0.32], [0.72, -0.32], [-0.72, 0.32], [0.72, 0.32]].forEach(([dx, dz]) =>
         scene.add(box(0.10, 0.86, 0.10, flat(COLORS.desk), x + dx, 0.43, z + dz))
     );
-    // Floating resume page
-    const paper = box(0.55, 0.70, 0.04, flat(0xe2e8f0, 0x3b82f6, 0.55), x, 1.36, z);
+    // Floating resume page with canvas texture
+    const pCvs = document.createElement('canvas');
+    pCvs.width = 48; pCvs.height = 64;
+    const pCtx = pCvs.getContext('2d');
+    pCtx.fillStyle = '#dde6f0'; pCtx.fillRect(0, 0, 48, 64);
+    pCtx.fillStyle = '#1c1917';
+    pCtx.font = 'bold 5px monospace';
+    pCtx.textAlign = 'center';
+    pCtx.fillText('RESUME', 24, 10);
+    pCtx.fillStyle = '#94a3b8';
+    for (let i = 0; i < 7; i++) pCtx.fillRect(4, 17 + i * 7, 40, 1.5);
+    pCtx.fillRect(4, 17, 20, 1.5); // shorter first line (name area)
+    const pTex = new THREE.CanvasTexture(pCvs);
+    pTex.magFilter = THREE.NearestFilter;
+    const paper = new THREE.Mesh(
+        new THREE.BoxGeometry(0.55, 0.70, 0.04),
+        new THREE.MeshBasicMaterial({ map: pTex })
+    );
+    paper.position.set(x, 1.36, z);
     paper.userData.bobBase = 1.36;
     paper.userData.isPaper = true;
     scene.add(paper);
@@ -225,9 +245,9 @@ function buildResumeDesk(scene) {
     scene.add(pl);
 }
 
-// ── Telephone side table ───────────────────────────────────────────
+// ── Telephone — centre of room ─────────────────────────────────────
 function buildTelephone(scene) {
-    const x = 3.5, z = 0.5;
+    const x = 0, z = 0.5;
     // Table
     scene.add(box(0.65, 0.06, 0.65, flat(COLORS.deskTop), x, 0.68, z));
     [[-0.26, -0.24], [0.26, -0.24], [-0.26, 0.24], [0.26, 0.24]].forEach(([dx, dz]) =>
@@ -343,6 +363,127 @@ function buildCeilingLights(scene) {
 }
 
 // ── Main build ─────────────────────────────────────────────────────
+// ── Canvas texture helper ─────────────────────────────────────────
+function paintingMat(drawFn, w, h) {
+    const cvs = document.createElement('canvas');
+    cvs.width = w; cvs.height = h;
+    const ctx = cvs.getContext('2d');
+    drawFn(ctx, w, h);
+    const tex = new THREE.CanvasTexture(cvs);
+    tex.magFilter = THREE.NearestFilter;
+    tex.minFilter = THREE.NearestFilter;
+    return new THREE.MeshBasicMaterial({ map: tex });
+}
+
+// ── Mona Lisa (cartoon pixel art) — north wall ────────────────────
+function buildMonaLisa(scene) {
+    const mat = paintingMat((ctx, W, H) => {
+        // Background gradient
+        ctx.fillStyle = '#5a6b40'; ctx.fillRect(0, 0, W, H);
+        ctx.fillStyle = '#607890'; ctx.fillRect(0, 0, W, 28); // sky
+        ctx.fillStyle = '#4a5c38';
+        ctx.fillRect(0, 28, 18, H - 28); ctx.fillRect(W - 18, 28, 18, H - 28); // sides
+        // Dark robe/body
+        ctx.fillStyle = '#201810'; ctx.fillRect(20, 42, 24, H - 42);
+        // Hands
+        ctx.fillStyle = '#c8a878'; ctx.fillRect(23, 50, 18, 10);
+        // Neck
+        ctx.fillStyle = '#c8a878'; ctx.fillRect(27, 33, 10, 10);
+        // Face
+        ctx.fillStyle = '#d4b08a'; ctx.fillRect(24, 20, 16, 14);
+        // Hair
+        ctx.fillStyle = '#302010';
+        ctx.fillRect(22, 18, 20, 6); // top
+        ctx.fillRect(22, 18, 4, 16); // left side
+        ctx.fillRect(38, 18, 4, 16); // right side
+        // Eyes
+        ctx.fillStyle = '#3a2010';
+        ctx.fillRect(27, 24, 3, 2); ctx.fillRect(34, 24, 3, 2);
+        // Smile
+        ctx.fillStyle = '#a87850'; ctx.fillRect(30, 30, 4, 1);
+        // Veil/headpiece
+        ctx.fillStyle = '#383820'; ctx.fillRect(22, 16, 20, 4);
+    }, 64, 80);
+
+    // Frame
+    scene.add(box(0.08, 1.65, 1.30, flat(0x3d2010), 3.8, 2.2, -5.88));
+    // Painting
+    const p = new THREE.Mesh(new THREE.PlaneGeometry(1.2, 1.5), mat);
+    p.position.set(3.8, 2.2, -5.85); p.rotation.y = 0;
+    scene.add(p);
+}
+
+// ── Starry Night (pixel art) — south wall ─────────────────────────
+function buildStarryNight(scene) {
+    const mat = paintingMat((ctx, W, H) => {
+        // Dark swirling sky
+        ctx.fillStyle = '#0a1428'; ctx.fillRect(0, 0, W, H);
+        ctx.fillStyle = '#0e1e3a'; ctx.fillRect(0, 0, W, H * 0.7);
+        // Swirl patches
+        ctx.fillStyle = '#1a2e5a';
+        [[8,6,22,8],[30,4,20,7],[54,8,18,6],[6,18,24,5],[38,16,22,5]].forEach(
+            ([x,y,w,h]) => ctx.fillRect(x, y, w, h));
+        // Stars
+        ctx.fillStyle = '#fde68a';
+        [[12,5],[22,3],[36,7],[50,2],[63,6],[18,15],[46,13],[70,10]].forEach(
+            ([x,y]) => { ctx.fillRect(x, y, 3, 3); });
+        // Large bright stars
+        ctx.fillStyle = '#fef9c3';
+        [[35,5],[65,8]].forEach(([x,y]) => {
+            ctx.fillRect(x-1, y, 5, 3); ctx.fillRect(x, y-1, 3, 5);
+        });
+        // Moon
+        ctx.fillStyle = '#fde68a';
+        ctx.beginPath(); ctx.arc(72, 9, 7, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = '#0a1428';
+        ctx.beginPath(); ctx.arc(75, 7, 6, 0, Math.PI * 2); ctx.fill();
+        // Cypress tree
+        ctx.fillStyle = '#0a1810';
+        ctx.fillRect(3, 22, 7, 22); ctx.fillRect(1, 18, 9, 8);
+        // Village
+        ctx.fillStyle = '#1a1a28'; ctx.fillRect(0, 44, W, H - 44);
+        ctx.fillStyle = '#28284a';
+        [[5,36,10,8],[18,38,8,6],[32,34,12,10],[50,37,9,7],[63,36,10,8]].forEach(
+            ([x,y,w,h]) => ctx.fillRect(x, y, w, h));
+        ctx.fillStyle = '#1e1e38'; ctx.fillRect(33, 30, 4, 5); // steeple
+    }, 80, 64);
+
+    // Frame
+    scene.add(box(0.08, 1.20, 1.60, flat(0x3d2010), -3.5, 2.3, 5.88));
+    // Painting
+    const p = new THREE.Mesh(new THREE.PlaneGeometry(1.5, 1.1), mat);
+    p.position.set(-3.5, 2.3, 5.85); p.rotation.y = Math.PI;
+    scene.add(p);
+}
+
+// ── Sunflower ─────────────────────────────────────────────────────
+function buildSunflower(scene, x, z) {
+    scene.add(box(0.42, 0.42, 0.42, flat(0x8a5028), x, 0.21, z));
+    scene.add(box(0.08, 1.10, 0.08, flat(0x166534), x, 0.76, z));
+    // Leaf
+    scene.add(box(0.22, 0.07, 0.22, flat(0x22c55e), x + 0.18, 0.70, z));
+    // Dark centre
+    scene.add(box(0.30, 0.30, 0.08, flat(0x3d1a00, 0x2d0e00, 0.3), x, 1.36, z));
+    // Petals
+    const pMat = flat(0xfbbf24, 0xfde68a, 0.4);
+    [[0,0.2],[0,-0.2],[0.2,0],[-0.2,0],[0.14,0.14],[-0.14,0.14],[0.14,-0.14],[-0.14,-0.14]].forEach(
+        ([px,pz]) => scene.add(box(0.12, 0.12, 0.07, pMat, x+px, 1.36, z+pz))
+    );
+}
+
+// ── Sakura tree ───────────────────────────────────────────────────
+function buildSakura(scene, x, z) {
+    scene.add(box(0.14, 1.1, 0.14, flat(0x5c2e00), x, 0.55, z));
+    // Branches
+    scene.add(box(0.07, 0.35, 0.07, flat(0x5c2e00), x + 0.28, 1.1, z));
+    scene.add(box(0.07, 0.30, 0.07, flat(0x5c2e00), x - 0.22, 1.2, z));
+    // Blossom clusters (pink)
+    const bMat = flat(0xfba4b4, 0xfda4a4, 0.25);
+    [[0,0,1.4],[0.38,0,1.25],[-0.28,0,1.32],[0,0.25,1.3],[0.2,0.2,1.18],[-0.2,0.2,1.1]].forEach(
+        ([dx, dy, by]) => scene.add(box(0.58, 0.48, 0.58, bMat, x+dx, by, z+dy))
+    );
+}
+
 // ── Street Fighter pixel animation ───────────────────────────────
 function drawSFFrame(ctx, elapsed) {
     const W = 128, H = 80;
@@ -465,13 +606,13 @@ function drawSFFighter(ctx, x, y, state, body, light, dir) {
 }
 
 function buildArcadeMachine(scene) {
-    const x = 3.5, z = -5.0;
+    const x = -2.5, z = 4.5;
     const cab  = flat(0x1a1208);
     const trim = flat(0x4c1d95, 0x7c3aed, 0.6);
 
     // Base
     scene.add(box(1.0, 0.12, 0.68, flat(0x111008), x, 0.06, z));
-    // Main cabinet body
+    // Main cabinet body (arcade faces north — z offset is front)
     scene.add(box(0.92, 1.85, 0.65, cab, x, 1.0, z));
     // Side art strips (purple glow)
     scene.add(box(0.04, 1.7, 0.6, trim, x - 0.46, 0.95, z));
@@ -548,13 +689,15 @@ export function buildRoom(scene) {
     buildOutdoor(scene);
     buildRug(scene);
     buildCeilingLights(scene);
-    buildPlant(scene, -4.8, 4.0, 0);
-    buildPlant(scene,  4.5, 4.0, 1.2);
     buildSofa(scene);
     buildBookshelf(scene);
     buildResumeDesk(scene);
     buildTelephone(scene);
-    buildFlowerPoster(scene);
+    buildMonaLisa(scene);
+    buildStarryNight(scene);
+    buildPlant(scene, -4.8, 4.5, 0);
+    buildSunflower(scene,  4.5, 4.0);
+    buildSakura(scene,    -1.5, 4.5);
     const arcade = buildArcadeMachine(scene);
     return { arcadeUpdate: arcade.update };
 }
