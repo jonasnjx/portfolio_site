@@ -386,26 +386,6 @@
         }
 
         /* Skip button (always visible during play) */
-        #skip-btn {
-            position: absolute;
-            top: 1.25rem;
-            right: 1.25rem;
-            pointer-events: all;
-            background: rgba(30, 41, 59, 0.8);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            border-radius: 6px;
-            padding: 0.4rem 0.85rem;
-            font-size: 0.78rem;
-            color: #94a3b8;
-            text-decoration: none;
-            transition: color 0.2s, border-color 0.2s;
-        }
-
-        #skip-btn:hover {
-            color: white;
-            border-color: rgba(59, 130, 246, 0.5);
-        }
-
         /* ── Modals ───────────────────────────────────────── */
         .modal-overlay {
             position: fixed;
@@ -499,13 +479,13 @@
         border:2px solid #60a5fa;
         border-radius:4px;
         padding:0.75rem;
-        font-family:'Press Start 2P',monospace;
+        font-family:'JetBrains Mono',monospace;
     ">
-        <div id="chat-output" style="max-height:80px;overflow-y:auto;font-size:0.42rem;color:#94a3b8;margin-bottom:0.5rem;line-height:1.8;"></div>
+        <div id="chat-output" style="max-height:80px;overflow-y:auto;font-size:0.75rem;color:#94a3b8;margin-bottom:0.5rem;line-height:1.7;"></div>
         <div style="display:flex;align-items:center;gap:0.6rem;">
-            <span style="color:#60a5fa;font-size:0.55rem;">></span>
+            <span style="color:#60a5fa;font-size:0.75rem;">></span>
             <input id="chat-input" type="text" placeholder="type /help for commands"
-                   style="flex:1;background:none;border:none;outline:none;color:#e2e8f0;font-family:'Press Start 2P',monospace;font-size:0.42rem;">
+                   style="flex:1;background:none;border:none;outline:none;color:#e2e8f0;font-family:'JetBrains Mono',monospace;font-size:0.75rem;">
         </div>
     </div>
 
