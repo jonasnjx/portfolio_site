@@ -75,8 +75,7 @@ Object.entries(modals).forEach(([name, el]) => {
     });
 });
 
-// Esc only closes chat (via chatInput keydown handler).
-// Modals are closed via ✕ button or backdrop click only.
+// Esc closes any open modal (global keydown) or chat (chatInput keydown), then relocks.
 // Game pause/resume is handled by the browser's pointer lock behaviour + Enter key.
 
 // ── Read avatar colour choices ────────────────────────────────────
@@ -188,6 +187,7 @@ async function boot() {
     }
 
     let chatting = false;
+    let closingModal = false; // prevents pause overlay flash when Esc closes a modal
 
     function openChat() {
         if (!controls?.isLocked) return;
@@ -236,7 +236,7 @@ async function boot() {
             case '/contact':      closeChat(); setTimeout(() => openModal('telephone'), 100); break;
             case '/help':
                 addChatMsg('/resume  /projects  /casestudies  /contact  /char <name>');
-                addChatMsg('chars: robot  kong  spider  wonder  maleficent');
+                addChatMsg('chars: robot  kong  spider  wonder  maleficent  hulk');
                 break;
             case '/char':
                 if (['robot','kong','spider','wonder','maleficent','hulk'].includes(arg)) {
@@ -253,6 +253,14 @@ async function boot() {
 
     document.addEventListener('keydown', e => {
         if (document.activeElement?.tagName === 'INPUT') return; // ignore when chat is focused
+        if (e.code === 'Escape') {
+            const openEntry = Object.entries(modals).find(([, el]) => el && !el.classList.contains('hidden'));
+            if (openEntry) {
+                closingModal = true;
+                closeModal(openEntry[0]);
+                setTimeout(() => { closingModal = false; _relock(); }, 50);
+            }
+        }
         if (e.code === 'Enter') {
             if (controls?.isLocked) {
                 openChat();           // in-game → open chat
@@ -387,7 +395,7 @@ async function boot() {
         controls.addEventListener('unlock', () => {
             hud.classList.remove('visible');
             const anyOpen = Object.values(modals).some(m => m && !m.classList.contains('hidden'));
-            if (!anyOpen && !chatting) pauseOverlay.classList.remove('hidden');
+            if (!anyOpen && !chatting && !closingModal) pauseOverlay.classList.remove('hidden');
         });
 
         _relock = () => controls.lock();
