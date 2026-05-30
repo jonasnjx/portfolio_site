@@ -452,23 +452,61 @@ function buildExtraDecor(scene) {
 }
 
 // ── Wayfinding signs — floating canvas labels ─────────────────────
-function buildSign(scene, text, x, y, z, w = 1.3, h = 0.38, faceYaw = 0) {
+function buildSign(scene, text, x, y, z, w = 1.3, h = 0.50, faceYaw = 0, index = '01') {
+    const W = 300, H = 120;
     const cvs = document.createElement('canvas');
-    cvs.width = 256; cvs.height = 72;
+    cvs.width = W; cvs.height = H;
     const ctx = cvs.getContext('2d');
-    ctx.fillStyle = '#1a1a2e';
-    ctx.fillRect(0, 0, 256, 72);
-    ctx.strokeStyle = '#60a5fa'; ctx.lineWidth = 4;
-    ctx.strokeRect(3, 3, 250, 66);
-    ctx.fillStyle = '#60a5fa';
-    ctx.font = 'bold 28px monospace';
+    ctx.clearRect(0, 0, W, H);
+
+    const cx = W / 2;
+
+    // Index number — JetBrains Mono, accent
+    ctx.fillStyle = '#1d4ed8';
+    ctx.font = '400 15px "JetBrains Mono", monospace';
     ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(text, 128, 38);
+    ctx.textBaseline = 'alphabetic';
+    ctx.fillText(index, cx, 30);
+
+    // Label — Space Grotesk 500, ink
+    ctx.fillStyle = '#ececec';
+    ctx.font = '500 30px "Space Grotesk", sans-serif';
+    ctx.fillText(text, cx, 66);
+
+    // Hairline rule — muted at 40% alpha
+    const ruleY = 82, ruleHalf = 70;
+    ctx.strokeStyle = 'rgba(154,154,154,0.4)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(cx - ruleHalf, ruleY + 0.5);
+    ctx.lineTo(cx + ruleHalf, ruleY + 0.5);
+    ctx.stroke();
+
+    // Accent tick on the left of the rule
+    ctx.strokeStyle = '#1d4ed8';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(cx - ruleHalf, ruleY + 0.5);
+    ctx.lineTo(cx - ruleHalf + 22, ruleY + 0.5);
+    ctx.stroke();
+
+    // Downward chevron baked in — replaces the separate cube arrow mesh
+    ctx.strokeStyle = '#1d4ed8';
+    ctx.lineWidth = 2.5;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    const chY = 100, chHalf = 7;
+    ctx.beginPath();
+    ctx.moveTo(cx - chHalf, chY);
+    ctx.lineTo(cx, chY + chHalf);
+    ctx.lineTo(cx + chHalf, chY);
+    ctx.stroke();
 
     const tex = new THREE.CanvasTexture(cvs);
-    tex.magFilter = THREE.NearestFilter;
-    tex.minFilter = THREE.LinearFilter;
+    tex.magFilter = THREE.LinearFilter;
+    tex.minFilter = THREE.LinearMipmapLinearFilter;
+    tex.generateMipmaps = true;
+    tex.anisotropy = 8;
 
     const sign = new THREE.Mesh(
         new THREE.PlaneGeometry(w, h),
@@ -479,22 +517,13 @@ function buildSign(scene, text, x, y, z, w = 1.3, h = 0.38, faceYaw = 0) {
     sign.userData.signBob = true;
     sign.userData.bobBase = y;
     scene.add(sign);
-
-    // Small arrow pointing downward
-    const arrowY = y - h/2 - 0.12;
-    const arrow = box(0.12, 0.12, 0.02, flat(0x60a5fa, 0x60a5fa, 0.8), x, arrowY, z);
-    arrow.rotation.z = Math.PI / 4;
-    arrow.rotation.y = faceYaw;
-    arrow.userData.signBob = true;
-    arrow.userData.bobBase = arrowY;
-    scene.add(arrow);
 }
 
 function buildSigns(scene) {
-    buildSign(scene, '📄 RESUME',        0,    2.7, -4.2, 1.3, 0.38, 0);
-    buildSign(scene, '🎮 PROJECTS',     -3.2,  2.7, -2.2, 1.4, 0.38, 0);
-    buildSign(scene, '📚 CASE STUDIES', -4.3,  2.7,  1.8, 1.7, 0.38, Math.PI/2);
-    buildSign(scene, '📞 CONTACT',       4.3,  2.7,  0.2, 1.4, 0.38, -Math.PI/2);
+    buildSign(scene, 'Resume',        0,    2.7, -4.2, 1.30, 0.50,  0,          '01');
+    buildSign(scene, 'Projects',     -3.2,  2.7, -2.2, 1.30, 0.50,  0,          '02');
+    buildSign(scene, 'Case Studies', -4.3,  2.7,  1.8, 1.55, 0.50,  Math.PI/2,  '03');
+    buildSign(scene, 'Contact',       4.3,  2.7,  0.2, 1.30, 0.50, -Math.PI/2,  '04');
 }
 
 // ── Main build ─────────────────────────────────────────────────────

@@ -116,6 +116,9 @@ async function boot() {
     progressBar.style.width = '100%';
     await new Promise(r => setTimeout(r, 400));
 
+    // Ensure web fonts are ready before canvas signs draw (Space Grotesk, JetBrains Mono)
+    await document.fonts.ready;
+
     // ── Phase 1: build static world (no character yet) ────────────
     const canvas = document.getElementById('world-canvas');
     const { scene, camera, renderer, clock } = initScene(canvas);
