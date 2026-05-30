@@ -25,8 +25,8 @@ export const COLORS = {
     rug:      0x991b1b,
 };
 
-export const SPAWN     = { x: 0, y: 0, z: 0 }; // centre of room
-export const SPAWN_YAW = Math.PI;                // face north
+export const SPAWN     = { x: 0, y: 0, z: 4.6 }; // just inside south door
+export const SPAWN_YAW = 0;                       // camera south of player, looking north into room
 
 export const INTERACTABLES = [
     {
@@ -37,34 +37,34 @@ export const INTERACTABLES = [
         modal:    'resume',
     },
     {
+        id:       'arcade',
+        position: { x: -3.2, y: 0, z: -2.2 },
+        radius:   2.3,
+        prompt:   'see projects',
+        modal:    'terminal',
+    },
+    {
         id:       'bookshelf',
-        position: { x: -5.2, y: 0, z: -1.5 },
-        radius:   2.5,
+        position: { x: -4.6, y: 0, z: 1.8 },
+        radius:   2.4,
         prompt:   'see case studies',
         modal:    'casestudies',
     },
     {
         id:       'telephone',
-        position: { x: 0, y: 0, z: 0.5 },
-        radius:   2.0,
+        position: { x: 4.4, y: 0, z: 0.2 },
+        radius:   1.8,
         prompt:   'contact me',
         modal:    'telephone',
     },
     {
-        id:       'arcade',
-        position: { x: -2.5, y: 0, z: 4.0 },
-        radius:   2.5,
-        prompt:   'see projects',
-        modal:    'terminal',
-    },
-    {
         id:       'sofa',
-        position: { x: 3.5, y: 0, z: 2.0 },
+        position: { x: 3.6, y: 0, z: 2.2 },
         radius:   2.0,
         prompt:   'sit down',
         action:   'sit',
-        sitX:     3.5,
-        sitZ:     2.0,
+        sitX:     3.6,
+        sitZ:     2.2,
         sitRot:   -Math.PI / 2, // face east (toward window)
     },
 ];

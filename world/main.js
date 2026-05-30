@@ -67,20 +67,9 @@ Object.entries(modals).forEach(([name, el]) => {
     });
 });
 
-// Esc: close chat → close modal → (browser exits pointer lock natively → pause overlay)
-document.addEventListener('keydown', e => {
-    if (e.code !== 'Escape') return;
-    const chatEl = document.getElementById('chat-overlay');
-    if (chatEl && !chatEl.classList.contains('hidden')) {
-        // Let the chatInput keydown handler deal with it (it calls closeChat)
-        return;
-    }
-    const open = Object.entries(modals).find(([, el]) => el && !el.classList.contains('hidden'));
-    if (open) {
-        closeModal(open[0]);
-        setTimeout(() => _relock(), 50);
-    }
-});
+// Esc only closes chat (via chatInput keydown handler).
+// Modals are closed via ✕ button or backdrop click only.
+// Game pause/resume is handled by the browser's pointer lock behaviour + Enter key.
 
 // ── Read avatar colour choices ────────────────────────────────────
 function readAvatarOpts() {
@@ -137,6 +126,9 @@ async function boot() {
 
     const swayMeshes = [];
     scene.traverse(m => { if (m.userData.plantSway) swayMeshes.push(m); });
+
+    const signMeshes = [];
+    scene.traverse(m => { if (m.userData.signBob) signMeshes.push(m); });
 
     // Pet greeting bubble
     const petBubble = document.getElementById('pet-bubble');
@@ -204,8 +196,31 @@ async function boot() {
         setTimeout(() => _relock(), 50);
     }
 
+    // Live character swap — must be in boot() scope so runCommand can access it
+    function switchCharacter(type) {
+        if (!character || !controls) return;
+        const pos  = character.group.position.clone();
+        const rotY = character.group.rotation.y;
+        scene.remove(character.group);
+
+        const newChar = buildCharacter(scene, { type });
+        newChar.group.position.copy(pos);
+        newChar.group.rotation.y = rotY;
+        newChar._tickPick    = character._tickPick;
+        newChar._getPickInfo = character._getPickInfo;
+
+        controls.setCharacter(newChar);
+        character = newChar;
+
+        document.querySelectorAll('#char-options .char-card')
+            .forEach(c => c.classList.remove('selected'));
+        const card = document.querySelector(`[data-char="${type}"]`);
+        if (card) card.classList.add('selected');
+    }
+
     function runCommand(raw) {
-        const [cmd, arg] = raw.trim().toLowerCase().split(' ');
+        const parts = raw.trim().toLowerCase().split(/\s+/);
+        const cmd = parts[0] || '', arg = parts[1] || '';
         switch (cmd) {
             case '/resume':       closeChat(); setTimeout(() => openModal('resume'), 100); break;
             case '/projects':     closeChat(); setTimeout(() => openModal('terminal'), 100); break;
@@ -216,15 +231,11 @@ async function boot() {
                 addChatMsg('chars: robot  kong  spider  wonder  maleficent');
                 break;
             case '/char':
-                const valid = ['robot','kong','spider','wonder','maleficent'];
-                if (valid.includes(arg)) {
-                    addChatMsg('Character change takes effect next session.');
-                    // Highlight the matching card
-                    document.querySelectorAll('#char-options .char-card').forEach(c => c.classList.remove('selected'));
-                    const card = document.querySelector(`#char-options [data-char="${arg}"]`);
-                    if (card) card.classList.add('selected');
+                if (['robot','kong','spider','wonder','maleficent','hulk'].includes(arg)) {
+                    switchCharacter(arg);
+                    closeChat();
                 } else {
-                    addChatMsg('Unknown character. Try: ' + valid.join(' '));
+                    addChatMsg('Try: /char robot | kong | spider | wonder | maleficent | hulk');
                 }
                 break;
             default:
@@ -233,13 +244,33 @@ async function boot() {
     }
 
     document.addEventListener('keydown', e => {
-        if ((e.code === 'KeyT' || e.code === 'Enter') && controls?.isLocked) {
+        if (document.activeElement?.tagName === 'INPUT') return; // ignore when chat is focused
+        if (e.code === 'Enter') {
+            if (controls?.isLocked) {
+                openChat();           // in-game → open chat
+            } else {
+                const pauseEl = document.getElementById('pause-overlay');
+                if (pauseEl && !pauseEl.classList.contains('hidden')) {
+                    _relock();        // paused → resume
+                }
+            }
+        }
+        if (e.code === 'KeyT' && controls?.isLocked) {
             openChat();
         }
     });
 
     chatInput.addEventListener('keydown', e => {
-        if (e.code === 'Enter') { runCommand(chatInput.value); chatInput.value = ''; }
+        if (e.code === 'Enter' || e.code === 'NumpadEnter') {
+            e.preventDefault();
+            e.stopPropagation();
+            const val = chatInput.value.trim();
+            chatInput.value = '';
+            if (val) {
+                try { runCommand(val); }
+                catch (err) { addChatMsg('Error: ' + err.message); }
+            }
+        }
         if (e.code === 'Escape') closeChat();
     });
 
@@ -280,6 +311,9 @@ async function boot() {
         swayMeshes.forEach(m => {
             m.rotation.z = Math.sin(elapsed * 1.1 + m.userData.swayPhase) * 0.055;
             m.rotation.x = Math.sin(elapsed * 0.8 + m.userData.swayPhase + 1.5) * 0.035;
+        });
+        signMeshes.forEach(m => {
+            m.position.y = m.userData.bobBase + Math.sin(elapsed * 1.6 + m.position.x) * 0.05;
         });
         leds.forEach(led => {
             led.material.emissiveIntensity =

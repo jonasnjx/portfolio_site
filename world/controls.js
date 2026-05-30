@@ -28,7 +28,10 @@ export function initControls(camera, canvas, character) {
         pitch  = Math.max(-0.25, Math.min(1.1, pitch + e.movementY * 0.002));
     });
 
+    const inputFocused = () => document.activeElement?.tagName === 'INPUT';
+
     document.addEventListener('keydown', e => {
+        if (inputFocused()) return; // typing in chat — ignore all game keys
         if (e.code === 'KeyW' || e.code === 'ArrowUp')    keys.w = true;
         if (e.code === 'KeyS' || e.code === 'ArrowDown')  keys.s = true;
         if (e.code === 'KeyA' || e.code === 'ArrowLeft')  keys.a = true;
@@ -41,6 +44,7 @@ export function initControls(camera, canvas, character) {
     });
 
     document.addEventListener('keyup', e => {
+        if (inputFocused()) return;
         if (e.code === 'KeyW' || e.code === 'ArrowUp')    keys.w = false;
         if (e.code === 'KeyS' || e.code === 'ArrowDown')  keys.s = false;
         if (e.code === 'KeyA' || e.code === 'ArrowLeft')  keys.a = false;
@@ -77,6 +81,7 @@ export function initControls(camera, canvas, character) {
         unlock() { document.exitPointerLock(); },
         addEventListener(event, cb) { canvas.addEventListener(event, cb); },
         getObject() { return character.group; },
+        setCharacter(newChar) { character = newChar; },
         sit,
         standUp,
 

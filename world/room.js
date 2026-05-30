@@ -179,36 +179,96 @@ function buildSofa(scene) {
     scene.add(g);
 }
 
-// ── Bookshelf — against west wall, facing east into room ───────────
+// ── Newspaper stack — cream flat papers, distinct from books ──────
+function buildNewspaperStack(scene, x, shelfTop, z) {
+    const paper   = flat(0xe7e0cf);
+    const paperHi = flat(0xf0ead8);
+    for (let i = 0; i < 3; i++) {
+        const p = box(0.55, 0.025, 0.4, i % 2 ? paperHi : paper,
+                      x, shelfTop + 0.03 + i * 0.028, z + i * 0.03);
+        p.rotation.y = (i - 1) * 0.08;
+        scene.add(p);
+    }
+    // rolled newspaper leaning across
+    const roll = box(0.5, 0.07, 0.07, flat(0xddd5c0), x - 0.05, shelfTop + 0.15, z - 0.18);
+    roll.rotation.x = Math.PI / 2.2;
+    scene.add(roll);
+}
+
+// ── Coffee mug ─────────────────────────────────────────────────────
+function buildMug(scene, x, y, z) {
+    scene.add(box(0.12, 0.14, 0.12, flat(0xf1f5f9), x, y + 0.07, z));
+    scene.add(box(0.10, 0.02, 0.10, flat(0x6b4423), x, y + 0.14, z));
+    scene.add(box(0.04, 0.08, 0.03, flat(0xf1f5f9), x + 0.08, y + 0.07, z));
+}
+
+// ── Bookshelf — west wall, study zone (taller, richer) ────────────
 function buildBookshelf(scene) {
-    const frame = flat(0x292524);
-    const wx  = -5.88; // west edge of shelf (close to inner face of west wall)
-    const zc  = -1.5;  // centre z
-    const dep = 0.80;  // depth eastward into room
-    const wid = 1.2;   // width along z axis
+    const frame = flat(0x3a2418);
+    const back  = flat(0x2a1a10);
+    const wx  = -5.92;
+    const zc  =  1.8;
+    const dep =  0.85;
+    const wid =  2.0;
+    const H   =  2.6;
+    const cy  =  H / 2;
 
     // Back panel
-    scene.add(box(0.06, 1.9, wid,  frame, wx + 0.03,      0.95, zc));
-    // North + south side panels
-    scene.add(box(dep,  1.9, 0.07, frame, wx + dep / 2,   0.95, zc - wid / 2));
-    scene.add(box(dep,  1.9, 0.07, frame, wx + dep / 2,   0.95, zc + wid / 2));
-    // Shelves
-    [0.04, 0.9, 1.78].forEach(sy =>
-        scene.add(box(dep, 0.07, wid, frame, wx + dep / 2, sy, zc))
-    );
+    scene.add(box(0.06, H, wid, back, wx + 0.03, cy, zc));
+    // Side panels
+    scene.add(box(dep, H, 0.08, frame, wx + dep/2, cy, zc - wid/2));
+    scene.add(box(dep, H, 0.08, frame, wx + dep/2, cy, zc + wid/2));
+    // 4 shelf boards (bottom, 2 mid, top rim)
+    [0.05, 0.9, 1.75, H - 0.05].forEach(sy =>
+        scene.add(box(dep, 0.08, wid, frame, wx + dep/2, sy, zc)));
 
-    // Books run along z axis (visible when looking from east/+x)
-    const books = [
-        [0xef4444, 0.13], [0x3b82f6, 0.16], [0x22c55e, 0.11], [0xf59e0b, 0.14],
-        [0x8b5cf6, 0.12], [0xec4899, 0.13], [0x06b6d4, 0.12], [0xf97316, 0.15],
-    ];
-    let bz = zc - wid / 2 + 0.05, shelf = 0;
-    books.forEach(([color, w], i) => {
-        const sy = shelf === 0 ? 0.52 : 1.38;
-        scene.add(box(dep - 0.08, 0.34, w, flat(color), wx + dep / 2 - 0.02, sy, bz + w / 2));
-        bz += w + 0.018;
-        if (i === 3) { bz = zc - wid / 2 + 0.05; shelf = 1; }
-    });
+    const bookFaceX = wx + dep/2 - 0.04;
+
+    function bookRow(shelfTop, defs) {
+        let bz = zc - wid/2 + 0.08;
+        defs.forEach(([color, w, hgt]) => {
+            scene.add(box(dep - 0.12, hgt, w, flat(color), bookFaceX, shelfTop + hgt/2, bz + w/2));
+            bz += w + 0.02;
+        });
+    }
+
+    // Shelf 1 (bottom bay)
+    bookRow(0.13, [
+        [0xef4444, 0.16, 0.62], [0x1d4ed8, 0.14, 0.58], [0x16a34a, 0.13, 0.66],
+        [0xf59e0b, 0.18, 0.55], [0x7c3aed, 0.15, 0.60],
+    ]);
+    // Shelf 2 (mid bay) — books + newspapers
+    bookRow(0.98, [
+        [0x0ea5e9, 0.13, 0.50], [0xec4899, 0.15, 0.54],
+        [0xf97316, 0.12, 0.48], [0x22c55e, 0.16, 0.52],
+    ]);
+    buildNewspaperStack(scene, bookFaceX, 0.98, zc + 0.55);
+
+    // Shelf 3 (top bay) — fewer books + framed photo
+    bookRow(1.83, [
+        [0xfbbf24, 0.14, 0.46], [0x3b82f6, 0.13, 0.50], [0xdc2626, 0.12, 0.44],
+    ]);
+    scene.add(box(0.04, 0.34, 0.26, flat(0x9ca3af), bookFaceX, 2.05, zc - 0.5));
+    scene.add(box(0.02, 0.28, 0.20, flat(0xbae6fd, 0xbae6fd, 0.3), bookFaceX + 0.02, 2.05, zc - 0.5));
+
+    // Reading lamp on top
+    const lampX = wx + dep/2 + 0.1;
+    scene.add(box(0.22, 0.04, 0.22, flat(0x44403c), lampX, H + 0.02, zc - 0.5));
+    scene.add(box(0.04, 0.4,  0.04, flat(0x57534e), lampX, H + 0.22, zc - 0.5));
+    scene.add(box(0.3, 0.18, 0.3, flat(0xfde68a, 0xfde68a, 0.9), lampX + 0.05, H + 0.42, zc - 0.5));
+    const lampLight = new THREE.PointLight(0xffd580, 0.6, 3);
+    lampLight.position.set(lampX, H + 0.35, zc - 0.5);
+    scene.add(lampLight);
+
+    // Small study desk in front of the shelf
+    const dx = -4.3, dz = 2.9;
+    scene.add(box(1.2, 0.08, 0.6, flat(COLORS.deskTop), dx, 0.72, dz));
+    [[-0.5,-0.22],[0.5,-0.22],[-0.5,0.22],[0.5,0.22]].forEach(([ox,oz]) =>
+        scene.add(box(0.08, 0.72, 0.08, flat(COLORS.desk), dx + ox, 0.36, dz + oz)));
+    // open book on desk
+    scene.add(box(0.4, 0.04, 0.3, flat(0xf5f5f0), dx, 0.78, dz));
+    scene.add(box(0.02, 0.05, 0.3, flat(0x6b4423), dx, 0.80, dz));
+    buildMug(scene, dx + 0.35, 0.78, dz - 0.1);
 }
 
 // ── Resume desk — centre north ─────────────────────────────────────
@@ -245,9 +305,9 @@ function buildResumeDesk(scene) {
     scene.add(pl);
 }
 
-// ── Telephone — centre of room ─────────────────────────────────────
+// ── Telephone — side table beside sofa, near east window ───────────
 function buildTelephone(scene) {
-    const x = 0, z = 0.5;
+    const x = 4.4, z = 0.2;
     // Table
     scene.add(box(0.65, 0.06, 0.65, flat(COLORS.deskTop), x, 0.68, z));
     [[-0.26, -0.24], [0.26, -0.24], [-0.26, 0.24], [0.26, 0.24]].forEach(([dx, dz]) =>
@@ -362,6 +422,77 @@ function buildCeilingLights(scene) {
     });
 }
 
+// ── Extra decor — clock, mug, cork board, trophy ──────────────────
+function buildExtraDecor(scene) {
+    // Wall clock on north wall (right of resume desk)
+    scene.add(box(0.56, 0.56, 0.04, flat(0x44403c), 1.6, 2.8, -5.92));
+    scene.add(box(0.5,  0.5,  0.06, flat(0xf5f5f0), 1.6, 2.8, -5.9));
+    scene.add(box(0.04, 0.18, 0.02, flat(0x1c1917), 1.6, 2.86, -5.86));
+    scene.add(box(0.12, 0.04, 0.02, flat(0x1c1917), 1.64, 2.8, -5.86));
+
+    // Mug on resume desk
+    buildMug(scene, 0.55, 0.91, -4.4);
+
+    // Cork board above arcade (west-centre wall)
+    scene.add(box(0.07, 1.1, 1.5, flat(0x44403c), -5.92, 2.6, -2.2));
+    scene.add(box(0.06, 1.0, 1.4, flat(0xb45309), -5.9,  2.6, -2.2));
+    [[0.35,-0.4,0xfbbf24],[-0.3,0.3,0xf472b6],[0.3,0.35,0x60a5fa],[-0.35,-0.35,0x4ade80]]
+        .forEach(([dy,dz,c]) => scene.add(box(0.02, 0.3, 0.3, flat(c), -5.85, 2.6+dy, -2.2+dz)));
+
+    // Small shelf + trophy on north wall (left of resume desk)
+    scene.add(box(0.4, 0.05, 0.18, flat(0x57534e), -1.4, 1.6, -5.92));
+    const gold = flat(0xfbbf24, 0xfbbf24, 0.4);
+    scene.add(box(0.14, 0.1,  0.1,  gold,           -1.4, 1.7, -5.88));
+    scene.add(box(0.05, 0.12, 0.05, gold,           -1.4, 1.6, -5.88));
+    scene.add(box(0.16, 0.05, 0.1,  flat(0x3a2418), -1.4, 1.52,-5.88));
+}
+
+// ── Wayfinding signs — floating canvas labels ─────────────────────
+function buildSign(scene, text, x, y, z, w = 1.3, h = 0.38, faceYaw = 0) {
+    const cvs = document.createElement('canvas');
+    cvs.width = 256; cvs.height = 72;
+    const ctx = cvs.getContext('2d');
+    ctx.fillStyle = '#1a1a2e';
+    ctx.fillRect(0, 0, 256, 72);
+    ctx.strokeStyle = '#60a5fa'; ctx.lineWidth = 4;
+    ctx.strokeRect(3, 3, 250, 66);
+    ctx.fillStyle = '#60a5fa';
+    ctx.font = 'bold 28px monospace';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(text, 128, 38);
+
+    const tex = new THREE.CanvasTexture(cvs);
+    tex.magFilter = THREE.NearestFilter;
+    tex.minFilter = THREE.LinearFilter;
+
+    const sign = new THREE.Mesh(
+        new THREE.PlaneGeometry(w, h),
+        new THREE.MeshBasicMaterial({ map: tex, transparent: true })
+    );
+    sign.position.set(x, y, z);
+    sign.rotation.y = faceYaw;
+    sign.userData.signBob = true;
+    sign.userData.bobBase = y;
+    scene.add(sign);
+
+    // Small arrow pointing downward
+    const arrowY = y - h/2 - 0.12;
+    const arrow = box(0.12, 0.12, 0.02, flat(0x60a5fa, 0x60a5fa, 0.8), x, arrowY, z);
+    arrow.rotation.z = Math.PI / 4;
+    arrow.rotation.y = faceYaw;
+    arrow.userData.signBob = true;
+    arrow.userData.bobBase = arrowY;
+    scene.add(arrow);
+}
+
+function buildSigns(scene) {
+    buildSign(scene, '📄 RESUME',        0,    2.7, -4.2, 1.3, 0.38, 0);
+    buildSign(scene, '🎮 PROJECTS',     -3.2,  2.7, -2.2, 1.4, 0.38, 0);
+    buildSign(scene, '📚 CASE STUDIES', -4.3,  2.7,  1.8, 1.7, 0.38, Math.PI/2);
+    buildSign(scene, '📞 CONTACT',       4.3,  2.7,  0.2, 1.4, 0.38, -Math.PI/2);
+}
+
 // ── Main build ─────────────────────────────────────────────────────
 // ── Canvas texture helper ─────────────────────────────────────────
 function paintingMat(drawFn, w, h) {
@@ -448,12 +579,61 @@ function buildStarryNight(scene) {
         ctx.fillStyle = '#1e1e38'; ctx.fillRect(33, 30, 4, 5); // steeple
     }, 80, 64);
 
-    // Frame
-    scene.add(box(0.08, 1.20, 1.60, flat(0x3d2010), -3.5, 2.3, 5.88));
+    // Frame — west wall, above study desk (faces east into room)
+    scene.add(box(0.08, 1.10, 1.45, flat(0x3d2010), -5.88, 3.05, 1.8));
     // Painting
-    const p = new THREE.Mesh(new THREE.PlaneGeometry(1.5, 1.1), mat);
-    p.position.set(-3.5, 2.3, 5.85); p.rotation.y = Math.PI;
+    const p = new THREE.Mesh(new THREE.PlaneGeometry(1.35, 1.0), mat);
+    p.position.set(-5.85, 3.05, 1.8); p.rotation.y = Math.PI / 2;
     scene.add(p);
+}
+
+// ── Entry door — south wall, decorative closed ────────────────────
+function buildDoor(scene) {
+    const doorWood = flat(0x6b4423);
+    const slabWood = flat(0x8a5a2b);
+    const slabTrim = flat(0x5a3818);
+    const z  = 5.98;
+    const sz = 5.95;
+
+    const DW = 1.6, DH = 2.8, FT = 0.18;
+
+    // Frame: left jamb, right jamb, lintel
+    scene.add(box(FT, DH + FT, 0.30, doorWood, -(DW/2 + FT/2), (DH + FT)/2, z));
+    scene.add(box(FT, DH + FT, 0.30, doorWood,  (DW/2 + FT/2), (DH + FT)/2, z));
+    scene.add(box(DW + FT*2, FT, 0.30, doorWood, 0, DH + FT/2, z));
+
+    // Door slab
+    scene.add(box(DW, DH, 0.10, slabWood, 0, DH/2, sz));
+    // Recessed panel lines
+    scene.add(box(DW - 0.4, 0.06, 0.12, slabTrim, 0, DH*0.66, sz + 0.01));
+    scene.add(box(DW - 0.4, 0.06, 0.12, slabTrim, 0, DH*0.34, sz + 0.01));
+    scene.add(box(0.06, DH - 0.5, 0.12, slabTrim, -(DW/2 - 0.3), DH/2, sz + 0.01));
+    scene.add(box(0.06, DH - 0.5, 0.12, slabTrim,  (DW/2 - 0.3), DH/2, sz + 0.01));
+
+    // Brass handle
+    const brass = flat(0xd4a017, 0xd4a017, 0.3);
+    scene.add(box(0.10, 0.10, 0.10, brass, DW/2 - 0.22, 1.45, sz - 0.04));
+    scene.add(box(0.06, 0.26, 0.04, brass, DW/2 - 0.22, 1.45, sz - 0.02));
+
+    // Fanlight window above door
+    scene.add(box(DW - 0.3, 0.34, 0.06, flat(0xbae6fd, 0xbae6fd, 0.6), 0, DH - 0.2, sz + 0.005));
+
+    // Doormat
+    scene.add(box(1.5, 0.04, 0.7, flat(0x4a3520), 0, 0.02, 4.9));
+    scene.add(box(1.3, 0.05, 0.5, flat(0x6b5535), 0, 0.025, 4.9));
+
+    // Coat hook board (right of door)
+    scene.add(box(0.9, 0.18, 0.06, flat(0x4a3520), 1.7, 2.2, z));
+    const hook = flat(0x9ca3af, 0x9ca3af, 0.2);
+    [-0.3, 0, 0.3].forEach(dx =>
+        scene.add(box(0.05, 0.14, 0.10, hook, 1.7 + dx, 2.12, z - 0.06)));
+    // scarf hung on hook
+    scene.add(box(0.22, 0.5, 0.06, flat(0xdc2626), 1.4, 1.85, z - 0.05));
+
+    // Umbrella stand (left of door)
+    scene.add(box(0.3, 0.5, 0.3, flat(0x374151), -1.9, 0.25, 5.7));
+    scene.add(box(0.05, 0.9, 0.05, flat(0x1e3a5f), -1.95, 0.7, 5.7));
+    scene.add(box(0.05, 0.9, 0.05, flat(0x7f1d1d), -1.85, 0.7, 5.72));
 }
 
 // ── Sunflower ─────────────────────────────────────────────────────
@@ -606,7 +786,7 @@ function drawSFFighter(ctx, x, y, state, body, light, dir) {
 }
 
 function buildArcadeMachine(scene) {
-    const x = -2.5, z = 4.5;
+    const x = -3.2, z = -2.2;
     const cab  = flat(0x1a1208);
     const trim = flat(0x4c1d95, 0x7c3aed, 0.6);
 
@@ -689,15 +869,19 @@ export function buildRoom(scene) {
     buildOutdoor(scene);
     buildRug(scene);
     buildCeilingLights(scene);
+    buildDoor(scene);
     buildSofa(scene);
     buildBookshelf(scene);
     buildResumeDesk(scene);
     buildTelephone(scene);
     buildMonaLisa(scene);
     buildStarryNight(scene);
-    buildPlant(scene, -4.8, 4.5, 0);
-    buildSunflower(scene,  4.5, 4.0);
-    buildSakura(scene,    -1.5, 4.5);
+    buildFlowerPoster(scene);
+    buildPlant(scene, -4.8, 3.8, 0);
+    buildSunflower(scene,  4.5, -1.0);
+    buildSakura(scene,    -1.5,  3.5);
+    buildExtraDecor(scene);
+    buildSigns(scene);
     const arcade = buildArcadeMachine(scene);
     return { arcadeUpdate: arcade.update };
 }
