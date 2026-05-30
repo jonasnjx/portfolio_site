@@ -1,57 +1,71 @@
-# Portfolio Website
+# Jonas | AI Cloud & Data Engineer — Portfolio
 
-A modern, responsive portfolio website built with HTML, Tailwind CSS, and vanilla JavaScript.
+An interactive portfolio with a first-person 3D voxel room as the landing experience. Built with Three.js, plain HTML, and Express — no bundler.
 
-## Tech Stack
+> Built with [Claude Code](https://claude.ai/code) — planned with Opus, implemented with Sonnet.
 
-- HTML5
-- Tailwind CSS (CDN)
-- Vanilla JavaScript
-- Express.js (local dev server)
-- Google Fonts (Space Grotesk, JetBrains Mono)
+## The experience
 
-## Getting Started
+Visitors land on a Minecraft-inspired room and walk around with WASD + mouse. Each object in the room links to a part of the portfolio:
+
+| Object | Action |
+|--------|--------|
+| Resume desk | Press `E` → view / download resume |
+| TV | Press `E` → watch intro video |
+| Terminal kiosk | Press `E` → projects & case studies |
+| Connect poster | Press `E` → LinkedIn & GitHub |
+
+Mobile and no-WebGL visitors are redirected to the classic static site at `/home`.
+
+## Getting started
 
 ```bash
 npm install
 npm start
+# → http://localhost:3000
 ```
 
-Then visit `http://localhost:3000`. The site must be served through Express — opening HTML files directly in the browser won't work due to absolute routing paths.
+The site must be served through Express — opening HTML files directly won't work due to absolute routing.
 
-## Pages
+## Routes
 
 | Route | Description |
 |-------|-------------|
-| `/` | Hero section with profile, about me, hobbies, and tech stack |
-| `/resume` | Professional experience and internships |
-| `/projects` | Showcase of personal projects |
-| `/casestudies` | Industry insights and research on AI & Data Engineering |
-| `/connect` | Social media links (LinkedIn, GitHub) |
+| `/` | 3D interactive room (desktop only) |
+| `/home` | Classic portfolio — mobile fallback |
+| `/resume` | Work experience |
+| `/projects` | Project showcase |
+| `/casestudies` | AI & Data Engineering articles |
+| `/connect` | LinkedIn, GitHub |
 
-## File Structure
+## Tech stack
+
+- **Three.js** (via CDN importmap, no bundler) — 3D scene, PointerLockControls
+- **Tailwind CSS** (CDN) — styling for overlays and classic pages
+- **Express.js** — local dev server
+- **Vercel** — production deployment
+
+## File structure
 
 ```
-index.html
+index.html          # 3D launcher (onboarding overlay + canvas)
+world/              # Three.js modules
+  config.js         # All positions, colors, object data
+  main.js           # Boot, render loop, modal wiring
+  scene.js          # Renderer, camera, lights, fog
+  room.js           # Room geometry + decor
+  interactables.js  # Resume, TV, terminal, connect objects
+  controls.js       # WASD movement + head bob
+  interaction.js    # Proximity detection + E-key
 pages/
+  home.html         # Classic homepage (mobile fallback)
   resume.html
   projects.html
   casestudies.html
   connect.html
-  casestudies/
-    data-ai-2025.html
-assets/
-server.js
+assets/             # Images, resume PDF, intro video
 ```
 
 ## Deployment
 
-Since routing is handled by Express, deploy to a platform that supports Node.js servers:
-- Render
-- Railway
-- Fly.io
-- Vercel (with a `vercel.json` rewrites config)
-
-## License
-
-MIT
+Deployed on Vercel. `vercel.json` handles route rewrites. Any new route must be added to both `server.js` and `vercel.json`.

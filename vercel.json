@@ -4,6 +4,7 @@
     { "source": "/projects", "destination": "/pages/projects.html" },
     { "source": "/casestudies", "destination": "/pages/casestudies.html" },
     { "source": "/casestudies/data-ai-2025", "destination": "/pages/casestudies/data-ai-2025.html" },
-    { "source": "/connect", "destination": "/pages/connect.html" }
+    { "source": "/connect", "destination": "/pages/connect.html" },
+    { "source": "/home", "destination": "/pages/home.html" }
   ]
 }
