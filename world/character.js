@@ -24,31 +24,6 @@ function legGroup(x, upperColor, footColor, fw = 0.18) {
     return g;
 }
 
-// ── Robot (black body, green visor) ──────────────────────────────
-function buildRobot(group) {
-    const METAL = 0x1c1917, DARK = 0x111111, VISOR = 0x22c55e, JOINT = 0x292524;
-
-    const head = part(0.42, 0.36, 0.38, METAL); head.position.set(0, 1.18, 0); group.add(head);
-    const visor = part(0.30, 0.10, 0.06, DARK, VISOR, 1.2); visor.position.set(0, 1.20, 0.20); group.add(visor);
-
-    const antBase = part(0.06, 0.06, 0.06, DARK); antBase.position.set(0, 1.40, 0); group.add(antBase);
-    const antRod  = part(0.04, 0.18, 0.04, METAL); antRod.position.set(0, 1.53, 0); group.add(antRod);
-    const antTip  = part(0.08, 0.08, 0.08, VISOR, VISOR, 1.0); antTip.position.set(0, 1.64, 0); group.add(antTip);
-
-    const body = part(0.44, 0.48, 0.24, METAL); body.position.set(0, 0.72, 0); group.add(body);
-    const panel = part(0.22, 0.22, 0.06, DARK); panel.position.set(0, 0.76, 0.14); group.add(panel);
-    const panelLight = part(0.08, 0.08, 0.06, VISOR, VISOR, 0.8); panelLight.position.set(0, 0.76, 0.16); group.add(panelLight);
-
-    [0.30, -0.30].forEach(ox => { const s = part(0.12, 0.12, 0.22, DARK); s.position.set(ox, 0.93, 0); group.add(s); });
-
-    const armL = armGroup( 0.30, METAL, JOINT); group.add(armL);
-    const armR = armGroup(-0.30, METAL, JOINT); group.add(armR);
-    const legL = legGroup( 0.12, METAL, DARK);  group.add(legL);
-    const legR = legGroup(-0.12, METAL, DARK);  group.add(legR);
-
-    return { armL, armR, legL, legR, antTip, panelLight };
-}
-
 // ── Hulk ─────────────────────────────────────────────────────────
 function buildHulk(group) {
     const G = 0x22c55e, DG = 0x16a34a, PURPLE = 0x6d28d9, RED = 0xef4444, TEETH = 0xe2e8f0;
@@ -95,65 +70,6 @@ function buildHulk(group) {
     return { armL: armLg, armR: armRg, legL: legLg, legR: legRg, antTip: null, panelLight: eyeL };
 }
 
-// ── Maleficent ────────────────────────────────────────────────────
-function buildMaleficent(group) {
-    const BLACK = 0x2d0a4e, ROBE = 0x1a0630, PURPLE = 0xa855f7, GOLD = 0xd4af37, SKIN = 0xe8d4f0; // softer purple palette
-
-    // Elegant elongated head
-    const head = part(0.34, 0.46, 0.34, SKIN); head.position.set(0, 1.24, 0); group.add(head);
-
-    // Tall curved horns
-    // Curved, more feminine horns
-    const hornL = part(0.07, 0.52, 0.07, 0x4c1d95); hornL.position.set( 0.13, 1.60, -0.02); hornL.rotation.z = -0.18; group.add(hornL);
-    const hornR = part(0.07, 0.52, 0.07, 0x4c1d95); hornR.position.set(-0.13, 1.60, -0.02); hornR.rotation.z =  0.18; group.add(hornR);
-    // Glowing pink-purple horn tips
-    const htL = part(0.05, 0.13, 0.05, 0xf0abfc, 0xf0abfc, 1.0); htL.position.set( 0.16, 1.87, -0.06); group.add(htL);
-    const htR = part(0.05, 0.13, 0.05, 0xf0abfc, 0xf0abfc, 1.0); htR.position.set(-0.16, 1.87, -0.06); group.add(htR);
-    // Sparkle gems on collar
-    [[-0.14, 0.96, 0.15],[0.14, 0.96, 0.15],[0, 1.00, 0.18]].forEach(([gx, gy, gz]) => {
-        const gem = part(0.06, 0.06, 0.05, 0xf472b6, 0xf472b6, 1.2); gem.position.set(gx, gy, gz); group.add(gem);
-    });
-
-    // Gold glowing eyes
-    const eyeL = part(0.08, 0.07, 0.05, ROBE, GOLD, 1.4); eyeL.position.set( 0.10, 1.28, 0.18); group.add(eyeL);
-    const eyeR = part(0.08, 0.07, 0.05, ROBE, GOLD, 1.4); eyeR.position.set(-0.10, 1.28, 0.18); group.add(eyeR);
-
-    // Pointed collar pieces
-    const colL = part(0.18, 0.16, 0.06, BLACK); colL.position.set( 0.20, 1.04, 0.14); colL.rotation.z =  0.5; group.add(colL);
-    const colR = part(0.18, 0.16, 0.06, BLACK); colR.position.set(-0.20, 1.04, 0.14); colR.rotation.z = -0.5; group.add(colR);
-
-    // Dark robe body
-    const body = part(0.40, 0.56, 0.24, BLACK); body.position.set(0, 0.70, 0); group.add(body);
-    // Purple gem chest
-    const gem = part(0.10, 0.13, 0.07, PURPLE, PURPLE, 1.1); gem.position.set(0, 0.84, 0.14); group.add(gem);
-
-    // Cape panels (floating dark wings effect)
-    const capeL = part(0.16, 0.70, 0.08, ROBE); capeL.position.set( 0.30, 0.64, -0.06); capeL.rotation.z =  0.12; group.add(capeL);
-    const capeR = part(0.16, 0.70, 0.08, ROBE); capeR.position.set(-0.30, 0.64, -0.06); capeR.rotation.z = -0.12; group.add(capeR);
-
-    // Elegant sleeved arms
-    const armLm = new THREE.Group(); armLm.position.set( 0.26, 0.88, 0);
-    const almM = part(0.13, 0.44, 0.15, BLACK); almM.position.y = -0.22; armLm.add(almM);
-    const almH = part(0.10, 0.10, 0.10, SKIN); almH.position.y = -0.48; armLm.add(almH);
-    group.add(armLm);
-
-    const armRm = new THREE.Group(); armRm.position.set(-0.26, 0.88, 0);
-    const armM = part(0.13, 0.44, 0.15, BLACK); armM.position.y = -0.22; armRm.add(armM);
-    const armH = part(0.10, 0.10, 0.10, SKIN); armH.position.y = -0.48; armRm.add(armH);
-    group.add(armRm);
-
-    // Robed legs (barely visible under robe)
-    const legLm = new THREE.Group(); legLm.position.set( 0.10, 0.44, 0);
-    const llmM = part(0.15, 0.46, 0.22, ROBE); llmM.position.y = -0.23; legLm.add(llmM);
-    group.add(legLm);
-
-    const legRm = new THREE.Group(); legRm.position.set(-0.10, 0.44, 0);
-    const lrmM = part(0.15, 0.46, 0.22, ROBE); lrmM.position.y = -0.23; legRm.add(lrmM);
-    group.add(legRm);
-
-    return { armL: armLm, armR: armRm, legL: legLm, legR: legRm, antTip: gem, panelLight: eyeL };
-}
-
 // ── Preview renderer — 2D pixel art portraits (much more recognisable) ─
 export function renderPreview(type, canvas) {
     const ctx = canvas.getContext('2d');
@@ -161,54 +77,6 @@ export function renderPreview(type, canvas) {
     ctx.clearRect(0, 0, W, H);
     const r = (x, y, w, h, c) => { if (c) ctx.fillStyle = c; ctx.fillRect(x, y, w, h); };
     const cx = Math.floor(W / 2);
-
-    const robot = () => {
-        r(0,0,W,H,'#0a0808');
-        // Antenna
-        r(cx-7,0,14,8,'#22c55e'); r(cx-3,8,6,12,'#1a1a1a');
-        // Head
-        r(cx-26,20,52,38,'#1c1917');
-        // VISOR (green — the icon)
-        r(cx-23,31,46,15,'#166534');
-        r(cx-21,33,42,11,'#22c55e');
-        r(cx-19,34,38,7,'#4ade80');
-        // Shoulder pads
-        r(cx-40,60,14,14,'#111'); r(cx+26,60,14,14,'#111');
-        // Body
-        r(cx-22,60,44,50,'#1c1917');
-        // Chest panel + light
-        r(cx-13,68,26,24,'#111'); r(cx-7,74,14,12,'#22c55e');
-        // Arms
-        r(cx-38,62,16,32,'#1c1917'); r(cx+22,62,16,32,'#1c1917');
-        // Legs
-        r(cx-18,110,14,26,'#1c1917'); r(cx+4,110,14,26,'#1c1917');
-    };
-
-    const kong = () => {
-        r(0,0,W,H,'#0a0400');
-        // Body & chest
-        r(cx-40,68,80,68,'#2d1a0a');
-        r(cx-26,76,52,52,'#4a2a10');
-        // Neck
-        r(cx-18,52,36,18,'#2d1a0a');
-        // HUGE head
-        r(cx-40,4,80,52,'#2d1a0a');
-        // Heavy brow (darker)
-        r(cx-38,12,76,18,'#1a0a02');
-        // Face/muzzle (lighter)
-        r(cx-26,26,52,30,'#5a3018');
-        // AMBER EYES — contrast against dark fur
-        r(cx-38,14,20,16,'#1a0a02'); r(cx+18,14,20,16,'#1a0a02'); // sockets
-        r(cx-36,16,16,12,'#f59e0b'); r(cx+20,16,16,12,'#f59e0b'); // amber
-        r(cx-34,18,8,6,'#fde68a');   r(cx+26,18,8,6,'#fde68a');   // highlight
-        // Nostrils
-        r(cx-12,40,10,8,'#1a0a02'); r(cx+2,40,10,8,'#1a0a02');
-        // Mouth / teeth
-        r(cx-18,50,36,10,'#1a0808');
-        r(cx-12,52,8,6,'#e8d8c0'); r(cx+4,52,8,6,'#e8d8c0');
-        // Ears
-        r(cx-50,8,12,20,'#2d1a0a'); r(cx+38,8,12,20,'#2d1a0a');
-    };
 
     const spider = () => {
         r(0,0,W,H,'#991b1b');
@@ -260,27 +128,6 @@ export function renderPreview(type, canvas) {
         r(cx-40,82,8,8,'#d4af37'); r(cx+32,82,8,8,'#d4af37');
     };
 
-    const maleficent = () => {
-        r(0,0,W,H,'#1a0328');
-        // CURVED HORNS — the icon
-        r(cx-24,24,12,32,'#4c1d95'); r(cx-30,8,12,20,'#4c1d95'); r(cx-32,0,10,12,'#7c3aed'); // left
-        r(cx+12,24,12,32,'#4c1d95'); r(cx+18,8,12,20,'#4c1d95'); r(cx+22,0,10,12,'#7c3aed'); // right
-        // Glowing horn tips (pink)
-        r(cx-33,0,9,6,'#f0abfc'); r(cx+24,0,9,6,'#f0abfc');
-        // Head (pale lavender skin)
-        r(cx-22,28,44,42,'#e8d4f0');
-        // GOLD EYES
-        r(cx-16,44,14,9,'#ca8a04'); r(cx+2,44,14,9,'#ca8a04');
-        r(cx-15,45,12,7,'#fbbf24'); r(cx+3,45,12,7,'#fbbf24');
-        // Dark robe
-        r(cx-30,72,60,64,'#1a0630');
-        r(cx-38,82,76,56,'#2d0a4e');
-        // Pink gem (glowing)
-        r(cx-7,80,14,16,'#a855f7'); r(cx-5,82,10,12,'#f0abfc');
-        // Pointed collar
-        r(cx-26,68,14,16,'#2d0a4e'); r(cx+12,68,14,16,'#2d0a4e');
-    };
-
     const hulk = () => {
         r(0,0,W,H,'#052e16');
         // MASSIVE body
@@ -305,57 +152,7 @@ export function renderPreview(type, canvas) {
         r(cx-16,40,12,6,'#e8d8c0'); r(cx+4,40,12,6,'#e8d8c0');
     };
 
-    ({ robot, kong, spider, wonder, maleficent, hulk }[type] || robot)();
-}
-
-// ── King Kong ─────────────────────────────────────────────────────
-function buildKingKong(group) {
-    const FUR = 0x2d1a0a, DFUR = 0x1a0a02, SKIN = 0x5a3018;
-
-    const body = part(0.70, 0.56, 0.46, FUR); body.position.set(0, 0.74, 0); group.add(body);
-    const chest = part(0.44, 0.34, 0.14, SKIN); chest.position.set(0, 0.74, 0.22); group.add(chest);
-    // Large flat gorilla head
-    const head = part(0.64, 0.48, 0.58, FUR); head.position.set(0, 1.26, 0); group.add(head);
-    // Heavy brow ridge
-    const brow = part(0.60, 0.14, 0.24, DFUR); brow.position.set(0, 1.46, 0.22); group.add(brow);
-    // Lighter muzzle/face area
-    const face = part(0.40, 0.30, 0.20, SKIN); face.position.set(0, 1.22, 0.30); group.add(face);
-    const nose = part(0.22, 0.14, 0.14, DFUR); nose.position.set(0, 1.18, 0.36); group.add(nose);
-    // Mouth / teeth
-    const mouth = part(0.28, 0.09, 0.10, 0x1a0808); mouth.position.set(0, 1.04, 0.34); group.add(mouth);
-    const teeth = part(0.12, 0.06, 0.06, 0xe8e0d0); teeth.position.set(0, 1.07, 0.38); group.add(teeth);
-    // AMBER EYES — stand out against dark fur
-    [-0.15, 0.15].forEach(ox => {
-        const eye = part(0.12, 0.10, 0.08, 0xf59e0b, 0xfbbf24, 0.8);
-        eye.position.set(ox, 1.34, 0.36); group.add(eye);
-    });
-    // Ears
-    [-0.34, 0.34].forEach(ox => {
-        const e = part(0.11, 0.16, 0.09, FUR); e.position.set(ox, 1.36, 0.04); e.rotation.z = ox > 0 ? 0.2 : -0.2; group.add(e);
-    });
-
-    // Very long arms (gorilla style — hands nearly reach ground)
-    const armLk = new THREE.Group(); armLk.position.set(0.48, 0.90, 0);
-    [part(0.22, 0.58, 0.24, FUR), part(0.20, 0.48, 0.22, DFUR), part(0.24, 0.22, 0.24, SKIN)]
-        .forEach((m, i) => { m.position.y = [-0.29, -0.72, -1.06][i]; armLk.add(m); });
-    group.add(armLk);
-
-    const armRk = new THREE.Group(); armRk.position.set(-0.48, 0.90, 0);
-    [part(0.22, 0.58, 0.24, FUR), part(0.20, 0.48, 0.22, DFUR), part(0.24, 0.22, 0.24, SKIN)]
-        .forEach((m, i) => { m.position.y = [-0.29, -0.72, -1.06][i]; armRk.add(m); });
-    group.add(armRk);
-
-    const legLk = new THREE.Group(); legLk.position.set(0.18, 0.38, 0);
-    const llM = part(0.24, 0.38, 0.26, FUR); llM.position.y = -0.19; legLk.add(llM);
-    const llF = part(0.26, 0.10, 0.30, DFUR); llF.position.set(0, -0.44, 0.03); legLk.add(llF);
-    group.add(legLk);
-
-    const legRk = new THREE.Group(); legRk.position.set(-0.18, 0.38, 0);
-    const lrM = part(0.24, 0.38, 0.26, FUR); lrM.position.y = -0.19; legRk.add(lrM);
-    const lrF = part(0.26, 0.10, 0.30, DFUR); lrF.position.set(0, -0.44, 0.03); legRk.add(lrF);
-    group.add(legRk);
-
-    return { armL: armLk, armR: armRk, legL: legLk, legR: legRk, antTip: null, panelLight: null };
+    ({ spider, wonder, hulk }[type] || spider)();
 }
 
 // ── Spiderman ─────────────────────────────────────────────────────
@@ -447,14 +244,11 @@ function buildWonderWoman(group) {
 // ── Build entry point ─────────────────────────────────────────────
 export function buildCharacter(scene, opts = {}) {
     const group = new THREE.Group();
-    const type  = opts.type || 'robot';
+    const type  = opts.type || 'spider';
 
-    const parts = type === 'kong'        ? buildKingKong(group)
-                : type === 'spider'      ? buildSpiderman(group)
-                : type === 'wonder'      ? buildWonderWoman(group)
-                : type === 'hulk'        ? buildHulk(group)
-                : type === 'maleficent'  ? buildMaleficent(group)
-                :                          buildRobot(group);
+    const parts = type === 'wonder'  ? buildWonderWoman(group)
+                : type === 'hulk'    ? buildHulk(group)
+                :                      buildSpiderman(group);
 
     group.position.set(SPAWN.x, SPAWN.y, SPAWN.z);
     group.rotation.y = SPAWN_YAW;
@@ -468,7 +262,7 @@ export function buildCharacter(scene, opts = {}) {
 export function animateCharacter({ armL, armR, legL, legR, antTip, panelLight, type }, elapsed, isMoving, isSitting, pickInfo = { t: -1, type: 'default' }) {
     const { t: pickT, type: pickType } = typeof pickInfo === 'object' ? pickInfo : { t: pickInfo, type: 'default' };
 
-    // Special glowing parts (robot antenna / hulk eyes / maleficent gem)
+    // Special glowing parts (hulk eyes)
     if (antTip)    antTip.material.emissiveIntensity    = 0.6 + Math.sin(elapsed * 3) * 0.4;
     if (panelLight) panelLight.material.emissiveIntensity = 0.5 + Math.sin(elapsed * 2.1 + 1) * 0.3;
 
@@ -497,8 +291,8 @@ export function animateCharacter({ armL, armR, legL, legR, antTip, panelLight, t
 
     armR.rotation.z = 0;
 
-    const speed = type === 'hulk' ? 7 : type === 'maleficent' ? 10 : 9;
-    const swing = type === 'hulk' ? 0.6 : type === 'maleficent' ? 0.3 : 0.5;
+    const speed = type === 'hulk' ? 7 : 9;
+    const swing = type === 'hulk' ? 0.6 : 0.5;
 
     if (isMoving) {
         const s = Math.sin(elapsed * speed) * swing;

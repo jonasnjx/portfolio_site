@@ -81,7 +81,7 @@ Object.entries(modals).forEach(([name, el]) => {
 // ── Read avatar colour choices ────────────────────────────────────
 function readAvatarOpts() {
     return {
-        type: document.querySelector('#char-options .char-card.selected')?.dataset.char || 'robot',
+        type: document.querySelector('#char-options .char-card.selected')?.dataset.char || 'spider',
     };
 }
 
@@ -236,14 +236,14 @@ async function boot() {
             case '/contact':      closeChat(); setTimeout(() => openModal('telephone'), 100); break;
             case '/help':
                 addChatMsg('/resume  /projects  /casestudies  /contact  /char <name>');
-                addChatMsg('chars: robot  kong  spider  wonder  maleficent  hulk');
+                addChatMsg('chars: spider  wonder  hulk');
                 break;
             case '/char':
-                if (['robot','kong','spider','wonder','maleficent','hulk'].includes(arg)) {
+                if (['spider','wonder','hulk'].includes(arg)) {
                     switchCharacter(arg);
                     closeChat();
                 } else {
-                    addChatMsg('Try: /char robot | kong | spider | wonder | maleficent | hulk');
+                    addChatMsg('Try: /char spider | wonder | hulk');
                 }
                 break;
             default:
@@ -302,8 +302,8 @@ async function boot() {
         if (nearest) showPetGreeting(nearest);
     });
 
-    // Render character previews (all 6)
-    ['robot', 'kong', 'spider', 'wonder', 'maleficent', 'hulk'].forEach(type => {
+    // Render character previews
+    ['spider', 'wonder', 'hulk'].forEach(type => {
         const cvs = document.getElementById('preview-' + type);
         if (cvs) renderPreview(type, cvs);
     });
