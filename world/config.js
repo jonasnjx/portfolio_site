@@ -39,6 +39,13 @@ export const INTERACTABLES = [
         id:       'bookshelf',
         position: { x: -5.2, y: 0, z: -1.5 },
         radius:   2.5,
+        prompt:   'see case studies',
+        modal:    'casestudies',
+    },
+    {
+        id:       'arcade',
+        position: { x: 3.5, y: 0, z: -5.0 },
+        radius:   2.5,
         prompt:   'see projects',
         modal:    'terminal',
     },

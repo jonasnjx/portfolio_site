@@ -149,6 +149,44 @@ function buildMaleficent(group) {
     return { armL: armLm, armR: armRm, legL: legLm, legR: legRm, antTip: gem, panelLight: eyeL };
 }
 
+// ── Preview renderer (called once per card on the onboarding screen) ─
+export function renderPreview(type, canvas) {
+    const W = canvas.width, H = canvas.height;
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    // No setPixelRatio — keeps canvas exactly at attribute dimensions (W x H)
+    renderer.setSize(W, H, false);
+    renderer.setClearColor(0x000000, 0);
+
+    const scene = new THREE.Scene();
+    scene.add(new THREE.AmbientLight(0xffffff, 3.0));
+    const key = new THREE.DirectionalLight(0xffffff, 1.5);
+    key.position.set(1, 2, 2);
+    scene.add(key);
+
+    const group = new THREE.Group();
+    if      (type === 'hulk')       buildHulk(group);
+    else if (type === 'maleficent') buildMaleficent(group);
+    else                            buildRobot(group);
+    scene.add(group);
+
+    // Slight 3/4 angle so the depth reads
+    group.rotation.y = 0.4;
+
+    const aspect = canvas.width / canvas.height;
+    const camera = new THREE.PerspectiveCamera(42, aspect, 0.1, 50);
+    camera.position.set(0.35, 1.1, 2.2);
+    camera.lookAt(0, 0.75, 0);
+
+    renderer.render(scene, camera);
+
+    // Clean up — we only need one frame
+    renderer.dispose();
+    scene.traverse(obj => {
+        if (obj.geometry) obj.geometry.dispose();
+        if (obj.material) obj.material.dispose();
+    });
+}
+
 // ── Build entry point ─────────────────────────────────────────────
 export function buildCharacter(scene, opts = {}) {
     const group = new THREE.Group();

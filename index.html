@@ -77,6 +77,17 @@
 
         .overlay.hidden { display: none; }
 
+        .overlay.fading {
+            animation: overlayFadeOut 0.7s ease forwards;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        @keyframes overlayFadeOut {
+            from { opacity: 1; }
+            to   { opacity: 0; }
+        }
+
         /* ── Loading ──────────────────────────────────────── */
         #loading-overlay .logo {
             font-size: 2rem;
@@ -253,14 +264,20 @@
             flex-direction: column;
             align-items: center;
             gap: 0.3rem;
-            padding: 0.65rem 0.4rem;
+            padding: 0.5rem 0.4rem 0.55rem;
             background: rgba(255,255,255,0.04);
             border: 2px solid transparent;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 1.5rem;
             transition: all 0.15s;
             color: white;
+        }
+
+        .char-card canvas {
+            border-radius: 4px;
+            display: block;
+            width: 72px !important;
+            height: 88px !important;
         }
 
         .char-card span {
@@ -500,9 +517,9 @@
     <!-- ── Onboarding overlay ────────────────────────────── -->
     <div id="onboarding-overlay" class="overlay hidden">
         <div class="card">
-            <div class="tag">// interactive portfolio</div>
-            <h1>Welcome to my room.</h1>
-            <p>A first-person tour of who I am. Walk around, interact with objects, and find my resume, an intro video, and my work.</p>
+            <div class="tag">// JONAS PORTFOLIO SITE</div>
+            <h1>Welcome to my room!</h1>
+            <p>Roam around freely and click on anything that catches your eye. My resume, projects and contact details are all hiding in here somewhere... go find them!</p>
 
             <div class="controls-legend">
                 <div class="key-group">
@@ -526,14 +543,23 @@
             <div class="customizer">
                 <div class="customizer-title">// choose your character</div>
                 <div class="char-grid" id="char-options">
-                    <button class="char-card selected" data-char="robot">🤖<span>Robot</span></button>
-                    <button class="char-card" data-char="hulk">💪<span>Hulk</span></button>
-                    <button class="char-card" data-char="maleficent">🧙‍♀️<span>Maleficent</span></button>
+                    <button class="char-card selected" data-char="robot">
+                        <canvas id="preview-robot" width="72" height="88"></canvas>
+                        <span>Robot</span>
+                    </button>
+                    <button class="char-card" data-char="hulk">
+                        <canvas id="preview-hulk" width="72" height="88"></canvas>
+                        <span>Hulk</span>
+                    </button>
+                    <button class="char-card" data-char="maleficent">
+                        <canvas id="preview-maleficent" width="72" height="88"></canvas>
+                        <span>Maleficent</span>
+                    </button>
                 </div>
             </div>
 
             <button class="btn-primary" id="enter-btn">Enter World</button>
-            <a href="/home" class="btn-skip">Skip → view classic site</a>
+            <a href="/home" class="btn-skip">View classic site instead.</a>
 
             <script>
                 document.getElementById('char-options').addEventListener('click', e => {
@@ -653,14 +679,6 @@
                     </div>
                     <p style="color:#94a3b8;font-size:0.76rem;">Browser typing speed test built with vanilla JavaScript</p>
                 </a>
-                <a href="/casestudies" style="background:rgba(255,255,255,0.04);border-radius:8px;padding:0.8rem;text-decoration:none;display:block;" onmouseover="this.style.background='rgba(249,115,22,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.04)'">
-                    <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.3rem;">
-                        <span style="font-size:1.2rem;">📖</span>
-                        <div style="flex:1"><div style="font-weight:600;font-size:0.86rem;">Case Studies</div><div style="color:#94a3b8;font-size:0.72rem;font-family:'JetBrains Mono',monospace;">Articles</div></div>
-                        <span style="color:#f97316;font-size:0.76rem;">Read →</span>
-                    </div>
-                    <p style="color:#94a3b8;font-size:0.76rem;">Industry insights on AI & Data Engineering</p>
-                </a>
             </div>
             <div class="modal-actions">
                 <a href="/projects" class="btn-primary" style="display:flex;align-items:center;justify-content:center;">All Projects →</a>
@@ -682,6 +700,46 @@
             setTimeout(() => { bgVideo.style.display = 'none'; }, 800);
         }, { once: true });
     </script>
+    <!-- ── Case Studies modal ───────────────────────────── -->
+    <div id="casestudies-modal" class="modal-overlay hidden">
+        <div class="modal-box" style="max-width:520px;max-height:82vh;overflow-y:auto;">
+            <button class="modal-close" data-close="casestudies-modal">✕</button>
+            <h2>Case Studies</h2>
+            <p style="color:#94a3b8;font-size:0.85rem;margin-bottom:1.1rem;">In-depth articles on AI, data engineering, and the industry.</p>
+            <div style="display:flex;flex-direction:column;gap:0.7rem;margin-bottom:1.25rem;">
+                <a href="https://context-engineering-slides.vercel.app/" target="_blank"
+                   style="background:rgba(255,255,255,0.04);border-radius:8px;padding:0.85rem;text-decoration:none;display:block;"
+                   onmouseover="this.style.background='rgba(249,115,22,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.04)'">
+                    <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.3rem;">
+                        <span style="font-size:1.2rem;">🧠</span>
+                        <div style="flex:1">
+                            <div style="font-weight:600;font-size:0.88rem;">Context Engineering for Data Engineers</div>
+                            <div style="color:#94a3b8;font-size:0.72rem;font-family:'JetBrains Mono',monospace;">Article · 2026</div>
+                        </div>
+                        <span style="color:#f97316;font-size:0.76rem;">Read →</span>
+                    </div>
+                    <p style="color:#94a3b8;font-size:0.76rem;">Why the audience for data engineering has shifted from humans to AI agents — and what that means for us.</p>
+                </a>
+                <a href="/casestudies/data-ai-2025" target="_blank"
+                   style="background:rgba(255,255,255,0.04);border-radius:8px;padding:0.85rem;text-decoration:none;display:block;"
+                   onmouseover="this.style.background='rgba(249,115,22,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.04)'">
+                    <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.3rem;">
+                        <span style="font-size:1.2rem;">🤖</span>
+                        <div style="flex:1">
+                            <div style="font-weight:600;font-size:0.88rem;">Bridging Data Engineering and AI</div>
+                            <div style="color:#94a3b8;font-size:0.72rem;font-family:'JetBrains Mono',monospace;">Article · 2025</div>
+                        </div>
+                        <span style="color:#f97316;font-size:0.76rem;">Read →</span>
+                    </div>
+                    <p style="color:#94a3b8;font-size:0.76rem;">Streaming-first ingestion, open table formats, vector databases — how they're shaping the future of data infrastructure.</p>
+                </a>
+            </div>
+            <div class="modal-actions">
+                <a href="/casestudies" class="btn-primary" style="display:flex;align-items:center;justify-content:center;">All Case Studies →</a>
+            </div>
+        </div>
+    </div>
+
     <!-- ── Telephone / Contact modal ─────────────────────── -->
     <div id="telephone-modal" class="modal-overlay hidden">
         <div class="modal-box" style="max-width:440px;">

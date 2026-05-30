@@ -25,7 +25,7 @@ export function initControls(camera, canvas, character) {
     document.addEventListener('mousemove', e => {
         if (!isLocked()) return;
         yaw   -= e.movementX * 0.0022;
-        pitch  = Math.max(0.12, Math.min(1.1, pitch + e.movementY * 0.002));
+        pitch  = Math.max(-0.25, Math.min(1.1, pitch + e.movementY * 0.002));
     });
 
     document.addEventListener('keydown', e => {
@@ -54,7 +54,7 @@ export function initControls(camera, canvas, character) {
         const cosP = Math.cos(pitch);
         camera.position.set(
             p.x + Math.sin(yaw) * DIST * cosP,
-            p.y + Math.sin(pitch) * DIST + 0.9,
+            Math.max(0.2, p.y + Math.sin(pitch) * DIST + 0.9),
             p.z + Math.cos(yaw) * DIST * cosP
         );
         camera.lookAt(p.x, p.y + 0.9, p.z);

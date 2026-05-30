@@ -19,10 +19,11 @@ const enterBtn          = document.getElementById('enter-btn');
 const resumeBtn         = document.getElementById('resume-btn');
 
 const modals = {
-    resume:    document.getElementById('resume-modal'),
-    video:     document.getElementById('video-modal'),
-    terminal:  document.getElementById('terminal-modal'),
-    telephone: document.getElementById('telephone-modal'),
+    resume:      document.getElementById('resume-modal'),
+    video:       document.getElementById('video-modal'),
+    terminal:    document.getElementById('terminal-modal'),
+    casestudies: document.getElementById('casestudies-modal'),
+    telephone:   document.getElementById('telephone-modal'),
 };
 const introVideo = document.getElementById('intro-video');
 
@@ -85,7 +86,7 @@ async function boot() {
         { initScene },
         { buildRoom, getLeds },
         { buildInteractables, animateInteractables },
-        { buildCharacter, animateCharacter },
+        { buildCharacter, animateCharacter, renderPreview },
         { initControls },
         { initInteraction },
         { buildGiraffe, buildDinosaur, buildPolarBear },
@@ -107,7 +108,7 @@ async function boot() {
     const canvas = document.getElementById('world-canvas');
     const { scene, camera, renderer, clock } = initScene(canvas);
 
-    buildRoom(scene);
+    const { arcadeUpdate } = buildRoom(scene);
     const leds     = getLeds(scene);
     const registry = buildInteractables(scene);
     const giraffe   = buildGiraffe(scene);
@@ -152,7 +153,13 @@ async function boot() {
         if (nearest) showPetGreeting(nearest);
     });
 
-    // Show onboarding while user picks colours
+    // Render character previews into the selector canvases
+    ['robot', 'hulk', 'maleficent'].forEach(type => {
+        const cvs = document.getElementById('preview-' + type);
+        if (cvs) renderPreview(type, cvs);
+    });
+
+    // Show onboarding while user picks character
     loadingOverlay.classList.add('hidden');
     onboardingOverlay.classList.remove('hidden');
 
@@ -164,6 +171,7 @@ async function boot() {
         const dt = Math.min(clock.getDelta(), 0.05);
         elapsed += dt;
 
+        arcadeUpdate(elapsed);
         animateInteractables(registry, elapsed);
         pets.forEach(pet => pet.update(dt, elapsed));
         swayMeshes.forEach(m => {
@@ -188,7 +196,10 @@ async function boot() {
 
     // ── Phase 2: Enter World — NOW read colours and build character ─
     enterBtn.addEventListener('click', () => {
-        // Read the colour choices the user just made
+        // Show loading — overlay stays fully visible until pointer lock is granted
+        enterBtn.textContent = 'Loading...';
+        enterBtn.disabled = true;
+
         const avatarOpts = readAvatarOpts();
 
         character   = buildCharacter(scene, avatarOpts);
@@ -210,9 +221,10 @@ async function boot() {
         // Pointer lock lifecycle
         let nudgeDone = false;
         controls.addEventListener('lock', () => {
-            onboardingOverlay.classList.add('hidden');
             pauseOverlay.classList.add('hidden');
             hud.classList.add('visible');
+            // Hold the dialog for 900ms so "Loading..." is clearly seen, then snap away
+            setTimeout(() => onboardingOverlay.classList.add('hidden'), 900);
 
             if (!nudgeDone) {
                 nudgeDone = true;
