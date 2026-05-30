@@ -75,18 +75,9 @@ function buildWalls(scene) {
     scene.add(box(0.12, WIN.h, 0.12, fMat, fx, fCy,  -(WIN.d / 2)));
     scene.add(box(0.12, WIN.h, 0.12, fMat, fx, fCy,    WIN.d / 2));
     scene.add(box(0.08, 0.08, fD,    fMat, fx, fCy,  WIN.cz));
-    // Sill with ledge for plants
+    // Sill ledge
     const sill = box(0.38, 0.10, fD + 0.1, flat(0x78716c), ex - 0.44, WIN.bot - 0.05, WIN.cz);
     scene.add(sill);
-    // Tiny pot on windowsill
-    const wp = box(0.18, 0.18, 0.18, flat(COLORS.pot), ex - 0.44, WIN.bot + 0.09, 0.3);
-    scene.add(wp);
-    const ws = box(0.08, 0.22, 0.08, flat(COLORS.plantDark), ex - 0.44, WIN.bot + 0.28, 0.3);
-    ws.userData.plantSway = true; ws.userData.swayPhase = 0.5;
-    scene.add(ws);
-    const wl = box(0.28, 0.18, 0.28, flat(COLORS.plant, COLORS.plant, 0.1), ex - 0.44, WIN.bot + 0.46, 0.3);
-    wl.userData.plantSway = true; wl.userData.swayPhase = 0.5;
-    scene.add(wl);
 
     // Cute sky-blue ceiling
     scene.add(box(ROOM.width + 1, 0.5, ROOM.depth + 1,
@@ -94,41 +85,54 @@ function buildWalls(scene) {
     buildCuteCeiling(scene);
 }
 
-// ── Outdoor — bright daytime ───────────────────────────────────────
+// ── Outdoor — beach and sea ────────────────────────────────────────
 function buildOutdoor(scene) {
     const bx = 9.5;
 
-    // Sky gradient layers
-    scene.add(box(0.2, 2.0, 8, flat(0x0ea5e9, 0x38bdf8, 1.0), bx, 3.5, 0));  // deep blue top
-    scene.add(box(0.2, 1.5, 8, flat(0x38bdf8, 0x7dd3fc, 0.9), bx, 2.0, 0));  // bright blue mid
-    scene.add(box(0.2, 0.8, 8, flat(0xbae6fd, 0xbae6fd, 0.8), bx, 0.9, 0));  // haze near horizon
+    // Sky gradient (deep blue top → hazy near horizon)
+    scene.add(box(0.2, 2.0, 8, flat(0x0369a1, 0x0ea5e9, 1.0), bx, 3.6, 0));
+    scene.add(box(0.2, 1.4, 8, flat(0x38bdf8, 0x7dd3fc, 0.95), bx, 2.0, 0));
+    scene.add(box(0.2, 0.5, 8, flat(0xbae6fd, 0xe0f2fe, 0.85), bx, 1.15, 0));
 
-    // Ground
-    scene.add(box(0.2, 0.6, 8, flat(0x4ade80, 0x4ade80, 0.6), bx,  0.1, 0));
-    scene.add(box(0.2, 0.5, 8, flat(0x16a34a, 0x16a34a, 0.5), bx, -0.1, 0));
+    // Sea (deep teal → lighter near shore)
+    scene.add(box(0.2, 0.55, 8, flat(0x0e7490, 0x0891b2, 1.0), bx, 0.88, 0));
+    scene.add(box(0.2, 0.28, 8, flat(0x06b6d4, 0x22d3ee, 0.9), bx, 0.62, 0));
 
-    // Fluffy clouds
+    // Wave foam lines
+    const wMat = flat(0xf0fdfa, 0xf0fdfa, 0.8);
+    scene.add(box(0.12, 0.035, 8, wMat, bx, 0.76, 0));
+    scene.add(box(0.12, 0.030, 8, wMat, bx, 0.61, 0));
+
+    // Sandy beach
+    scene.add(box(0.2, 0.40, 8, flat(0xfcd34d, 0xfde68a, 0.7), bx, 0.28, 0));
+    scene.add(box(0.2, 0.18, 8, flat(0xf59e0b, 0xfbbf24, 0.6), bx, 0.01, 0));
+
+    // Clouds
     const cMat = flat(0xffffff, 0xffffff, 0.9);
-    [[-0.6, 3.4, -0.8], [-0.4, 3.5, -0.3], [-0.5, 3.2, 0.7], [-0.6, 3.3, 1.1]].forEach(([ox, y, z]) => {
-        scene.add(box(0.15, 0.28 + Math.random() * 0.1, 0.7 + Math.random() * 0.4, cMat, bx + ox, y, z));
+    [[-0.5, 3.5, -1.0], [-0.4, 3.6, -0.2], [-0.55, 3.3, 0.8], [-0.45, 3.4, 1.2]].forEach(([ox, y, z]) => {
+        scene.add(box(0.15, 0.26, 0.8, cMat, bx + ox, y, z));
+        scene.add(box(0.15, 0.18, 0.5, cMat, bx + ox - 0.05, y + 0.18, z));
     });
 
-    // Sun — high up, bright
-    scene.add(box(0.2, 0.75, 0.75, flat(0xfef3c7, 0xfde68a, 2.5), bx - 0.3, 4.0, -0.5));
-    // Sun halo
-    scene.add(box(0.15, 1.0, 1.0, flat(0xfef9c3, 0xfef9c3, 0.5), bx - 0.2, 4.0, -0.5));
+    // Sun over the water
+    scene.add(box(0.2, 0.72, 0.72, flat(0xfef3c7, 0xfde68a, 2.5), bx - 0.25, 3.8, 0.7));
+    scene.add(box(0.15, 0.95, 0.95, flat(0xfef9c3, 0xfef9c3, 0.5), bx - 0.15, 3.8, 0.7));
 
-    // Bright daylight streaming in
-    const sunLight = new THREE.PointLight(0xfff8f0, 2.4, 20);
+    // Sun shimmer on water
+    scene.add(box(0.12, 0.06, 0.55, flat(0xfde68a, 0xfde68a, 1.2), bx, 0.80, 0.7));
+    scene.add(box(0.12, 0.04, 0.35, flat(0xfef9c3, 0xfef9c3, 0.9), bx, 0.75, 0.7));
+
+    // Seagulls (tiny V shapes)
+    const gMat = flat(0x475569);
+    [[-0.5, 3.1, -0.6], [-0.35, 2.85, 0.4], [-0.6, 3.0, 1.1]].forEach(([ox, y, z]) => {
+        scene.add(box(0.16, 0.04, 0.05, gMat, bx + ox - 0.07, y, z));
+        scene.add(box(0.16, 0.04, 0.05, gMat, bx + ox + 0.07, y, z));
+    });
+
+    // Warm beach light
+    const sunLight = new THREE.PointLight(0xfff4d0, 2.4, 20);
     sunLight.position.set(6.3, 2.0, 0);
     scene.add(sunLight);
-
-    // Distant tree silhouettes
-    const treeMat = flat(0x166534, 0x16a34a, 0.2);
-    [[-1.2, 0.7], [1.0, 0.9], [1.5, 0.5]].forEach(([cz, h]) => {
-        scene.add(box(0.15, h * 1.2, 0.15, flat(0x92400e), bx + 0.2, h * 0.3, cz));
-        scene.add(box(0.15, h, h * 0.9, treeMat, bx + 0.1, h * 0.8, cz));
-    });
 }
 
 // ── Rug ────────────────────────────────────────────────────────────
@@ -536,11 +540,11 @@ function buildMonaLisa(scene) {
         ctx.fillStyle = '#383820'; ctx.fillRect(22, 16, 20, 4);
     }, 64, 80);
 
-    // Frame
-    scene.add(box(0.08, 1.65, 1.30, flat(0x3d2010), 3.8, 2.2, -5.88));
-    // Painting
+    // Frame (thin backing plate, wider than painting)
+    scene.add(box(1.32, 1.65, 0.05, flat(0x3d2010), 3.8, 2.2, -5.895));
+    // Painting (in front of frame)
     const p = new THREE.Mesh(new THREE.PlaneGeometry(1.2, 1.5), mat);
-    p.position.set(3.8, 2.2, -5.85); p.rotation.y = 0;
+    p.position.set(3.8, 2.2, -5.868); p.rotation.y = 0;
     scene.add(p);
 }
 
@@ -876,10 +880,8 @@ export function buildRoom(scene) {
     buildTelephone(scene);
     buildMonaLisa(scene);
     buildStarryNight(scene);
-    buildFlowerPoster(scene);
     buildPlant(scene, -4.8, 3.8, 0);
     buildSunflower(scene,  4.5, -1.0);
-    buildSakura(scene,    -1.5,  3.5);
     buildExtraDecor(scene);
     buildSigns(scene);
     const arcade = buildArcadeMachine(scene);

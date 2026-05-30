@@ -58,6 +58,13 @@ export const INTERACTABLES = [
         modal:    'telephone',
     },
     {
+        id:       'clock',
+        position: { x: 1.6, y: 0, z: -4.8 },
+        radius:   1.6,
+        prompt:   'check the time',
+        modal:    'clock',
+    },
+    {
         id:       'sofa',
         position: { x: 3.6, y: 0, z: 2.2 },
         radius:   2.0,
