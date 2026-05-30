@@ -50,11 +50,20 @@
         }
     </script>
     <style>
+        :root {
+            --bg:     #0f1117;
+            --bg-2:   #161922;
+            --ink:    #ececec;
+            --muted:  #9a9a9a;
+            --rule:   #e2ded5;
+            --accent: #1d4ed8;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background: #0f0608;
-            color: white;
+            background: var(--bg);
+            color: var(--ink);
             font-family: 'Space Grotesk', sans-serif;
             overflow: hidden;
         }
@@ -73,14 +82,13 @@
             align-items: center;
             justify-content: center;
             z-index: 100;
-            background: rgba(7, 6, 4, 0.55);
+            background: rgba(15, 17, 23, 0.6);
             backdrop-filter: blur(2px);
         }
 
-        /* Loading overlay stays darker so the progress bar reads clearly */
         #loading-overlay {
-            background: rgba(7, 6, 4, 0.88);
-            backdrop-filter: blur(0px);
+            background: var(--bg);
+            backdrop-filter: none;
         }
 
         .overlay.hidden { display: none; }
@@ -98,52 +106,33 @@
 
         /* ── Loading ──────────────────────────────────────── */
         #loading-overlay .logo {
-            font-size: 2rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #60a5fa, #3b82f6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: 1.75rem;
+            font-weight: 500;
+            color: var(--ink);
             margin-bottom: 2rem;
             letter-spacing: -0.5px;
         }
 
         .progress-track {
             width: 200px;
-            height: 6px;
-            background: #292524;
-            border-radius: 3px;
+            height: 2px;
+            background: rgba(226,222,213,0.12);
             overflow: hidden;
         }
 
         .progress-bar {
             height: 100%;
             width: 0%;
-            background: linear-gradient(90deg, #60a5fa, #3b82f6);
-            border-radius: 3px;
+            background: var(--accent);
             transition: width 0.3s ease;
         }
 
-        /* Blocky pixel dots for the loading aesthetic */
-        .pixel-dots {
-            display: flex;
-            gap: 6px;
-            margin-top: 1.5rem;
-        }
-
-        .pixel-dot {
-            width: 8px;
-            height: 8px;
-            background: #60a5fa;
-            animation: blink 1.2s infinite;
-        }
-
-        .pixel-dot:nth-child(2) { animation-delay: 0.2s; }
-        .pixel-dot:nth-child(3) { animation-delay: 0.4s; }
-
-        @keyframes blink {
-            0%, 100% { opacity: 0.2; }
-            50% { opacity: 1; }
+        .loading-label {
+            margin-top: 1.25rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--muted);
+            letter-spacing: 0.05em;
         }
 
         /* ── Onboarding card ──────────────────────────────── */
@@ -515,15 +504,11 @@
     <!-- ── Loading overlay ───────────────────────────────── -->
     <div id="loading-overlay" class="overlay">
         <div style="text-align:center">
-            <div class="logo">Jonas.</div>
+            <div class="logo">Jonas Ng</div>
             <div class="progress-track">
                 <div class="progress-bar" id="progress-bar"></div>
             </div>
-            <div class="pixel-dots">
-                <div class="pixel-dot"></div>
-                <div class="pixel-dot"></div>
-                <div class="pixel-dot"></div>
-            </div>
+            <div class="loading-label">loading the room&hellip;</div>
         </div>
     </div>
 
@@ -541,25 +526,13 @@
             <div class="customizer" style="margin-top:1.25rem;margin-bottom:0;">
                 <div class="customizer-title">// choose your character</div>
                 <div class="char-grid" id="char-options">
-                    <button class="char-card selected" data-char="robot">
-                        <canvas id="preview-robot" width="112" height="136"></canvas>
-                        <span>Robot</span>
-                    </button>
-                    <button class="char-card" data-char="kong">
-                        <canvas id="preview-kong" width="112" height="136"></canvas>
-                        <span>King Kong</span>
-                    </button>
-                    <button class="char-card" data-char="spider">
+                    <button class="char-card selected" data-char="spider">
                         <canvas id="preview-spider" width="112" height="136"></canvas>
                         <span>Spider-Man</span>
                     </button>
                     <button class="char-card" data-char="wonder">
                         <canvas id="preview-wonder" width="112" height="136"></canvas>
                         <span>Wonder Woman</span>
-                    </button>
-                    <button class="char-card" data-char="maleficent">
-                        <canvas id="preview-maleficent" width="112" height="136"></canvas>
-                        <span>Maleficent</span>
                     </button>
                     <button class="char-card" data-char="hulk">
                         <canvas id="preview-hulk" width="112" height="136"></canvas>
