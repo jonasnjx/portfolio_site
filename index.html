@@ -686,24 +686,6 @@
             </div>
             <div class="modal-actions">
                 <a href="/resume" class="btn-primary" style="display:flex;align-items:center;justify-content:center;">Full Resume →</a>
-                <a href="/assets/jonas-resume.pdf" download class="btn-outline">Download PDF</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- ── Video modal ───────────────────────────────────── -->
-    <div id="video-modal" class="modal-overlay hidden">
-        <div class="modal-box">
-            <button class="modal-close" data-close="video-modal">✕</button>
-            <h2>Hi, I'm Jonas.</h2>
-            <video id="intro-video" controls poster="/assets/intro-poster.jpg">
-                <source src="/assets/intro.mp4" type="video/mp4">
-            </video>
-            <div id="video-fallback" style="background:rgba(255,255,255,0.04);border-radius:8px;padding:1.25rem;display:none;">
-                <p style="color:#94a3b8;font-size:0.875rem;line-height:1.7;">
-                    Hey — I'm Jonas. Data and cloud engineer, five years building pipelines across AWS, Azure, GCP, Snowflake and Databricks. Three-times certified, NTU Business Analytics grad, obsessed with where data engineering meets AI.<br><br>
-                    When I'm not shipping data I'm dancing hip-hop, on my skateboard, behind a camera, or out on a run. Have a look around — and if anything clicks, let's talk.
-                </p>
             </div>
         </div>
     </div>
@@ -737,20 +719,6 @@
         </div>
     </div>
 
-    <script>
-        // Fade in background video once it starts playing
-        const bgVideo = document.getElementById('bg-video');
-        bgVideo.addEventListener('canplay', () => {
-            bgVideo.style.opacity = '1';
-        }, { once: true });
-
-        // Hide video when entering the world (canvas takes over)
-        document.getElementById('enter-btn').addEventListener('click', () => {
-            bgVideo.style.transition = 'opacity 0.8s ease';
-            bgVideo.style.opacity = '0';
-            setTimeout(() => { bgVideo.style.display = 'none'; }, 800);
-        }, { once: true });
-    </script>
     <!-- ── Case Studies modal ───────────────────────────── -->
     <div id="casestudies-modal" class="modal-overlay hidden">
         <div class="modal-box" style="max-width:520px;max-height:82vh;overflow-y:auto;">

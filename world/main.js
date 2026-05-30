@@ -20,13 +20,11 @@ const resumeBtn         = document.getElementById('resume-btn');
 
 const modals = {
     resume:      document.getElementById('resume-modal'),
-    video:       document.getElementById('video-modal'),
     terminal:    document.getElementById('terminal-modal'),
     casestudies: document.getElementById('casestudies-modal'),
     telephone:   document.getElementById('telephone-modal'),
     clock:       document.getElementById('clock-modal'),
 };
-const introVideo = document.getElementById('intro-video');
 
 // ── Modal helpers ─────────────────────────────────────────────────
 let _clockInterval = null;
@@ -35,13 +33,6 @@ function openModal(name) {
     const el = modals[name];
     if (!el) return;
     el.classList.remove('hidden');
-    if (name === 'video') {
-        introVideo.addEventListener('error', () => {
-            introVideo.style.display = 'none';
-            document.getElementById('video-fallback').style.display = 'block';
-        }, { once: true });
-        introVideo.play().catch(() => {});
-    }
     if (name === 'clock') {
         function updateClock() {
             const now = new Date();
@@ -63,7 +54,6 @@ function closeModal(name) {
     const el = modals[key];
     if (!el) return;
     el.classList.add('hidden');
-    if (key === 'video') { introVideo.pause(); introVideo.currentTime = 0; }
     if (key === 'clock') { clearInterval(_clockInterval); _clockInterval = null; }
 }
 
@@ -386,7 +376,7 @@ async function boot() {
                 setTimeout(() => {
                     if (!controls.isLocked) return;
                     document.getElementById('prompt-text').textContent =
-                        'Walk around and press E to interact';
+                        'Walk up to an object and click to interact';
                     document.getElementById('prompt').classList.add('visible');
                     setTimeout(() =>
                         document.getElementById('prompt').classList.remove('visible'), 2500);
