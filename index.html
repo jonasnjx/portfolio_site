@@ -185,7 +185,7 @@
             flex-wrap: wrap;
             gap: 0.5rem;
             justify-content: center;
-            margin-bottom: 2rem;
+            margin-bottom: 0;
         }
 
         .key-group {
@@ -551,34 +551,14 @@
     <div id="onboarding-overlay" class="overlay hidden">
         <div class="card">
             <div class="tag">// JONAS PORTFOLIO SITE</div>
-            <h1>Welcome!</h1>
-            <p style="margin-bottom:0.25rem;">Hi, I'm Jonas — Senior Data & Cloud Engineer, Singapore.</p>
-            <p style="color:#94a3b8;font-size:0.8rem;">Walk around my room, or skip straight to the classic site.</p>
+            <h1>Hi, I'm Jonas.</h1>
+            <p style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:#94a3b8;margin-bottom:0.6rem;">Senior Data &amp; Cloud Engineer &middot; Singapore</p>
+            <p style="margin-bottom:1.75rem;">I build production data platforms and ship GenAI from POC to deployment.</p>
 
-            <div class="controls-legend">
-                <div class="key-group">
-                    <span class="key">W</span><span class="key">A</span><span class="key">S</span><span class="key">D</span>
-                    <span>move</span>
-                </div>
-                <div class="key-group">
-                    <span class="key">Mouse</span>
-                    <span>look</span>
-                </div>
-                <div class="key-group">
-                    <span class="key">Click</span>
-                    <span>interact</span>
-                </div>
-                <div class="key-group">
-                    <span class="key">Enter</span>
-                    <span>chat</span>
-                </div>
-                <div class="key-group">
-                    <span class="key">Esc</span>
-                    <span>pause</span>
-                </div>
-            </div>
+            <button class="btn-primary" id="enter-btn">Enter World</button>
+            <a href="/home" class="btn-skip">View classic site instead</a>
 
-            <div class="customizer">
+            <div class="customizer" style="margin-top:1.25rem;margin-bottom:0;">
                 <div class="customizer-title">// choose your character</div>
                 <div class="char-grid" id="char-options">
                     <button class="char-card selected" data-char="robot">
@@ -608,8 +588,20 @@
                 </div>
             </div>
 
-            <button class="btn-primary" id="enter-btn">Enter World</button>
-            <a href="/home" class="btn-skip">View classic site instead.</a>
+            <div class="controls-legend" style="margin-top:1rem;margin-bottom:0;">
+                <div class="key-group">
+                    <span class="key">WASD</span>
+                    <span>move</span>
+                </div>
+                <div class="key-group">
+                    <span class="key">Mouse</span>
+                    <span>look</span>
+                </div>
+                <div class="key-group">
+                    <span class="key">Click</span>
+                    <span>interact</span>
+                </div>
+            </div>
 
             <script>
                 document.getElementById('char-options').addEventListener('click', e => {
