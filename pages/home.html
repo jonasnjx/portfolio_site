@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Jonas - AI Cloud & Data Engineer Portfolio">
-    <title>Jonas | AI Cloud & Data Engineer</title>
+    <meta name="description" content="Jonas Ng — Senior Data & Cloud Engineer, Singapore">
+    <title>Jonas Ng</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
@@ -16,170 +16,55 @@
                     fontFamily: {
                         sans: ['Space Grotesk', 'sans-serif'],
                         mono: ['JetBrains Mono', 'monospace'],
+                        serif: ['Source Serif 4', 'serif'],
                     },
-                    colors: {
-                        dark: {
-                            900: '#070b14',
-                            800: '#0c1222',
-                            700: '#111827',
-                            600: '#1e293b',
-                        },
-                        accent: {
-                            DEFAULT: '#3b82f6',
-                            dark: '#2563eb',
-                            glow: 'rgba(59, 130, 246, 0.3)',
-                        }
-                    }
                 }
             }
         }
     </script>
     <style>
-        * {
-            scrollbar-width: thin;
-            scrollbar-color: #3b82f6 #0c1222;
+        :root {
+            --paper: #f7f5f0;
+            --ink: #1a1a1a;
+            --muted: #6b6b6b;
+            --rule: #e2ded5;
+            --accent: #1d4ed8;
         }
-        
-        .gradient-bg {
-            background: linear-gradient(135deg, #070b14 0%, #0c1222 50%, #070b14 100%);
-        }
-        
-        .gradient-text {
-            background: linear-gradient(135deg, #3b82f6, #60a5fa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .card {
-            background: linear-gradient(145deg, #111827, #0c1222);
-            border: 1px solid rgba(59, 130, 246, 0.1);
-        }
-        
-        .card:hover {
-            border-color: rgba(59, 130, 246, 0.3);
-            box-shadow: 0 0 30px rgba(59, 130, 246, 0.1);
-        }
-        
-        .glow {
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
-        }
-        
-        .glow-hover:hover {
-            box-shadow: 0 0 30px rgba(59, 130, 246, 0.4);
-        }
-        
-        .nav-link {
-            position: relative;
-        }
-        
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: #3b82f6;
-            transition: width 0.3s ease;
-        }
-        
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        
-        .nav-link.active::after {
-            width: 100%;
-        }
-        
-        .skill-card {
-            transition: all 0.3s ease;
-        }
-        
-        .skill-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .fade-in {
-            animation: fadeIn 0.6s ease-out forwards;
-            opacity: 0;
-        }
-        
-        @keyframes fadeIn {
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .fade-in { transform: translateY(20px); }
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.2s; }
-        .delay-3 { animation-delay: 0.3s; }
-        .delay-4 { animation-delay: 0.4s; }
-        
-        /* Mobile menu animation */
-        .mobile-menu {
-            transform: translateX(100%);
-            transition: transform 0.3s ease;
-        }
-        
-        .mobile-menu.open {
-            transform: translateX(0);
-        }
-        
-        /* Menu backdrop */
-        .menu-backdrop {
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-        
-        .menu-backdrop.open {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        /* Profile image glow */
-        .profile-glow {
-            position: relative;
-        }
-        
-        .profile-glow::before {
-            content: '';
-            position: absolute;
-            inset: -3px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
-            z-index: -1;
-            animation: pulse 2s ease-in-out infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
-        }
+        body { background-color: var(--paper); color: var(--ink); }
+
+        .nav-link { position: relative; color: var(--muted); font-size: 0.875rem; transition: color 0.15s; }
+        .nav-link:hover { color: var(--ink); }
+        .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--accent); transition: width 0.2s ease; }
+        .nav-link:hover::after { width: 100%; }
+        .nav-link.active { color: var(--accent); }
+        .nav-link.active::after { width: 100%; }
+
+        .row { border-top: 1px solid var(--rule); padding: 1.5rem 0; }
+        .rows-wrap > .row:last-child { border-bottom: 1px solid var(--rule); }
+
+        .mobile-menu { transform: translateX(100%); transition: transform 0.3s ease; }
+        .mobile-menu.open { transform: translateX(0); }
+        .menu-backdrop { opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
+        .menu-backdrop.open { opacity: 1; visibility: visible; }
     </style>
 </head>
 
-<body class="gradient-bg min-h-screen text-white font-sans">
-    
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 w-full bg-dark-900/80 backdrop-blur-md border-b border-dark-600 z-50">
-        <div class="max-w-6xl mx-auto px-6 py-4">
-            <div class="flex justify-between items-center">
-                <!-- Logo -->
-                <a href="/" class="text-xl font-bold gradient-text">Jonas.</a>
+<body class="min-h-screen font-sans">
 
-                <!-- Desktop Navigation -->
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="/" class="nav-link active text-accent font-medium">Home</a>
-                    <a href="/resume" class="nav-link text-gray-300 hover:text-white transition">Resume</a>
-                    <a href="/projects" class="nav-link text-gray-300 hover:text-white transition">Projects</a>
-                    <a href="/casestudies" class="nav-link text-gray-300 hover:text-white transition">Case Studies</a>
-                    <a href="/connect" class="nav-link text-gray-300 hover:text-white transition">Connect</a>
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-50" style="background: rgba(247,245,240,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--rule);">
+        <div class="max-w-2xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="/home" class="text-base font-semibold" style="color: var(--ink);">Jonas Ng</a>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="/home" class="nav-link active">Home</a>
+                    <a href="/resume" class="nav-link">Resume</a>
+                    <a href="/projects" class="nav-link">Projects</a>
+                    <a href="/casestudies" class="nav-link">Case Studies</a>
+                    <a href="/connect" class="nav-link">Connect</a>
                 </div>
-                
-                <!-- Mobile Menu Button -->
-                <button id="menuBtn" class="md:hidden text-white p-2">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button id="menuBtn" class="md:hidden p-1" style="color: var(--ink);">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                     </svg>
                 </button>
@@ -188,190 +73,114 @@
     </nav>
 
     <!-- Mobile Menu Backdrop -->
-    <div id="menuBackdrop" class="menu-backdrop fixed inset-0 bg-black/70 z-[100] md:hidden"></div>
-    
+    <div id="menuBackdrop" class="menu-backdrop fixed inset-0 z-[100] md:hidden" style="background: rgba(0,0,0,0.2);"></div>
+
     <!-- Mobile Menu -->
-    <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 h-screen w-72 z-[110] md:hidden" style="background: #070b14;">
-        <div class="p-6 h-full border-l border-gray-800">
-            <button id="closeMenu" class="absolute top-4 right-4 text-gray-400 hover:text-white">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 h-screen w-60 z-[110] md:hidden" style="background: var(--paper); border-left: 1px solid var(--rule);">
+        <div class="p-6 h-full">
+            <button id="closeMenu" class="absolute top-4 right-4" style="color: var(--muted);">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                 </svg>
             </button>
-            <div class="flex flex-col space-y-6 mt-12">
-                <a href="/" class="text-accent font-medium text-lg">Home</a>
-                <a href="/resume" class="text-gray-300 hover:text-white text-lg transition">Resume</a>
-                <a href="/projects" class="text-gray-300 hover:text-white text-lg transition">Projects</a>
-                <a href="/casestudies" class="text-gray-300 hover:text-white text-lg transition">Case Studies</a>
-                <a href="/connect" class="text-gray-300 hover:text-white text-lg transition">Connect</a>
+            <div class="flex flex-col gap-6 mt-12">
+                <a href="/home" class="text-sm font-medium" style="color: var(--accent);">Home</a>
+                <a href="/resume" class="text-sm" style="color: var(--muted);">Resume</a>
+                <a href="/projects" class="text-sm" style="color: var(--muted);">Projects</a>
+                <a href="/casestudies" class="text-sm" style="color: var(--muted);">Case Studies</a>
+                <a href="/connect" class="text-sm" style="color: var(--muted);">Connect</a>
             </div>
         </div>
     </div>
 
-    <!-- Hero Section -->
-    <section class="min-h-screen flex items-center justify-center px-6 pt-20 relative overflow-hidden">
-        <!-- Background Image -->
-        <div class="absolute inset-0 z-0">
-            <img src="/assets/sea.jpg" alt="" class="w-full h-full object-cover opacity-20">
-            <div class="absolute inset-0 bg-gradient-to-b from-dark-900/50 via-dark-900/80 to-dark-900"></div>
-        </div>
-        
-        <div class="max-w-4xl mx-auto text-center relative z-10">
-            
-            <!-- Profile Image -->
-            <div class="fade-in delay-1 mb-8">
-                <div class="profile-glow inline-block rounded-full">
-                    <img src="/assets/profile.jpg" alt="Jonas" class="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover">
-                </div>
-            </div>
-            
-            <!-- Heading -->
-            <h1 class="fade-in delay-2 text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
-                Hi, I'm <span class="gradient-text">Jonas</span>
-            </h1>
-            
-            <!-- Subtitle -->
-            <p class="fade-in delay-3 text-xl md:text-2xl text-gray-400 mb-4 font-mono">
-                Senior Data & Cloud Engineer · 5 yrs · Singapore
-            </p>
+    <!-- Main -->
+    <main class="pt-24 pb-20 px-6">
+        <div class="max-w-2xl mx-auto">
 
-            <!-- Tagline -->
-            <p class="fade-in delay-3 text-lg text-gray-500 mb-8 max-w-2xl mx-auto">
-                I build production data platforms and ship GenAI from POC to deployment — across AWS, Azure, Snowflake & Databricks.
-            </p>
-            
-            <!-- CTA Buttons -->
-            <div class="fade-in delay-4 flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="/resume" class="px-8 py-3 bg-accent hover:bg-accent-dark text-white font-semibold rounded-lg transition glow-hover">
-                    View Resume
-                </a>
-                <a href="/projects" class="px-8 py-3 border border-accent text-accent hover:bg-accent hover:text-white font-semibold rounded-lg transition">
-                    See Projects
-                </a>
-                <a href="/casestudies" class="px-8 py-3 border border-accent text-accent hover:bg-accent hover:text-white font-semibold rounded-lg transition">
-                    Case Studies
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="py-20 px-6">
-        <div class="max-w-5xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">
-                About <span class="gradient-text">Me</span>
-            </h2>
-            
-            <div class="card rounded-2xl p-8 md:p-10 transition-all duration-300">
-                <div class="grid md:grid-cols-2 gap-8">
-                    <!-- Left: Background -->
+            <!-- Hero -->
+            <section class="py-16 md:py-20">
+                <div class="flex flex-col sm:flex-row sm:items-start gap-6 mb-8">
+                    <img src="/assets/profile.jpg" alt="Jonas Ng" class="w-16 h-16 rounded-full object-cover flex-shrink-0">
                     <div>
-                        <h3 class="text-accent font-mono text-sm uppercase tracking-wider mb-4">Background</h3>
-                        <ul class="space-y-4 text-gray-300">
-                            <li class="flex items-start gap-3">
-                                <span class="text-accent mt-1">▹</span>
-                                <span>3x AWS, Azure and Snowflake Certified</span>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <span class="text-accent mt-1">▹</span>
-                                <span>Business Analytics (Honours) from NTU</span>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <span class="text-accent mt-1">▹</span>
-                                <span>Experienced in production-grade pipelines & quick POCs</span>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                    <!-- Right: Hobbies -->
-                    <div>
-                        <h3 class="text-accent font-mono text-sm uppercase tracking-wider mb-4">Hobbies</h3>
-                        <ul class="space-y-4 text-gray-300">
-                            <li class="flex items-start gap-3">
-                                <span class="text-accent mt-1">▹</span>
-                                <span>Dance (Hip-hop)</span>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <span class="text-accent mt-1">▹</span>
-                                <span>Photography, skateboarding & running</span>
-                            </li>
-                        </ul>
+                        <h1 class="text-2xl md:text-3xl font-semibold mb-1" style="color: var(--ink);">Jonas Ng</h1>
+                        <p class="font-mono text-sm" style="color: var(--muted);">Senior Data & Cloud Engineer · 5 yrs · Singapore</p>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
+                <p class="font-serif text-lg mb-8" style="color: var(--ink); max-width: 58ch; line-height: 1.75;">
+                    I build production data platforms and ship GenAI from POC to deployment — across AWS, Azure, Snowflake & Databricks. Currently a Senior Data Engineer at Certis.
+                </p>
+                <div class="flex flex-wrap items-center gap-6">
+                    <a href="/resume" class="text-sm font-medium px-4 py-2 rounded" style="background: var(--accent); color: #fff;">View Resume</a>
+                    <a href="/" class="text-sm" style="color: var(--accent);">Enter 3D room →</a>
+                </div>
+            </section>
 
-    <!-- Tech Stack Section -->
-    <section class="py-20 px-6">
-        <div class="max-w-3xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">
-                Tech <span class="gradient-text">Stack</span>
-            </h2>
-            
-            <div class="card rounded-2xl p-8 transition-all duration-300">
-                <div class="space-y-6 text-center">
-                    <!-- AWS -->
-                    <div>
-                        <span class="text-white font-medium">AWS</span>
-                        <p class="text-gray-400 mt-2">Sagemaker · ECS · Glue · Lambda · S3 Iceberg · CloudFormation · CodePipeline</p>
+            <!-- Background -->
+            <section class="pb-12">
+                <p class="font-mono text-xs uppercase tracking-widest mb-4" style="color: var(--muted);">Background</p>
+                <div class="rows-wrap">
+                    <div class="row">
+                        <p class="font-mono text-xs mb-1" style="color: var(--muted);">Certifications</p>
+                        <p style="color: var(--ink);">3× certified — AWS Solutions Architect, Azure, Snowflake</p>
                     </div>
-                    
-                    <!-- Other Tools -->
-                    <div class="pt-4 border-t border-dark-600">
-                        <div class="flex flex-wrap justify-center gap-x-8 gap-y-2">
-                            <span class="text-white">Azure</span>
-                            <span class="text-white">GCP</span>
-                            <span class="text-white">Snowflake</span>
-                            <span class="text-white">Databricks</span>
-                            <span class="text-white">Python</span>
-                            <span class="text-white">SQL</span>
-                        </div>
+                    <div class="row">
+                        <p class="font-mono text-xs mb-1" style="color: var(--muted);">Education</p>
+                        <p style="color: var(--ink);">Business Analytics (Honours) — Nanyang Technological University</p>
+                    </div>
+                    <div class="row">
+                        <p class="font-mono text-xs mb-1" style="color: var(--muted);">Currently</p>
+                        <p style="color: var(--ink);">Senior Data Engineer at Certis, Singapore</p>
+                    </div>
+                    <div class="row">
+                        <p class="font-mono text-xs mb-1" style="color: var(--muted);">Outside work</p>
+                        <p style="color: var(--ink);">Hip-hop dance, photography, skateboarding, running</p>
                     </div>
                 </div>
-            </div>
+            </section>
+
+            <!-- Tech Stack -->
+            <section class="pb-12">
+                <p class="font-mono text-xs uppercase tracking-widest mb-4" style="color: var(--muted);">Tech Stack</p>
+                <div class="rows-wrap">
+                    <div class="row">
+                        <p class="font-mono text-xs mb-2" style="color: var(--muted);">Cloud</p>
+                        <p style="color: var(--ink);">AWS (SageMaker · ECS · Glue · Lambda · S3 Iceberg · CloudFormation · CodePipeline) · Azure · GCP</p>
+                    </div>
+                    <div class="row">
+                        <p class="font-mono text-xs mb-2" style="color: var(--muted);">Data & ML</p>
+                        <p style="color: var(--ink);">Snowflake · Databricks · Neo4j · Python · SQL · PySpark</p>
+                    </div>
+                    <div class="row">
+                        <p class="font-mono text-xs mb-2" style="color: var(--muted);">GenAI</p>
+                        <p style="color: var(--ink);">RAG · Multi-agent systems · AutoGen · Cortex Analyst</p>
+                    </div>
+                </div>
+            </section>
+
         </div>
-    </section>
+    </main>
 
     <!-- Footer -->
-    <footer class="py-12 px-6 border-t border-dark-600">
-        <div class="max-w-5xl mx-auto text-center">
-            <p class="text-gray-400 mb-2">
-                Let's connect at <a href="mailto:ngjingxun1997@gmail.com" class="text-accent hover:underline">ngjingxun1997@gmail.com</a>
-            </p>
-            <p class="text-gray-500 text-sm">
-                © 2026 Jonas Ng · Singapore
-            </p>
+    <footer class="px-6 py-10" style="border-top: 1px solid var(--rule);">
+        <div class="max-w-2xl mx-auto flex flex-col md:flex-row md:justify-between md:items-center gap-2">
+            <a href="mailto:ngjingxun1997@gmail.com" class="text-sm" style="color: var(--accent);">ngjingxun1997@gmail.com</a>
+            <p class="font-mono text-xs" style="color: var(--muted);">© 2026 Jonas Ng · Singapore</p>
         </div>
     </footer>
 
     <script>
-        // Mobile menu toggle
         const menuBtn = document.getElementById('menuBtn');
         const closeMenu = document.getElementById('closeMenu');
         const mobileMenu = document.getElementById('mobileMenu');
         const menuBackdrop = document.getElementById('menuBackdrop');
-        
-        function openMenu() {
-            mobileMenu.classList.add('open');
-            menuBackdrop.classList.add('open');
-            document.body.style.overflow = 'hidden';
-        }
-        
-        function closeMenuFn() {
-            mobileMenu.classList.remove('open');
-            menuBackdrop.classList.remove('open');
-            document.body.style.overflow = '';
-        }
-        
+
+        function openMenu() { mobileMenu.classList.add('open'); menuBackdrop.classList.add('open'); document.body.style.overflow = 'hidden'; }
+        function closeMenuFn() { mobileMenu.classList.remove('open'); menuBackdrop.classList.remove('open'); document.body.style.overflow = ''; }
+
         menuBtn.addEventListener('click', openMenu);
         closeMenu.addEventListener('click', closeMenuFn);
         menuBackdrop.addEventListener('click', closeMenuFn);
-        
-        // Close mobile menu on link click
-        document.querySelectorAll('#mobileMenu a').forEach(link => {
-            link.addEventListener('click', closeMenuFn);
-        });
+        document.querySelectorAll('#mobileMenu a').forEach(l => l.addEventListener('click', closeMenuFn));
     </script>
 </body>
 </html>

@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Jonas - Case Studies on AI and Data Engineering">
-    <title>Case Studies | Jonas</title>
+    <meta name="description" content="Jonas Ng — Case Studies on AI and Data Engineering">
+    <title>Case Studies | Jonas Ng</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
@@ -16,115 +16,49 @@
                     fontFamily: {
                         sans: ['Space Grotesk', 'sans-serif'],
                         mono: ['JetBrains Mono', 'monospace'],
+                        serif: ['Source Serif 4', 'serif'],
                     },
-                    colors: {
-                        dark: {
-                            900: '#070b14',
-                            800: '#0c1222',
-                            700: '#111827',
-                            600: '#1e293b',
-                        },
-                        accent: {
-                            DEFAULT: '#3b82f6',
-                            dark: '#2563eb',
-                        }
-                    }
                 }
             }
         }
     </script>
     <style>
-        .gradient-bg {
-            background: linear-gradient(135deg, #070b14 0%, #0c1222 50%, #070b14 100%);
-        }
-        
-        .gradient-text {
-            background: linear-gradient(135deg, #3b82f6, #60a5fa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .card {
-            background: linear-gradient(145deg, #111827, #0c1222);
-            border: 1px solid rgba(59, 130, 246, 0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .card:hover {
-            border-color: rgba(59, 130, 246, 0.4);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 40px rgba(59, 130, 246, 0.15);
-        }
-        
-        .nav-link {
-            position: relative;
-        }
-        
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: #3b82f6;
-            transition: width 0.3s ease;
-        }
-        
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        
-        .nav-link.active::after {
-            width: 100%;
-        }
-        
-        .mobile-menu {
-            transform: translateX(100%);
-            transition: transform 0.3s ease;
-        }
-        
-        .mobile-menu.open {
-            transform: translateX(0);
-        }
-        
-        .menu-backdrop {
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-        
-        .menu-backdrop.open {
-            opacity: 1;
-            visibility: visible;
-        }
+        :root { --paper: #f7f5f0; --ink: #1a1a1a; --muted: #6b6b6b; --rule: #e2ded5; --accent: #1d4ed8; }
+        body { background-color: var(--paper); color: var(--ink); }
+
+        .nav-link { position: relative; color: var(--muted); font-size: 0.875rem; transition: color 0.15s; }
+        .nav-link:hover { color: var(--ink); }
+        .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--accent); transition: width 0.2s; }
+        .nav-link:hover::after { width: 100%; }
+        .nav-link.active { color: var(--accent); }
+        .nav-link.active::after { width: 100%; }
+
+        .article-row { border-top: 1px solid var(--rule); padding: 1.75rem 0; }
+        .article-row:last-child { border-bottom: 1px solid var(--rule); }
+        .article-row a.title:hover { color: var(--accent); }
+
+        .mobile-menu { transform: translateX(100%); transition: transform 0.3s ease; }
+        .mobile-menu.open { transform: translateX(0); }
+        .menu-backdrop { opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
+        .menu-backdrop.open { opacity: 1; visibility: visible; }
     </style>
 </head>
 
-<body class="gradient-bg min-h-screen text-white font-sans relative">
-    <!-- Background Image -->
-    <div class="fixed inset-0 z-0">
-        <img src="/assets/sea.jpg" alt="" class="w-full h-full object-cover opacity-20">
-        <div class="absolute inset-0 bg-gradient-to-b from-dark-900/50 via-dark-900/80 to-dark-900"></div>
-    </div>
-    
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 w-full bg-dark-900/80 backdrop-blur-md border-b border-dark-600 z-50">
-        <div class="max-w-6xl mx-auto px-6 py-4">
+<body class="min-h-screen font-sans">
+
+    <nav class="fixed top-0 left-0 w-full z-50" style="background: rgba(247,245,240,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--rule);">
+        <div class="max-w-2xl mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
-                <a href="/" class="text-xl font-bold gradient-text">Jonas.</a>
-                
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="/" class="nav-link text-gray-300 hover:text-white transition">Home</a>
-                    <a href="/resume" class="nav-link text-gray-300 hover:text-white transition">Resume</a>
-                    <a href="/projects" class="nav-link text-gray-300 hover:text-white transition">Projects</a>
-                    <a href="/casestudies" class="nav-link active text-accent font-medium">Case Studies</a>
-                    <a href="/connect" class="nav-link text-gray-300 hover:text-white transition">Connect</a>
+                <a href="/home" class="text-base font-semibold" style="color: var(--ink);">Jonas Ng</a>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="/home" class="nav-link">Home</a>
+                    <a href="/resume" class="nav-link">Resume</a>
+                    <a href="/projects" class="nav-link">Projects</a>
+                    <a href="/casestudies" class="nav-link active">Case Studies</a>
+                    <a href="/connect" class="nav-link">Connect</a>
                 </div>
-                
-                <button id="menuBtn" class="md:hidden text-white p-2">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button id="menuBtn" class="md:hidden p-1" style="color: var(--ink);">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                     </svg>
                 </button>
@@ -132,129 +66,61 @@
         </div>
     </nav>
 
-    <!-- Mobile Menu Backdrop -->
-    <div id="menuBackdrop" class="menu-backdrop fixed inset-0 bg-black/70 z-[100] md:hidden"></div>
-    
-    <!-- Mobile Menu -->
-    <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 h-screen w-72 z-[110] md:hidden" style="background: #070b14;">
-        <div class="p-6 h-full border-l border-gray-800">
-            <button id="closeMenu" class="absolute top-4 right-4 text-gray-400 hover:text-white">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <div id="menuBackdrop" class="menu-backdrop fixed inset-0 z-[100] md:hidden" style="background: rgba(0,0,0,0.2);"></div>
+    <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 h-screen w-60 z-[110] md:hidden" style="background: var(--paper); border-left: 1px solid var(--rule);">
+        <div class="p-6 h-full">
+            <button id="closeMenu" class="absolute top-4 right-4" style="color: var(--muted);">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                 </svg>
             </button>
-            <div class="flex flex-col space-y-6 mt-12">
-                <a href="/" class="text-gray-300 hover:text-white text-lg transition">Home</a>
-                <a href="/resume" class="text-gray-300 hover:text-white text-lg transition">Resume</a>
-                <a href="/projects" class="text-gray-300 hover:text-white text-lg transition">Projects</a>
-                <a href="/casestudies" class="text-accent font-medium text-lg">Case Studies</a>
-                <a href="/connect" class="text-gray-300 hover:text-white text-lg transition">Connect</a>
+            <div class="flex flex-col gap-6 mt-12">
+                <a href="/home" class="text-sm" style="color: var(--muted);">Home</a>
+                <a href="/resume" class="text-sm" style="color: var(--muted);">Resume</a>
+                <a href="/projects" class="text-sm" style="color: var(--muted);">Projects</a>
+                <a href="/casestudies" class="text-sm font-medium" style="color: var(--accent);">Case Studies</a>
+                <a href="/connect" class="text-sm" style="color: var(--muted);">Connect</a>
             </div>
         </div>
     </div>
 
-    <!-- Case Studies Listing -->
-    <main class="pt-28 pb-20 px-6 relative z-10">
-        <div class="max-w-4xl mx-auto">
-            
-            <!-- Header -->
-            <div class="text-center mb-12">
-                <h1 class="text-4xl md:text-5xl font-bold mb-4">
-                    Case <span class="gradient-text">Studies</span>
-                </h1>
-                <p class="text-gray-400">Insights on AI, data engineering, and emerging technologies</p>
+    <main class="pt-24 pb-20 px-6">
+        <div class="max-w-2xl mx-auto">
+
+            <div class="py-12">
+                <h1 class="text-2xl md:text-3xl font-semibold mb-2" style="color: var(--ink);">Case Studies</h1>
+                <p class="font-mono text-sm" style="color: var(--muted);">Insights on AI, data engineering, and emerging technologies</p>
             </div>
 
-            <!-- Case Study Cards -->
-            <div class="space-y-6">
-                
-                <!-- Case Study: Context Engineering -->
-                <a href="https://context-engineering-slides.vercel.app/" target="_blank" class="card rounded-2xl p-6 md:p-8 block group">
-                    <div class="flex flex-col md:flex-row md:items-center gap-4">
-                        <div class="flex-shrink-0">
-                            <div class="w-14 h-14 bg-accent/20 rounded-xl flex items-center justify-center">
-                                <span class="text-2xl">🧠</span>
-                            </div>
-                        </div>
-                        <div class="flex-1">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-xs font-mono text-accent bg-accent/10 px-2 py-1 rounded">2026</span>
-                                <span class="text-xs text-gray-500">Context Engineering</span>
-                            </div>
-                            <h2 class="text-xl md:text-2xl font-semibold text-white group-hover:text-accent transition mb-2">
-                                Context Engineering for Data Engineers
-                            </h2>
-                            <p class="text-gray-400 text-sm md:text-base">
-                                As AI scales, the audience for data engineering has shifted from humans to AI agents. Exploring why it's critical to recognise the growing importance of context engineering, and how data engineers can shape the way agents consume, interpret, and act on data.
-                            </p>
-                        </div>
-                        <div class="flex-shrink-0">
-                            <svg class="w-6 h-6 text-gray-500 group-hover:text-accent group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                            </svg>
-                        </div>
-                    </div>
-                </a>
+            <section>
 
-                <!-- Case Study: Data Engineering & AI -->
-                <a href="/casestudies/data-ai-2025" class="card rounded-2xl p-6 md:p-8 block group">
-                    <div class="flex flex-col md:flex-row md:items-center gap-4">
-                        <div class="flex-shrink-0">
-                            <div class="w-14 h-14 bg-accent/20 rounded-xl flex items-center justify-center">
-                                <span class="text-2xl">🤖</span>
-                            </div>
-                        </div>
-                        <div class="flex-1">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-xs font-mono text-accent bg-accent/10 px-2 py-1 rounded">2025</span>
-                                <span class="text-xs text-gray-500">Data Engineering & AI</span>
-                            </div>
-                            <h2 class="text-xl md:text-2xl font-semibold text-white group-hover:text-accent transition mb-2">
-                                Bridging the Gap Between Data Engineering and AI
-                            </h2>
-                            <p class="text-gray-400 text-sm md:text-base">
-                                Key findings from industry reports on how streaming-first ingestion, open table formats, vector databases, and modern catalogs are shaping the future of data infrastructure.
-                            </p>
-                        </div>
-                        <div class="flex-shrink-0">
-                            <svg class="w-6 h-6 text-gray-500 group-hover:text-accent group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                            </svg>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- More Case Studies Coming Soon -->
-                <div class="card rounded-2xl p-6 md:p-8 opacity-60">
-                    <div class="flex flex-col md:flex-row md:items-center gap-4">
-                        <div class="flex-shrink-0">
-                            <div class="w-14 h-14 bg-gray-600/20 rounded-xl flex items-center justify-center">
-                                <span class="text-2xl">📝</span>
-                            </div>
-                        </div>
-                        <div class="flex-1">
-                            <h2 class="text-xl font-semibold text-gray-400 mb-2">
-                                More Case Studies Coming Soon
-                            </h2>
-                            <p class="text-gray-500 text-sm">
-                                Stay tuned for more insights on cloud architecture, MLOps, and data engineering best practices.
-                            </p>
-                        </div>
-                    </div>
+                <!-- Context Engineering -->
+                <div class="article-row">
+                    <p class="font-mono text-xs mb-3" style="color: var(--muted);">2026 · Context Engineering</p>
+                    <h2 class="text-base font-semibold mb-2">
+                        <a href="https://context-engineering-slides.vercel.app/" target="_blank" class="title transition" style="color: var(--ink);">Context Engineering for Data Engineers →</a>
+                    </h2>
+                    <p class="text-sm font-serif" style="color: var(--muted); line-height: 1.7;">As AI scales, the audience for data engineering has shifted from humans to AI agents. Exploring why it's critical to recognise the growing importance of context engineering, and how data engineers can shape the way agents consume, interpret, and act on data.</p>
                 </div>
 
-            </div>
+                <!-- Data Engineering & AI -->
+                <div class="article-row">
+                    <p class="font-mono text-xs mb-3" style="color: var(--muted);">2025 · Data Engineering & AI</p>
+                    <h2 class="text-base font-semibold mb-2">
+                        <a href="/casestudies/data-ai-2025" class="title transition" style="color: var(--ink);">Bridging Data Engineering and AI →</a>
+                    </h2>
+                    <p class="text-sm font-serif" style="color: var(--muted); line-height: 1.7;">Key findings from industry reports on how streaming-first ingestion, open table formats, vector databases, and modern catalogs are shaping the future of data infrastructure.</p>
+                </div>
+
+            </section>
 
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="py-12 px-6 border-t border-dark-600 relative z-10">
-        <div class="max-w-5xl mx-auto text-center">
-            <p class="text-gray-400 mb-2">
-                Let's connect at <a href="mailto:ngjingxun1997@gmail.com" class="text-accent hover:underline">ngjingxun1997@gmail.com</a>
-            </p>
-            <p class="text-gray-500 text-sm">© 2026 Jonas Ng · Singapore</p>
+    <footer class="px-6 py-10" style="border-top: 1px solid var(--rule);">
+        <div class="max-w-2xl mx-auto flex flex-col md:flex-row md:justify-between md:items-center gap-2">
+            <a href="mailto:ngjingxun1997@gmail.com" class="text-sm" style="color: var(--accent);">ngjingxun1997@gmail.com</a>
+            <p class="font-mono text-xs" style="color: var(--muted);">© 2026 Jonas Ng · Singapore</p>
         </div>
     </footer>
 
@@ -263,26 +129,12 @@
         const closeMenu = document.getElementById('closeMenu');
         const mobileMenu = document.getElementById('mobileMenu');
         const menuBackdrop = document.getElementById('menuBackdrop');
-        
-        function openMenu() {
-            mobileMenu.classList.add('open');
-            menuBackdrop.classList.add('open');
-            document.body.style.overflow = 'hidden';
-        }
-        
-        function closeMenuFn() {
-            mobileMenu.classList.remove('open');
-            menuBackdrop.classList.remove('open');
-            document.body.style.overflow = '';
-        }
-        
+        function openMenu() { mobileMenu.classList.add('open'); menuBackdrop.classList.add('open'); document.body.style.overflow = 'hidden'; }
+        function closeMenuFn() { mobileMenu.classList.remove('open'); menuBackdrop.classList.remove('open'); document.body.style.overflow = ''; }
         menuBtn.addEventListener('click', openMenu);
         closeMenu.addEventListener('click', closeMenuFn);
         menuBackdrop.addEventListener('click', closeMenuFn);
-        
-        document.querySelectorAll('#mobileMenu a').forEach(link => {
-            link.addEventListener('click', closeMenuFn);
-        });
+        document.querySelectorAll('#mobileMenu a').forEach(l => l.addEventListener('click', closeMenuFn));
     </script>
 </body>
 </html>

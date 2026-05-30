@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Jonas - Resume & Work Experience">
-    <title>Resume | Jonas</title>
+    <meta name="description" content="Jonas Ng — Resume & Work Experience">
+    <title>Resume | Jonas Ng</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
@@ -16,112 +16,62 @@
                     fontFamily: {
                         sans: ['Space Grotesk', 'sans-serif'],
                         mono: ['JetBrains Mono', 'monospace'],
+                        serif: ['Source Serif 4', 'serif'],
                     },
-                    colors: {
-                        dark: {
-                            900: '#070b14',
-                            800: '#0c1222',
-                            700: '#111827',
-                            600: '#1e293b',
-                        },
-                        accent: {
-                            DEFAULT: '#3b82f6',
-                            dark: '#2563eb',
-                        }
-                    }
                 }
             }
         }
     </script>
     <style>
-        .gradient-bg {
-            background: linear-gradient(135deg, #070b14 0%, #0c1222 50%, #070b14 100%);
-        }
-        
-        .gradient-text {
-            background: linear-gradient(135deg, #3b82f6, #60a5fa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .card {
-            background: linear-gradient(145deg, #111827, #0c1222);
-            border: 1px solid rgba(59, 130, 246, 0.1);
-        }
-        
-        .card:hover {
-            border-color: rgba(59, 130, 246, 0.3);
-        }
-        
-        .nav-link {
-            position: relative;
-        }
-        
-        .nav-link::after {
+        :root { --paper: #f7f5f0; --ink: #1a1a1a; --muted: #6b6b6b; --rule: #e2ded5; --accent: #1d4ed8; }
+        body { background-color: var(--paper); color: var(--ink); }
+
+        .nav-link { position: relative; color: var(--muted); font-size: 0.875rem; transition: color 0.15s; }
+        .nav-link:hover { color: var(--ink); }
+        .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--accent); transition: width 0.2s; }
+        .nav-link:hover::after { width: 100%; }
+        .nav-link.active { color: var(--accent); }
+        .nav-link.active::after { width: 100%; }
+
+        /* Timeline */
+        .timeline { border-left: 2px solid var(--rule); padding-left: 1.75rem; }
+        .timeline-item { position: relative; padding-bottom: 2.5rem; }
+        .timeline-item:last-child { padding-bottom: 0; }
+        .timeline-item::before {
             content: '';
             position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: #3b82f6;
-            transition: width 0.3s ease;
+            left: -2.19rem;
+            top: 0.35rem;
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 2px solid var(--paper);
+            box-shadow: 0 0 0 2px var(--accent);
         }
-        
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        
-        .nav-link.active::after {
-            width: 100%;
-        }
-        
-        .mobile-menu {
-            transform: translateX(100%);
-            transition: transform 0.3s ease;
-        }
-        
-        .mobile-menu.open {
-            transform: translateX(0);
-        }
-        
-        .menu-backdrop {
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-        
-        .menu-backdrop.open {
-            opacity: 1;
-            visibility: visible;
-        }
+        .timeline-item.muted::before { background: var(--rule); box-shadow: 0 0 0 2px var(--rule); }
+
+        .mobile-menu { transform: translateX(100%); transition: transform 0.3s ease; }
+        .mobile-menu.open { transform: translateX(0); }
+        .menu-backdrop { opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
+        .menu-backdrop.open { opacity: 1; visibility: visible; }
     </style>
 </head>
 
-<body class="gradient-bg min-h-screen text-white font-sans relative">
-    <!-- Background Image -->
-    <div class="fixed inset-0 z-0">
-        <img src="/assets/sea.jpg" alt="" class="w-full h-full object-cover opacity-20">
-        <div class="absolute inset-0 bg-gradient-to-b from-dark-900/50 via-dark-900/80 to-dark-900"></div>
-    </div>
-    
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 w-full bg-dark-900/80 backdrop-blur-md border-b border-dark-600 z-50">
-        <div class="max-w-6xl mx-auto px-6 py-4">
+<body class="min-h-screen font-sans">
+
+    <nav class="fixed top-0 left-0 w-full z-50" style="background: rgba(247,245,240,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--rule);">
+        <div class="max-w-2xl mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
-                <a href="/" class="text-xl font-bold gradient-text">Jonas.</a>
-                
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="/" class="nav-link text-gray-300 hover:text-white transition">Home</a>
-                    <a href="/resume" class="nav-link active text-accent font-medium">Resume</a>
-                    <a href="/projects" class="nav-link text-gray-300 hover:text-white transition">Projects</a>
-                    <a href="/casestudies" class="nav-link text-gray-300 hover:text-white transition">Case Studies</a>
-                    <a href="/connect" class="nav-link text-gray-300 hover:text-white transition">Connect</a>
+                <a href="/home" class="text-base font-semibold" style="color: var(--ink);">Jonas Ng</a>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="/home" class="nav-link">Home</a>
+                    <a href="/resume" class="nav-link active">Resume</a>
+                    <a href="/projects" class="nav-link">Projects</a>
+                    <a href="/casestudies" class="nav-link">Case Studies</a>
+                    <a href="/connect" class="nav-link">Connect</a>
                 </div>
-                
-                <button id="menuBtn" class="md:hidden text-white p-2">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button id="menuBtn" class="md:hidden p-1" style="color: var(--ink);">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                     </svg>
                 </button>
@@ -129,73 +79,51 @@
         </div>
     </nav>
 
-    <!-- Mobile Menu Backdrop -->
-    <div id="menuBackdrop" class="menu-backdrop fixed inset-0 bg-black/70 z-[100] md:hidden"></div>
-    
-    <!-- Mobile Menu -->
-    <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 h-screen w-72 z-[110] md:hidden" style="background: #070b14;">
-        <div class="p-6 h-full border-l border-gray-800">
-            <button id="closeMenu" class="absolute top-4 right-4 text-gray-400 hover:text-white">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <div id="menuBackdrop" class="menu-backdrop fixed inset-0 z-[100] md:hidden" style="background: rgba(0,0,0,0.2);"></div>
+    <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 h-screen w-60 z-[110] md:hidden" style="background: var(--paper); border-left: 1px solid var(--rule);">
+        <div class="p-6 h-full">
+            <button id="closeMenu" class="absolute top-4 right-4" style="color: var(--muted);">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                 </svg>
             </button>
-            <div class="flex flex-col space-y-6 mt-12">
-                <a href="/" class="text-gray-300 hover:text-white text-lg transition">Home</a>
-                <a href="/resume" class="text-accent font-medium text-lg">Resume</a>
-                <a href="/projects" class="text-gray-300 hover:text-white text-lg transition">Projects</a>
-                <a href="/casestudies" class="text-gray-300 hover:text-white text-lg transition">Case Studies</a>
-                <a href="/connect" class="text-gray-300 hover:text-white text-lg transition">Connect</a>
+            <div class="flex flex-col gap-6 mt-12">
+                <a href="/home" class="text-sm" style="color: var(--muted);">Home</a>
+                <a href="/resume" class="text-sm font-medium" style="color: var(--accent);">Resume</a>
+                <a href="/projects" class="text-sm" style="color: var(--muted);">Projects</a>
+                <a href="/casestudies" class="text-sm" style="color: var(--muted);">Case Studies</a>
+                <a href="/connect" class="text-sm" style="color: var(--muted);">Connect</a>
             </div>
         </div>
     </div>
 
-    <!-- Resume Content -->
-    <main class="pt-28 pb-20 px-6 relative z-10">
-        <div class="max-w-4xl mx-auto">
-            
-            <!-- Header -->
-            <div class="text-center mb-16">
-                <h1 class="text-4xl md:text-5xl font-bold mb-4">
-                    My <span class="gradient-text">Resume</span>
-                </h1>
-                <p class="text-gray-400">5 years across consulting, research, and enterprise data engineering</p>
+    <main class="pt-24 pb-20 px-6">
+        <div class="max-w-2xl mx-auto">
+
+            <div class="py-12">
+                <h1 class="text-2xl md:text-3xl font-semibold mb-2" style="color: var(--ink);">Resume</h1>
+                <p class="font-mono text-sm" style="color: var(--muted);">5 years across consulting, research, and enterprise data engineering</p>
             </div>
 
             <!-- Work Experience -->
-            <section class="mb-16">
-                <h2 class="text-2xl font-bold mb-8">
-                    <span class="text-accent">▹</span> Work Experience
-                </h2>
-                
-                <div class="space-y-8">
-                    
+            <section class="mb-14">
+                <p class="font-mono text-xs uppercase tracking-widest mb-8" style="color: var(--muted);">Work Experience</p>
+                <div class="timeline">
+
                     <!-- Certis -->
-                    <div class="card rounded-xl p-6 md:p-8 transition-all duration-300">
-                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-2">
-                            <h3 class="text-xl font-semibold text-white">Senior Data Engineer</h3>
-                            <span class="text-accent font-mono text-sm">Aug 2025 – Present</span>
-                        </div>
-                        <p class="text-gray-400 mb-4">Certis, Singapore</p>
+                    <div class="timeline-item">
+                        <p class="font-mono text-xs mb-2" style="color: var(--muted);">Aug 2025 – Present</p>
+                        <h3 class="text-base font-semibold mb-0.5" style="color: var(--ink);">Senior Data Engineer</h3>
+                        <p class="text-sm mb-3" style="color: var(--muted);">Certis · Singapore</p>
                     </div>
 
                     <!-- A*STAR -->
-                    <div class="card rounded-xl p-6 md:p-8 transition-all duration-300">
-                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-2">
-                            <h3 class="text-xl font-semibold text-white">Senior Data Engineer</h3>
-                            <span class="text-accent font-mono text-sm">Aug 2024 – Jun 2025</span>
-                        </div>
-                        <p class="text-gray-400 mb-5">A*STAR, Singapore</p>
-                        
-                        <ul class="space-y-4 text-gray-300 text-sm">
-                            <li>
-                                <p>Led the technical integration of Alation, a data catalog tool, coordinating with 13 system owners and the infra team</p>
-                                <ul class="mt-2 ml-5 space-y-1 text-gray-400">
-                                    <li>– Managed Agent installation and configuration within Linux VMs</li>
-                                    <li>– Worked with network teams to establish secure connectivity for metadata extraction and catalog sync</li>
-                                    <li>– Built catalog features to support IM8 data governance requirements, including sensitivity classification and lineage</li>
-                                </ul>
-                            </li>
+                    <div class="timeline-item">
+                        <p class="font-mono text-xs mb-2" style="color: var(--muted);">Aug 2024 – Jun 2025</p>
+                        <h3 class="text-base font-semibold mb-0.5" style="color: var(--ink);">Senior Data Engineer</h3>
+                        <p class="text-sm mb-4" style="color: var(--muted);">A*STAR · Singapore</p>
+                        <ul class="space-y-2.5 text-sm" style="color: var(--ink); line-height: 1.6;">
+                            <li>Led technical integration of Alation across 13 system owners — managed Agent installation, network connectivity, and catalog features for IM8 data governance (sensitivity classification, lineage)</li>
                             <li>Built 8 ADF pipelines to transform and load unstructured data from 3-tier Blob storage into Snowflake daily</li>
                             <li>Created an interactive RAG application using Node.js and Neo4j to present data flows, deployed via Azure App Service</li>
                             <li>Implemented PGP encryption/decryption using Python and SQL worksheets for ERP system integration</li>
@@ -205,18 +133,14 @@
                     </div>
 
                     <!-- Accenture -->
-                    <div class="card rounded-xl p-6 md:p-8 transition-all duration-300">
-                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-2">
-                            <h3 class="text-xl font-semibold text-white">AI Cloud Engineer</h3>
-                            <span class="text-accent font-mono text-sm">Jul 2021 – Jul 2024</span>
-                        </div>
-                        <p class="text-gray-400 mb-2">Accenture, Singapore</p>
-
-                        <ul class="space-y-4 text-gray-300 text-sm">
+                    <div class="timeline-item">
+                        <p class="font-mono text-xs mb-2" style="color: var(--muted);">Jul 2021 – Jul 2024</p>
+                        <h3 class="text-base font-semibold mb-0.5" style="color: var(--ink);">AI Cloud Engineer</h3>
+                        <p class="text-sm mb-4" style="color: var(--muted);">Accenture · Singapore</p>
+                        <ul class="space-y-2.5 text-sm" style="color: var(--ink); line-height: 1.6;">
                             <li>Delivered cloud and analytics solutions to clients in finance, manufacturing, and government agencies</li>
-                            <li>
-                                Built serverless data pipelines on AWS (Lambda, S3, Redshift) to ingest and process unstructured logs
-                                <ul class="mt-2 ml-5 space-y-1 text-gray-400">
+                            <li>Built serverless data pipelines on AWS (Lambda, S3, Redshift) to ingest and process unstructured logs
+                                <ul class="mt-2 ml-4 space-y-1.5" style="color: var(--muted);">
                                     <li>– Implemented code logic to support changing log formats and prevent failures during ingestion</li>
                                     <li>– Set up CloudWatch alarms with Slack alerts to catch and respond to pipeline errors quickly</li>
                                     <li>– Used CloudFormation and CodePipeline for automated, end-to-end CI/CD deployments</li>
@@ -229,79 +153,60 @@
                             <li>Researched NeRF image synthesis algorithms and proposed GenAI solutions to automate call centers</li>
                         </ul>
                     </div>
+
                 </div>
             </section>
 
             <!-- Internships -->
-            <section>
-                <h2 class="text-2xl font-bold mb-8">
-                    <span class="text-accent">▹</span> Internship Experience
-                </h2>
-                
-                <div class="space-y-6">
-                    
-                    <!-- Vertex Holdings -->
-                    <div class="card rounded-xl p-6 transition-all duration-300">
-                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-2">
-                            <h3 class="text-lg font-semibold text-white">Data Science Intern</h3>
-                            <span class="text-accent font-mono text-sm">Jan – Apr 2021</span>
-                        </div>
-                        <p class="text-gray-400 mb-3">Vertex Holdings, Singapore</p>
-                        <p class="text-gray-300 text-sm">Trained a model using LightGBM and ELMo, achieving 86% accuracy on imbalanced data</p>
+            <section class="mb-14">
+                <p class="font-mono text-xs uppercase tracking-widest mb-8" style="color: var(--muted);">Internships</p>
+                <div class="timeline">
+
+                    <div class="timeline-item muted">
+                        <p class="font-mono text-xs mb-2" style="color: var(--muted);">Jan – Apr 2021</p>
+                        <h3 class="text-sm font-semibold mb-0.5" style="color: var(--ink);">Data Science Intern</h3>
+                        <p class="text-sm mb-2" style="color: var(--muted);">Vertex Holdings · Singapore</p>
+                        <p class="text-sm" style="color: var(--ink);">Trained a model using LightGBM and ELMo, achieving 86% accuracy on imbalanced data</p>
                     </div>
 
-                    <!-- UPS -->
-                    <div class="card rounded-xl p-6 transition-all duration-300">
-                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-2">
-                            <h3 class="text-lg font-semibold text-white">Data Analytics Consultant</h3>
-                            <span class="text-accent font-mono text-sm">Feb – Apr 2021</span>
-                        </div>
-                        <p class="text-gray-400 mb-3">UPS, Singapore</p>
-                        <p class="text-gray-300 text-sm">Optimised supply chain networks using time-series forecasting and network modeling</p>
+                    <div class="timeline-item muted">
+                        <p class="font-mono text-xs mb-2" style="color: var(--muted);">Feb – Apr 2021</p>
+                        <h3 class="text-sm font-semibold mb-0.5" style="color: var(--ink);">Data Analytics Consultant</h3>
+                        <p class="text-sm mb-2" style="color: var(--muted);">UPS · Singapore</p>
+                        <p class="text-sm" style="color: var(--ink);">Optimised supply chain networks using time-series forecasting and network modeling</p>
                     </div>
 
-                    <!-- Kuehne+Nagel -->
-                    <div class="card rounded-xl p-6 transition-all duration-300">
-                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-2">
-                            <h3 class="text-lg font-semibold text-white">Data Science Intern</h3>
-                            <span class="text-accent font-mono text-sm">Nov 2020 – Jan 2021</span>
-                        </div>
-                        <p class="text-gray-400 mb-3">Kuehne+Nagel, Singapore</p>
-                        <p class="text-gray-300 text-sm">Automated supply chain reporting using Tableau, Python and SQL</p>
+                    <div class="timeline-item muted">
+                        <p class="font-mono text-xs mb-2" style="color: var(--muted);">Nov 2020 – Jan 2021</p>
+                        <h3 class="text-sm font-semibold mb-0.5" style="color: var(--ink);">Data Science Intern</h3>
+                        <p class="text-sm mb-2" style="color: var(--muted);">Kuehne+Nagel · Singapore</p>
+                        <p class="text-sm" style="color: var(--ink);">Automated supply chain reporting using Tableau, Python and SQL</p>
                     </div>
 
-                    <!-- Shopee -->
-                    <div class="card rounded-xl p-6 transition-all duration-300">
-                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-2">
-                            <h3 class="text-lg font-semibold text-white">Data Analytics Intern</h3>
-                            <span class="text-accent font-mono text-sm">May – Jul 2020</span>
-                        </div>
-                        <p class="text-gray-400 mb-3">Shopee, Singapore</p>
-                        <p class="text-gray-300 text-sm">Automated warehouse productivity reports using Python, PySpark, and Google Sheets API</p>
+                    <div class="timeline-item muted">
+                        <p class="font-mono text-xs mb-2" style="color: var(--muted);">May – Jul 2020</p>
+                        <h3 class="text-sm font-semibold mb-0.5" style="color: var(--ink);">Data Analytics Intern</h3>
+                        <p class="text-sm mb-2" style="color: var(--muted);">Shopee · Singapore</p>
+                        <p class="text-sm" style="color: var(--ink);">Automated warehouse productivity reports using Python, PySpark, and Google Sheets API</p>
                     </div>
 
-                    <!-- Air Liquide -->
-                    <div class="card rounded-xl p-6 transition-all duration-300">
-                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-2">
-                            <h3 class="text-lg font-semibold text-white">Digital Engineering Intern</h3>
-                            <span class="text-accent font-mono text-sm">Dec 2019 – May 2020</span>
-                        </div>
-                        <p class="text-gray-400 mb-3">Air Liquide, Singapore</p>
-                        <p class="text-gray-300 text-sm">Streamlined stakeholder reporting using Power BI and Python</p>
+                    <div class="timeline-item muted">
+                        <p class="font-mono text-xs mb-2" style="color: var(--muted);">Dec 2019 – May 2020</p>
+                        <h3 class="text-sm font-semibold mb-0.5" style="color: var(--ink);">Digital Engineering Intern</h3>
+                        <p class="text-sm mb-2" style="color: var(--muted);">Air Liquide · Singapore</p>
+                        <p class="text-sm" style="color: var(--ink);">Streamlined stakeholder reporting using Power BI and Python</p>
                     </div>
+
                 </div>
             </section>
 
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="py-12 px-6 border-t border-dark-600 relative z-10">
-        <div class="max-w-5xl mx-auto text-center">
-            <p class="text-gray-400 mb-2">
-                Let's connect at <a href="mailto:ngjingxun1997@gmail.com" class="text-accent hover:underline">ngjingxun1997@gmail.com</a>
-            </p>
-            <p class="text-gray-500 text-sm">© 2026 Jonas Ng · Singapore</p>
+    <footer class="px-6 py-10" style="border-top: 1px solid var(--rule);">
+        <div class="max-w-2xl mx-auto flex flex-col md:flex-row md:justify-between md:items-center gap-2">
+            <a href="mailto:ngjingxun1997@gmail.com" class="text-sm" style="color: var(--accent);">ngjingxun1997@gmail.com</a>
+            <p class="font-mono text-xs" style="color: var(--muted);">© 2026 Jonas Ng · Singapore</p>
         </div>
     </footer>
 
@@ -310,26 +215,12 @@
         const closeMenu = document.getElementById('closeMenu');
         const mobileMenu = document.getElementById('mobileMenu');
         const menuBackdrop = document.getElementById('menuBackdrop');
-        
-        function openMenu() {
-            mobileMenu.classList.add('open');
-            menuBackdrop.classList.add('open');
-            document.body.style.overflow = 'hidden';
-        }
-        
-        function closeMenuFn() {
-            mobileMenu.classList.remove('open');
-            menuBackdrop.classList.remove('open');
-            document.body.style.overflow = '';
-        }
-        
+        function openMenu() { mobileMenu.classList.add('open'); menuBackdrop.classList.add('open'); document.body.style.overflow = 'hidden'; }
+        function closeMenuFn() { mobileMenu.classList.remove('open'); menuBackdrop.classList.remove('open'); document.body.style.overflow = ''; }
         menuBtn.addEventListener('click', openMenu);
         closeMenu.addEventListener('click', closeMenuFn);
         menuBackdrop.addEventListener('click', closeMenuFn);
-        
-        document.querySelectorAll('#mobileMenu a').forEach(link => {
-            link.addEventListener('click', closeMenuFn);
-        });
+        document.querySelectorAll('#mobileMenu a').forEach(l => l.addEventListener('click', closeMenuFn));
     </script>
 </body>
 </html>
