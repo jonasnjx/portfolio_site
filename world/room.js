@@ -522,7 +522,7 @@ function buildSign(scene, text, x, y, z, w = 1.3, h = 0.50, faceYaw = 0, index =
 function buildSigns(scene) {
     buildSign(scene, 'Resume',        0,    2.7, -4.2, 1.30, 0.50,  0,          '01');
     buildSign(scene, 'Projects',     -3.2,  2.7, -2.2, 1.30, 0.50,  0,          '02');
-    buildSign(scene, 'Case Studies', -4.3,  2.7,  1.8, 1.55, 0.50,  Math.PI/2,  '03');
+    buildSign(scene, 'Writing',      -4.3,  2.7,  1.8, 1.10, 0.50,  Math.PI/2,  '03');
     buildSign(scene, 'Contact',       4.3,  2.7,  0.2, 1.30, 0.50, -Math.PI/2,  '04');
 }
 

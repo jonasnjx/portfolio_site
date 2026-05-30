@@ -47,7 +47,7 @@ export const INTERACTABLES = [
         id:       'bookshelf',
         position: { x: -4.6, y: 0, z: 1.8 },
         radius:   2.4,
-        prompt:   'see case studies',
+        prompt:   'read my writing',
         modal:    'casestudies',
     },
     {

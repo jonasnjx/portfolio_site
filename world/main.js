@@ -235,10 +235,11 @@ async function boot() {
         switch (cmd) {
             case '/resume':       closeChat(); setTimeout(() => openModal('resume'), 100); break;
             case '/projects':     closeChat(); setTimeout(() => openModal('terminal'), 100); break;
-            case '/casestudies':  closeChat(); setTimeout(() => openModal('casestudies'), 100); break;
+            case '/casestudies':
+            case '/writing':      closeChat(); setTimeout(() => openModal('casestudies'), 100); break;
             case '/contact':      closeChat(); setTimeout(() => openModal('telephone'), 100); break;
             case '/help':
-                addChatMsg('/resume  /projects  /casestudies  /contact  /char <name>');
+                addChatMsg('/resume  /projects  /writing  /contact  /char <name>');
                 addChatMsg('chars: spider  wonder  hulk');
                 break;
             case '/char':
