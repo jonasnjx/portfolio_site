@@ -1,64 +1,59 @@
-// Single source of truth for all positions, colors, and object data.
-// Edit here — never hardcode values in other modules.
-
 export const ROOM = {
     width:  12,
     depth:  12,
     height: 4,
-    // Walkable bounds (player radius ~0.4 from walls)
     boundsX: 5.3,
     boundsZ: 5.3,
 };
 
 export const COLORS = {
-    bg:       0x0f0608,
-    wall:     0x1a0e0a,
-    floor:    0x1c110a,
-    floorAlt: 0x16100a,
-    ceiling:  0x0a0508,
+    bg:       0x0a0806,
+    wall:     0x3d2b1f,
+    floor:    0x2d1e12,
+    floorAlt: 0x251807,
+    ceiling:  0x1a1008,
     accent:   0x3b82f6,
-    accentDim:0xc2410c,
-    trim:     0xd97706,
+    accentDim:0x1e40af,
+    trim:     0x78350f,
     desk:     0x292524,
-    deskTop:  0x44403c,
-    screen:   0x0a0608,
+    deskTop:  0x4a3728,
     decor:    0x44403c,
-    plant:    0x166534,
+    plant:    0x16a34a,
     plantDark:0x14532d,
-    pot:      0x78350f,
-    rug:      0x7f1d1d,
+    pot:      0x9a3412,
+    rug:      0x991b1b,
 };
 
-export const SPAWN = { x: 0, y: 1.6, z: 4 };
+export const SPAWN = { x: 0, y: 0, z: 2 };
+export const SPAWN_YAW = Math.PI;
 
-// Each interactable: id, position, radius (proximity trigger), prompt text, action type
 export const INTERACTABLES = [
     {
         id:       'resume',
-        position: { x: -3.5, y: 0, z: -5 },
+        position: { x: -2.0, y: 0, z: -4.0 },
         radius:   2.5,
-        prompt:   'View Résumé',
+        prompt:   'see resume',
         modal:    'resume',
     },
     {
-        id:       'tv',
-        position: { x: 0,    y: 0, z: -5.6 },
+        id:       'bookshelf',
+        position: { x: -5.2, y: 0, z: -1.5 },
         radius:   2.5,
-        prompt:   'Watch Intro',
-        modal:    'video',
-    },
-    {
-        id:       'terminal',
-        position: { x: 3.5,  y: 0, z: -5 },
-        radius:   2.5,
-        prompt:   'View My Work',
+        prompt:   'see projects',
         modal:    'terminal',
     },
     {
-        id:       'connect',
-        position: { x: -5.5, y: 0, z: 0 },
-        radius:   2.2,
-        prompt:   'Connect with Me',
-        href:     '/connect',
+        id:       'telephone',
+        position: { x: 3.5, y: 0, z: 0.5 },
+        radius:   2.0,
+        prompt:   'contact me',
+        modal:    'telephone',
+    },
+    {
+        id:       'sofa',
+        position: { x: 0, y: 0, z: 4.0 },
+        radius:   2.0,
+        prompt:   'sit down',
+        action:   'sit',
     },
 ];

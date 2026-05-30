@@ -1,22 +1,43 @@
-import { PointerLockControls } from 'three/addons/controls/PointerLockControls.js';
-import { ROOM } from './config.js';
+import { ROOM, SPAWN_YAW } from './config.js';
 
-export function initControls(camera, canvas, scene) {
-    const controls = new PointerLockControls(camera, canvas);
-    scene.add(controls.getObject());
+export function initControls(camera, canvas, character) {
+    let yaw     = SPAWN_YAW;
+    let pitch   = 0.40;   // vertical camera angle (radians above horizontal)
+    let isSit   = false;
+    let velY    = 0;
+    let onGround = true;
+
+    const SPEED   = 3.8;
+    const DIST    = 3.2;
+    const GRAVITY = -20;
+    const JUMP    = 7.0;
 
     const keys = { w: false, a: false, s: false, d: false };
-    let velX = 0, velZ = 0;
-    let bobTime = 0;
-    const SPEED   = 2.5;
-    const DAMPING = 0.85;
-    const EYE_HEIGHT = 1.6;
+
+    canvas.addEventListener('click', () => {
+        if (!isLocked()) canvas.requestPointerLock();
+    });
+
+    document.addEventListener('pointerlockchange', () => {
+        canvas.dispatchEvent(new Event(isLocked() ? 'lock' : 'unlock'));
+    });
+
+    document.addEventListener('mousemove', e => {
+        if (!isLocked()) return;
+        yaw   -= e.movementX * 0.0022;
+        pitch  = Math.max(0.12, Math.min(1.1, pitch + e.movementY * 0.002));
+    });
 
     document.addEventListener('keydown', e => {
         if (e.code === 'KeyW' || e.code === 'ArrowUp')    keys.w = true;
         if (e.code === 'KeyS' || e.code === 'ArrowDown')  keys.s = true;
         if (e.code === 'KeyA' || e.code === 'ArrowLeft')  keys.a = true;
         if (e.code === 'KeyD' || e.code === 'ArrowRight') keys.d = true;
+        if (e.code === 'Space' && onGround && !isSit) {
+            velY = JUMP;
+            onGround = false;
+        }
+        if (isSit && (keys.w || keys.s || keys.a || keys.d)) standUp();
     });
 
     document.addEventListener('keyup', e => {
@@ -26,31 +47,78 @@ export function initControls(camera, canvas, scene) {
         if (e.code === 'KeyD' || e.code === 'ArrowRight') keys.d = false;
     });
 
-    controls.update = function(dt) {
-        if (!controls.isLocked) return;
+    function isLocked() { return document.pointerLockElement === canvas; }
 
-        const moving = keys.w || keys.s || keys.a || keys.d;
+    function updateCamera() {
+        const p = character.group.position;
+        const cosP = Math.cos(pitch);
+        camera.position.set(
+            p.x + Math.sin(yaw) * DIST * cosP,
+            p.y + Math.sin(pitch) * DIST + 0.9,
+            p.z + Math.cos(yaw) * DIST * cosP
+        );
+        camera.lookAt(p.x, p.y + 0.9, p.z);
+    }
 
-        if (keys.w) velZ -= SPEED * dt;
-        if (keys.s) velZ += SPEED * dt;
-        if (keys.a) velX -= SPEED * dt;
-        if (keys.d) velX += SPEED * dt;
+    function sit(pos) {
+        isSit = true;
+        character.group.position.set(pos.x, 0, pos.z);
+        character.group.rotation.y = Math.PI;
+        updateCamera();
+    }
 
-        controls.moveForward(-velZ);
-        controls.moveRight(velX);
+    function standUp() { isSit = false; }
 
-        velX *= DAMPING;
-        velZ *= DAMPING;
+    const controls = {
+        get isLocked()  { return isLocked(); },
+        get isSitting() { return isSit; },
 
-        // Head bob when moving
-        const speed = Math.sqrt(velX * velX + velZ * velZ);
-        if (moving && speed > 0.01) bobTime += dt * 8;
+        lock()   { canvas.requestPointerLock(); },
+        unlock() { document.exitPointerLock(); },
+        addEventListener(event, cb) { canvas.addEventListener(event, cb); },
+        getObject() { return character.group; },
+        sit,
+        standUp,
 
-        const pos = controls.getObject().position;
-        pos.x = Math.max(-ROOM.boundsX, Math.min(ROOM.boundsX, pos.x));
-        pos.z = Math.max(-ROOM.boundsZ, Math.min(ROOM.boundsZ, pos.z));
-        pos.y = EYE_HEIGHT + (moving ? Math.sin(bobTime) * 0.032 : 0);
+        update(dt) {
+            this.isLocked; // keep getter warm
+
+            // Jump / gravity
+            if (!onGround) {
+                velY += GRAVITY * dt;
+                character.group.position.y += velY * dt;
+                if (character.group.position.y <= 0) {
+                    character.group.position.y = 0;
+                    velY = 0;
+                    onGround = true;
+                }
+            }
+
+            if (!isLocked() || isSit) { updateCamera(); return false; }
+
+            let mx = 0, mz = 0;
+            if (keys.w) { mx -= Math.sin(yaw); mz -= Math.cos(yaw); }
+            if (keys.s) { mx += Math.sin(yaw); mz += Math.cos(yaw); }
+            if (keys.a) { mx -= Math.cos(yaw); mz += Math.sin(yaw); }
+            if (keys.d) { mx += Math.cos(yaw); mz -= Math.sin(yaw); }
+
+            const moving = mx !== 0 || mz !== 0;
+            if (moving) {
+                const len = Math.sqrt(mx * mx + mz * mz);
+                character.group.position.x += (mx / len) * SPEED * dt;
+                character.group.position.z += (mz / len) * SPEED * dt;
+                character.group.rotation.y = Math.atan2(mx, mz);
+
+                const p = character.group.position;
+                p.x = Math.max(-ROOM.boundsX, Math.min(ROOM.boundsX, p.x));
+                p.z = Math.max(-ROOM.boundsZ, Math.min(ROOM.boundsZ, p.z));
+            }
+
+            updateCamera();
+            return moving;
+        }
     };
 
+    updateCamera();
     return controls;
 }

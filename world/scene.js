@@ -1,42 +1,33 @@
 import * as THREE from 'three';
-import { COLORS, SPAWN } from './config.js';
+import { COLORS } from './config.js';
 
 export function initScene(canvas) {
-    // Renderer
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
     renderer.setSize(innerWidth, innerHeight);
     renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-    // Scene
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(COLORS.bg);
-    scene.fog = new THREE.Fog(COLORS.bg, 8, 20);
+    scene.fog = new THREE.Fog(COLORS.bg, 10, 24);
 
-    // Camera (first-person, eye height 1.6)
-    const camera = new THREE.PerspectiveCamera(70, innerWidth / innerHeight, 0.1, 100);
-    camera.position.set(SPAWN.x, SPAWN.y, SPAWN.z);
+    const camera = new THREE.PerspectiveCamera(65, innerWidth / innerHeight, 0.1, 100);
+    camera.position.set(0, 3.5, 6);
 
-    // Lighting — warm sunset
-    const ambient = new THREE.AmbientLight(0xff8c42, 2.2);
-    scene.add(ambient);
+    // Bright daytime ambient
+    scene.add(new THREE.AmbientLight(0xfff8f0, 3.5));
 
-    // Warm directional key
-    const key = new THREE.DirectionalLight(0xffd580, 1.2);
-    key.position.set(6, 5, 2);
-    key.castShadow = true;
-    key.shadow.mapSize.setScalar(1024);
-    scene.add(key);
+    // Sun streaming in from east window
+    const sun = new THREE.DirectionalLight(0xfff4e0, 2.0);
+    sun.position.set(8, 6, 0);
+    sun.castShadow = true;
+    sun.shadow.mapSize.setScalar(1024);
+    scene.add(sun);
 
-    // Sunset glow through east window
-    const sunGlow = new THREE.PointLight(0xff6b35, 1.4, 16);
-    sunGlow.position.set(5.5, 2.0, 0);
-    scene.add(sunGlow);
-
-    // Purple-blue fill (dusk sky bounce)
-    const fill = new THREE.PointLight(0x7c3aed, 0.5, 18);
-    fill.position.set(-3, 1.5, 0);
+    // Soft secondary fill
+    const fill = new THREE.PointLight(0xffffff, 0.8, 20);
+    fill.position.set(0, 3.5, 0);
     scene.add(fill);
 
     const clock = new THREE.Clock();

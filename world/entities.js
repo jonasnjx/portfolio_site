@@ -1,145 +1,194 @@
 import * as THREE from 'three';
 
-function mat(color) {
-    return new THREE.MeshLambertMaterial({ color });
+// ── Random wandering controller ───────────────────────────────────
+class Wander {
+    constructor(startX, startZ, speed, phaseOffset = 0) {
+        this.tx = startX;
+        this.tz = startZ;
+        this.speed = speed;
+        this.waitT = phaseOffset; // stagger so pets don't all start at once
+        this.pickTarget();
+    }
+
+    pickTarget() {
+        // Stay within furniture-safe inner zone
+        this.tx = (Math.random() - 0.5) * 8.5;
+        this.tz = (Math.random() - 0.5) * 7.5;
+    }
+
+    update(group, dt) {
+        if (this.waitT > 0) { this.waitT -= dt; return false; }
+
+        const dx = this.tx - group.position.x;
+        const dz = this.tz - group.position.z;
+        const d  = Math.sqrt(dx * dx + dz * dz);
+
+        if (d < 0.3) {
+            this.waitT = 0.8 + Math.random() * 2.5;
+            this.pickTarget();
+            return false;
+        }
+
+        group.position.x += (dx / d) * this.speed * dt;
+        group.position.z += (dz / d) * this.speed * dt;
+        group.rotation.y  = Math.atan2(dx, dz);
+        return true;
+    }
 }
 
-function box(w, h, d, color, x = 0, y = 0, z = 0) {
-    const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat(color));
-    m.position.set(x, y, z);
+function mesh(w, h, d, color) {
+    const m = new THREE.Mesh(
+        new THREE.BoxGeometry(w, h, d),
+        new THREE.MeshLambertMaterial({ color })
+    );
     m.castShadow = true;
     return m;
 }
 
-// ── Voxel dog ─────────────────────────────────────────────────────
-function buildDogMesh() {
-    const group = new THREE.Group();
-    const BODY  = 0x92651a;
-    const DARK  = 0x6b4c13;
-    const NOSE  = 0x1a1a1a;
-    const BELLY = 0xc4934a;
-
-    // Body
-    group.add(box(0.55, 0.28, 0.3, BODY,  0, 0.28, 0));
-    // Belly patch
-    group.add(box(0.3,  0.08, 0.28, BELLY, 0, 0.16, 0.02));
-    // Head
-    group.add(box(0.24, 0.24, 0.26, DARK,  0, 0.42, 0.24));
-    // Snout
-    group.add(box(0.14, 0.11, 0.14, BODY,  0, 0.38, 0.36));
-    // Nose
-    group.add(box(0.07, 0.07, 0.04, NOSE,  0, 0.40, 0.43));
-    // Ears (floppy — slightly angled down)
-    const earL = box(0.08, 0.13, 0.07, DARK, 0.12, 0.52, 0.22);
-    earL.rotation.z = 0.3;
-    group.add(earL);
-    const earR = box(0.08, 0.13, 0.07, DARK, -0.12, 0.52, 0.22);
-    earR.rotation.z = -0.3;
-    group.add(earR);
-    // Tail (wagging is done in update)
-    const tail = box(0.07, 0.22, 0.07, BODY, 0, 0.38, -0.18);
-    tail.rotation.x = -0.6;
-    group.add(tail);
-    tail.userData.isTail = true;
-
-    // Legs — each is a pivot group so rotation.x animates the swing
-    const legDefs = [
-        { x:  0.16, z:  0.12, label: 'fl' },
-        { x: -0.16, z:  0.12, label: 'fr' },
-        { x:  0.16, z: -0.12, label: 'bl' },
-        { x: -0.16, z: -0.12, label: 'br' },
-    ];
-    const legs = {};
-    legDefs.forEach(({ x, z, label }) => {
-        const pivot = new THREE.Group();
-        pivot.position.set(x, 0.15, z);
-        const leg = box(0.09, 0.24, 0.09, BODY, 0, -0.12, 0);
-        pivot.add(leg);
-        group.add(pivot);
-        legs[label] = pivot;
-    });
-
-    return { group, legs, tail };
+function pivot(child, x, y, z) {
+    const g = new THREE.Group();
+    g.position.set(x, y, z);
+    if (child) g.add(child);
+    return g;
 }
 
-export function buildDog(scene) {
-    const { group, legs, tail } = buildDogMesh();
+// ── Giraffe ───────────────────────────────────────────────────────
+export function buildGiraffe(scene) {
+    const group = new THREE.Group();
+    const Y = 0xfbbf24, S = 0x92400e;
+
+    const body = mesh(0.38, 0.24, 0.52, Y); body.position.set(0, 0.46, 0); group.add(body);
+    [[0.10, 0.50, 0.10], [-0.08, 0.48, -0.12], [0.05, 0.44, -0.04]].forEach(([x, y, z]) => {
+        const s = mesh(0.09, 0.09, 0.09, S); s.position.set(x, y, z); group.add(s);
+    });
+    const neck = mesh(0.11, 0.48, 0.11, Y); neck.position.set(0, 0.78, 0.17); neck.rotation.x = -0.22; group.add(neck);
+    const head = mesh(0.15, 0.14, 0.20, Y); head.position.set(0, 1.08, 0.30); group.add(head);
+    [0.05, -0.05].forEach(ox => { const h = mesh(0.04, 0.10, 0.04, S); h.position.set(ox, 1.18, 0.24); group.add(h); });
+    [0.11, -0.11].forEach(ox => { const e = mesh(0.04, 0.08, 0.06, Y); e.position.set(ox, 1.10, 0.24); e.rotation.z = ox > 0 ? 0.45 : -0.45; group.add(e); });
+    const tail = mesh(0.05, 0.16, 0.05, Y); tail.position.set(0, 0.48, -0.26); tail.rotation.x = 0.5; group.add(tail);
+
+    const legDefs = [[0.13, 0.17], [-0.13, 0.17], [0.13, -0.17], [-0.13, -0.17]];
+    const legs = legDefs.map(([x, z]) => {
+        const piv = pivot(null, x, 0.36, z);
+        const leg = mesh(0.07, 0.36, 0.07, Y); leg.position.y = -0.18; piv.add(leg);
+        group.add(piv); return piv;
+    });
+
+    group.scale.setScalar(0.72);
+    group.position.set(2, 0, -1);
+    group.traverse(m => { if (m.isMesh) m.castShadow = true; });
     scene.add(group);
 
-    const CX = 0, CZ = 0.5, R = 2.0;
-    const SPEED = 0.55; // rad/s
-    let angle = 0;
+    const wander = new Wander(2, -1, 0.7, 0);
 
     return {
-        update(dt) {
-            angle += SPEED * dt;
-
-            group.position.x = CX + R * Math.sin(angle);
-            group.position.z = CZ + R * Math.cos(angle);
-            group.position.y = 0;
-            group.rotation.y = angle + Math.PI; // face direction of travel
-
-            // Leg swing — diagonals in sync (trot gait)
-            const swing = Math.sin(angle * 5) * 0.45;
-            legs.fl.rotation.x =  swing;
-            legs.br.rotation.x =  swing;
-            legs.fr.rotation.x = -swing;
-            legs.bl.rotation.x = -swing;
-
-            // Tail wag
-            tail.rotation.z = Math.sin(angle * 6) * 0.4;
+        group,
+        emoji: '🦒',
+        greeting: 'Hello! I\'m Giraffy!',
+        update(dt, elapsed) {
+            const moving = wander.update(group, dt);
+            const s = moving ? Math.sin(elapsed * 8) * 0.4 : 0;
+            legs[0].rotation.x =  s; legs[1].rotation.x = -s;
+            legs[2].rotation.x = -s; legs[3].rotation.x =  s;
         }
     };
 }
 
-// ── Voxel people outside the window ──────────────────────────────
-function buildPersonMesh(color) {
+// ── Dinosaur (cute baby T-rex) ────────────────────────────────────
+export function buildDinosaur(scene) {
     const group = new THREE.Group();
-    const m     = new THREE.MeshLambertMaterial({ color, emissive: new THREE.Color(color).multiplyScalar(0.4) });
+    const G = 0x4ade80, D = 0x16a34a, BELLY = 0xa3e635;
 
-    const head  = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.14, 0.14), m);
-    head.position.y = 0.52;
-
-    const body  = new THREE.Mesh(new THREE.BoxGeometry(0.11, 0.22, 0.09), m);
-    body.position.y = 0.3;
-
-    const legL  = new THREE.Mesh(new THREE.BoxGeometry(0.07, 0.2, 0.07), m);
-    legL.position.set(0.04, 0.1, 0);
-
-    const legR  = new THREE.Mesh(new THREE.BoxGeometry(0.07, 0.2, 0.07), m);
-    legR.position.set(-0.04, 0.1, 0);
-
-    group.add(head, body, legL, legR);
-    return { group, legL, legR };
-}
-
-export function buildPeople(scene) {
-    // People walk along z axis outside the east window (x~9, varying z)
-    const configs = [
-        { bz: -0.8, x: 9.2, speed: 0.35, phase: 0,          color: 0x581c87, range: 1.1 },
-        { bz:  0.2, x: 9.5, speed: 0.28, phase: Math.PI,     color: 0x7c3aed, range: 0.9 },
-        { bz:  0.6, x: 9.0, speed: 0.42, phase: Math.PI / 2, color: 0x4c1d95, range: 1.0 },
-    ];
-
-    const people = configs.map(({ bz, x, speed, phase, color, range }) => {
-        const { group, legL, legR } = buildPersonMesh(color);
-        group.position.set(x, 0, bz);
-        group.scale.setScalar(1.7);
-        scene.add(group);
-        return { group, legL, legR, bz, speed, phase, range };
+    // Body — slightly tilted forward (T-rex posture)
+    const body = mesh(0.36, 0.28, 0.48, G); body.position.set(0, 0.44, 0); group.add(body);
+    // Belly
+    const belly = mesh(0.22, 0.16, 0.36, BELLY); belly.position.set(0, 0.38, 0.06); group.add(belly);
+    // BIG cute head
+    const head = mesh(0.34, 0.30, 0.36, G); head.position.set(0, 0.64, 0.28); group.add(head);
+    // Snout
+    const snout = mesh(0.22, 0.16, 0.18, D); snout.position.set(0, 0.60, 0.44); group.add(snout);
+    // Tiny T-rex arms (the comedy)
+    const armL = mesh(0.07, 0.12, 0.07, G); armL.position.set(0.20, 0.54, 0.10); armL.rotation.z = -0.6; group.add(armL);
+    const armR = mesh(0.07, 0.12, 0.07, G); armR.position.set(-0.20, 0.54, 0.10); armR.rotation.z = 0.6; group.add(armR);
+    // Tail
+    const tail = mesh(0.10, 0.14, 0.36, G); tail.position.set(0, 0.36, -0.28); tail.rotation.x = 0.25; group.add(tail);
+    // Spines along back
+    [[0, 0.60, -0.10], [0, 0.62, 0], [0, 0.60, 0.10]].forEach(([x, y, z]) => {
+        const sp = mesh(0.05, 0.10, 0.05, D); sp.position.set(x, y, z); group.add(sp);
     });
 
-    return {
-        update(elapsed) {
-            people.forEach(p => {
-                const t = elapsed * p.speed + p.phase;
-                p.group.position.z = p.bz + Math.sin(t) * p.range;
-                p.group.rotation.y = Math.cos(t) >= 0 ? Math.PI / 2 : -Math.PI / 2;
+    const legDefs = [[0.13, 0.12], [-0.13, 0.12], [0.13, -0.14], [-0.13, -0.14]];
+    const legs = legDefs.map(([x, z]) => {
+        const piv = pivot(null, x, 0.28, z);
+        const leg = mesh(0.10, 0.28, 0.12, G); leg.position.y = -0.14; piv.add(leg);
+        group.add(piv); return piv;
+    });
 
-                const legSwing = Math.sin(elapsed * p.speed * 9) * 0.4;
-                p.legL.rotation.x =  legSwing;
-                p.legR.rotation.x = -legSwing;
-            });
+    group.scale.setScalar(0.68);
+    group.position.set(-2, 0, 1);
+    group.traverse(m => { if (m.isMesh) m.castShadow = true; });
+    scene.add(group);
+
+    const wander = new Wander(-2, 1, 0.9, 1.2);
+
+    return {
+        group,
+        emoji: '🦕',
+        greeting: 'ROAR! I mean... Hi!',
+        update(dt, elapsed) {
+            const moving = wander.update(group, dt);
+            const s = moving ? Math.sin(elapsed * 10) * 0.45 : 0;
+            legs[0].rotation.x =  s; legs[1].rotation.x = -s;
+            legs[2].rotation.x = -s; legs[3].rotation.x =  s;
+        }
+    };
+}
+
+// ── Polar bear ────────────────────────────────────────────────────
+export function buildPolarBear(scene) {
+    const group = new THREE.Group();
+    const W = 0xf1f5f9, OFF = 0xe2e8f0, DARK = 0x1c1917;
+
+    // Body — round and chubby
+    const body = mesh(0.44, 0.36, 0.50, W); body.position.set(0, 0.42, 0); group.add(body);
+    // Tummy patch
+    const tum = mesh(0.28, 0.22, 0.44, OFF); tum.position.set(0, 0.38, 0.06); group.add(tum);
+    // Head — big and round
+    const head = mesh(0.36, 0.34, 0.36, W); head.position.set(0, 0.74, 0.24); group.add(head);
+    // Muzzle
+    const muzz = mesh(0.20, 0.14, 0.14, OFF); muzz.position.set(0, 0.70, 0.38); group.add(muzz);
+    // Nose
+    const nose = mesh(0.08, 0.06, 0.05, DARK); nose.position.set(0, 0.72, 0.44); group.add(nose);
+    // Eyes
+    [-0.10, 0.10].forEach(ox => { const eye = mesh(0.05, 0.05, 0.04, DARK); eye.position.set(ox, 0.78, 0.40); group.add(eye); });
+    // Round ears
+    [-0.17, 0.17].forEach(ox => { const ear = mesh(0.11, 0.11, 0.08, W); ear.position.set(ox, 0.94, 0.18); group.add(ear); });
+    // Tail (tiny)
+    const tail = mesh(0.08, 0.08, 0.06, W); tail.position.set(0, 0.44, -0.26); group.add(tail);
+
+    const legDefs = [[0.15, 0.15], [-0.15, 0.15], [0.15, -0.15], [-0.15, -0.15]];
+    const legs = legDefs.map(([x, z]) => {
+        const piv = pivot(null, x, 0.24, z);
+        const leg = mesh(0.13, 0.24, 0.16, W); leg.position.y = -0.12; piv.add(leg);
+        group.add(piv); return piv;
+    });
+
+    group.scale.setScalar(0.70);
+    group.position.set(1, 0, 2);
+    group.traverse(m => { if (m.isMesh) m.castShadow = true; });
+    scene.add(group);
+
+    const wander = new Wander(1, 2, 0.6, 2.1);
+
+    return {
+        group,
+        emoji: '🐻‍❄️',
+        greeting: 'Brrr... Hello there!',
+        update(dt, elapsed) {
+            const moving = wander.update(group, dt);
+            const s = moving ? Math.sin(elapsed * 7) * 0.35 : 0;
+            legs[0].rotation.x =  s; legs[1].rotation.x = -s;
+            legs[2].rotation.x = -s; legs[3].rotation.x =  s;
         }
     };
 }
