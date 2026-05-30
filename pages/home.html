@@ -3,8 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Jonas Ng — Senior Data & Cloud Engineer, Singapore">
+    <meta name="description" content="Jonas Ng - Senior Data and Cloud Engineer, Singapore">
     <title>Jonas Ng</title>
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Jonas Ng - Senior Data and Cloud Engineer">
+    <meta property="og:description" content="I build production data platforms and ship GenAI from POC to deployment across AWS, Azure, Snowflake and Databricks.">
+    <meta property="og:image" content="/assets/profile.jpg">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Jonas Ng - Senior Data and Cloud Engineer">
+    <meta name="twitter:description" content="I build production data platforms and ship GenAI from POC to deployment across AWS, Azure, Snowflake and Databricks.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,35 +31,24 @@
         }
     </script>
     <style>
-        :root {
-            --paper: #f7f5f0;
-            --ink: #1a1a1a;
-            --muted: #6b6b6b;
-            --rule: #e2ded5;
-            --accent: #1d4ed8;
-        }
+        :root { --paper: #f7f5f0; --ink: #1a1a1a; --muted: #6b6b6b; --rule: #e2ded5; --accent: #1d4ed8; }
         body { background-color: var(--paper); color: var(--ink); }
-
         .nav-link { position: relative; color: var(--muted); font-size: 0.875rem; transition: color 0.15s; }
         .nav-link:hover { color: var(--ink); }
         .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--accent); transition: width 0.2s ease; }
         .nav-link:hover::after { width: 100%; }
         .nav-link.active { color: var(--accent); }
         .nav-link.active::after { width: 100%; }
-
         .row { border-top: 1px solid var(--rule); padding: 1.5rem 0; }
         .rows-wrap > .row:last-child { border-bottom: 1px solid var(--rule); }
-
         .mobile-menu { transform: translateX(100%); transition: transform 0.3s ease; }
         .mobile-menu.open { transform: translateX(0); }
         .menu-backdrop { opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
         .menu-backdrop.open { opacity: 1; visibility: visible; }
     </style>
 </head>
-
 <body class="min-h-screen font-sans">
 
-    <!-- Navigation -->
     <nav class="fixed top-0 left-0 w-full z-50" style="background: rgba(247,245,240,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--rule);">
         <div class="max-w-2xl mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
@@ -72,10 +69,7 @@
         </div>
     </nav>
 
-    <!-- Mobile Menu Backdrop -->
     <div id="menuBackdrop" class="menu-backdrop fixed inset-0 z-[100] md:hidden" style="background: rgba(0,0,0,0.2);"></div>
-
-    <!-- Mobile Menu -->
     <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 h-screen w-60 z-[110] md:hidden" style="background: var(--paper); border-left: 1px solid var(--rule);">
         <div class="p-6 h-full">
             <button id="closeMenu" class="absolute top-4 right-4" style="color: var(--muted);">
@@ -93,39 +87,36 @@
         </div>
     </div>
 
-    <!-- Main -->
     <main class="pt-24 pb-20 px-6">
         <div class="max-w-2xl mx-auto">
 
-            <!-- Hero -->
             <section class="py-16 md:py-20">
                 <div class="flex flex-col sm:flex-row sm:items-start gap-6 mb-8">
                     <img src="/assets/profile.jpg" alt="Jonas Ng" class="w-16 h-16 rounded-full object-cover flex-shrink-0">
                     <div>
                         <h1 class="text-2xl md:text-3xl font-semibold mb-1" style="color: var(--ink);">Jonas Ng</h1>
-                        <p class="font-mono text-sm" style="color: var(--muted);">Senior Data & Cloud Engineer · 5 yrs · Singapore</p>
+                        <p class="font-mono text-sm" style="color: var(--muted);">Senior Data &amp; Cloud Engineer &middot; 5 yrs &middot; Singapore</p>
                     </div>
                 </div>
                 <p class="font-serif text-lg mb-8" style="color: var(--ink); max-width: 58ch; line-height: 1.75;">
-                    I build production data platforms and ship GenAI from POC to deployment — across AWS, Azure, Snowflake & Databricks. Currently a Senior Data Engineer at Certis.
+                    I build production data platforms and ship GenAI from POC to deployment &mdash; across AWS, Azure, Snowflake &amp; Databricks. Currently a Senior Data Engineer at Certis.
                 </p>
                 <div class="flex flex-wrap items-center gap-6">
                     <a href="/resume" class="text-sm font-medium px-4 py-2 rounded" style="background: var(--accent); color: #fff;">View Resume</a>
-                    <a href="/" class="text-sm" style="color: var(--accent);">Enter 3D room →</a>
+                    <a href="/" class="text-sm" style="color: var(--accent);">Enter 3D room &rarr;</a>
                 </div>
             </section>
 
-            <!-- Background -->
             <section class="pb-12">
                 <p class="font-mono text-xs uppercase tracking-widest mb-4" style="color: var(--muted);">Background</p>
                 <div class="rows-wrap">
                     <div class="row">
                         <p class="font-mono text-xs mb-1" style="color: var(--muted);">Certifications</p>
-                        <p style="color: var(--ink);">3× certified — AWS Solutions Architect, Azure, Snowflake</p>
+                        <p style="color: var(--ink);">3&times; certified &mdash; AWS Solutions Architect, Azure, Snowflake</p>
                     </div>
                     <div class="row">
                         <p class="font-mono text-xs mb-1" style="color: var(--muted);">Education</p>
-                        <p style="color: var(--ink);">Business Analytics (Honours) — Nanyang Technological University</p>
+                        <p style="color: var(--ink);">Business Analytics (Honours) &mdash; Nanyang Technological University</p>
                     </div>
                     <div class="row">
                         <p class="font-mono text-xs mb-1" style="color: var(--muted);">Currently</p>
@@ -138,21 +129,20 @@
                 </div>
             </section>
 
-            <!-- Tech Stack -->
             <section class="pb-12">
                 <p class="font-mono text-xs uppercase tracking-widest mb-4" style="color: var(--muted);">Tech Stack</p>
                 <div class="rows-wrap">
                     <div class="row">
                         <p class="font-mono text-xs mb-2" style="color: var(--muted);">Cloud</p>
-                        <p style="color: var(--ink);">AWS (SageMaker · ECS · Glue · Lambda · S3 Iceberg · CloudFormation · CodePipeline) · Azure · GCP</p>
+                        <p style="color: var(--ink);">AWS (SageMaker &middot; ECS &middot; Glue &middot; Lambda &middot; S3 Iceberg &middot; CloudFormation &middot; CodePipeline) &middot; Azure &middot; GCP</p>
                     </div>
                     <div class="row">
-                        <p class="font-mono text-xs mb-2" style="color: var(--muted);">Data & ML</p>
-                        <p style="color: var(--ink);">Snowflake · Databricks · Neo4j · Python · SQL · PySpark</p>
+                        <p class="font-mono text-xs mb-2" style="color: var(--muted);">Data &amp; ML</p>
+                        <p style="color: var(--ink);">Snowflake &middot; Databricks &middot; Neo4j &middot; Python &middot; SQL &middot; PySpark</p>
                     </div>
                     <div class="row">
                         <p class="font-mono text-xs mb-2" style="color: var(--muted);">GenAI</p>
-                        <p style="color: var(--ink);">RAG · Multi-agent systems · AutoGen · Cortex Analyst</p>
+                        <p style="color: var(--ink);">RAG &middot; Multi-agent systems &middot; AutoGen &middot; Cortex Analyst</p>
                     </div>
                 </div>
             </section>
@@ -160,11 +150,10 @@
         </div>
     </main>
 
-    <!-- Footer -->
     <footer class="px-6 py-10" style="border-top: 1px solid var(--rule);">
         <div class="max-w-2xl mx-auto flex flex-col md:flex-row md:justify-between md:items-center gap-2">
             <a href="mailto:ngjingxun1997@gmail.com" class="text-sm" style="color: var(--accent);">ngjingxun1997@gmail.com</a>
-            <p class="font-mono text-xs" style="color: var(--muted);">© 2026 Jonas Ng · Singapore</p>
+            <p class="font-mono text-xs" style="color: var(--muted);">&copy; 2026 Jonas Ng &middot; Singapore</p>
         </div>
     </footer>
 
@@ -173,10 +162,8 @@
         const closeMenu = document.getElementById('closeMenu');
         const mobileMenu = document.getElementById('mobileMenu');
         const menuBackdrop = document.getElementById('menuBackdrop');
-
         function openMenu() { mobileMenu.classList.add('open'); menuBackdrop.classList.add('open'); document.body.style.overflow = 'hidden'; }
         function closeMenuFn() { mobileMenu.classList.remove('open'); menuBackdrop.classList.remove('open'); document.body.style.overflow = ''; }
-
         menuBtn.addEventListener('click', openMenu);
         closeMenu.addEventListener('click', closeMenuFn);
         menuBackdrop.addEventListener('click', closeMenuFn);

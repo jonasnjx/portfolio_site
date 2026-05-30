@@ -3,48 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Jonas Ng — Connect">
+    <meta name="description" content="Jonas Ng - Connect">
     <title>Connect | Jonas Ng</title>
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Jonas Ng - Senior Data and Cloud Engineer">
+    <meta property="og:description" content="Find Jonas on LinkedIn, GitHub, or reach out by email.">
+    <meta property="og:image" content="/assets/profile.jpg">
+    <meta name="twitter:card" content="summary">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Space Grotesk', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
-                        serif: ['Source Serif 4', 'serif'],
-                    },
-                }
-            }
+            theme: { extend: { fontFamily: { sans: ['Space Grotesk','sans-serif'], mono: ['JetBrains Mono','monospace'], serif: ['Source Serif 4','serif'] } } }
         }
     </script>
     <style>
         :root { --paper: #f7f5f0; --ink: #1a1a1a; --muted: #6b6b6b; --rule: #e2ded5; --accent: #1d4ed8; }
         body { background-color: var(--paper); color: var(--ink); }
-
         .nav-link { position: relative; color: var(--muted); font-size: 0.875rem; transition: color 0.15s; }
         .nav-link:hover { color: var(--ink); }
         .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--accent); transition: width 0.2s; }
         .nav-link:hover::after { width: 100%; }
         .nav-link.active { color: var(--accent); }
         .nav-link.active::after { width: 100%; }
-
-        .contact-row { border-top: 1px solid var(--rule); padding: 1.5rem 0; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+        .contact-row { border-top: 1px solid var(--rule); padding: 1.5rem 0; display: flex; align-items: center; justify-content: space-between; gap: 1rem; text-decoration: none; }
         .contact-row:last-child { border-bottom: 1px solid var(--rule); }
         .contact-row:hover .contact-arrow { transform: translateX(3px); }
-        .contact-arrow { transition: transform 0.2s; color: var(--muted); }
-
+        .contact-arrow { transition: transform 0.2s; color: var(--muted); flex-shrink: 0; }
         .mobile-menu { transform: translateX(100%); transition: transform 0.3s ease; }
         .mobile-menu.open { transform: translateX(0); }
         .menu-backdrop { opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
         .menu-backdrop.open { opacity: 1; visibility: visible; }
     </style>
 </head>
-
 <body class="min-h-screen font-sans">
 
     <nav class="fixed top-0 left-0 w-full z-50" style="background: rgba(247,245,240,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--rule);">
@@ -59,9 +53,7 @@
                     <a href="/connect" class="nav-link active">Connect</a>
                 </div>
                 <button id="menuBtn" class="md:hidden p-1" style="color: var(--ink);">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                    </svg>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                 </button>
             </div>
         </div>
@@ -71,9 +63,7 @@
     <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 h-screen w-60 z-[110] md:hidden" style="background: var(--paper); border-left: 1px solid var(--rule);">
         <div class="p-6 h-full">
             <button id="closeMenu" class="absolute top-4 right-4" style="color: var(--muted);">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                </svg>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
             </button>
             <div class="flex flex-col gap-6 mt-12">
                 <a href="/home" class="text-sm" style="color: var(--muted);">Home</a>
@@ -94,37 +84,35 @@
             </div>
 
             <section>
-
-                <a href="https://www.linkedin.com/in/jonasnjx/" target="_blank" class="contact-row block">
+                <a href="https://www.linkedin.com/in/jonasnjx/" target="_blank" class="contact-row">
                     <div>
                         <p class="font-medium mb-0.5" style="color: var(--ink);">LinkedIn</p>
                         <p class="font-mono text-xs" style="color: var(--muted);">linkedin.com/in/jonasnjx</p>
                     </div>
-                    <svg class="contact-arrow w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="contact-arrow w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                     </svg>
                 </a>
 
-                <a href="https://github.com/jonasnjx" target="_blank" class="contact-row block">
+                <a href="https://github.com/jonasnjx" target="_blank" class="contact-row">
                     <div>
                         <p class="font-medium mb-0.5" style="color: var(--ink);">GitHub</p>
                         <p class="font-mono text-xs" style="color: var(--muted);">github.com/jonasnjx</p>
                     </div>
-                    <svg class="contact-arrow w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="contact-arrow w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                     </svg>
                 </a>
 
-                <a href="mailto:ngjingxun1997@gmail.com" class="contact-row block">
+                <a href="mailto:ngjingxun1997@gmail.com" class="contact-row">
                     <div>
                         <p class="font-medium mb-0.5" style="color: var(--ink);">Email</p>
                         <p class="font-mono text-xs" style="color: var(--muted);">ngjingxun1997@gmail.com</p>
                     </div>
-                    <svg class="contact-arrow w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="contact-arrow w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                     </svg>
                 </a>
-
             </section>
 
         </div>
@@ -133,7 +121,7 @@
     <footer class="px-6 py-10" style="border-top: 1px solid var(--rule);">
         <div class="max-w-2xl mx-auto flex flex-col md:flex-row md:justify-between md:items-center gap-2">
             <a href="mailto:ngjingxun1997@gmail.com" class="text-sm" style="color: var(--accent);">ngjingxun1997@gmail.com</a>
-            <p class="font-mono text-xs" style="color: var(--muted);">© 2026 Jonas Ng · Singapore</p>
+            <p class="font-mono text-xs" style="color: var(--muted);">&copy; 2026 Jonas Ng &middot; Singapore</p>
         </div>
     </footer>
 

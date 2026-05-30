@@ -3,60 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Jonas Ng — Resume & Work Experience">
+    <meta name="description" content="Jonas Ng - Resume and Work Experience">
     <title>Resume | Jonas Ng</title>
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Jonas Ng - Senior Data and Cloud Engineer">
+    <meta property="og:description" content="5 years across consulting, research, and enterprise data engineering. AWS, Azure, Snowflake, Databricks.">
+    <meta property="og:image" content="/assets/profile.jpg">
+    <meta name="twitter:card" content="summary">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Space Grotesk', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
-                        serif: ['Source Serif 4', 'serif'],
-                    },
-                }
-            }
+            theme: { extend: { fontFamily: { sans: ['Space Grotesk','sans-serif'], mono: ['JetBrains Mono','monospace'], serif: ['Source Serif 4','serif'] } } }
         }
     </script>
     <style>
         :root { --paper: #f7f5f0; --ink: #1a1a1a; --muted: #6b6b6b; --rule: #e2ded5; --accent: #1d4ed8; }
         body { background-color: var(--paper); color: var(--ink); }
-
         .nav-link { position: relative; color: var(--muted); font-size: 0.875rem; transition: color 0.15s; }
         .nav-link:hover { color: var(--ink); }
         .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--accent); transition: width 0.2s; }
         .nav-link:hover::after { width: 100%; }
         .nav-link.active { color: var(--accent); }
         .nav-link.active::after { width: 100%; }
-
-        /* Timeline */
         .timeline { border-left: 2px solid var(--rule); padding-left: 1.75rem; }
         .timeline-item { position: relative; padding-bottom: 2.5rem; }
         .timeline-item:last-child { padding-bottom: 0; }
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -2.19rem;
-            top: 0.35rem;
-            width: 8px; height: 8px;
-            border-radius: 50%;
-            background: var(--accent);
-            border: 2px solid var(--paper);
-            box-shadow: 0 0 0 2px var(--accent);
-        }
+        .timeline-item::before { content: ''; position: absolute; left: -2.19rem; top: 0.35rem; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); border: 2px solid var(--paper); box-shadow: 0 0 0 2px var(--accent); }
         .timeline-item.muted::before { background: var(--rule); box-shadow: 0 0 0 2px var(--rule); }
-
         .mobile-menu { transform: translateX(100%); transition: transform 0.3s ease; }
         .mobile-menu.open { transform: translateX(0); }
         .menu-backdrop { opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
         .menu-backdrop.open { opacity: 1; visibility: visible; }
     </style>
 </head>
-
 <body class="min-h-screen font-sans">
 
     <nav class="fixed top-0 left-0 w-full z-50" style="background: rgba(247,245,240,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--rule);">
@@ -71,9 +54,7 @@
                     <a href="/connect" class="nav-link">Connect</a>
                 </div>
                 <button id="menuBtn" class="md:hidden p-1" style="color: var(--ink);">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                    </svg>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                 </button>
             </div>
         </div>
@@ -83,9 +64,7 @@
     <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 h-screen w-60 z-[110] md:hidden" style="background: var(--paper); border-left: 1px solid var(--rule);">
         <div class="p-6 h-full">
             <button id="closeMenu" class="absolute top-4 right-4" style="color: var(--muted);">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                </svg>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
             </button>
             <div class="flex flex-col gap-6 mt-12">
                 <a href="/home" class="text-sm" style="color: var(--muted);">Home</a>
@@ -105,25 +84,22 @@
                 <p class="font-mono text-sm" style="color: var(--muted);">5 years across consulting, research, and enterprise data engineering</p>
             </div>
 
-            <!-- Work Experience -->
             <section class="mb-14">
                 <p class="font-mono text-xs uppercase tracking-widest mb-8" style="color: var(--muted);">Work Experience</p>
                 <div class="timeline">
 
-                    <!-- Certis -->
                     <div class="timeline-item">
-                        <p class="font-mono text-xs mb-2" style="color: var(--muted);">Aug 2025 – Present</p>
+                        <p class="font-mono text-xs mb-2" style="color: var(--muted);">Aug 2025 &ndash; Present</p>
                         <h3 class="text-base font-semibold mb-0.5" style="color: var(--ink);">Senior Data Engineer</h3>
-                        <p class="text-sm mb-3" style="color: var(--muted);">Certis · Singapore</p>
+                        <p class="text-sm mb-3" style="color: var(--muted);">Certis &middot; Singapore</p>
                     </div>
 
-                    <!-- A*STAR -->
                     <div class="timeline-item">
-                        <p class="font-mono text-xs mb-2" style="color: var(--muted);">Aug 2024 – Jun 2025</p>
+                        <p class="font-mono text-xs mb-2" style="color: var(--muted);">Aug 2024 &ndash; Jun 2025</p>
                         <h3 class="text-base font-semibold mb-0.5" style="color: var(--ink);">Senior Data Engineer</h3>
-                        <p class="text-sm mb-4" style="color: var(--muted);">A*STAR · Singapore</p>
+                        <p class="text-sm mb-4" style="color: var(--muted);">A*STAR &middot; Singapore</p>
                         <ul class="space-y-2.5 text-sm" style="color: var(--ink); line-height: 1.6;">
-                            <li>Led technical integration of Alation across 13 system owners — managed Agent installation, network connectivity, and catalog features for IM8 data governance (sensitivity classification, lineage)</li>
+                            <li>Led technical integration of Alation across 13 system owners &mdash; managed Agent installation, network connectivity, and catalog features for IM8 data governance (sensitivity classification, lineage)</li>
                             <li>Built 8 ADF pipelines to transform and load unstructured data from 3-tier Blob storage into Snowflake daily</li>
                             <li>Created an interactive RAG application using Node.js and Neo4j to present data flows, deployed via Azure App Service</li>
                             <li>Implemented PGP encryption/decryption using Python and SQL worksheets for ERP system integration</li>
@@ -132,20 +108,19 @@
                         </ul>
                     </div>
 
-                    <!-- Accenture -->
                     <div class="timeline-item">
-                        <p class="font-mono text-xs mb-2" style="color: var(--muted);">Jul 2021 – Jul 2024</p>
+                        <p class="font-mono text-xs mb-2" style="color: var(--muted);">Jul 2021 &ndash; Jul 2024</p>
                         <h3 class="text-base font-semibold mb-0.5" style="color: var(--ink);">AI Cloud Engineer</h3>
-                        <p class="text-sm mb-4" style="color: var(--muted);">Accenture · Singapore</p>
+                        <p class="text-sm mb-4" style="color: var(--muted);">Accenture &middot; Singapore</p>
                         <ul class="space-y-2.5 text-sm" style="color: var(--ink); line-height: 1.6;">
                             <li>Delivered cloud and analytics solutions to clients in finance, manufacturing, and government agencies</li>
                             <li>Built serverless data pipelines on AWS (Lambda, S3, Redshift) to ingest and process unstructured logs
                                 <ul class="mt-2 ml-4 space-y-1.5" style="color: var(--muted);">
-                                    <li>– Implemented code logic to support changing log formats and prevent failures during ingestion</li>
-                                    <li>– Set up CloudWatch alarms with Slack alerts to catch and respond to pipeline errors quickly</li>
-                                    <li>– Used CloudFormation and CodePipeline for automated, end-to-end CI/CD deployments</li>
-                                    <li>– Trained a clustering model (DBSCAN) on SageMaker to flag suspicious traffic</li>
-                                    <li>– Built QuickSight dashboards and managed user access for reporting and monitoring</li>
+                                    <li>&ndash; Implemented code logic to support changing log formats and prevent failures during ingestion</li>
+                                    <li>&ndash; Set up CloudWatch alarms with Slack alerts to catch and respond to pipeline errors quickly</li>
+                                    <li>&ndash; Used CloudFormation and CodePipeline for automated, end-to-end CI/CD deployments</li>
+                                    <li>&ndash; Trained a clustering model (DBSCAN) on SageMaker to flag suspicious traffic</li>
+                                    <li>&ndash; Built QuickSight dashboards and managed user access for reporting and monitoring</li>
                                 </ul>
                             </li>
                             <li>Managed cloud security fixes across AWS, GCP, and Azure, including key rotation and traffic encryption</li>
@@ -157,43 +132,42 @@
                 </div>
             </section>
 
-            <!-- Internships -->
             <section class="mb-14">
                 <p class="font-mono text-xs uppercase tracking-widest mb-8" style="color: var(--muted);">Internships</p>
                 <div class="timeline">
 
                     <div class="timeline-item muted">
-                        <p class="font-mono text-xs mb-2" style="color: var(--muted);">Jan – Apr 2021</p>
+                        <p class="font-mono text-xs mb-2" style="color: var(--muted);">Jan &ndash; Apr 2021</p>
                         <h3 class="text-sm font-semibold mb-0.5" style="color: var(--ink);">Data Science Intern</h3>
-                        <p class="text-sm mb-2" style="color: var(--muted);">Vertex Holdings · Singapore</p>
+                        <p class="text-sm mb-2" style="color: var(--muted);">Vertex Holdings &middot; Singapore</p>
                         <p class="text-sm" style="color: var(--ink);">Trained a model using LightGBM and ELMo, achieving 86% accuracy on imbalanced data</p>
                     </div>
 
                     <div class="timeline-item muted">
-                        <p class="font-mono text-xs mb-2" style="color: var(--muted);">Feb – Apr 2021</p>
+                        <p class="font-mono text-xs mb-2" style="color: var(--muted);">Feb &ndash; Apr 2021</p>
                         <h3 class="text-sm font-semibold mb-0.5" style="color: var(--ink);">Data Analytics Consultant</h3>
-                        <p class="text-sm mb-2" style="color: var(--muted);">UPS · Singapore</p>
+                        <p class="text-sm mb-2" style="color: var(--muted);">UPS &middot; Singapore</p>
                         <p class="text-sm" style="color: var(--ink);">Optimised supply chain networks using time-series forecasting and network modeling</p>
                     </div>
 
                     <div class="timeline-item muted">
-                        <p class="font-mono text-xs mb-2" style="color: var(--muted);">Nov 2020 – Jan 2021</p>
+                        <p class="font-mono text-xs mb-2" style="color: var(--muted);">Nov 2020 &ndash; Jan 2021</p>
                         <h3 class="text-sm font-semibold mb-0.5" style="color: var(--ink);">Data Science Intern</h3>
-                        <p class="text-sm mb-2" style="color: var(--muted);">Kuehne+Nagel · Singapore</p>
+                        <p class="text-sm mb-2" style="color: var(--muted);">Kuehne+Nagel &middot; Singapore</p>
                         <p class="text-sm" style="color: var(--ink);">Automated supply chain reporting using Tableau, Python and SQL</p>
                     </div>
 
                     <div class="timeline-item muted">
-                        <p class="font-mono text-xs mb-2" style="color: var(--muted);">May – Jul 2020</p>
+                        <p class="font-mono text-xs mb-2" style="color: var(--muted);">May &ndash; Jul 2020</p>
                         <h3 class="text-sm font-semibold mb-0.5" style="color: var(--ink);">Data Analytics Intern</h3>
-                        <p class="text-sm mb-2" style="color: var(--muted);">Shopee · Singapore</p>
+                        <p class="text-sm mb-2" style="color: var(--muted);">Shopee &middot; Singapore</p>
                         <p class="text-sm" style="color: var(--ink);">Automated warehouse productivity reports using Python, PySpark, and Google Sheets API</p>
                     </div>
 
                     <div class="timeline-item muted">
-                        <p class="font-mono text-xs mb-2" style="color: var(--muted);">Dec 2019 – May 2020</p>
+                        <p class="font-mono text-xs mb-2" style="color: var(--muted);">Dec 2019 &ndash; May 2020</p>
                         <h3 class="text-sm font-semibold mb-0.5" style="color: var(--ink);">Digital Engineering Intern</h3>
-                        <p class="text-sm mb-2" style="color: var(--muted);">Air Liquide · Singapore</p>
+                        <p class="text-sm mb-2" style="color: var(--muted);">Air Liquide &middot; Singapore</p>
                         <p class="text-sm" style="color: var(--ink);">Streamlined stakeholder reporting using Power BI and Python</p>
                     </div>
 
@@ -206,7 +180,7 @@
     <footer class="px-6 py-10" style="border-top: 1px solid var(--rule);">
         <div class="max-w-2xl mx-auto flex flex-col md:flex-row md:justify-between md:items-center gap-2">
             <a href="mailto:ngjingxun1997@gmail.com" class="text-sm" style="color: var(--accent);">ngjingxun1997@gmail.com</a>
-            <p class="font-mono text-xs" style="color: var(--muted);">© 2026 Jonas Ng · Singapore</p>
+            <p class="font-mono text-xs" style="color: var(--muted);">&copy; 2026 Jonas Ng &middot; Singapore</p>
         </div>
     </footer>
 
