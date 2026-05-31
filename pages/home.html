@@ -179,15 +179,34 @@
                 const res = await fetch('/api/roadmap');
                 const issues = await res.json();
                 if (!issues.length) return;
-                const section = document.getElementById('roadmap-section');
+
+                // Group by project name
+                const grouped = {};
+                issues.forEach(issue => {
+                    const project = issue.project?.name ?? 'Other';
+                    if (!grouped[project]) grouped[project] = [];
+                    grouped[project].push(issue);
+                });
+
                 const list = document.getElementById('roadmap-list');
-                list.innerHTML = issues.map(issue => `
+                list.innerHTML = Object.entries(grouped).map(([project, tickets]) => `
                     <div class="row">
-                        <p class="font-mono text-xs mb-1" style="color: var(--muted);">${issue.identifier}</p>
-                        <a href="${issue.url}" target="_blank" rel="noopener" style="color: var(--ink);">${issue.title}</a>
+                        <p class="font-mono text-xs mb-3" style="color: var(--ink); font-weight: 500;">${project}</p>
+                        <div style="display:flex; flex-direction:column; gap:0.6rem;">
+                            ${tickets.map(issue => `
+                                <div>
+                                    <a href="${issue.url}" target="_blank" rel="noopener" style="display:flex; align-items:baseline; gap:0.5rem; text-decoration:none;">
+                                        <span class="font-mono text-xs" style="color:var(--muted); flex-shrink:0;">${issue.identifier}</span>
+                                        <span style="font-size:0.875rem; color:var(--ink);">${issue.title}</span>
+                                    </a>
+                                    ${issue.description ? `<p style="font-size:0.75rem; color:var(--muted); margin:0.2rem 0 0 0; line-height:1.5;">${issue.description.replace(/^\*\s*/gm, '').replace(/\n/g, ' · ')}</p>` : ''}
+                                </div>
+                            `).join('')}
+                        </div>
                     </div>
                 `).join('');
-                section.style.display = '';
+
+                document.getElementById('roadmap-section').style.display = '';
             } catch {}
         })();
     </script>
