@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="What Actually Changed in Data Engineering This Year — Jonas Ng">
+    <meta name="description" content="What Actually Changed in Data Engineering This Year, by Jonas Ng">
     <title>Data Engineering &amp; AI 2025 | Jonas Ng</title>
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
     <meta property="og:type" content="website">
@@ -96,21 +96,21 @@
             <!-- Article -->
             <article class="prose">
 
-                <p>I read two of the big year-in-review reports on data and AI engineering recently &mdash; lakeFS and InfoQ &mdash; and most of it matched what I'm seeing at work, some of it didn't. So instead of summarising them, here's my own take on the six shifts that mattered, what's real, and what's still mostly slideware. I'm a data and cloud engineer in Singapore; I build pipelines, RAG systems, and agent stuff for a living, so this is the view from inside the work, not from a trends deck.</p>
+                <p>I read two of the big year-in-review reports on data and AI engineering recently, lakeFS and InfoQ, and most of it matched what I'm seeing at work, some of it didn't. So instead of summarising them, here's my own take on the six shifts that mattered, what's real, and what's still mostly slideware. I'm a data and cloud engineer in Singapore; I build pipelines, RAG systems, and agent stuff for a living, so this is the view from inside the work, not from a trends deck.</p>
 
-                <h2>1. Streaming-first ingestion &mdash; real, but not for the reasons people sell it</h2>
+                <h2>1. Streaming-first ingestion: real, but not for the reasons people sell it</h2>
 
-                <p>The pitch is that everything should be event-driven and real-time now. In practice, most of what I build still runs on batch, and that's fine &mdash; a daily refresh is the right answer for a huge share of analytics workloads, and paying for streaming infrastructure to move data nobody reads until Monday is just burning money.</p>
+                <p>The pitch is that everything should be event-driven and real-time now. In practice, most of what I build still runs on batch, and that's fine. A daily refresh is the right answer for a huge share of analytics workloads, and paying for streaming infrastructure to move data nobody reads until Monday is just burning money.</p>
 
-                <p>Where streaming actually earned its place for me is CDC. The moment you want a downstream system &mdash; a search index, a feature store, a RAG knowledge base &mdash; to reflect source changes without a full reload, change data capture stops being a nice-to-have. That's the real story: not "batch is dead," but "the gap between when data changes and when your AI layer sees it is now a thing people care about." Be honest about whether your use case actually needs seconds or whether you've just been sold latency you don't need.</p>
+                <p>Where streaming actually earned its place for me is CDC. The moment you want a downstream system (a search index, a feature store, a RAG knowledge base) to reflect source changes without a full reload, change data capture stops being a nice-to-have. That's the real story: not "batch is dead," but "the gap between when data changes and when your AI layer sees it is now a thing people care about." Be honest about whether your use case actually needs seconds or whether you've just been sold latency you don't need.</p>
 
                 <h2>2. Open table formats are the change I'd actually defend</h2>
 
                 <p>If I had to pick one item on this list that genuinely changed my day-to-day, it's Iceberg, Delta, and Hudi. Decoupling compute from storage sounds like a slide bullet, but the practical payoff is concrete: ACID transactions on a data lake, schema evolution that doesn't require a migration project, and time-travel that has saved me more than once when a bad write needed rolling back.</p>
 
-                <p>The honest caveat is the format wars. Iceberg has clearly won the most mindshare, but "open" doesn't mean "interoperable in practice" &mdash; your catalog, your engine, and your governance tooling all need to agree, and that's where the real integration work lives. Pick one format and commit; don't try to keep your options open across all three.</p>
+                <p>The honest caveat is the format wars. Iceberg has clearly won the most mindshare, but "open" doesn't mean "interoperable in practice", your catalog, your engine, and your governance tooling all need to agree, and that's where the real integration work lives. Pick one format and commit; don't try to keep your options open across all three.</p>
 
-                <h2>3. Orchestration: solid and boring &mdash; automated remediation, less so</h2>
+                <h2>3. Orchestration: solid and boring, automated remediation less so</h2>
 
                 <p>Orchestration is the least glamorous thing on this list and the one I'd least want to live without. It's plumbing, and good plumbing is invisible. No strong opinion needed here beyond: invest in it early, because retrofitting proper dependency management and retries onto a pile of cron jobs is miserable.</p>
 
@@ -118,28 +118,28 @@
 
                 <h2>4. Observability is where trust actually gets built</h2>
 
-                <p>This is the section the reports undersell. Everyone agrees monitoring matters; far fewer teams actually wire up lineage and drift detection before something breaks. When I integrated a data catalog across thirteen system owners, the hard part was never the technology &mdash; it was that nobody could answer "where did this number come from?" with confidence. Lineage is the answer to that question, and it's worth the setup cost.</p>
+                <p>This is the section the reports undersell. Everyone agrees monitoring matters; far fewer teams actually wire up lineage and drift detection before something breaks. When I integrated a data catalog across thirteen system owners, the hard part was never the technology, it was that nobody could answer "where did this number come from?" with confidence. Lineage is the answer to that question, and it's worth the setup cost.</p>
 
                 <p>Drift matters more once you've got ML or RAG downstream, because the failure mode is silent: nothing errors, the numbers just quietly get wrong. Catch it at the data layer or you'll be debugging it as a model problem, which is the expensive way to find out.</p>
 
                 <h2>5. Vector databases: the retrieval, not the database, is the hard part</h2>
 
-                <p>I've built RAG on Neo4j and a multi-agent setup on Snowflake Cortex, so this is the area I've been closest to. The honest lesson: the vector database is rarely your bottleneck. Dense plus sparse hybrid search and reranking are real improvements &mdash; reranking especially is the cheapest quality win I know of &mdash; but they're techniques you apply, not a product you buy.</p>
+                <p>I've built RAG on Neo4j and a multi-agent setup on Snowflake Cortex, so this is the area I've been closest to. The honest lesson: the vector database is rarely your bottleneck. Dense plus sparse hybrid search and reranking are real improvements, reranking especially is the cheapest quality win I know of, but they're techniques you apply, not a product you buy.</p>
 
                 <p>What "cascading retrieval is built-in" misses is that retrieval quality is mostly a chunking, metadata, and evaluation problem. I've spent far more time on how documents get split and tagged than on which vector store holds them. If your RAG answers are bad, the database is the last place I'd look.</p>
 
                 <h2>6. Data catalogs are finally useful, if anyone uses them</h2>
 
-                <p>Catalogs used to be where metadata went to die. The newer generation &mdash; embedded context, versioning, real integrations &mdash; is genuinely better, and the governance and compliance story is no longer an afterthought. I've lived in this space, so I'm sympathetic to the pitch.</p>
+                <p>Catalogs used to be where metadata went to die. The newer generation (embedded context, versioning, real integrations) is genuinely better, and the governance and compliance story is no longer an afterthought. I've lived in this space, so I'm sympathetic to the pitch.</p>
 
-                <p>But the unsolved problem isn't features, it's adoption. A catalog is only worth what people put into it, and getting thirteen system owners to keep documentation current is a people problem no feature list solves. The best tooling in the world loses to an empty description field. Buy the catalog, sure &mdash; then spend your real effort on the cultural side, because that's the part that actually determines whether it works.</p>
+                <p>But the unsolved problem isn't features, it's adoption. A catalog is only worth what people put into it, and getting thirteen system owners to keep documentation current is a people problem no feature list solves. The best tooling in the world loses to an empty description field. Buy the catalog, then spend your real effort on the cultural side, because that's the part that actually determines whether it works.</p>
 
                 <!-- Sources -->
                 <div style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--rule);">
                     <p class="font-mono text-xs mb-3" style="color: var(--muted);">Sources</p>
                     <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.4rem;">
-                        <li><a href="https://lakefs.io/blog/the-state-of-data-ai-engineering-2025/" target="_blank" style="font-size: 0.85rem;">lakeFS &mdash; The State of Data and AI Engineering 2025</a></li>
-                        <li><a href="https://www.infoq.com/articles/ai-ml-data-engineering-trends-2025/" target="_blank" style="font-size: 0.85rem;">InfoQ &mdash; AI/ML and Data Engineering Trends 2025</a></li>
+                        <li><a href="https://lakefs.io/blog/the-state-of-data-ai-engineering-2025/" target="_blank" style="font-size: 0.85rem;">lakeFS : The State of Data and AI Engineering 2025</a></li>
+                        <li><a href="https://www.infoq.com/articles/ai-ml-data-engineering-trends-2025/" target="_blank" style="font-size: 0.85rem;">InfoQ : AI/ML and Data Engineering Trends 2025</a></li>
                     </ul>
                 </div>
 
