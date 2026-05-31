@@ -18,6 +18,19 @@ const progressBar       = document.getElementById('progress-bar');
 const enterBtn          = document.getElementById('enter-btn');
 const resumeBtn         = document.getElementById('resume-btn');
 
+// ── Background music ──────────────────────────────────────────────
+const bgMusic  = document.getElementById('bg-music');
+const muteBtn  = document.getElementById('mute-btn');
+bgMusic.volume = 0.18;
+let muted = false;
+
+muteBtn.addEventListener('click', () => {
+    muted = !muted;
+    bgMusic.muted = muted;
+    muteBtn.textContent = muted ? '♪ muted' : '♪ music';
+    muteBtn.style.opacity = muted ? '0.5' : '1';
+});
+
 const modals = {
     resume:      document.getElementById('resume-modal'),
     terminal:    document.getElementById('terminal-modal'),
@@ -353,6 +366,9 @@ async function boot() {
 
     // ── Phase 2: Enter World — NOW read colours and build character ─
     enterBtn.addEventListener('click', () => {
+        // Start background music on first user gesture
+        bgMusic.play().catch(() => {});
+
         // Show loading — overlay stays fully visible until pointer lock is granted
         enterBtn.textContent = 'Loading...';
         enterBtn.disabled = true;

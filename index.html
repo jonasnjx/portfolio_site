@@ -582,6 +582,9 @@
         </div>
     </div>
 
+    <!-- ── Background music ─────────────────────────────── -->
+    <audio id="bg-music" src="/assets/bg-music.mp3" loop preload="auto"></audio>
+
     <!-- ── HUD ───────────────────────────────────────────── -->
     <div id="hud">
         <div id="hud-legend">
@@ -590,6 +593,21 @@
         <div id="prompt">
             <span id="prompt-text">Interact</span>
         </div>
+        <button id="mute-btn" title="Toggle music" style="
+            position: absolute;
+            bottom: 1.25rem;
+            right: 1.25rem;
+            background: rgba(15,17,23,0.7);
+            border: 1px solid rgba(226,222,213,0.2);
+            border-radius: 4px;
+            color: var(--ink, #ececec);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            padding: 0.3rem 0.6rem;
+            cursor: pointer;
+            pointer-events: all;
+            transition: background 0.15s;
+        ">♪ music</button>
     </div>
 
     <!-- ── Resume modal ──────────────────────────────────── -->
