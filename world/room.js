@@ -79,9 +79,11 @@ function buildWalls(scene) {
     const sill = box(0.38, 0.10, fD + 0.1, flat(0x78716c), ex - 0.44, WIN.bot - 0.05, WIN.cz);
     scene.add(sill);
 
-    // Cute sky-blue ceiling
+    // Ceiling base — two-tone, low emissive so room lights model it
     scene.add(box(ROOM.width + 1, 0.5, ROOM.depth + 1,
-        flat(0x7dd3fc, 0x7dd3fc, 0.25), 0, ROOM.height + 0.25, 0));
+        flat(0x93c5fd, 0x60a5fa, 0.12), 0, ROOM.height + 0.25, 0));
+    // Lighter centre skylight panel for depth
+    scene.add(box(7, 0.06, 7, flat(0xbfdbfe, 0xdbeafe, 0.18), 0, 3.97, 0));
     buildCuteCeiling(scene);
 }
 
@@ -363,53 +365,51 @@ function buildFlowerPoster(scene) {
 
 // ── Cute ceiling — sky, clouds, sun ───────────────────────────────
 function cloudCluster(scene, cx, cz, scale = 1) {
-    const cMat = flat(0xffffff, 0xffffff, 0.55);
-    const cy = ROOM.height + 0.02; // just below ceiling face
-    // Each cloud is layered boxes of varying widths (fluffy silhouette from below)
-    [
-        [0,          0,    1.1*scale, 0.22, 0.75*scale],
-        [-0.38*scale,0,    0.7*scale, 0.18, 0.55*scale],
-        [ 0.35*scale,0,    0.65*scale,0.18, 0.50*scale],
-        [ 0.05*scale,0.2*scale, 0.55*scale,0.16, 0.45*scale],
-    ].forEach(([dx, dz, w, h, d]) =>
-        scene.add(box(w, h, d, cMat, cx + dx, cy, cz + dz))
-    );
+    const body  = flat(0xf8fafc, 0xffffff, 0.10); // lit by room lights, faint glow
+    const belly = flat(0xc7d2e8, 0xc7d2e8, 0.04); // soft grey underside — reads 3D from below
+    const cy = 3.98;
+    const s = scale;
+    // Stepped pyramid body (5 boxes)
+    scene.add(box(1.30*s, 0.20, 0.85*s, body,  cx,        cy,        cz));
+    scene.add(box(0.95*s, 0.20, 0.62*s, body,  cx-0.30*s, cy,        cz+0.10*s));
+    scene.add(box(0.80*s, 0.20, 0.55*s, body,  cx+0.32*s, cy,        cz-0.08*s));
+    scene.add(box(0.55*s, 0.18, 0.40*s, body,  cx+0.02*s, cy+0.12,   cz)); // top puff raised
+    // Belly — slightly larger footprint, sits below body
+    scene.add(box(1.40*s, 0.06, 0.92*s, belly, cx,        cy-0.12,   cz));
 }
 
 function buildCuteCeiling(scene) {
-    // Cloud clusters (keep away from ceiling light positions)
+    // Cloud clusters
     cloudCluster(scene, -3.2, -3.5, 0.9);
     cloudCluster(scene,  2.0, -2.5, 1.0);
     cloudCluster(scene, -1.5,  2.8, 0.8);
     cloudCluster(scene,  3.5,  2.2, 0.75);
 
-    // Sun in the northwest corner
-    const sunY  = ROOM.height + 0.04;
-    const sunMat = flat(0xfde68a, 0xfbbf24, 1.8);
-    const rayMat = flat(0xfef3c7, 0xfde68a, 1.0);
-    // Sun disc
-    scene.add(box(0.7, 0.16, 0.7, sunMat, -4.0, sunY, -4.0));
-    scene.add(box(0.5, 0.18, 0.5, flat(0xfef9c3, 0xfef9c3, 2.0), -4.0, sunY, -4.0));
-    // Rays (cross + diagonals)
-    [
-        [1.4, 0.08, 0.08],
-        [0.08, 0.08, 1.4],
-        [1.0,  0.06, 1.0],
-    ].forEach(([w, h, d]) =>
-        scene.add(box(w, h, d, rayMat, -4.0, sunY, -4.0))
-    );
-    // Warm sun glow light
+    // Sun — 3D stacked halo, dropped below ceiling plane for depth
+    scene.add(box(0.55, 0.16, 0.55, flat(0xfde047, 0xfacc15, 2.2), -4.0, 3.80, -4.0)); // core
+    scene.add(box(0.78, 0.12, 0.78, flat(0xfef08a, 0xfde68a, 1.2), -4.0, 3.74, -4.0)); // mid
+    scene.add(box(1.05, 0.08, 1.05, flat(0xfef9c3, 0xfef9c3, 0.5), -4.0, 3.70, -4.0)); // outer halo
+    // Rays
+    const rayMat = flat(0xfef3c7, 0xfde68a, 0.8);
+    [[1.5, 0.06, 0.06], [0.06, 0.06, 1.5], [1.0, 0.05, 1.0]].forEach(([w, h, d]) =>
+        scene.add(box(w, h, d, rayMat, -4.0, 3.72, -4.0)));
+    // Warm sun glow
     const sunLight = new THREE.PointLight(0xfde68a, 1.2, 8);
     sunLight.position.set(-4.0, 3.6, -4.0);
     scene.add(sunLight);
 
-    // Small birds (tiny dark V shapes) scattered around
-    const birdMat = flat(0x374151);
+    // Birds — proper V shapes with 4 boxes each (wing + raised tip)
+    const birdMat = flat(0x475569);
     [
         [1.0, -4.2], [-0.5, -3.8], [2.5, -4.0], [-2.0, -4.3],
     ].forEach(([bx, bz]) => {
-        scene.add(box(0.22, 0.05, 0.08, birdMat, bx - 0.08, ROOM.height + 0.02, bz));
-        scene.add(box(0.22, 0.05, 0.08, birdMat, bx + 0.08, ROOM.height + 0.02, bz));
+        const by = 3.95;
+        // Left wing + tip
+        scene.add(box(0.18, 0.04, 0.06, birdMat, bx - 0.09, by,      bz));
+        scene.add(box(0.10, 0.04, 0.05, birdMat, bx - 0.17, by+0.04, bz)); // raised tip
+        // Right wing + tip
+        scene.add(box(0.18, 0.04, 0.06, birdMat, bx + 0.09, by,      bz));
+        scene.add(box(0.10, 0.04, 0.05, birdMat, bx + 0.17, by+0.04, bz)); // raised tip
     });
 }
 
