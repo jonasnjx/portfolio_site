@@ -1,71 +1,86 @@
-# Jonas | AI Cloud & Data Engineer — Portfolio
+# Jonas Ng | Senior Data & Cloud Engineer
 
-An interactive portfolio with a first-person 3D voxel room as the landing experience. Built with Three.js, plain HTML, and Express — no bundler.
+An interactive portfolio with a walkable 3D voxel room as the landing experience, plus a classic static site for mobile and fallback. Built with Three.js, plain HTML, and Express. No bundler.
 
-> Built with [Claude Code](https://claude.ai/code) — planned with Opus, implemented with Sonnet.
+> Built with [Claude Code](https://claude.ai/code). Planned with Opus, implemented with Sonnet.
 
 ## The experience
 
-Visitors land on a Minecraft-inspired room and walk around with WASD + mouse. Each object in the room links to a part of the portfolio:
+Desktop visitors land on a third-person 3D room. Walk around with WASD and click on objects to explore the portfolio. Mobile and no-WebGL visitors are redirected to the classic site at `/home`.
 
 | Object | Action |
 |--------|--------|
-| Resume desk | Press `E` → view / download resume |
-| TV | Press `E` → watch intro video |
-| Terminal kiosk | Press `E` → projects & case studies |
-| Connect poster | Press `E` → LinkedIn & GitHub |
+| Resume desk | View work experience |
+| Bookshelf | Read writing and articles |
+| Arcade machine | Browse projects |
+| Telephone | Contact links |
+| Sofa | Sit down |
+| Clock | Current Singapore time |
+| Door | Exit to classic site |
 
-Mobile and no-WebGL visitors are redirected to the classic static site at `/home`.
+Press `M` to toggle background music. Press `T` or `Enter` to open the chat (type `/help` for commands).
 
 ## Getting started
 
 ```bash
 npm install
 npm start
-# → http://localhost:3000
+# http://localhost:3000
 ```
 
-The site must be served through Express — opening HTML files directly won't work due to absolute routing.
+The site must be served through Express. Opening HTML files directly won't work due to absolute routing.
 
 ## Routes
 
 | Route | Description |
 |-------|-------------|
 | `/` | 3D interactive room (desktop only) |
-| `/home` | Classic portfolio — mobile fallback |
+| `/home` | Classic portfolio, mobile fallback |
 | `/resume` | Work experience |
-| `/projects` | Project showcase |
-| `/casestudies` | AI & Data Engineering articles |
-| `/connect` | LinkedIn, GitHub |
+| `/projects` | Projects |
+| `/casestudies` | Writing |
+| `/connect` | LinkedIn, GitHub, Email |
+| `/casestudies/context-engineering-2026` | Article |
+| `/casestudies/data-ai-2025` | Article |
+
+Any new route must be added to both `server.js` and `vercel.json`.
 
 ## Tech stack
 
-- **Three.js** (via CDN importmap, no bundler) — 3D scene, PointerLockControls
-- **Tailwind CSS** (CDN) — styling for overlays and classic pages
-- **Express.js** — local dev server
-- **Vercel** — production deployment
+- **Three.js** (via CDN importmap, no bundler): 3D room, third-person camera, voxel geometry
+- **Tailwind CSS** (CDN): classic site styling
+- **Express.js**: local dev server
+- **Vercel**: production deployment
+- **Linear**: roadmap tracking via API
 
 ## File structure
 
 ```
-index.html          # 3D launcher (onboarding overlay + canvas)
-world/              # Three.js modules
-  config.js         # All positions, colors, object data
-  main.js           # Boot, render loop, modal wiring
-  scene.js          # Renderer, camera, lights, fog
-  room.js           # Room geometry + decor
-  interactables.js  # Resume, TV, terminal, connect objects
-  controls.js       # WASD movement + head bob
-  interaction.js    # Proximity detection + E-key
+index.html              # 3D launcher (onboarding overlay + canvas)
+world/
+  config.js             # Positions, colors, interactables registry
+  main.js               # Boot sequence, render loop, modals, chat
+  scene.js              # Renderer, camera, lights
+  room.js               # Room geometry, decor, signs
+  character.js          # Character meshes, pixel art previews
+  controls.js           # WASD movement, third-person camera
+  interaction.js        # Click-based proximity interaction
+  interactables.js      # Interactable object builders
+  entities.js           # Pets (giraffe, dino, polar bear)
 pages/
-  home.html         # Classic homepage (mobile fallback)
+  home.html             # Classic homepage
   resume.html
   projects.html
   casestudies.html
   connect.html
-assets/             # Images, resume PDF, intro video
+  casestudies/
+    context-engineering-2026.html
+    data-ai-2025.html
+assets/                 # Images, audio, favicon, OG image
+api/
+  roadmap.js            # Linear API route (Vercel serverless)
 ```
 
 ## Deployment
 
-Deployed on Vercel. `vercel.json` handles route rewrites. Any new route must be added to both `server.js` and `vercel.json`.
+Deployed on Vercel. `vercel.json` handles route rewrites.
