@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Jonas Ng - Writing on AI and Data Engineering">
-    <title>Writing | Jonas Ng</title>
+    <meta name="description" content="Context Engineering: The Gap Between a Reliable AI and One That Isn't, by Jonas Ng">
+    <title>Context Engineering | Jonas Ng</title>
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Jonas Ng - Senior Data and Cloud Engineer">
-    <meta property="og:description" content="Insights on AI, data engineering, and emerging technologies.">
+    <meta property="og:title" content="Context Engineering: The Gap Between a Reliable AI and One That Isn't">
+    <meta property="og:description" content="A practical take on why context engineering matters, and what AI product teams should think about before they build.">
     <meta property="og:image" content="/assets/og-preview.png">
-    <meta name="twitter:card" content="summary">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,13 +28,16 @@
         .nav-link:hover::after { width: 100%; }
         .nav-link.active { color: var(--accent); }
         .nav-link.active::after { width: 100%; }
-        .article-row { border-top: 1px solid var(--rule); padding: 1.75rem 0; }
-        .article-row:last-child { border-bottom: 1px solid var(--rule); }
-        .article-row a.title:hover { color: var(--accent); }
         .mobile-menu { transform: translateX(100%); transition: transform 0.3s ease; }
         .mobile-menu.open { transform: translateX(0); }
         .menu-backdrop { opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
         .menu-backdrop.open { opacity: 1; visibility: visible; }
+
+        .prose { max-width: 65ch; }
+        .prose p { font-family: 'Source Serif 4', serif; font-size: 1.0625rem; line-height: 1.75; color: var(--ink); margin-bottom: 1.25rem; }
+        .prose h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; font-weight: 500; color: var(--ink); margin-top: 2.5rem; margin-bottom: 0.75rem; padding-top: 2rem; border-top: 1px solid var(--rule); }
+        .prose a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+        .prose a:hover { opacity: 0.8; }
     </style>
 </head>
 <body class="min-h-screen font-sans">
@@ -77,14 +79,49 @@
     <main class="pt-24 pb-20 px-6">
         <div class="max-w-2xl mx-auto">
 
-            <div class="py-12">
-                <h1 class="text-2xl md:text-3xl font-semibold mb-2" style="color: var(--ink);">Writing</h1>
-                <p class="font-mono text-sm" style="color: var(--muted);">Articles on AI, data engineering, and emerging technologies</p>
-            </div>
+            <a href="/casestudies" class="inline-flex items-center gap-2 text-sm mb-10" style="color: var(--muted);">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                Back to Writing
+            </a>
 
-            <section>
+            <header class="mb-10">
+                <p class="font-mono text-xs mb-4" style="color: var(--muted);">2026 &middot; Context Engineering</p>
+                <h1 class="text-2xl md:text-3xl font-semibold mb-4 leading-snug" style="color: var(--ink);">Context Engineering: The Gap Between a Reliable AI and One That Isn't</h1>
+            </header>
 
-            </section>
+            <article class="prose">
+
+                <p>We were building an enterprise HR chatbot, and it kept getting things wrong. Not catastrophically, but consistently off in ways that were hard to pin down. After digging in, the issue was straightforward: there were multiple date fields in the underlying tables, and the model had no idea which one applied to which context. It was guessing. When we added proper context around what each field meant, the hallucinations dropped noticeably. The model wasn't broken. It just didn't know enough about the data it was working with.</p>
+
+                <p>That experience stuck with me, and it's what context engineering is really about.</p>
+
+                <h2>The shift that changes everything</h2>
+
+                <p>Data engineering has always been about building reliable pipelines for the people who consume the data. Humans reading a dashboard can pause, question an anomaly, ask a colleague. They bring judgment to the table. AI agents can't do that. They act on whatever they're given, and if what they're given is ambiguous, they fill in the gaps themselves, often incorrectly.</p>
+
+                <p>This is the shift. The audience for data has changed, and that changes what "good data" means.</p>
+
+                <h2>What context actually is</h2>
+
+                <p>Context is everything an agent needs beyond its training. That includes the data itself, the semantics around it (what does "revenue" mean in your organisation, exactly?), memory of past decisions and corrections, the tools it can use, and the guardrails that govern its behaviour. Miss any one of these, and you've got a model that's technically capable but practically unreliable.</p>
+
+                <h2>The good news</h2>
+
+                <p>If your data team has already invested in catalogs, lineage tracking, quality monitoring, and business glossaries, you're closer than you think. These aren't AI-specific tools. They're the same foundations good data teams build anyway. The difference is that for AI, they stop being nice-to-haves and become hard requirements. A business glossary that lives in a Confluence page is fine for a human. An agent needs it to be machine-readable, structured, and unambiguous.</p>
+
+                <p>The gap for most teams isn't the model. It's the infrastructure around the model.</p>
+
+                <h2>Something to think about</h2>
+
+                <p>Before the next AI project kicks off, it's worth asking: is our data actually ready to be context? Not just accessible, not just clean, but clearly described, correctly scoped, and properly governed for an agent that will act on it without asking questions. The teams that get this right tend to ship faster and spend less time debugging outputs that seem inexplicably wrong.</p>
+
+                <p>Data engineers have a bigger role in AI delivery than most product teams realise. Getting them involved early, not just at the pipeline stage, makes a real difference.</p>
+
+                <div style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--rule);">
+                    <p class="font-mono text-xs" style="color: var(--muted);">Presented at a tech discussion forum, 2026.</p>
+                </div>
+
+            </article>
 
         </div>
     </main>
