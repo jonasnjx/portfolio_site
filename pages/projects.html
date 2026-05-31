@@ -182,7 +182,7 @@
                             <span class="font-mono text-xs" style="color: var(--muted); flex-shrink: 0;">${issue.identifier}</span>
                             <span style="color: var(--ink);">${issue.title}</span>
                         </div>
-                        ${issue.description ? `<p style="font-size:0.72rem; color: var(--muted); margin:0; padding-left: 0; line-height:1.5;">${issue.description}</p>` : ''}
+                        ${issue.description ? `<p style="font-size:0.72rem; color: var(--muted); margin:0; line-height:1.5;">${issue.description.replace(/^\*\s*/gm, '').replace(/\n/g, ' · ')}</p>` : ''}
                     </a>`
                 ).join('');
             } catch {
