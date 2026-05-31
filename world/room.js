@@ -521,7 +521,7 @@ function buildSign(scene, text, x, y, z, w = 1.3, h = 0.50, faceYaw = 0, index =
 
 function buildSigns(scene) {
     buildSign(scene, 'Resume',        0,    2.7, -4.2, 1.30, 0.50,  0,          '01');
-    buildSign(scene, 'Projects',     -3.2,  2.7, -2.2, 1.30, 0.50,  0,          '02');
+    buildSign(scene, 'Projects',     -3.6,  3.15, -5.75, 1.30, 0.50,  0,          '02');
     buildSign(scene, 'Writing',      -4.3,  2.7,  1.8, 1.10, 0.50,  Math.PI/2,  '03');
     buildSign(scene, 'Contact',       4.3,  2.7,  0.2, 1.30, 0.50, -Math.PI/2,  '04');
 }
@@ -819,7 +819,7 @@ function drawSFFighter(ctx, x, y, state, body, light, dir) {
 }
 
 function buildArcadeMachine(scene) {
-    const x = -3.2, z = -2.2;
+    const x = -3.6, z = -5.55;
     const cab  = flat(0x1a1208);
     const trim = flat(0x4c1d95, 0x7c3aed, 0.6);
 

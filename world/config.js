@@ -38,7 +38,7 @@ export const INTERACTABLES = [
     },
     {
         id:       'arcade',
-        position: { x: -3.2, y: 0, z: -2.2 },
+        position: { x: -3.6, y: 0, z: -5.55 },
         radius:   2.3,
         prompt:   'see projects',
         modal:    'terminal',
