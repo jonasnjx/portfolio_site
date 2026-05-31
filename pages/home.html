@@ -183,7 +183,7 @@
                 // Group by project name
                 const grouped = {};
                 issues.forEach(issue => {
-                    const project = issue.project?.name ?? 'Other';
+                    const project = issue.project?.name ?? issue.team?.name ?? 'Other';
                     if (!grouped[project]) grouped[project] = [];
                     grouped[project].push(issue);
                 });

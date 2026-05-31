@@ -24,7 +24,7 @@ app.get('/api/roadmap', async (req, res) => {
       headers: { 'Content-Type': 'application/json', 'Authorization': key },
       body: JSON.stringify({
         query: `{ issues(filter: { state: { type: { eq: "started" } } }, orderBy: updatedAt) {
-          nodes { id identifier title url description project { name } state { name } }
+          nodes { id identifier title url description team { name } project { name } state { name } }
         } }`
       }),
     });
