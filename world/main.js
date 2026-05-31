@@ -150,6 +150,10 @@ async function boot() {
     // Expose camera for pet greeting projection
     window._worldCamera = camera;
 
+    // Resume glow light for pulsing
+    const resumeGlowLights = [];
+    scene.traverse(m => { if (m.userData.isResumeGlow) resumeGlowLights.push(m); });
+
     const swayMeshes = [];
     scene.traverse(m => { if (m.userData.plantSway) swayMeshes.push(m); });
 
@@ -353,6 +357,9 @@ async function boot() {
         });
         signMeshes.forEach(m => {
             m.position.y = m.userData.bobBase + Math.sin(elapsed * 1.6 + m.position.x) * 0.05;
+        });
+        resumeGlowLights.forEach(l => {
+            l.intensity = 1.8 + Math.sin(elapsed * 1.2) * 0.4;
         });
         leds.forEach(led => {
             led.material.emissiveIntensity =

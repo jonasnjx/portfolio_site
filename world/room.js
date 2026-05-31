@@ -136,55 +136,112 @@ function buildWalls(scene) {
     buildCuteCeiling(scene);
 }
 
-// ── Outdoor — beach and sea ────────────────────────────────────────
-// Window shows y=0.9 to y=2.9 — all key elements are designed within this range
+// ── Outdoor — layered beach diorama ──────────────────────────────
+// 5 depth planes create parallax as the player moves past the window.
+// Window reveals y=0.9..2.9, z=-1.5..+1.5.
 function buildOutdoor(scene) {
-    const bx = 7.0;
+    const SKY  = 9.5;  // far backdrop — almost no parallax
+    const SEA  = 8.2;  // water + headland
+    const SURF = 7.4;  // breaking waves / wet sand
+    const SAND = 6.7;  // near beach — strong parallax
+    const NEAR = 6.55; // closest props (palms, grass)
 
-    // Sky — full backdrop from floor to ceiling height
-    scene.add(box(0.2, 2.2, 8, flat(0x0369a1, 0x0ea5e9, 1.0), bx, 2.80, 0)); // deep blue upper sky
-    scene.add(box(0.2, 1.2, 8, flat(0x38bdf8, 0x7dd3fc, 0.95), bx, 1.85, 0)); // bright mid sky
-    scene.add(box(0.2, 0.6, 8, flat(0xbae6fd, 0xe0f2fe, 0.90), bx, 1.20, 0)); // horizon haze
+    // ── Sky — oversized so edges never show ──────────────────────────
+    scene.add(box(0.3, 5.5, 14, flat(0x2b80c8, 0x3b9fe0, 0.85), SKY, 4.10, 0));
+    scene.add(box(0.3, 2.2, 14, flat(0x6fc0ec, 0x8fd2f2, 0.80), SKY, 2.05, 0));
+    scene.add(box(0.3, 1.1, 14, flat(0xcfeafa, 0xe6f4fc, 0.78), SKY, 1.30, 0));
 
-    // Sea
-    scene.add(box(0.2, 0.55, 8, flat(0x0e7490, 0x0891b2, 1.0), bx, 0.88, 0));
-    scene.add(box(0.2, 0.30, 8, flat(0x06b6d4, 0x22d3ee, 0.9), bx, 0.60, 0));
+    // ── Sun — layered halo, upper-left of window ─────────────────────
+    scene.add(box(0.18, 1.05, 1.05, flat(0xfff7d6, 0xfff2b0, 1.0),  SKY - 0.5, 2.55, -1.0));
+    scene.add(box(0.16, 0.66, 0.66, flat(0xfff3b0, 0xffe98a, 2.4),  SKY - 0.6, 2.55, -1.0));
+    scene.add(box(0.14, 0.40, 0.40, flat(0xffffff, 0xffffff, 3.2),  SKY - 0.7, 2.55, -1.0));
 
-    // Wave foam
-    scene.add(box(0.12, 0.04, 8, flat(0xf0fdfa, 0xf0fdfa, 0.8), bx, 0.78, 0));
+    // ── Headland — breaks the flat horizon on the right ──────────────
+    const land  = flat(0x4a6b52, 0x3a5642, 0.25);
+    const landL = flat(0x5d7e63, 0x47604d, 0.20);
+    scene.add(box(0.25, 0.55, 1.6, land,  SEA + 0.3, 1.75, 1.9));
+    scene.add(box(0.25, 0.85, 0.9, land,  SEA + 0.3, 1.95, 2.3));
+    scene.add(box(0.24, 0.12, 1.6, landL, SEA + 0.28, 2.00, 1.9));
+    scene.add(box(0.24, 0.10, 0.9, landL, SEA + 0.28, 2.35, 2.3));
 
-    // Beach
-    scene.add(box(0.2, 0.40, 8, flat(0xfcd34d, 0xfde68a, 0.7), bx, 0.28, 0));
-    scene.add(box(0.2, 0.20, 8, flat(0xf59e0b, 0xfbbf24, 0.6), bx, 0.01, 0));
+    // ── Sea ──────────────────────────────────────────────────────────
+    scene.add(box(0.3, 0.34, 14, flat(0x1f93b8, 0x2bb0d4, 0.85), SEA,  1.55, 0));
+    scene.add(box(0.3, 0.42, 14, flat(0x2bb6d8, 0x46cfe8, 0.85), SURF, 1.30, 0));
 
-    // Clouds — within window's y range (0.9-2.9), centred around y=2.3
-    const cMat = flat(0xffffff, 0xffffff, 0.92);
-    [
-        [bx-0.08, 2.40, -0.9], [bx-0.06, 2.55, -0.1],
-        [bx-0.10, 2.30,  0.9], [bx-0.07, 2.45,  1.3],
-    ].forEach(([cx, cy, cz]) => {
-        scene.add(box(0.15, 0.28, 0.85, cMat, cx, cy,        cz));
-        scene.add(box(0.15, 0.18, 0.55, cMat, cx, cy + 0.18, cz));
+    // Sun glitter path — staggered dashes read as sparkle
+    const glint = flat(0xfff7d6, 0xfff7d6, 1.6);
+    [[1.46,-1.0],[1.40,-0.7],[1.34,-0.95],[1.28,-0.6],[1.22,-0.85],[1.18,-0.5]]
+        .forEach(([gy,gz]) => scene.add(box(0.10, 0.05, 0.22, glint, SURF - 0.05, gy, gz)));
+
+    // ── Breaking wave / scalloped foam line ──────────────────────────
+    const foam = flat(0xf2fbff, 0xffffff, 0.7);
+    for (let i = 0; i < 9; i++) {
+        const fz = -2.0 + i * 0.5;
+        const fy = 1.08 + (i % 2) * 0.05; // zig-zag height
+        scene.add(box(0.12, 0.07, 0.40, foam, SURF - 0.1, fy, fz));
+    }
+
+    // ── Beach ────────────────────────────────────────────────────────
+    scene.add(box(0.3, 0.55, 14, flat(0xf0d79a, 0xf7e6b8, 0.55), SAND,       0.78, 0));
+    scene.add(box(0.4, 0.70, 14, flat(0xe6c483, 0xf0d79a, 0.45), SAND - 0.2, 0.30, 0));
+
+    // ── Palm trees — biggest visual depth cue ────────────────────────
+    function palm(px, pz, height, depth, lean) {
+        const trunk   = flat(0x8a5a2e, 0x6e4622, 0.2);
+        const frond   = flat(0x2f9e54, 0x247a40, 0.3);
+        const frondHi = flat(0x46b96a, 0x2f9e54, 0.25);
+        const topY = 0.65 + height;
+        scene.add(box(0.14, height * 0.45, 0.14, trunk, px,           0.65 + height * 0.22, pz));
+        scene.add(box(0.13, height * 0.35, 0.13, trunk, px + lean*0.5,0.65 + height * 0.60, pz));
+        scene.add(box(0.12, height * 0.25, 0.12, trunk, px + lean,    0.65 + height * 0.88, pz));
+        const hx = px + lean;
+        [[0.45,0.05,0.0],[-0.45,0.05,0.0],[0.30,0.0,0.42],[-0.30,0.0,-0.42],[0.10,0.18,0.0],[0.05,-0.05,0.30]]
+            .forEach(([dz,dy,dzz], k) => {
+                scene.add(box(depth, 0.10, 0.55, k%2?frondHi:frond, hx, topY+dy, pz+dz+dzz));
+            });
+        scene.add(box(0.10, 0.10, 0.10, trunk, hx, topY - 0.02, pz + 0.06));
+        scene.add(box(0.10, 0.10, 0.10, trunk, hx, topY - 0.02, pz - 0.06));
+    }
+    palm(NEAR,        -1.25, 1.55, 0.40, -0.10);
+    palm(SAND - 0.05,  1.30, 1.15, 0.34,  0.08);
+
+    // Beach grass tufts
+    const grass = flat(0x7cb342, 0x5a9030, 0.3);
+    [[-1.6,0.42],[-1.45,0.34],[1.55,0.40],[1.7,0.32]].forEach(([gz,gh]) =>
+        scene.add(box(0.10, gh, 0.10, grass, NEAR - 0.05, 0.65 + gh/2, gz)));
+
+    // ── Sailboat ─────────────────────────────────────────────────────
+    const bz2 = -0.3;
+    scene.add(box(0.16, 0.10, 0.34, flat(0xb5651d, 0x8a4a14, 0.2), SEA-0.1, 1.52, bz2));
+    scene.add(box(0.06, 0.32, 0.04, flat(0x6e4622),                 SEA-0.1, 1.72, bz2));
+    scene.add(box(0.10, 0.26, 0.02, flat(0xfafafa, 0xffffff, 0.5),  SEA-0.12, 1.74, bz2+0.10));
+
+    // ── Clouds ───────────────────────────────────────────────────────
+    const cloud  = flat(0xffffff, 0xffffff, 0.85);
+    const cloudU = flat(0xeaf4fb, 0xeaf4fb, 0.75);
+    function cl(cx, cy, cz, s) {
+        scene.add(box(0.2, 0.45*s, 1.5*s,  cloud,  cx, cy,        cz));
+        scene.add(box(0.2, 0.32*s, 0.95*s, cloud,  cx, cy+0.18*s, cz-0.2*s));
+        scene.add(box(0.2, 0.30*s, 0.80*s, cloud,  cx, cy+0.16*s, cz+0.3*s));
+        scene.add(box(0.2, 0.14*s, 1.6*s,  cloudU, cx, cy-0.20*s, cz));
+    }
+    cl(SKY - 0.3, 3.05,  0.8, 1.0);
+    cl(SKY - 0.2, 3.35, -1.4, 0.8);
+
+    // ── Seagulls ─────────────────────────────────────────────────────
+    const gull = flat(0x3a4656);
+    [[3.45,-0.4],[3.20,1.1],[3.55,0.4]].forEach(([gy,gz]) => {
+        scene.add(box(0.10, 0.04, 0.16, gull, SKY-0.8, gy,       gz-0.10));
+        scene.add(box(0.10, 0.04, 0.16, gull, SKY-0.8, gy+0.05,  gz+0.10));
     });
 
-    // Sun — clearly visible in upper window area
-    scene.add(box(0.2,  0.72, 0.72, flat(0xfef3c7, 0xfde68a, 2.8), bx - 0.1, 2.72, 0.8));
-    scene.add(box(0.15, 0.95, 0.95, flat(0xfef9c3, 0xfef9c3, 0.6), bx - 0.05, 2.65, 0.8));
-
-    // Sun shimmer on water
-    scene.add(box(0.12, 0.06, 0.55, flat(0xfde68a, 0xfde68a, 1.2), bx, 0.80, 0.8));
-
-    // Seagulls — in visible range y=2.0-2.6
-    const gMat = flat(0x475569);
-    [[-0.08, 2.10, -0.6], [-0.06, 2.40, 0.5], [-0.10, 2.25, 1.2]].forEach(([ox, y, z]) => {
-        scene.add(box(0.16, 0.04, 0.05, gMat, bx + ox - 0.07, y, z));
-        scene.add(box(0.16, 0.04, 0.05, gMat, bx + ox + 0.07, y, z));
-    });
-
-    // Warm beach light streaming into room
-    const sunLight = new THREE.PointLight(0xfff4d0, 2.4, 20);
-    sunLight.position.set(6.3, 2.0, 0);
-    scene.add(sunLight);
+    // ── Two-light window rig ─────────────────────────────────────────
+    const sunKey = new THREE.PointLight(0xffe9b8, 2.6, 22);
+    sunKey.position.set(6.2, 2.4, -0.6);
+    scene.add(sunKey);
+    const skyFill = new THREE.PointLight(0xbfe3ff, 1.0, 14);
+    skyFill.position.set(6.2, 1.4, 0.6);
+    scene.add(skyFill);
 }
 
 // ── Rug ────────────────────────────────────────────────────────────
@@ -350,14 +407,17 @@ function buildResumeDesk(scene) {
     pTex.magFilter = THREE.NearestFilter;
     const paper = new THREE.Mesh(
         new THREE.BoxGeometry(0.55, 0.70, 0.04),
-        new THREE.MeshLambertMaterial({ map: pTex, emissive: 0xffd580, emissiveIntensity: 0.12 })
+        new THREE.MeshLambertMaterial({ map: pTex, emissive: 0xffd580, emissiveIntensity: 0.35 })
     );
     paper.position.set(x, 1.36, z);
     paper.userData.bobBase = 1.36;
     paper.userData.isPaper = true;
+    paper.userData.isResumePaper = true;
     scene.add(paper);
-    const pl = new THREE.PointLight(0xffd580, 1.2, 3.5);
+    // Warm golden glow — tagged so the render loop can pulse it
+    const pl = new THREE.PointLight(0xffd580, 1.8, 4.5);
     pl.position.set(x, 1.9, z);
+    pl.userData.isResumeGlow = true;
     scene.add(pl);
 }
 
