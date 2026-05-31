@@ -20,16 +20,19 @@ const resumeBtn         = document.getElementById('resume-btn');
 
 // ── Background music ──────────────────────────────────────────────
 const bgMusic  = document.getElementById('bg-music');
-const muteBtn  = document.getElementById('mute-btn');
 bgMusic.volume = 0.18;
 let muted = false;
 
-muteBtn.addEventListener('click', () => {
+function toggleMute() {
     muted = !muted;
     bgMusic.muted = muted;
-    muteBtn.textContent = muted ? '♪ muted' : '♪ music';
-    muteBtn.style.opacity = muted ? '0.5' : '1';
-});
+    // Briefly flash a prompt to confirm the toggle
+    const promptEl = document.getElementById('prompt');
+    const promptText = document.getElementById('prompt-text');
+    promptText.textContent = muted ? '♪ muted' : '♪ music on';
+    promptEl.classList.add('visible');
+    setTimeout(() => promptEl.classList.remove('visible'), 1500);
+}
 
 const modals = {
     resume:      document.getElementById('resume-modal'),
@@ -290,6 +293,9 @@ async function boot() {
         }
         if (e.code === 'KeyT' && controls?.isLocked) {
             openChat();
+        }
+        if (e.code === 'KeyM') {
+            toggleMute();
         }
     });
 
