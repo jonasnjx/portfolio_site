@@ -25,8 +25,8 @@ export const COLORS = {
     rug:      0x991b1b,
 };
 
-export const SPAWN     = { x: 0, y: 0, z: 4.6 }; // just inside south door
-export const SPAWN_YAW = 0;                       // camera south of player, looking north into room
+export const SPAWN     = { x: 0, y: 0, z: 1.0 }; // room centre, camera clears south wall
+export const SPAWN_YAW = 0;                       // camera south of player, looking north toward resume
 
 export const INTERACTABLES = [
     {
