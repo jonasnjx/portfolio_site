@@ -28,6 +28,67 @@ function buildFloor(scene) {
     }
 }
 
+// ── Window frame, sill, curtains ──────────────────────────────────
+function buildWindowFrame(scene, ex) {
+    const fx  = ex - 0.27;
+    const fCy = WIN.bot + WIN.h / 2;
+
+    // White painted outer casing (replaces thin brown sticks)
+    const casing = flat(0xe7e5e4);
+    const half   = WIN.d / 2;
+    scene.add(box(0.10, 0.18, WIN.d + 0.36, casing, fx, WIN.top + 0.05,  WIN.cz));       // top
+    scene.add(box(0.10, 0.18, WIN.d + 0.36, casing, fx, WIN.bot - 0.05,  WIN.cz));       // bottom
+    scene.add(box(0.10, WIN.h + 0.30, 0.18, casing, fx, fCy,            -(half + 0.09))); // left
+    scene.add(box(0.10, WIN.h + 0.30, 0.18, casing, fx, fCy,              half + 0.09)); // right
+
+    // Inner shadow liner
+    const liner = flat(0x9ca3af);
+    scene.add(box(0.04, WIN.h + 0.10, 0.04, liner, fx + 0.03, fCy, -(half + 0.01)));
+    scene.add(box(0.04, WIN.h + 0.10, 0.04, liner, fx + 0.03, fCy,   half + 0.01));
+
+    // Muntins — 1 vertical + 2 horizontal for 6-pane look
+    const muntin = flat(0xd6d3d1);
+    scene.add(box(0.05, WIN.h, 0.05,      muntin, fx, fCy,             WIN.cz));            // vertical
+    scene.add(box(0.05, 0.05, WIN.d,      muntin, fx, WIN.bot + WIN.h * 0.5,  WIN.cz));    // mid horiz
+    scene.add(box(0.05, 0.05, WIN.d,      muntin, fx, WIN.bot + WIN.h * 0.78, WIN.cz));    // upper horiz
+
+    // Deep sill — protrudes into room
+    scene.add(box(0.42, 0.10, WIN.d + 0.40, flat(0xe7e5e4), ex - 0.46, WIN.bot - 0.06, WIN.cz));
+    scene.add(box(0.10, 0.06, WIN.d + 0.40, flat(0xa8a29e), ex - 0.66, WIN.bot - 0.12, WIN.cz)); // front lip
+
+    // Sill props — small succulent + seashell
+    scene.add(box(0.12, 0.12, 0.12, flat(COLORS.pot),       ex - 0.50, WIN.bot + 0.04, -0.7));
+    scene.add(box(0.10, 0.16, 0.10, flat(COLORS.plant, COLORS.plant, 0.1), ex - 0.50, WIN.bot + 0.16, -0.7));
+    scene.add(box(0.10, 0.06, 0.10, flat(0xfcd9b8, 0xfcd9b8, 0.08), ex - 0.50, WIN.bot + 0.04, 0.7)); // shell
+
+    // Curtain rod with brass end caps
+    const rodMat = flat(0x57534e);
+    const brassMat = flat(0xd4a017, 0xd4a017, 0.25);
+    scene.add(box(0.06, 0.06, WIN.d + 0.70, rodMat,    fx + 0.06, WIN.top + 0.18, WIN.cz));
+    scene.add(box(0.09, 0.09, 0.09,         brassMat,  fx + 0.06, WIN.top + 0.18, -(half + 0.33)));
+    scene.add(box(0.09, 0.09, 0.09,         brassMat,  fx + 0.06, WIN.top + 0.18,   half + 0.33));
+
+    // Curtains — 3-fold pleated drapes, linen colour, centre open
+    const curtain     = flat(0xf5e9d8);
+    const curtainFold = flat(0xe8d9c0);
+    const cHang = WIN.h + 0.32;                    // hang length from rod
+    const cTopY = WIN.top + 0.18 - cHang / 2;     // vertical centre of drape
+
+    // Left curtain (3 folds)
+    scene.add(box(0.07, cHang, 0.45, curtain,     fx + 0.04, cTopY, -(half + 0.05)));
+    scene.add(box(0.05, cHang, 0.18, curtainFold, fx + 0.04, cTopY, -(half + 0.28)));
+    scene.add(box(0.05, cHang, 0.16, curtainFold, fx + 0.04, cTopY, -(half - 0.12)));
+    // Right curtain (mirror)
+    scene.add(box(0.07, cHang, 0.45, curtain,     fx + 0.04, cTopY,   half + 0.05));
+    scene.add(box(0.05, cHang, 0.18, curtainFold, fx + 0.04, cTopY,   half + 0.28));
+    scene.add(box(0.05, cHang, 0.16, curtainFold, fx + 0.04, cTopY,   half - 0.12));
+
+    // Cool daylight fill from window
+    const fillLight = new THREE.PointLight(0xbfe3ff, 0.4, 5);
+    fillLight.position.set(ex - 0.7, 1.9, WIN.cz);
+    scene.add(fillLight);
+}
+
 // ── Walls ──────────────────────────────────────────────────────────
 function addTrim(scene, w, h, d, x, y, z) {
     scene.add(box(w, 0.12, d, flat(COLORS.trim, COLORS.trim, 0.25),
@@ -65,19 +126,7 @@ function buildWalls(scene) {
     scene.add(box(0.5, topH, WIN.d, mat, ex, WIN.top + topH / 2, WIN.cz));
     scene.add(box(0.5, WIN.bot, WIN.d, mat, ex, WIN.bot / 2, WIN.cz));
 
-    // Window frame
-    const fMat = flat(0x57534e);
-    const fx   = ex - 0.27;
-    const fCy  = WIN.bot + WIN.h / 2;
-    const fD   = WIN.d + 0.2;
-    scene.add(box(0.12, 0.10, fD,    fMat, fx, WIN.top, WIN.cz));
-    scene.add(box(0.12, 0.10, fD,    fMat, fx, WIN.bot, WIN.cz));
-    scene.add(box(0.12, WIN.h, 0.12, fMat, fx, fCy,  -(WIN.d / 2)));
-    scene.add(box(0.12, WIN.h, 0.12, fMat, fx, fCy,    WIN.d / 2));
-    scene.add(box(0.08, 0.08, fD,    fMat, fx, fCy,  WIN.cz));
-    // Sill ledge
-    const sill = box(0.38, 0.10, fD + 0.1, flat(0x78716c), ex - 0.44, WIN.bot - 0.05, WIN.cz);
-    scene.add(sill);
+    buildWindowFrame(scene, ex);
 
     // Ceiling base — two-tone, low emissive so room lights model it
     scene.add(box(ROOM.width + 1, 0.5, ROOM.depth + 1,
