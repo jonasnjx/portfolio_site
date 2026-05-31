@@ -407,15 +407,25 @@ function buildResumeDesk(scene) {
     pTex.magFilter = THREE.NearestFilter;
     const paper = new THREE.Mesh(
         new THREE.BoxGeometry(0.55, 0.70, 0.04),
-        new THREE.MeshLambertMaterial({ map: pTex, emissive: 0xffd580, emissiveIntensity: 0.35 })
+        new THREE.MeshBasicMaterial({ map: pTex })
     );
     paper.position.set(x, 1.36, z);
     paper.userData.bobBase = 1.36;
     paper.userData.isPaper = true;
-    paper.userData.isResumePaper = true;
     scene.add(paper);
-    // Warm golden glow — tagged so the render loop can pulse it
-    const pl = new THREE.PointLight(0xffd580, 1.8, 4.5);
+
+    // Golden halo behind the paper — self-emissive so it glows regardless of ambient
+    const halo = new THREE.Mesh(
+        new THREE.BoxGeometry(0.68, 0.86, 0.02),
+        new THREE.MeshBasicMaterial({ color: 0xffd580, transparent: true, opacity: 0.55 })
+    );
+    halo.position.set(x, 1.36, z + 0.04);
+    halo.userData.bobBase = 1.36;
+    halo.userData.isResumeGlow = true;
+    scene.add(halo);
+
+    // Strong warm PointLight — pulses to draw the eye
+    const pl = new THREE.PointLight(0xffd580, 4.0, 5.0);
     pl.position.set(x, 1.9, z);
     pl.userData.isResumeGlow = true;
     scene.add(pl);

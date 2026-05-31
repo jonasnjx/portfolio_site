@@ -358,8 +358,13 @@ async function boot() {
         signMeshes.forEach(m => {
             m.position.y = m.userData.bobBase + Math.sin(elapsed * 1.6 + m.position.x) * 0.05;
         });
-        resumeGlowLights.forEach(l => {
-            l.intensity = 1.8 + Math.sin(elapsed * 1.2) * 0.4;
+        resumeGlowLights.forEach(obj => {
+            if (obj.isLight) {
+                obj.intensity = 4.0 + Math.sin(elapsed * 1.2) * 0.8;
+            } else {
+                // halo mesh — pulse opacity
+                obj.material.opacity = 0.55 + Math.sin(elapsed * 1.2) * 0.15;
+            }
         });
         leds.forEach(led => {
             led.material.emissiveIntensity =
