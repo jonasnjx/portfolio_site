@@ -137,50 +137,51 @@ function buildWalls(scene) {
 }
 
 // ── Outdoor — beach and sea ────────────────────────────────────────
+// Window shows y=0.9 to y=2.9 — all key elements are designed within this range
 function buildOutdoor(scene) {
-    const bx = 9.5;
+    const bx = 7.0;
 
-    // Sky gradient (deep blue top → hazy near horizon)
-    scene.add(box(0.2, 2.0, 8, flat(0x0369a1, 0x0ea5e9, 1.0), bx, 3.6, 0));
-    scene.add(box(0.2, 1.4, 8, flat(0x38bdf8, 0x7dd3fc, 0.95), bx, 2.0, 0));
-    scene.add(box(0.2, 0.5, 8, flat(0xbae6fd, 0xe0f2fe, 0.85), bx, 1.15, 0));
+    // Sky — full backdrop from floor to ceiling height
+    scene.add(box(0.2, 2.2, 8, flat(0x0369a1, 0x0ea5e9, 1.0), bx, 2.80, 0)); // deep blue upper sky
+    scene.add(box(0.2, 1.2, 8, flat(0x38bdf8, 0x7dd3fc, 0.95), bx, 1.85, 0)); // bright mid sky
+    scene.add(box(0.2, 0.6, 8, flat(0xbae6fd, 0xe0f2fe, 0.90), bx, 1.20, 0)); // horizon haze
 
-    // Sea (deep teal → lighter near shore)
+    // Sea
     scene.add(box(0.2, 0.55, 8, flat(0x0e7490, 0x0891b2, 1.0), bx, 0.88, 0));
-    scene.add(box(0.2, 0.28, 8, flat(0x06b6d4, 0x22d3ee, 0.9), bx, 0.62, 0));
+    scene.add(box(0.2, 0.30, 8, flat(0x06b6d4, 0x22d3ee, 0.9), bx, 0.60, 0));
 
-    // Wave foam lines
-    const wMat = flat(0xf0fdfa, 0xf0fdfa, 0.8);
-    scene.add(box(0.12, 0.035, 8, wMat, bx, 0.76, 0));
-    scene.add(box(0.12, 0.030, 8, wMat, bx, 0.61, 0));
+    // Wave foam
+    scene.add(box(0.12, 0.04, 8, flat(0xf0fdfa, 0xf0fdfa, 0.8), bx, 0.78, 0));
 
-    // Sandy beach
+    // Beach
     scene.add(box(0.2, 0.40, 8, flat(0xfcd34d, 0xfde68a, 0.7), bx, 0.28, 0));
-    scene.add(box(0.2, 0.18, 8, flat(0xf59e0b, 0xfbbf24, 0.6), bx, 0.01, 0));
+    scene.add(box(0.2, 0.20, 8, flat(0xf59e0b, 0xfbbf24, 0.6), bx, 0.01, 0));
 
-    // Clouds
-    const cMat = flat(0xffffff, 0xffffff, 0.9);
-    [[-0.5, 3.5, -1.0], [-0.4, 3.6, -0.2], [-0.55, 3.3, 0.8], [-0.45, 3.4, 1.2]].forEach(([ox, y, z]) => {
-        scene.add(box(0.15, 0.26, 0.8, cMat, bx + ox, y, z));
-        scene.add(box(0.15, 0.18, 0.5, cMat, bx + ox - 0.05, y + 0.18, z));
+    // Clouds — within window's y range (0.9-2.9), centred around y=2.3
+    const cMat = flat(0xffffff, 0xffffff, 0.92);
+    [
+        [bx-0.08, 2.40, -0.9], [bx-0.06, 2.55, -0.1],
+        [bx-0.10, 2.30,  0.9], [bx-0.07, 2.45,  1.3],
+    ].forEach(([cx, cy, cz]) => {
+        scene.add(box(0.15, 0.28, 0.85, cMat, cx, cy,        cz));
+        scene.add(box(0.15, 0.18, 0.55, cMat, cx, cy + 0.18, cz));
     });
 
-    // Sun over the water
-    scene.add(box(0.2, 0.72, 0.72, flat(0xfef3c7, 0xfde68a, 2.5), bx - 0.25, 3.8, 0.7));
-    scene.add(box(0.15, 0.95, 0.95, flat(0xfef9c3, 0xfef9c3, 0.5), bx - 0.15, 3.8, 0.7));
+    // Sun — clearly visible in upper window area
+    scene.add(box(0.2,  0.72, 0.72, flat(0xfef3c7, 0xfde68a, 2.8), bx - 0.1, 2.72, 0.8));
+    scene.add(box(0.15, 0.95, 0.95, flat(0xfef9c3, 0xfef9c3, 0.6), bx - 0.05, 2.65, 0.8));
 
     // Sun shimmer on water
-    scene.add(box(0.12, 0.06, 0.55, flat(0xfde68a, 0xfde68a, 1.2), bx, 0.80, 0.7));
-    scene.add(box(0.12, 0.04, 0.35, flat(0xfef9c3, 0xfef9c3, 0.9), bx, 0.75, 0.7));
+    scene.add(box(0.12, 0.06, 0.55, flat(0xfde68a, 0xfde68a, 1.2), bx, 0.80, 0.8));
 
-    // Seagulls (tiny V shapes)
+    // Seagulls — in visible range y=2.0-2.6
     const gMat = flat(0x475569);
-    [[-0.5, 3.1, -0.6], [-0.35, 2.85, 0.4], [-0.6, 3.0, 1.1]].forEach(([ox, y, z]) => {
+    [[-0.08, 2.10, -0.6], [-0.06, 2.40, 0.5], [-0.10, 2.25, 1.2]].forEach(([ox, y, z]) => {
         scene.add(box(0.16, 0.04, 0.05, gMat, bx + ox - 0.07, y, z));
         scene.add(box(0.16, 0.04, 0.05, gMat, bx + ox + 0.07, y, z));
     });
 
-    // Warm beach light
+    // Warm beach light streaming into room
     const sunLight = new THREE.PointLight(0xfff4d0, 2.4, 20);
     sunLight.position.set(6.3, 2.0, 0);
     scene.add(sunLight);
@@ -349,13 +350,13 @@ function buildResumeDesk(scene) {
     pTex.magFilter = THREE.NearestFilter;
     const paper = new THREE.Mesh(
         new THREE.BoxGeometry(0.55, 0.70, 0.04),
-        new THREE.MeshBasicMaterial({ map: pTex })
+        new THREE.MeshLambertMaterial({ map: pTex, emissive: 0xffd580, emissiveIntensity: 0.12 })
     );
     paper.position.set(x, 1.36, z);
     paper.userData.bobBase = 1.36;
     paper.userData.isPaper = true;
     scene.add(paper);
-    const pl = new THREE.PointLight(0x3b82f6, 0.9, 3.2);
+    const pl = new THREE.PointLight(0xffd580, 1.2, 3.5);
     pl.position.set(x, 1.9, z);
     scene.add(pl);
 }
