@@ -5,84 +5,106 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
-# Install dependencies
 npm install
-
-# Run local dev server at http://localhost:3000
-npm start
+NODE_OPTIONS=--use-system-ca node server.js   # SSL workaround on this machine
+# http://localhost:3000
 ```
 
-There is no build step, bundler, linter, or test suite. The site is pure static HTML served by Express.
+No build step, bundler, linter, or test suite. Pure static HTML served by Express.
 
-## How this repo is built: Claude Code workflow
+## How this repo is built
 
-This site was planned and implemented with **Claude Code** using a two-model split:
-- **Opus** — architecture planning, spec writing, file layout decisions
-- **Sonnet** — implementation, module by module
-
-The spec was written before any code. When extending the room or adding pages, update `world/config.js` and this file together.
+Built with Claude Code using a two-model split: Opus for architecture and planning, Sonnet for implementation. When extending the room or adding pages, update `world/config.js` and this file together.
 
 ---
 
 ## Architecture
 
-### Homepage: 3D Interactive Room
+### 3D Interactive Room (`/`)
 
-`/` is a Three.js first-person voxel room (Minecraft-inspired). Visitors walk around with WASD + mouse and interact with objects (resume, TV intro, terminal, connect poster).
+Third-person walkable voxel room built with Three.js. Visitors use WASD to move and click on objects to interact. Mobile and no-WebGL browsers are redirected to `/home`.
 
-`/home` is the classic static portfolio — the fallback for mobile, no-WebGL browsers, and the "Skip" button.
+**Interaction model:** click-based proximity detection (no E key). Objects are registered in `INTERACTABLES` in `config.js`. The `interaction.js` proximity loop reads this registry dynamically.
 
-**3D modules** (no bundler — ES modules via CDN importmap in `index.html`):
+**Current interactables:**
+
+| id | position | action |
+|----|----------|--------|
+| resume | x=0, z=-4.5 | opens resume modal |
+| arcade | x=-3.2, z=-2.2 | opens projects modal |
+| bookshelf | x=-4.6, z=1.8 | opens writing modal |
+| telephone | x=4.4, z=0.2 | opens contact modal |
+| sofa | x=3.6, z=2.2 | sit/stand |
+| clock | x=1.6, z=-4.8 | shows live SGT time |
+| door | x=0, z=5.2 | navigates to /home |
+
+Player spawns at x=0, z=4.6 (just inside south door), SPAWN_YAW=0 (camera looks north into room).
+
+**3D modules** (ES modules via CDN importmap in `index.html`):
 
 ```
 world/
-  config.js        # Single source of truth: positions, colors, radii, prompts
-  main.js          # Entry: mobile/WebGL guard, boot sequence, render loop
-  scene.js         # Renderer, camera, lights, fog
-  room.js          # Static geometry: floor, walls, ceiling, decor
-  interactables.js # Resume desk, TV, terminal, connect — returns registry array
-  controls.js      # PointerLockControls + WASD movement + room-bounds collision
-  interaction.js   # Proximity focus loop + E-key dispatch
+  config.js         # Single source of truth: positions, colors, INTERACTABLES
+  main.js           # Boot sequence, render loop, modals, chat, music
+  scene.js          # Renderer, camera, lights
+  room.js           # Room geometry, decor, signs, door
+  character.js      # 6 character meshes + 2D pixel art previews
+  controls.js       # Third-person camera, WASD movement, sit/stand
+  interaction.js    # Click-based proximity interaction
+  interactables.js  # Interactable object builders
+  entities.js       # Pets: giraffe, dino, polar bear
 ```
 
-Three.js is pinned at `0.160.0` via importmap. All interactables are data-driven through `config.js` — add a new object there, never hardcode per-object logic in other files.
+**Adding a new interactable:**
+1. Add entry to `INTERACTABLES` in `world/config.js` (id, position, radius, prompt, modal or href)
+2. Build geometry in `world/room.js` or `world/interactables.js`
+3. If it opens a modal: add modal HTML to `index.html`, add key to `modals` map in `world/main.js`, handle in `openModal()`
+4. No changes needed in `interaction.js` — reads registry dynamically
 
-**Mobile / fallback guard** in `world/main.js`: redirects to `/home` on touch devices, narrow viewports (<820px), missing WebGL, or no Pointer Lock API.
-
-### Classic static site (`/home` + all other pages)
-
-**No component system.** Every page is a self-contained HTML file. Shared code — the Tailwind config, custom CSS classes, and navigation markup — is copy-pasted into each file. When changing a shared element (nav links, color palette, CSS classes), update every HTML file.
-
-**Styling pattern.** Tailwind CSS is loaded via CDN. The Tailwind theme config (custom `dark` and `accent` colors, `Space Grotesk`/`JetBrains Mono` fonts) is embedded in a `<script>` tag in every page's `<head>`. Custom utility classes are defined in a `<style>` block in every page.
-
-**File structure:**
+**UI design (3D overlays):** dark theme with tokens defined in `index.html` `<style>`:
+```css
+--bg: #0f1117  --bg-2: #161922  --ink: #ececec
+--muted: #9a9a9a  --rule: #e2ded5  --accent: #1d4ed8
 ```
-index.html                        # 3D world launcher (importmap + onboarding overlay + canvas)
+No gradients, no glows. Hairline `rgba(226,222,213,0.14)` borders. No Press Start 2P anywhere in UI chrome. Fonts: Space Grotesk 500 (headings), JetBrains Mono (labels), Source Serif 4 (prose). Accent (#1d4ed8) on links only.
+
+**Keyboard shortcuts in-game:** WASD move, Space jump, M mute/unmute, T or Enter open chat, Esc close modal or pause.
+
+---
+
+### Classic site (`/home` + all pages)
+
+**Design system: "Field Notes" (light editorial theme)**
+
+```css
+--paper: #f7f5f0  --ink: #1a1a1a  --muted: #6b6b6b
+--rule: #e2ded5  --accent: #1d4ed8
+```
+
+Fonts: Space Grotesk 500 (headings), Source Serif 4 (body prose), JetBrains Mono (dates, labels, mono). No gradients, no glows, no dark cards. Hairline `1px solid var(--rule)` dividers. Accent on links only, never fills.
+
+No component system. Every page is self-contained HTML. Nav markup, Tailwind config, CSS tokens, and font links are copy-pasted into each file. When changing a shared element, update every HTML file.
+
+**Pages:**
+```
 pages/
-  home.html                       # Classic homepage (hero, about, tech stack) — mobile fallback
-  resume.html                     # Work experience and internships
-  projects.html                   # Project cards
-  casestudies.html                # Article listing
-  connect.html                    # LinkedIn and GitHub links
+  home.html                             # Hero, background, tech stack, roadmap
+  resume.html                           # Timeline layout
+  projects.html                         # Index rows with status badges + Linear tooltip
+  casestudies.html                      # Writing index
+  connect.html                          # Contact links
   casestudies/
-    data-ai-2025.html             # Full case study article
-assets/                           # Images, resume PDF, intro video
-world/                            # Three.js 3D world modules (ES modules)
+    context-engineering-2026.html       # Article
+    data-ai-2025.html                   # Article (under review, not listed)
 ```
 
-**Routes** (defined in both `server.js` for local dev AND `vercel.json` for production):
-- `/` → `index.html` (3D launcher)
-- `/home` → `pages/home.html` (classic site)
-- `/resume`, `/projects`, `/casestudies`, `/connect` → corresponding file in `pages/`
-- `/casestudies/data-ai-2025` → `pages/casestudies/data-ai-2025.html`
+**Routes** (must be in both `server.js` and `vercel.json`):
+- `/` → `index.html`
+- `/home` → `pages/home.html`
+- `/resume`, `/projects`, `/casestudies`, `/connect` → corresponding pages
+- `/casestudies/context-engineering-2026` → article
+- `/casestudies/data-ai-2025` → article
 
-> Any new route must be added to **both** `server.js` and `vercel.json` or it will 404 in production.
+**"Currently Building" section on `/home`:** fetches from `/api/roadmap` (Linear API, `api/roadmap.js`), groups tickets by `project.name`, shows descriptions. Requires `LINEAR_API_KEY` in `.env`.
 
-All internal links and asset paths use absolute paths (e.g. `/resume`, `/assets/sea.jpg`).
-
-### Adding a new interactable object to the room
-
-1. Add an entry to `INTERACTABLES` in `world/config.js` (id, position, radius, prompt, modal or href)
-2. Build the geometry in `world/interactables.js` using the config entry
-3. If it opens a modal: add the modal HTML to `index.html` and handle it in `openModal()` in `world/main.js`
-4. No changes needed in `interaction.js` — it reads the registry dynamically
+**Writing style rule:** no long dashes (em or en). Use commas, colons, or parentheses instead.
