@@ -103,7 +103,7 @@
                             </span>
                             <div class="status-tooltip" id="portfolio-tooltip">
                                 <p class="font-mono text-xs mb-0.5" style="color: var(--ink); font-weight: 500;">jonasnjx-portfolio-site</p>
-                                <p class="text-xs mb-3" style="color: var(--muted);">Tracking active development on the 3D portfolio room.</p>
+                                <p class="text-xs mb-3" style="color: var(--muted);">Tracking progress...</p>
                                 <div id="ticket-list"><p class="text-xs" style="color: var(--muted);">Loading&hellip;</p></div>
                             </div>
                         </div>
@@ -177,9 +177,12 @@
                     return;
                 }
                 ticketList.innerHTML = issues.map(issue =>
-                    `<a href="${issue.url}" target="_blank" rel="noopener">
-                        <span class="font-mono text-xs" style="color: var(--muted); flex-shrink: 0;">${issue.identifier}</span>
-                        <span style="color: var(--ink);">${issue.title}</span>
+                    `<a href="${issue.url}" target="_blank" rel="noopener" style="flex-direction: column; align-items: flex-start; gap: 0.2rem;">
+                        <div style="display:flex; align-items:baseline; gap:0.5rem;">
+                            <span class="font-mono text-xs" style="color: var(--muted); flex-shrink: 0;">${issue.identifier}</span>
+                            <span style="color: var(--ink);">${issue.title}</span>
+                        </div>
+                        ${issue.description ? `<p style="font-size:0.72rem; color: var(--muted); margin:0; padding-left: 0; line-height:1.5;">${issue.description}</p>` : ''}
                     </a>`
                 ).join('');
             } catch {
