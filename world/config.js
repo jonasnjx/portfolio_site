@@ -65,6 +65,13 @@ export const INTERACTABLES = [
         modal:    'clock',
     },
     {
+        id:       'door',
+        position: { x: 0, y: 0, z: 5.2 },
+        radius:   1.4,
+        prompt:   'exit to classic site',
+        href:     '/home',
+    },
+    {
         id:       'sofa',
         position: { x: 3.6, y: 0, z: 2.2 },
         radius:   2.0,
