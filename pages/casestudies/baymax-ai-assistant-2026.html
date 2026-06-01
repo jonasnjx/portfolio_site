@@ -118,6 +118,10 @@
 
                 <p>When a question comes in, it gets normalised: lowercased, stripped of punctuation, trimmed. That normalised string is then hashed into a short key and checked against Redis. If a matching key exists, the cached answer is returned immediately without touching Groq at all. If not, Groq is called, the answer comes back, and it gets written to Redis.</p>
 
+                <h2>Why Upstash for Redis specifically</h2>
+
+                <p>Upstash is an independent company that offers serverless Redis and Kafka over HTTP, designed specifically for serverless and edge environments. In this case, the AI assistant runs on Vercel serverless functions, where there is no persistent process between calls. Comparatively, regular Redis uses a TCP connection that stays open, which does not work in a serverless environment where each invocation starts fresh. Upstash exposes Redis over plain HTTP instead, so every call is a self-contained request with no persistent connection needed.</p>
+
                 <h2>Something to think about</h2>
 
                 <p>The knowledge base is a file I maintain manually. It is accurate today, but it will drift as my resume changes. What I'll do next is to build a pipeline that fetches my portfolio site periodically and rebuilds the knowledge base automatically, so the assistant stays current without manual intervention.</p>
