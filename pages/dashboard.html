@@ -159,15 +159,33 @@
             return Math.round(s / 3600) + 'h ago';
         }
 
-        function renderRows(containerId, items, labelKey, countKey) {
+        const OBJECT_LABELS = {
+            resume: 'Resume Desk', arcade: 'Arcade Machine',
+            bookshelf: 'Bookshelf', telephone: 'Telephone',
+            assistant: 'Baymax', sofa: 'Sofa', clock: 'Clock', door: 'Door',
+        };
+        const PAGE_LABELS = {
+            '/home': 'Home', '/resume': 'Resume', '/projects': 'Projects',
+            '/casestudies': 'Writing', '/connect': 'Connect',
+            '/dashboard': 'Dashboard', '/': '3D Room',
+        };
+        const CHAR_LABELS = {
+            spider: 'Spider-Man', wonder: 'Wonder Woman', hulk: 'Hulk',
+        };
+
+        function renderRows(containerId, items, labelKey, countKey, labelMap) {
             const el = document.getElementById(containerId);
-            if (!items.length) { el.innerHTML = '<p class="font-mono text-xs" style="color:var(--muted);">No data yet.</p>'; return; }
-            el.innerHTML = items.slice(0, 6).map(item =>
-                `<div class="data-row">
-                    <span class="text-sm" style="color:var(--ink);">${item[labelKey]}</span>
+            const filtered = labelMap
+                ? items.filter(item => labelMap[item[labelKey]] !== undefined)
+                : items;
+            if (!filtered.length) { el.innerHTML = '<p class="font-mono text-xs" style="color:var(--muted);">No data yet.</p>'; return; }
+            el.innerHTML = filtered.slice(0, 6).map(item => {
+                const label = labelMap ? (labelMap[item[labelKey]] || item[labelKey]) : item[labelKey];
+                return `<div class="data-row">
+                    <span class="text-sm" style="color:var(--ink);">${label}</span>
                     <span class="font-mono text-xs" style="color:var(--muted);">${item[countKey]}</span>
-                </div>`
-            ).join('');
+                </div>`;
+            }).join('');
         }
 
         function renderChart(daily) {
@@ -207,9 +225,9 @@
                 document.getElementById('updated-at').textContent     = 'updated ' + timeAgo(data.updated_at);
 
                 renderChart(data.daily);
-                renderRows('objects-list', data.objects, 'id', 'count');
-                renderRows('pages-list', data.pages, 'path', 'count');
-                renderRows('chars-list', data.characters, 'name', 'count');
+                renderRows('objects-list', data.objects, 'id', 'count', OBJECT_LABELS);
+                renderRows('pages-list', data.pages, 'path', 'count', PAGE_LABELS);
+                renderRows('chars-list', data.characters, 'name', 'count', CHAR_LABELS);
             } catch {
                 document.getElementById('updated-at').textContent = 'offline';
             }
