@@ -113,6 +113,10 @@
 
                 <p>QStash is Upstash's HTTP-based message queue, similar to Kafka, designed specifically for serverless environments. It fits the same pattern: publish a message, specify a delivery URL, and QStash handles the rest.</p>
 
+                <h2>Why Node.js and not Python or FastAPI</h2>
+
+                <p>The analytics service is written in Node.js rather than Python or FastAPI, partly because the Upstash SDKs for Redis and QStash are JavaScript-first, which made integration straightforward. FastAPI would have been a reasonable choice if the analytics involved heavier computation such as ML-based workflows, but for three endpoints that validate events and increment Redis counters, Node.js was the simpler fit.</p>
+
                 <h2>Why Chart.js for the dashboard and not Grafana</h2>
 
                 <p>Grafana needs a dedicated data source such as Prometheus to pull metrics from. That means running additional infrastructure just to display the counters. I wanted to keep it lightweight for my portfolio site, and Chart.js can read directly from the <code>/stats</code> endpoint and render charts without any additional backend.</p>
