@@ -1066,6 +1066,27 @@ function buildBaymax(scene) {
     g.rotation.y = Math.PI;
     g.position.set(-1.5, 0, -0.5);
     scene.add(g);
+
+    // Floating label above head
+    const cvs = document.createElement('canvas');
+    cvs.width = 256; cvs.height = 48;
+    const ctx = cvs.getContext('2d');
+    ctx.clearRect(0, 0, 256, 48);
+    ctx.fillStyle = '#ececec';
+    ctx.font = '500 18px "Space Grotesk", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('Virtual AI Assistant', 128, 24);
+    const tex = new THREE.CanvasTexture(cvs);
+    tex.magFilter = THREE.LinearFilter;
+    const label = new THREE.Mesh(
+        new THREE.PlaneGeometry(1.1, 0.22),
+        new THREE.MeshBasicMaterial({ map: tex, transparent: true })
+    );
+    label.position.set(-1.5, 2.4, -0.5);
+    label.userData.signBob = true;
+    label.userData.bobBase = 2.4;
+    scene.add(label);
 }
 
 export function buildRoom(scene) {
