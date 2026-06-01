@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio Analytics — Jonas Ng">
+    <title>Analytics | Jonas Ng</title>
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Satisfy&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: { extend: { fontFamily: { sans: ['Space Grotesk','sans-serif'], mono: ['JetBrains Mono','monospace'] } } }
+        }
+    </script>
+    <style>
+        :root { --paper: #f7f5f0; --ink: #1a1a1a; --muted: #6b6b6b; --rule: #e2ded5; --accent: #1d4ed8; }
+        body { background-color: var(--paper); color: var(--ink); }
+        .nav-link { position: relative; color: var(--muted); font-size: 0.875rem; transition: color 0.15s; }
+        .nav-link:hover { color: var(--ink); }
+        .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--accent); transition: width 0.2s; }
+        .nav-link:hover::after { width: 100%; }
+        .mobile-menu { transform: translateX(100%); transition: transform 0.3s ease; }
+        .mobile-menu.open { transform: translateX(0); }
+        .menu-backdrop { opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
+        .menu-backdrop.open { opacity: 1; visibility: visible; }
+        .stat-card { border: 1px solid var(--rule); border-radius: 6px; padding: 1.25rem 1.5rem; background: var(--paper); }
+        .data-row { border-top: 1px solid var(--rule); padding: 0.6rem 0; display: flex; justify-content: space-between; align-items: baseline; }
+        .data-row:last-child { border-bottom: 1px solid var(--rule); }
+    </style>
+</head>
+<body class="min-h-screen font-sans">
+
+    <nav class="fixed top-0 left-0 w-full z-50" style="background: rgba(247,245,240,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--rule);">
+        <div class="max-w-3xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="/home" style="font-family:'Satisfy',cursive;font-size:1.3rem;color:var(--ink);">Jonas Ng</a>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="/home" class="nav-link">Home</a>
+                    <a href="/resume" class="nav-link">Resume</a>
+                    <a href="/projects" class="nav-link">Projects</a>
+                    <a href="/casestudies" class="nav-link">Writing</a>
+                    <a href="/connect" class="nav-link">Connect</a>
+                </div>
+                <button id="menuBtn" class="md:hidden p-1" style="color: var(--ink);">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div id="menuBackdrop" class="menu-backdrop fixed inset-0 z-[100] md:hidden" style="background: rgba(0,0,0,0.2);"></div>
+    <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 h-screen w-60 z-[110] md:hidden" style="background: var(--paper); border-left: 1px solid var(--rule);">
+        <div class="p-6 h-full">
+            <button id="closeMenu" class="absolute top-4 right-4" style="color: var(--muted);">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+            <div class="flex flex-col gap-6 mt-12">
+                <a href="/home" class="text-sm" style="color: var(--muted);">Home</a>
+                <a href="/resume" class="text-sm" style="color: var(--muted);">Resume</a>
+                <a href="/projects" class="text-sm" style="color: var(--muted);">Projects</a>
+                <a href="/casestudies" class="text-sm" style="color: var(--muted);">Writing</a>
+                <a href="/connect" class="text-sm" style="color: var(--muted);">Connect</a>
+            </div>
+        </div>
+    </div>
+
+    <main class="pt-24 pb-20 px-6">
+        <div class="max-w-3xl mx-auto">
+
+            <!-- Header -->
+            <div class="py-10 flex items-baseline justify-between">
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-semibold mb-1" style="color: var(--ink);">Portfolio Analytics</h1>
+                    <p class="font-mono text-xs" style="color: var(--muted);">Live visitor activity across the 3D room and classic site</p>
+                </div>
+                <p id="updated-at" class="font-mono text-xs" style="color: var(--muted);">loading...</p>
+            </div>
+
+            <!-- Stat cards -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-10">
+                <div class="stat-card">
+                    <p class="font-mono text-xs mb-2" style="color: var(--muted);">Visitors</p>
+                    <p id="stat-visitors" class="text-2xl font-semibold" style="color: var(--ink);">-</p>
+                </div>
+                <div class="stat-card">
+                    <p class="font-mono text-xs mb-2" style="color: var(--muted);">Room entries</p>
+                    <p id="stat-room" class="text-2xl font-semibold" style="color: var(--ink);">-</p>
+                </div>
+                <div class="stat-card">
+                    <p class="font-mono text-xs mb-2" style="color: var(--muted);">Object clicks</p>
+                    <p id="stat-interact" class="text-2xl font-semibold" style="color: var(--ink);">-</p>
+                </div>
+                <div class="stat-card">
+                    <p class="font-mono text-xs mb-2" style="color: var(--muted);">Baymax queries</p>
+                    <p id="stat-baymax" class="text-2xl font-semibold" style="color: var(--ink);">-</p>
+                </div>
+            </div>
+
+            <!-- Chart -->
+            <section class="mb-10">
+                <p class="font-mono text-xs uppercase tracking-widest mb-4" style="color: var(--muted);">Daily activity (last 14 days)</p>
+                <div style="border: 1px solid var(--rule); border-radius: 6px; padding: 1.25rem;">
+                    <canvas id="daily-chart" height="80"></canvas>
+                </div>
+            </section>
+
+            <!-- Objects + Pages -->
+            <div class="grid md:grid-cols-2 gap-8 mb-10">
+                <section>
+                    <p class="font-mono text-xs uppercase tracking-widest mb-4" style="color: var(--muted);">Most clicked objects</p>
+                    <div id="objects-list"></div>
+                </section>
+                <section>
+                    <p class="font-mono text-xs uppercase tracking-widest mb-4" style="color: var(--muted);">Top pages</p>
+                    <div id="pages-list"></div>
+                </section>
+            </div>
+
+            <!-- Characters -->
+            <section class="mb-10">
+                <p class="font-mono text-xs uppercase tracking-widest mb-4" style="color: var(--muted);">Avatar picks</p>
+                <div id="chars-list"></div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="px-6 py-10" style="border-top: 1px solid var(--rule);">
+        <div class="max-w-3xl mx-auto flex flex-col md:flex-row md:justify-between md:items-center gap-2">
+            <a href="mailto:ngjingxun1997@gmail.com" class="text-sm" style="color: var(--accent);">ngjingxun1997@gmail.com</a>
+            <p class="font-mono text-xs" style="color: var(--muted);">&copy; 2026 Jonas Ng &middot; Singapore</p>
+        </div>
+    </footer>
+
+    <script src="/assets/track.js"></script>
+    <script>
+        const menuBtn = document.getElementById('menuBtn');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuBackdrop = document.getElementById('menuBackdrop');
+        function openMenu() { mobileMenu.classList.add('open'); menuBackdrop.classList.add('open'); document.body.style.overflow = 'hidden'; }
+        function closeMenuFn() { mobileMenu.classList.remove('open'); menuBackdrop.classList.remove('open'); document.body.style.overflow = ''; }
+        menuBtn.addEventListener('click', openMenu);
+        closeMenu.addEventListener('click', closeMenuFn);
+        menuBackdrop.addEventListener('click', closeMenuFn);
+        document.querySelectorAll('#mobileMenu a').forEach(l => l.addEventListener('click', closeMenuFn));
+
+        const STATS_URL = 'https://portfolio-analytics-plum.vercel.app/stats';
+        let chart = null;
+
+        function timeAgo(iso) {
+            const s = Math.round((Date.now() - new Date(iso)) / 1000);
+            if (s < 60) return s + 's ago';
+            if (s < 3600) return Math.round(s / 60) + 'm ago';
+            return Math.round(s / 3600) + 'h ago';
+        }
+
+        function renderRows(containerId, items, labelKey, countKey) {
+            const el = document.getElementById(containerId);
+            if (!items.length) { el.innerHTML = '<p class="font-mono text-xs" style="color:var(--muted);">No data yet.</p>'; return; }
+            el.innerHTML = items.slice(0, 6).map(item =>
+                `<div class="data-row">
+                    <span class="text-sm" style="color:var(--ink);">${item[labelKey]}</span>
+                    <span class="font-mono text-xs" style="color:var(--muted);">${item[countKey]}</span>
+                </div>`
+            ).join('');
+        }
+
+        function renderChart(daily) {
+            const labels = daily.map(d => d.date.slice(5)); // MM-DD
+            const views  = daily.map(d => d.page_view || 0);
+            const interactions = daily.map(d => (d.object_interact || 0) + (d.room_enter || 0));
+
+            if (chart) chart.destroy();
+            chart = new Chart(document.getElementById('daily-chart'), {
+                type: 'line',
+                data: {
+                    labels,
+                    datasets: [
+                        { label: 'Page views', data: views, borderColor: '#1d4ed8', backgroundColor: 'rgba(29,78,216,0.08)', tension: 0.3, pointRadius: 3 },
+                        { label: 'Interactions', data: interactions, borderColor: '#6b6b6b', backgroundColor: 'rgba(107,107,107,0.06)', tension: 0.3, pointRadius: 3, borderDash: [4,3] },
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { labels: { font: { family: 'JetBrains Mono', size: 11 }, color: '#6b6b6b', boxWidth: 12 } } },
+                    scales: {
+                        x: { ticks: { font: { family: 'JetBrains Mono', size: 10 }, color: '#6b6b6b' }, grid: { color: '#e2ded5' } },
+                        y: { ticks: { font: { family: 'JetBrains Mono', size: 10 }, color: '#6b6b6b' }, grid: { color: '#e2ded5' }, beginAtZero: true }
+                    }
+                }
+            });
+        }
+
+        async function load() {
+            try {
+                const data = await fetch(STATS_URL).then(r => r.json());
+
+                document.getElementById('stat-visitors').textContent = data.visitors_approx;
+                document.getElementById('stat-room').textContent     = data.totals.room_enter;
+                document.getElementById('stat-interact').textContent  = data.totals.object_interact;
+                document.getElementById('stat-baymax').textContent    = data.totals.baymax_ask;
+                document.getElementById('updated-at').textContent     = 'updated ' + timeAgo(data.updated_at);
+
+                renderChart(data.daily);
+                renderRows('objects-list', data.objects, 'id', 'count');
+                renderRows('pages-list', data.pages, 'path', 'count');
+                renderRows('chars-list', data.characters, 'name', 'count');
+            } catch {
+                document.getElementById('updated-at').textContent = 'offline';
+            }
+        }
+
+        load();
+        setInterval(load, 30000);
+    </script>
+</body>
+</html>

@@ -5,6 +5,7 @@
     { "source": "/casestudies", "destination": "/pages/casestudies.html" },
     { "source": "/casestudies/data-ai-2025", "destination": "/pages/casestudies/data-ai-2025.html" },
     { "source": "/casestudies/context-engineering-2026", "destination": "/pages/casestudies/context-engineering-2026.html" },
+    { "source": "/dashboard", "destination": "/pages/dashboard.html" },
     { "source": "/casestudies/baymax-ai-assistant-2026", "destination": "/pages/casestudies/baymax-ai-assistant-2026.html" },
     { "source": "/connect", "destination": "/pages/connect.html" },
     { "source": "/home", "destination": "/pages/home.html" }
