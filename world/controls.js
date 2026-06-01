@@ -66,7 +66,7 @@ export function initControls(camera, canvas, character) {
 
     function sit(pos) {
         isSit = true;
-        character.group.position.set(pos.sitX ?? pos.x, 0, pos.sitZ ?? pos.z);
+        character.group.position.set(pos.sitX ?? pos.x, pos.sitY ?? 0.44, pos.sitZ ?? pos.z);
         character.group.rotation.y = pos.sitRot ?? Math.PI;
         updateCamera();
     }

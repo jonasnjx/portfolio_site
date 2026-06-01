@@ -267,7 +267,7 @@ export function animateCharacter({ armL, armR, legL, legR, antTip, panelLight, t
     if (panelLight) panelLight.material.emissiveIntensity = 0.5 + Math.sin(elapsed * 2.1 + 1) * 0.3;
 
     if (isSitting) {
-        legL.rotation.x =  1.45; legR.rotation.x =  1.45;
+        legL.rotation.x =  1.1; legR.rotation.x =  1.1;
         armL.rotation.z =  0.45; armR.rotation.z = -0.45;
         armL.rotation.x =  0;    armR.rotation.x =  0;
         return;
