@@ -104,17 +104,21 @@
 
                 <h2>Why Llama 3.3 70B on Groq</h2>
 
-                <p>The model choice came down to two requirements: the knowledge base needed to fit in the context window, and the answers needed to be good enough to actually be useful.</p>
+                <p>The model choice came down to three requirements: the knowledge base needed to fit in the context window, the answers needed to be good enough to actually be useful, and the whole thing needed to run for free.</p>
 
                 <p>Groq's Llama 3.3 70B Versatile has a 128k token context window. My knowledge base is well under 10,000 tokens. That means the entire thing fits in a single call without any retrieval logic. Smaller models on Groq (the 8B instant variants) only handle 8k context, which would either truncate the knowledge base or require chunking and retrieval, adding complexity for no real benefit at this scale.</p>
 
-                <p>The 70B parameter count matters for quality. Smaller models give noticeably vaguer answers to open-ended questions like "what does Jonas's experience with data governance look like?" A 70B model handles those with enough nuance to be genuinely useful. Groq's LPU hardware makes the 70B model fast enough that response time is rarely over two seconds, which is acceptable for an assistant on a portfolio.</p>
+                <p>The 70B parameter count matters for quality. Smaller models give noticeably vaguer answers to open-ended questions like "what does Jonas's experience with data governance look like?" A 70B model handles those with enough nuance to be genuinely useful. Groq's LPU hardware makes the 70B model fast enough that response time is rarely over two seconds, which is acceptable for an assistant on a portfolio. And the free tier covers the traffic a personal portfolio realistically sees, making it a practical choice for a project like this.</p>
 
                 <h2>What Redis is actually doing</h2>
 
-                <p>Redis is doing two things here. First, rate limiting: each IP address is capped at 20 requests per minute. Without this, the API key is exposed on a public endpoint and anyone can drain the free tier quota. Second, response caching: recruiter questions repeat. The same handful of questions come up over and over, and there is no reason to call Groq each time. After the first call, the answer is stored against a hash of the normalised question and served instantly to anyone who asks the same thing.</p>
+                <p>Redis is doing two things here. First, rate limiting: each IP address is capped at 20 requests per minute. Without this, the API key is exposed on a public endpoint and anyone can drain the free tier quota. Second, response caching, which is worth explaining in a bit more detail.</p>
 
-                <p>The cache is also the clearest signal of whether the assistant is being used. A high HIT rate means the same questions are being asked repeatedly, which tells you something about what people actually want to know.</p>
+                <p>When a question comes in, it gets normalised: lowercased, stripped of punctuation, trimmed. That normalised string is then hashed into a short key and checked against Redis. If a matching key exists, the cached answer is returned immediately without touching Groq at all. If not, Groq is called, the answer comes back, and it gets written to Redis with a 24-hour expiry before being returned to the user.</p>
+
+                <p>The reason this matters is that recruiter questions repeat. "What cloud platforms does Jonas know?", "Does Jonas have AWS experience?", "What did he build at A*STAR?" are questions that will come up across different visitors. Without caching, every one of those calls Groq and counts against the rate limit. With caching, the first visitor pays the cost and every subsequent visitor with a similar question gets an instant response. The LLM is only called when it genuinely needs to be.</p>
+
+                <p>The cache HIT rate is also the clearest signal of whether the assistant is being used meaningfully. A high rate means the same questions are coming up repeatedly, which tells you something about what people actually want to know.</p>
 
                 <h2>Something to think about</h2>
 
