@@ -86,6 +86,6 @@ export const INTERACTABLES = [
         action:   'sit',
         sitX:     3.6,
         sitZ:     2.2,
-        sitRot:   Math.PI / 2, // face east, same direction as sofa
+        sitRot:   -Math.PI / 2, // face west, same direction as sofa (toward room centre)
     },
 ];
