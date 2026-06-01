@@ -13,11 +13,7 @@
 
     window.paTrack = function (type, props) {
         const payload = JSON.stringify({ type, props: props || {}, vid: vid(), ua: ua() });
-        if (navigator.sendBeacon) {
-            navigator.sendBeacon(PA_URL, new Blob([payload], { type: 'application/json' }));
-        } else {
-            fetch(PA_URL, { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json' }, body: payload }).catch(() => {});
-        }
+        fetch(PA_URL, { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json' }, body: payload }).catch(() => {});
     };
 
     // Auto-fire page_view on classic site pages
