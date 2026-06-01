@@ -1,11 +1,14 @@
 (function () {
   // Inject chatbot UI into the page
   document.body.insertAdjacentHTML('beforeend', `
-    <button id="ai-chat-btn" title="Ask about Jonas">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-      </svg>
-    </button>
+    <div id="ai-chat-wrap">
+      <span id="ai-chat-label">AI-powered</span>
+      <button id="ai-chat-btn" title="Ask about Jonas">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+      </button>
+    </div>
     <div id="ai-chat-panel">
       <div id="ai-chat-header">
         <span>Jonas's Assistant</span>
@@ -21,8 +24,19 @@
     </div>
     <style>
       :root { --cb-paper: #f7f5f0; --cb-ink: #1a1a1a; --cb-muted: #6b6b6b; --cb-rule: #e2ded5; --cb-accent: #1d4ed8; }
-      #ai-chat-btn {
+      #ai-chat-wrap {
         position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 9999;
+        display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+      }
+      #ai-chat-label {
+        font-family: 'JetBrains Mono', monospace; font-size: 0.62rem;
+        color: var(--muted, #6b6b6b);
+        background: var(--paper, #f7f5f0);
+        border: 1px solid var(--rule, #e2ded5);
+        border-radius: 4px; padding: 0.1rem 0.4rem;
+        white-space: nowrap; letter-spacing: 0.03em;
+      }
+      #ai-chat-btn {
         width: 46px; height: 46px; border-radius: 50%;
         background: var(--accent, var(--cb-accent)); color: #fff;
         border: none; cursor: pointer;
@@ -31,7 +45,7 @@
       }
       #ai-chat-btn:hover { opacity: 0.85; }
       #ai-chat-panel {
-        display: none; position: fixed; bottom: 5rem; right: 1.5rem; z-index: 9999;
+        display: none; position: fixed; bottom: 6rem; right: 1.5rem; z-index: 9999;
         width: 320px; height: 420px;
         background: var(--paper, var(--cb-paper));
         border: 1px solid var(--rule, var(--cb-rule));
