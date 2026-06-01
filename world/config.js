@@ -65,6 +65,13 @@ export const INTERACTABLES = [
         modal:    'clock',
     },
     {
+        id:       'assistant',
+        position: { x: -1.5, y: 0, z: -0.5 },
+        radius:   2.0,
+        prompt:   'talk to assistant',
+        action:   'chat',
+    },
+    {
         id:       'door',
         position: { x: 0, y: 0, z: 5.2 },
         radius:   1.4,

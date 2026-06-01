@@ -1016,6 +1016,47 @@ function buildArcadeMachine(scene) {
     };
 }
 
+// ── Baymax assistant NPC ───────────────────────────────────────────
+function buildBaymax(scene) {
+    const x = -1.5, z = -0.5;
+    const white     = flat(0xf0f4f8, 0xffffff, 0.08);
+    const whiteDark = flat(0xd8e4ec);
+    const black     = flat(0x1a1a2e);
+    const grey      = flat(0x94a3b8);
+
+    // Body — puffy rounded torso (stacked boxes narrowing top/bottom)
+    scene.add(box(0.70, 0.15, 0.60, whiteDark, x, 0.45, z)); // base
+    scene.add(box(0.82, 0.40, 0.70, white,     x, 0.73, z)); // lower body
+    scene.add(box(0.88, 0.38, 0.72, white,     x, 1.06, z)); // upper body (widest)
+    scene.add(box(0.75, 0.15, 0.62, white,     x, 1.32, z)); // shoulder taper
+
+    // Head — round white dome
+    scene.add(box(0.68, 0.52, 0.62, white,     x, 1.68, z));
+    scene.add(box(0.56, 0.14, 0.50, white,     x, 1.96, z)); // top dome
+
+    // Eyes — two small black ovals
+    scene.add(box(0.06, 0.10, 0.14, black,     x - 0.14, 1.72, z - 0.31));
+    scene.add(box(0.06, 0.10, 0.14, black,     x + 0.14, 1.72, z - 0.31));
+
+    // Arms — short stubby, angled out
+    scene.add(box(0.18, 0.32, 0.22, white,     x - 0.52, 1.05, z));
+    scene.add(box(0.18, 0.32, 0.22, white,     x + 0.52, 1.05, z));
+    // Hands
+    scene.add(box(0.20, 0.20, 0.20, white,     x - 0.53, 0.80, z));
+    scene.add(box(0.20, 0.20, 0.20, white,     x + 0.53, 0.80, z));
+
+    // Legs — short, rounded
+    scene.add(box(0.22, 0.30, 0.22, white,     x - 0.22, 0.20, z));
+    scene.add(box(0.22, 0.30, 0.22, white,     x + 0.22, 0.20, z));
+
+    // Red health-cross on chest (Big Hero 6 reference)
+    scene.add(box(0.06, 0.22, 0.06, flat(0xef4444, 0xef4444, 0.3), x, 1.06, z - 0.36));
+    scene.add(box(0.06, 0.06, 0.22, flat(0xef4444, 0xef4444, 0.3), x, 1.06, z - 0.36));
+
+    // Small podium/base plate
+    scene.add(box(0.80, 0.06, 0.80, grey, x, 0.03, z));
+}
+
 export function buildRoom(scene) {
     buildFloor(scene);
     buildWalls(scene);
@@ -1033,6 +1074,7 @@ export function buildRoom(scene) {
     buildSunflower(scene,  4.5, -1.0);
     buildExtraDecor(scene);
     buildSigns(scene);
+    buildBaymax(scene);
     const arcade = buildArcadeMachine(scene);
     return { arcadeUpdate: arcade.update };
 }

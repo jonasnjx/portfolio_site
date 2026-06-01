@@ -3,7 +3,7 @@ import * as THREE from 'three';
 const _playerPos = new THREE.Vector3();
 const _objPos    = new THREE.Vector3();
 
-export function initInteraction(controls, registry, openModal, startPick) {
+export function initInteraction(controls, registry, openModal, startPick, openChat) {
     const promptEl   = document.getElementById('prompt');
     const promptText = document.getElementById('prompt-text');
 
@@ -29,6 +29,8 @@ export function initInteraction(controls, registry, openModal, startPick) {
 
         if (focused.action === 'sit') {
             controls.sit(focused.position);
+        } else if (focused.action === 'chat') {
+            startPick(() => { if (openChat) openChat(); }, 'default');
         } else if (focused.href) {
             startPick(() => { window.location.href = focused.href; }, 'default');
         } else if (focused.modal) {

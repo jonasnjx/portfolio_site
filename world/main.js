@@ -271,7 +271,27 @@ async function boot() {
                 }
                 break;
             default:
-                addChatMsg('Unknown command. Type /help');
+                // Route non-slash input to the AI assistant
+                if (!raw.startsWith('/')) {
+                    addChatMsg('Thinking...');
+                    fetch('https://portfolio-ai-assistant-two.vercel.app/ask', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ question: raw.trim() }),
+                    })
+                    .then(r => r.json())
+                    .then(data => {
+                        // Remove the "Thinking..." line
+                        if (chatOutput.lastChild) chatOutput.removeChild(chatOutput.lastChild);
+                        addChatMsg(data.answer || data.error || 'No response.');
+                    })
+                    .catch(() => {
+                        if (chatOutput.lastChild) chatOutput.removeChild(chatOutput.lastChild);
+                        addChatMsg('Assistant is offline. Try again shortly.');
+                    });
+                } else {
+                    addChatMsg('Unknown command. Type /help');
+                }
         }
     }
 
@@ -407,15 +427,31 @@ async function boot() {
             if (pickT >= 1.0) { pickT = -1; pickType = 'default'; }
         };
 
-        interaction = initInteraction(controls, registry, openModal, startPick);
+        interaction = initInteraction(controls, registry, openModal, startPick, openChat);
 
         // Pointer lock lifecycle
         let nudgeDone = false;
+        let baymaxGreeted = false;
         controls.addEventListener('lock', () => {
             pauseOverlay.classList.add('hidden');
             hud.classList.add('visible');
             // Hold the dialog for 900ms so "Loading..." is clearly seen, then snap away
             setTimeout(() => onboardingOverlay.classList.add('hidden'), 900);
+
+            // Baymax greeting — once on first entry
+            if (!baymaxGreeted) {
+                baymaxGreeted = true;
+                setTimeout(() => {
+                    if (!controls.isLocked) return;
+                    const petBubble = document.getElementById('pet-bubble');
+                    petBubble.textContent = 'Hi! I am Jonas\'s assistant. Ask me anything about his background, experience, or projects.';
+                    petBubble.style.left = '50%';
+                    petBubble.style.top  = '30%';
+                    petBubble.style.transform = 'translateX(-50%)';
+                    petBubble.style.opacity = '1';
+                    setTimeout(() => { petBubble.style.opacity = '0'; petBubble.style.transform = ''; }, 4000);
+                }, 2000);
+            }
 
             if (!nudgeDone) {
                 nudgeDone = true;
