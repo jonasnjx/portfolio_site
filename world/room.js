@@ -12,6 +12,18 @@ function box(w, h, d, material, x = 0, y = 0, z = 0) {
     return mesh;
 }
 
+// True between 06:00 and 17:59 Singapore time (UTC+8)
+function isDaytimeSGT() {
+    const hour = Number(
+        new Date().toLocaleString('en-US', {
+            timeZone: 'Asia/Singapore',
+            hour: 'numeric',
+            hour12: false,
+        })
+    );
+    return hour >= 6 && hour < 18;
+}
+
 // ── Floor ──────────────────────────────────────────────────────────
 function buildFloor(scene) {
     const matA = flat(COLORS.floor);
@@ -241,6 +253,112 @@ function buildOutdoor(scene) {
     scene.add(sunKey);
     const skyFill = new THREE.PointLight(0xbfe3ff, 1.0, 14);
     skyFill.position.set(6.2, 1.4, 0.6);
+    scene.add(skyFill);
+}
+
+// ── Outdoor — night beach ─────────────────────────────────────────
+function buildOutdoorNight(scene) {
+    const SKY  = 9.5;
+    const SEA  = 8.2;
+    const SURF = 7.4;
+    const SAND = 6.7;
+    const NEAR = 6.55;
+
+    // Sky — deep navy gradient
+    scene.add(box(0.3, 5.5, 14, flat(0x070b1e, 0x0a1230, 0.55), SKY, 4.10, 0));
+    scene.add(box(0.3, 2.2, 14, flat(0x101a3a, 0x16244e, 0.50), SKY, 2.05, 0));
+    scene.add(box(0.3, 1.1, 14, flat(0x1b2a52, 0x24386a, 0.50), SKY, 1.30, 0));
+
+    // Stars — scattered across sky plane
+    const star  = flat(0xffffff, 0xffffff, 1.8);
+    const starW = flat(0xcfe0ff, 0xcfe0ff, 1.6);
+    const stars = [
+        [2.72,-1.30],[2.55,-0.85],[2.78,-0.20],[2.40,-1.10],[2.62, 0.30],
+        [2.30,-0.55],[2.74, 0.70],[2.48, 1.05],[2.20,-1.25],[2.58, 1.30],
+        [2.10, 0.10],[2.35, 0.62],[2.00,-0.30],[2.66,-1.05],[2.18, 1.20],
+        [1.92, 0.45],[2.44,-0.05],[1.80,-0.70],[2.05,-1.00],[1.70, 0.95],
+        [1.88,-1.20],[2.28, 1.35],[1.62,-0.25],[1.55, 0.55],[1.74, 1.25],
+    ];
+    stars.forEach(([sy, sz], i) => {
+        const s = 0.05 + (i % 3) * 0.018;
+        scene.add(box(0.08, s, s, i % 4 === 0 ? starW : star, SKY - 0.02, sy, sz));
+    });
+
+    // Moon — layered glow, upper-right (opposite of day sun)
+    scene.add(box(0.18, 1.05, 1.05, flat(0xdfe6f5, 0xc8d4ee, 0.9),  SKY - 0.5, 2.55,  1.0));
+    scene.add(box(0.16, 0.66, 0.66, flat(0xeef2fb, 0xd8e2f5, 1.8),  SKY - 0.6, 2.55,  1.0));
+    scene.add(box(0.14, 0.42, 0.42, flat(0xffffff, 0xf4f7ff, 2.6),  SKY - 0.7, 2.55,  1.0));
+    scene.add(box(0.12, 0.10, 0.10, flat(0xc4cee6, 0xb8c4e0, 0.4),  SKY - 0.74, 2.62, 1.06));
+    scene.add(box(0.12, 0.08, 0.08, flat(0xc4cee6, 0xb8c4e0, 0.4),  SKY - 0.74, 2.48, 0.94));
+
+    // Headland silhouette
+    const land  = flat(0x10131f, 0x0c1a24, 0.18);
+    const landL = flat(0x1a2030, 0x12202e, 0.16);
+    scene.add(box(0.25, 0.55, 1.6, land,  SEA + 0.3, 1.75, 1.9));
+    scene.add(box(0.25, 0.85, 0.9, land,  SEA + 0.3, 1.95, 2.3));
+    scene.add(box(0.24, 0.12, 1.6, landL, SEA + 0.28, 2.00, 1.9));
+    scene.add(box(0.24, 0.10, 0.9, landL, SEA + 0.28, 2.35, 2.3));
+
+    // Dark sea
+    scene.add(box(0.3, 0.34, 14, flat(0x0a2230, 0x103040, 0.45), SEA,  1.55, 0));
+    scene.add(box(0.3, 0.42, 14, flat(0x103a48, 0x16505f, 0.50), SURF, 1.30, 0));
+
+    // Moonlight shimmer under the moon (z positive side)
+    const moonGlint = flat(0xdfe8ff, 0xdfe8ff, 1.3);
+    [[1.46,1.0],[1.40,0.7],[1.34,0.95],[1.28,0.6],[1.22,0.85],[1.18,0.5]]
+        .forEach(([gy,gz]) => scene.add(box(0.10, 0.05, 0.22, moonGlint, SURF - 0.05, gy, gz)));
+
+    // Faint foam
+    const foam = flat(0x6a8aa0, 0x8fb0c4, 0.35);
+    for (let i = 0; i < 9; i++) {
+        const fz = -2.0 + i * 0.5;
+        const fy = 1.08 + (i % 2) * 0.05;
+        scene.add(box(0.12, 0.07, 0.40, foam, SURF - 0.1, fy, fz));
+    }
+
+    // Dark beach
+    scene.add(box(0.3, 0.55, 14, flat(0x3a2e1c, 0x4a3a22, 0.30), SAND,       0.78, 0));
+    scene.add(box(0.4, 0.70, 14, flat(0x2c2415, 0x3a2e1c, 0.25), SAND - 0.2, 0.30, 0));
+
+    // Palm silhouettes
+    function palmNight(px, pz, height, depth, lean) {
+        const trunk   = flat(0x0d0f16, 0x141826, 0.15);
+        const frond   = flat(0x0f1a16, 0x162a20, 0.18);
+        const frondHi = flat(0x16241c, 0x203a2c, 0.16);
+        const topY = 0.65 + height;
+        scene.add(box(0.14, height*0.45, 0.14, trunk, px,            0.65+height*0.22, pz));
+        scene.add(box(0.13, height*0.35, 0.13, trunk, px+lean*0.5,   0.65+height*0.60, pz));
+        scene.add(box(0.12, height*0.25, 0.12, trunk, px+lean,       0.65+height*0.88, pz));
+        const hx = px + lean;
+        [[0.45,0.05,0.0],[-0.45,0.05,0.0],[0.30,0.0,0.42],[-0.30,0.0,-0.42],[0.10,0.18,0.0],[0.05,-0.05,0.30]]
+            .forEach(([dz,dy,dzz], k) =>
+                scene.add(box(depth, 0.10, 0.55, k%2?frondHi:frond, hx, topY+dy, pz+dz+dzz)));
+        scene.add(box(0.10, 0.10, 0.10, trunk, hx, topY-0.02, pz+0.06));
+        scene.add(box(0.10, 0.10, 0.10, trunk, hx, topY-0.02, pz-0.06));
+    }
+    palmNight(NEAR,        -1.25, 1.55, 0.40, -0.10);
+    palmNight(SAND - 0.05,  1.30, 1.15, 0.34,  0.08);
+
+    // Dark grass tufts
+    const grass = flat(0x1c2a16, 0x243a1c, 0.18);
+    [[-1.6,0.42],[-1.45,0.34],[1.55,0.40],[1.7,0.32]].forEach(([gz,gh]) =>
+        scene.add(box(0.10, gh, 0.10, grass, NEAR - 0.05, 0.65+gh/2, gz)));
+
+    // Wispy dark clouds
+    const cloud = flat(0x141a2e, 0x1a2440, 0.30);
+    function cl(cx, cy, cz, s) {
+        scene.add(box(0.2, 0.40*s, 1.5*s,  cloud, cx, cy,        cz));
+        scene.add(box(0.2, 0.28*s, 0.90*s, cloud, cx, cy+0.16*s, cz-0.2*s));
+    }
+    cl(SKY - 0.25, 2.95, -1.2, 0.9);
+    cl(SKY - 0.15, 3.30,  0.3, 0.7);
+
+    // Cool moonlight rig
+    const moonKey = new THREE.PointLight(0xacc4ff, 1.1, 22);
+    moonKey.position.set(6.2, 2.4, 0.6);
+    scene.add(moonKey);
+    const skyFill = new THREE.PointLight(0x4a6090, 0.45, 14);
+    skyFill.position.set(6.2, 1.4, -0.6);
     scene.add(skyFill);
 }
 
@@ -1092,7 +1210,8 @@ function buildBaymax(scene) {
 export function buildRoom(scene) {
     buildFloor(scene);
     buildWalls(scene);
-    buildOutdoor(scene);
+    if (isDaytimeSGT()) buildOutdoor(scene);
+    else                buildOutdoorNight(scene);
     buildRug(scene);
     buildCeilingLights(scene);
     buildDoor(scene);
