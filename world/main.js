@@ -1,5 +1,5 @@
 // Mobile / WebGL / PointerLock guard
-const isTouch  = matchMedia('(pointer: coarse)').matches || 'ontouchstart' in window;
+const isTouch  = matchMedia('(pointer: coarse)').matches;
 const isNarrow = innerWidth < 820;
 const hasWebGL = (() => {
     try { const c = document.createElement('canvas');
