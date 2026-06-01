@@ -289,9 +289,9 @@ function buildOutdoorNight(scene) {
     scene.add(box(0.16, 0.38, 0.38, flat(0x000000, 0xe8eef8, 2.2),  SKY - 0.6, 2.60,  1.0)); // mid
     scene.add(box(0.14, 0.24, 0.24, flat(0x000000, 0xffffff, 3.5),  SKY - 0.7, 2.60,  1.0)); // bright core
 
-    // Headland silhouette
-    const land  = flat(0x10131f, 0x0c1a24, 0.18);
-    const landL = flat(0x1a2030, 0x12202e, 0.16);
+    // Headland silhouette — pure emissive dark
+    const land  = flat(0x000000, 0x0c1018, 1.0);
+    const landL = flat(0x000000, 0x121820, 1.0);
     scene.add(box(0.25, 0.55, 1.6, land,  SEA + 0.3, 1.75, 1.9));
     scene.add(box(0.25, 0.85, 0.9, land,  SEA + 0.3, 1.95, 2.3));
     scene.add(box(0.24, 0.12, 1.6, landL, SEA + 0.28, 2.00, 1.9));
@@ -301,13 +301,13 @@ function buildOutdoorNight(scene) {
     scene.add(box(0.3, 0.34, 14, flat(0x000000, 0x0a2230, 1.0), SEA,  1.55, 0));
     scene.add(box(0.3, 0.42, 14, flat(0x000000, 0x103a48, 1.0), SURF, 1.30, 0));
 
-    // Moonlight shimmer under the moon (z positive side)
-    const moonGlint = flat(0xdfe8ff, 0xdfe8ff, 1.3);
+    // Moonlight shimmer — subtle cool emissive only
+    const moonGlint = flat(0x000000, 0x5070a0, 1.0);
     [[1.46,1.0],[1.40,0.7],[1.34,0.95],[1.28,0.6],[1.22,0.85],[1.18,0.5]]
         .forEach(([gy,gz]) => scene.add(box(0.10, 0.05, 0.22, moonGlint, SURF - 0.05, gy, gz)));
 
-    // Faint foam
-    const foam = flat(0x6a8aa0, 0x8fb0c4, 0.35);
+    // Faint foam — dark emissive only
+    const foam = flat(0x000000, 0x1a2c3a, 0.9);
     for (let i = 0; i < 9; i++) {
         const fz = -2.0 + i * 0.5;
         const fy = 1.08 + (i % 2) * 0.05;
@@ -338,12 +338,12 @@ function buildOutdoorNight(scene) {
     palmNight(SAND - 0.05,  1.30, 1.15, 0.34,  0.08);
 
     // Dark grass tufts
-    const grass = flat(0x1c2a16, 0x243a1c, 0.18);
+    const grass = flat(0x000000, 0x141e10, 0.9);
     [[-1.6,0.42],[-1.45,0.34],[1.55,0.40],[1.7,0.32]].forEach(([gz,gh]) =>
         scene.add(box(0.10, gh, 0.10, grass, NEAR - 0.05, 0.65+gh/2, gz)));
 
     // Wispy dark clouds
-    const cloud = flat(0x141a2e, 0x1a2440, 0.30);
+    const cloud = flat(0x000000, 0x141a2e, 0.9);
     function cl(cx, cy, cz, s) {
         scene.add(box(0.2, 0.40*s, 1.5*s,  cloud, cx, cy,        cz));
         scene.add(box(0.2, 0.28*s, 0.90*s, cloud, cx, cy+0.16*s, cz-0.2*s));
