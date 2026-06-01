@@ -264,14 +264,14 @@ function buildOutdoorNight(scene) {
     const SAND = 6.7;
     const NEAR = 6.55;
 
-    // Sky — deep navy gradient
-    scene.add(box(0.3, 5.5, 14, flat(0x070b1e, 0x0a1230, 0.55), SKY, 4.10, 0));
-    scene.add(box(0.3, 2.2, 14, flat(0x101a3a, 0x16244e, 0.50), SKY, 2.05, 0));
-    scene.add(box(0.3, 1.1, 14, flat(0x1b2a52, 0x24386a, 0.50), SKY, 1.30, 0));
+    // Sky — pure emissive so room's ambient light doesn't wash out the darkness
+    scene.add(box(0.3, 5.5, 14, flat(0x000000, 0x070b1e, 1.0), SKY, 4.10, 0));
+    scene.add(box(0.3, 2.2, 14, flat(0x000000, 0x101a3a, 1.0), SKY, 2.05, 0));
+    scene.add(box(0.3, 1.1, 14, flat(0x000000, 0x1b2a52, 1.0), SKY, 1.30, 0));
 
-    // Stars — scattered across sky plane
-    const star  = flat(0xffffff, 0xffffff, 1.8);
-    const starW = flat(0xcfe0ff, 0xcfe0ff, 1.6);
+    // Stars — black base + high emissive so ambient doesn't drown them
+    const star  = flat(0x000000, 0xffffff, 3.5);
+    const starW = flat(0x000000, 0xcfe0ff, 3.0);
     const stars = [
         [2.72,-1.30],[2.55,-0.85],[2.78,-0.20],[2.40,-1.10],[2.62, 0.30],
         [2.30,-0.55],[2.74, 0.70],[2.48, 1.05],[2.20,-1.25],[2.58, 1.30],
@@ -280,16 +280,14 @@ function buildOutdoorNight(scene) {
         [1.88,-1.20],[2.28, 1.35],[1.62,-0.25],[1.55, 0.55],[1.74, 1.25],
     ];
     stars.forEach(([sy, sz], i) => {
-        const s = 0.05 + (i % 3) * 0.018;
+        const s = 0.06 + (i % 3) * 0.02;
         scene.add(box(0.08, s, s, i % 4 === 0 ? starW : star, SKY - 0.02, sy, sz));
     });
 
-    // Moon — layered glow, upper-right (opposite of day sun)
-    scene.add(box(0.18, 1.05, 1.05, flat(0xdfe6f5, 0xc8d4ee, 0.9),  SKY - 0.5, 2.55,  1.0));
-    scene.add(box(0.16, 0.66, 0.66, flat(0xeef2fb, 0xd8e2f5, 1.8),  SKY - 0.6, 2.55,  1.0));
-    scene.add(box(0.14, 0.42, 0.42, flat(0xffffff, 0xf4f7ff, 2.6),  SKY - 0.7, 2.55,  1.0));
-    scene.add(box(0.12, 0.10, 0.10, flat(0xc4cee6, 0xb8c4e0, 0.4),  SKY - 0.74, 2.62, 1.06));
-    scene.add(box(0.12, 0.08, 0.08, flat(0xc4cee6, 0xb8c4e0, 0.4),  SKY - 0.74, 2.48, 0.94));
+    // Moon — smaller than day sun, pure emissive core so it punches through ambient
+    scene.add(box(0.18, 0.55, 0.55, flat(0x000000, 0xc8d4ee, 1.2),  SKY - 0.5, 2.60,  1.0)); // outer halo
+    scene.add(box(0.16, 0.38, 0.38, flat(0x000000, 0xe8eef8, 2.2),  SKY - 0.6, 2.60,  1.0)); // mid
+    scene.add(box(0.14, 0.24, 0.24, flat(0x000000, 0xffffff, 3.5),  SKY - 0.7, 2.60,  1.0)); // bright core
 
     // Headland silhouette
     const land  = flat(0x10131f, 0x0c1a24, 0.18);
@@ -299,9 +297,9 @@ function buildOutdoorNight(scene) {
     scene.add(box(0.24, 0.12, 1.6, landL, SEA + 0.28, 2.00, 1.9));
     scene.add(box(0.24, 0.10, 0.9, landL, SEA + 0.28, 2.35, 2.3));
 
-    // Dark sea
-    scene.add(box(0.3, 0.34, 14, flat(0x0a2230, 0x103040, 0.45), SEA,  1.55, 0));
-    scene.add(box(0.3, 0.42, 14, flat(0x103a48, 0x16505f, 0.50), SURF, 1.30, 0));
+    // Dark sea — emissive approach so ambient doesn't brighten it
+    scene.add(box(0.3, 0.34, 14, flat(0x000000, 0x0a2230, 1.0), SEA,  1.55, 0));
+    scene.add(box(0.3, 0.42, 14, flat(0x000000, 0x103a48, 1.0), SURF, 1.30, 0));
 
     // Moonlight shimmer under the moon (z positive side)
     const moonGlint = flat(0xdfe8ff, 0xdfe8ff, 1.3);
@@ -317,8 +315,8 @@ function buildOutdoorNight(scene) {
     }
 
     // Dark beach
-    scene.add(box(0.3, 0.55, 14, flat(0x3a2e1c, 0x4a3a22, 0.30), SAND,       0.78, 0));
-    scene.add(box(0.4, 0.70, 14, flat(0x2c2415, 0x3a2e1c, 0.25), SAND - 0.2, 0.30, 0));
+    scene.add(box(0.3, 0.55, 14, flat(0x000000, 0x3a2e1c, 1.0), SAND,       0.78, 0));
+    scene.add(box(0.4, 0.70, 14, flat(0x000000, 0x2c2415, 1.0), SAND - 0.2, 0.30, 0));
 
     // Palm silhouettes
     function palmNight(px, pz, height, depth, lean) {
