@@ -264,6 +264,7 @@ async function boot() {
                 break;
             case '/char':
                 if (['spider','wonder','hulk'].includes(arg)) {
+                    window.paTrack?.('character_switch', { character: arg });
                     switchCharacter(arg);
                     closeChat();
                 } else {
@@ -273,6 +274,7 @@ async function boot() {
             default:
                 // Route non-slash input to the AI assistant
                 if (!raw.startsWith('/')) {
+                    window.paTrack?.('baymax_ask', { source: 'room' });
                     addChatMsg('Thinking...');
                     fetch('https://portfolio-ai-assistant-two.vercel.app/ask', {
                         method: 'POST',
@@ -412,6 +414,7 @@ async function boot() {
     enterBtn.addEventListener('click', () => {
         // Start background music on first user gesture
         bgMusic.play().catch(() => {});
+        window.paTrack?.('room_enter');
 
         // Show loading — overlay stays fully visible until pointer lock is granted
         enterBtn.textContent = 'Loading...';

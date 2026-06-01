@@ -28,12 +28,16 @@ export function initInteraction(controls, registry, openModal, startPick, openCh
         if (!focused) return;
 
         if (focused.action === 'sit') {
+            window.paTrack?.('object_interact', { object: focused.id });
             controls.sit(focused);
         } else if (focused.action === 'chat') {
+            window.paTrack?.('object_interact', { object: focused.id });
             startPick(() => { if (openChat) openChat(); }, 'default');
         } else if (focused.href) {
+            window.paTrack?.('object_interact', { object: focused.id });
             startPick(() => { window.location.href = focused.href; }, 'default');
         } else if (focused.modal) {
+            window.paTrack?.('object_interact', { object: focused.id });
             const type = focused.id === 'telephone' ? 'phone' : 'default';
             startPick(() => {
                 controls.unlock();

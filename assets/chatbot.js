@@ -141,6 +141,7 @@
   function ask() {
     const q = input.value.trim();
     if (!q) return;
+    window.paTrack?.('baymax_ask', { source: 'widget' });
     input.value = '';
     send.disabled = true;
     addUser(q);
