@@ -1,6 +1,6 @@
-# Jonas Ng | Senior Data & Cloud Engineer
+# Jonas Ng | An interactive portfolio
 
-An interactive portfolio with a walkable 3D voxel room as the landing experience, plus a classic static site for mobile and fallback. Built with Three.js, plain HTML, and Express. No bundler.
+A walkable 3D voxel room as the landing experience, plus a classic static site for mobile and fallback. Built with Three.js, plain HTML, and Express. No bundler.
 
 ## Architecture
 
@@ -68,7 +68,7 @@ An interactive portfolio with a walkable 3D voxel room as the landing experience
 
 ## The experience
 
-Desktop visitors land on a third-person 3D room. Walk around with WASD and click on objects to explore the portfolio. Mobile and no-WebGL visitors are redirected to the classic site at `/home`.
+Land on a third-person 3D room. Walk around with WASD and click on objects to explore the portfolio. Mobile and no-WebGL visitors are redirected to the classic site at `/home`.
 
 | Object | Action |
 |--------|--------|
