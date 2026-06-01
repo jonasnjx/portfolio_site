@@ -1,13 +1,13 @@
-{
+﻿{
   "rewrites": [
     { "source": "/resume", "destination": "/pages/resume.html" },
     { "source": "/projects", "destination": "/pages/projects.html" },
     { "source": "/casestudies", "destination": "/pages/casestudies.html" },
-    { "source": "/casestudies/data-ai-2025", "destination": "/pages/casestudies/data-ai-2025.html" },
-    { "source": "/casestudies/context-engineering-2026", "destination": "/pages/casestudies/context-engineering-2026.html" },
+    { "source": "/casestudies/data-ai-2025", "destination": "/pages/writings/data-ai-2025.html" },
+    { "source": "/casestudies/context-engineering-2026", "destination": "/pages/writings/context-engineering-2026.html" },
     { "source": "/dashboard", "destination": "/pages/dashboard.html" },
-    { "source": "/casestudies/baymax-ai-assistant-2026", "destination": "/pages/casestudies/baymax-ai-assistant-2026.html" },
-    { "source": "/casestudies/portfolio-analytics-2026", "destination": "/pages/casestudies/portfolio-analytics-2026.html" },
+    { "source": "/casestudies/baymax-ai-assistant-2026", "destination": "/pages/writings/baymax-ai-assistant-2026.html" },
+    { "source": "/casestudies/portfolio-analytics-2026", "destination": "/pages/writings/portfolio-analytics-2026.html" },
     { "source": "/connect", "destination": "/pages/connect.html" },
     { "source": "/home", "destination": "/pages/home.html" }
   ]

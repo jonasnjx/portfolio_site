@@ -1,4 +1,4 @@
-require('dotenv').config();
+﻿require('dotenv').config();
 const express = require('express');
 const path = require('path');
 
@@ -12,10 +12,10 @@ app.get('/resume', (req, res) => res.sendFile(path.join(__dirname, 'pages/resume
 app.get('/projects', (req, res) => res.sendFile(path.join(__dirname, 'pages/projects.html')));
 app.get('/casestudies', (req, res) => res.sendFile(path.join(__dirname, 'pages/casestudies.html')));
 app.get('/connect', (req, res) => res.sendFile(path.join(__dirname, 'pages/connect.html')));
-app.get('/casestudies/data-ai-2025', (req, res) => res.sendFile(path.join(__dirname, 'pages/casestudies/data-ai-2025.html')));
-app.get('/casestudies/context-engineering-2026', (req, res) => res.sendFile(path.join(__dirname, 'pages/casestudies/context-engineering-2026.html')));
-app.get('/casestudies/baymax-ai-assistant-2026', (req, res) => res.sendFile(path.join(__dirname, 'pages/casestudies/baymax-ai-assistant-2026.html')));
-app.get('/casestudies/portfolio-analytics-2026', (req, res) => res.sendFile(path.join(__dirname, 'pages/casestudies/portfolio-analytics-2026.html')));
+app.get('/casestudies/data-ai-2025', (req, res) => res.sendFile(path.join(__dirname, 'pages/writings/data-ai-2025.html')));
+app.get('/casestudies/context-engineering-2026', (req, res) => res.sendFile(path.join(__dirname, 'pages/writings/context-engineering-2026.html')));
+app.get('/casestudies/baymax-ai-assistant-2026', (req, res) => res.sendFile(path.join(__dirname, 'pages/writings/baymax-ai-assistant-2026.html')));
+app.get('/casestudies/portfolio-analytics-2026', (req, res) => res.sendFile(path.join(__dirname, 'pages/writings/portfolio-analytics-2026.html')));
 app.get('/dashboard', (req, res) => res.sendFile(path.join(__dirname, 'pages/dashboard.html')));
 app.get('/home', (req, res) => res.sendFile(path.join(__dirname, 'pages/home.html')));
 

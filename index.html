@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -74,7 +74,7 @@
             height: 100vh;
         }
 
-        /* ── Overlays ─────────────────────────────────────── */
+        /* â”€â”€ Overlays â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
         .overlay {
             position: fixed;
             inset: 0;
@@ -104,7 +104,7 @@
             to   { opacity: 0; }
         }
 
-        /* ── Loading ──────────────────────────────────────── */
+        /* â”€â”€ Loading â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
         #loading-overlay .logo {
             font-size: 1.75rem;
             font-weight: 500;
@@ -135,7 +135,7 @@
             letter-spacing: 0.05em;
         }
 
-        /* ── Onboarding card ──────────────────────────────── */
+        /* â”€â”€ Onboarding card â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
         #onboarding-overlay .card {
             background: var(--bg);
             border: 1px solid rgba(226,222,213,0.14);
@@ -297,7 +297,7 @@
 
         .char-card.selected span { color: var(--ink); }
 
-        /* ── Pause overlay ────────────────────────────────── */
+        /* â”€â”€ Pause overlay â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
         #pause-overlay .card {
             background: var(--bg);
             border: 1px solid rgba(226,222,213,0.14);
@@ -315,7 +315,7 @@
             margin-bottom: 1.5rem;
         }
 
-        /* ── HUD (shown during gameplay) ─────────────────── */
+        /* â”€â”€ HUD (shown during gameplay) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
         #hud {
             position: fixed;
             inset: 0;
@@ -372,7 +372,7 @@
         }
 
         /* Skip button (always visible during play) */
-        /* ── Modals ───────────────────────────────────────── */
+        /* â”€â”€ Modals â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -418,7 +418,7 @@
             margin-bottom: 1.25rem;
         }
 
-        /* Hairline row — replaces rgba(255,255,255,0.04) inset cards */
+        /* Hairline row â€” replaces rgba(255,255,255,0.04) inset cards */
         .modal-row {
             border-top: 1px solid rgba(226,222,213,0.1);
             padding: 0.9rem 0;
@@ -505,13 +505,13 @@
     <!-- Canvas (Three.js renders here) -->
     <canvas id="world-canvas"></canvas>
 
-    <!-- Start page background video — top 10% cropped -->
+    <!-- Start page background video â€” top 10% cropped -->
     <video id="bg-video" autoplay muted loop playsinline
            style="position:fixed;left:0;right:0;bottom:0;top:-11.11vh;width:100%;height:calc(100vh + 11.11vh);object-fit:cover;object-position:center top;z-index:99;pointer-events:none;opacity:0;transition:opacity 0.6s ease;">
         <source src="/references/reference_start_page.mp4" type="video/mp4">
     </video>
 
-    <!-- ── Loading overlay ───────────────────────────────── -->
+    <!-- â”€â”€ Loading overlay â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
     <div id="loading-overlay" class="overlay">
         <div style="text-align:center">
             <div class="logo">Jonas Ng</div>
@@ -522,7 +522,7 @@
         </div>
     </div>
 
-    <!-- ── Onboarding overlay ────────────────────────────── -->
+    <!-- â”€â”€ Onboarding overlay â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
     <div id="onboarding-overlay" class="overlay hidden">
         <div class="card">
             <div class="eyebrow">Senior Data &amp; Cloud Engineer &middot; Singapore</div>
@@ -579,54 +579,54 @@
         </div>
     </div>
 
-    <!-- ── Pause overlay (shown on Esc) ─────────────────── -->
+    <!-- â”€â”€ Pause overlay (shown on Esc) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
     <div id="pause-overlay" class="overlay hidden">
         <div class="card">
             <h2>Paused</h2>
             <p style="color:var(--muted);font-size:0.78rem;margin-bottom:1rem;">Press Enter or click Resume</p>
             <button class="btn-primary" id="resume-btn">Resume</button>
-            <a href="/home" class="btn-skip">Exit to classic site →</a>
+            <a href="/home" class="btn-skip">Exit to classic site â†’</a>
         </div>
     </div>
 
-    <!-- ── Background music ─────────────────────────────── -->
+    <!-- â”€â”€ Background music â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
     <audio id="bg-music" src="/assets/bg-music.mp3" loop preload="auto"></audio>
 
-    <!-- ── HUD ───────────────────────────────────────────── -->
+    <!-- â”€â”€ HUD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
     <div id="hud">
         <div id="hud-legend">
-            WASD · Mouse · Space jump · Click · Enter chat · M mute · Esc pause
+            WASD Â· Mouse Â· Space jump Â· Click Â· Enter chat Â· M mute Â· Esc pause
         </div>
         <div id="prompt">
             <span id="prompt-text">Interact</span>
         </div>
     </div>
 
-    <!-- ── Resume modal ──────────────────────────────────── -->
+    <!-- â”€â”€ Resume modal â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
     <div id="resume-modal" class="modal-overlay hidden">
         <div class="modal-box" style="max-width:560px;max-height:82vh;overflow-y:auto;">
-            <button class="modal-close" data-close="resume-modal">✕</button>
+            <button class="modal-close" data-close="resume-modal">âœ•</button>
             <h2>Resume</h2>
             <div class="modal-row">
                 <div style="display:flex;justify-content:space-between;align-items:baseline;gap:0.5rem;">
                     <div>
                         <div style="font-size:0.88rem;font-weight:500;color:var(--ink);">Senior Data Engineer</div>
-                        <div style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--muted);">Certis · Singapore</div>
+                        <div style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--muted);">Certis Â· Singapore</div>
                     </div>
-                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);white-space:nowrap;">Aug 2025 – Present</span>
+                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);white-space:nowrap;">Aug 2025 â€“ Present</span>
                 </div>
             </div>
             <div class="modal-row">
                 <div style="display:flex;justify-content:space-between;align-items:baseline;gap:0.5rem;margin-bottom:0.5rem;">
                     <div>
                         <div style="font-size:0.88rem;font-weight:500;color:var(--ink);">Senior Data Engineer</div>
-                        <div style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--muted);">A*STAR · Singapore</div>
+                        <div style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--muted);">A*STAR Â· Singapore</div>
                     </div>
-                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);white-space:nowrap;">Aug 2024 – Jun 2025</span>
+                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);white-space:nowrap;">Aug 2024 â€“ Jun 2025</span>
                 </div>
                 <ul style="padding-left:1rem;color:var(--muted);font-size:0.76rem;line-height:1.65;">
                     <li>Led Alation data catalog integration across 13 system owners</li>
-                    <li>Built 8 ADF pipelines Blob → Snowflake; RAG app on Azure</li>
+                    <li>Built 8 ADF pipelines Blob â†’ Snowflake; RAG app on Azure</li>
                     <li>Multi-agent GenAI chatbot with Snowflake Cortex + AutoGen</li>
                 </ul>
             </div>
@@ -634,9 +634,9 @@
                 <div style="display:flex;justify-content:space-between;align-items:baseline;gap:0.5rem;margin-bottom:0.5rem;">
                     <div>
                         <div style="font-size:0.88rem;font-weight:500;color:var(--ink);">AI Cloud Engineer</div>
-                        <div style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--muted);">Accenture · Singapore</div>
+                        <div style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--muted);">Accenture Â· Singapore</div>
                     </div>
-                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);white-space:nowrap;">Jul 2021 – Jul 2024</span>
+                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);white-space:nowrap;">Jul 2021 â€“ Jul 2024</span>
                 </div>
                 <ul style="padding-left:1rem;color:var(--muted);font-size:0.76rem;line-height:1.65;">
                     <li>Serverless pipelines: Lambda, S3, Redshift, SageMaker (DBSCAN)</li>
@@ -646,19 +646,19 @@
             </div>
             <div class="modal-row" style="border-bottom:1px solid rgba(226,222,213,0.1);">
                 <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);margin-bottom:0.2rem;">Internships</div>
-                <div style="font-size:0.78rem;color:var(--muted);">Vertex Holdings · UPS · Kuehne+Nagel · Shopee · Air Liquide</div>
-                <div style="margin-top:0.5rem;font-size:0.76rem;color:var(--muted);">AWS ML Specialty · AWS Solutions Architect · Azure Fundamentals · SnowPro Associate &nbsp;&middot;&nbsp; NTU Business Analytics (Hons)</div>
+                <div style="font-size:0.78rem;color:var(--muted);">Vertex Holdings Â· UPS Â· Kuehne+Nagel Â· Shopee Â· Air Liquide</div>
+                <div style="margin-top:0.5rem;font-size:0.76rem;color:var(--muted);">AWS ML Specialty Â· AWS Solutions Architect Â· Azure Fundamentals Â· SnowPro Associate &nbsp;&middot;&nbsp; NTU Business Analytics (Hons)</div>
             </div>
             <div class="modal-actions">
-                <a href="/resume" class="btn-primary" style="display:flex;align-items:center;justify-content:center;">Full Resume →</a>
+                <a href="/resume" class="btn-primary" style="display:flex;align-items:center;justify-content:center;">Full Resume â†’</a>
             </div>
         </div>
     </div>
 
-    <!-- ── Projects modal ────────────────────────────────── -->
+    <!-- â”€â”€ Projects modal â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
     <div id="terminal-modal" class="modal-overlay hidden">
         <div class="modal-box" style="max-width:500px;">
-            <button class="modal-close" data-close="terminal-modal">✕</button>
+            <button class="modal-close" data-close="terminal-modal">âœ•</button>
             <h2>Projects</h2>
             <div class="modal-row" style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;">
                 <div>
@@ -682,10 +682,10 @@
         </div>
     </div>
 
-    <!-- ── Writing modal ────────────────────────────────── -->
+    <!-- â”€â”€ Writing modal â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
     <div id="casestudies-modal" class="modal-overlay hidden">
         <div class="modal-box" style="max-width:500px;">
-            <button class="modal-close" data-close="casestudies-modal">✕</button>
+            <button class="modal-close" data-close="casestudies-modal">âœ•</button>
             <h2>Writing</h2>
             <a href="/casestudies/baymax-ai-assistant-2026" class="modal-row" style="display:block;text-decoration:none;">
                 <div style="display:flex;justify-content:space-between;align-items:baseline;gap:0.5rem;margin-bottom:0.2rem;">
@@ -709,43 +709,43 @@
         </div>
     </div>
 
-    <!-- ── Telephone / Contact modal ─────────────────────── -->
+    <!-- â”€â”€ Telephone / Contact modal â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
     <div id="telephone-modal" class="modal-overlay hidden">
         <div class="modal-box" style="max-width:420px;">
-            <button class="modal-close" data-close="telephone-modal">✕</button>
+            <button class="modal-close" data-close="telephone-modal">âœ•</button>
             <h2>Contact</h2>
             <a href="https://www.linkedin.com/in/jonasnjx/" target="_blank" class="modal-row" style="display:flex;justify-content:space-between;align-items:center;text-decoration:none;">
                 <div>
                     <div style="font-size:0.88rem;font-weight:500;color:var(--ink);">LinkedIn</div>
                     <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);">linkedin.com/in/jonasnjx</div>
                 </div>
-                <span style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent);">→</span>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent);">â†’</span>
             </a>
             <a href="https://github.com/jonasnjx" target="_blank" class="modal-row" style="display:flex;justify-content:space-between;align-items:center;text-decoration:none;">
                 <div>
                     <div style="font-size:0.88rem;font-weight:500;color:var(--ink);">GitHub</div>
                     <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);">github.com/jonasnjx</div>
                 </div>
-                <span style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent);">→</span>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent);">â†’</span>
             </a>
             <a href="mailto:ngjingxun1997@gmail.com" class="modal-row" style="display:flex;justify-content:space-between;align-items:center;text-decoration:none;border-bottom:1px solid rgba(226,222,213,0.1);">
                 <div>
                     <div style="font-size:0.88rem;font-weight:500;color:var(--ink);">Email</div>
                     <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);">ngjingxun1997@gmail.com</div>
                 </div>
-                <span style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent);">→</span>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent);">â†’</span>
             </a>
             <div class="modal-actions">
-                <a href="/connect" class="btn-primary" style="display:flex;align-items:center;justify-content:center;">Visit Connect Page →</a>
+                <a href="/connect" class="btn-primary" style="display:flex;align-items:center;justify-content:center;">Visit Connect Page â†’</a>
             </div>
         </div>
     </div>
 
-    <!-- ── Clock modal ───────────────────────────────────── -->
+    <!-- â”€â”€ Clock modal â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
     <div id="clock-modal" class="modal-overlay hidden">
         <div class="modal-box" style="max-width:360px;text-align:center;">
-            <button class="modal-close" data-close="clock-modal">✕</button>
-            <h2 style="margin-bottom:0.5rem;">🕐 Singapore Time</h2>
+            <button class="modal-close" data-close="clock-modal">âœ•</button>
+            <h2 style="margin-bottom:0.5rem;">ðŸ• Singapore Time</h2>
             <div id="clock-date" style="font-size:0.72rem;color:var(--muted);margin-bottom:0.75rem;font-family:'JetBrains Mono',monospace;"></div>
             <div id="clock-time" style="font-size:2.2rem;font-family:'JetBrains Mono',monospace;color:var(--ink);letter-spacing:0.04em;line-height:1.3;"></div>
         </div>
