@@ -99,14 +99,9 @@
 
                 <h2>How the site and analytics work together</h2>
 
-                <div style=”margin: 1.5rem 0;”>
-                    <p class=”font-mono text-xs mb-1” style=”color: var(--muted);”>Architecture</p>
-                    <pre class=”diagram”>
-  Portfolio Site  ->  /track  ->  QStash  ->  /consume  ->  Redis
+                <pre class=”diagram”>  Portfolio Site  ->  /track  ->  QStash  ->  /consume  ->  Redis
                                                                 |
-  Dashboard       <-  /stats  <--------------------------------+
-</pre>
-                </div>
+  Dashboard       &lt;-  /stats  &lt;--------------------------------+</pre>
 
                 <p>The analytics service has three public endpoints. <code>POST /track</code> is what the browser calls whenever a visitor does something: entering the 3D room, clicking an object, and so on. The endpoint validates the event (only known types and object IDs are accepted), rate limits by IP, and hands it off to QStash, a message queue service similar to Kafka.</p>
 
