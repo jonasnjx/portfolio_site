@@ -92,37 +92,31 @@
 
             <article class="prose">
 
-                <p>The motivation was straightforward. A recruiter visiting a portfolio has specific questions: what cloud platforms does this person know, have they worked with Kafka, what did they actually build at their last job? The answers are on the site, but scattered across pages. Navigating a resume page and two articles to piece together an answer takes effort most people won't spend. An AI assistant that already knows everything about me and can answer directly is a simpler experience.</p>
-
-                <p>That is what Baymax is. A small robot in the 3D room and a chat widget on every page, both backed by the same API: send a question, get a specific answer about my background.</p>
+                <p>The motivation to build Baymax AI assistant was rather straightforward. Someone visiting my portfolio has specific questions about my experiences. The answers are on the site but scattered across pages. The solution is to build an AI chatbot assistant that already knows everything and can answer directly on questions about me.</p>
 
                 <h2>How it works</h2>
 
-                <p>The assistant runs as a separate Vercel service. Every question goes through the same path: a rate limit check using Upstash Redis (to protect the API key from abuse), then a cache lookup keyed to a normalised hash of the question. On a cache hit, the answer comes back immediately. On a miss, the question goes to Groq with a curated knowledge base attached as context, the response is stored in Redis with a 24-hour TTL, and the answer is returned.</p>
-
-                <p>The knowledge base is a single markdown file: my work history, certifications, projects, skills, and writing. No retrieval, no chunking, no vector database. The whole file is sent with every request as part of the system prompt.</p>
+                <p>The assistant runs as a separate Vercel deployment. Every question goes through the same path: a rate limit check using Upstash Redis (to protect the API key from malicious abuse), then a cache lookup keyed to a normalised hash of the question (which helps control the length of the key and prevents mis-structuring). On a cache hit, the answer comes back immediately. On a miss, the question goes to Groq with a curated knowledge markdown file attached as context, the response is stored in Redis with a 24-hour TTL, and the answer is returned.</p>
 
                 <h2>Why Llama 3.3 70B on Groq</h2>
 
                 <p>The model choice came down to three requirements: the knowledge base needed to fit in the context window, the answers needed to be good enough to actually be useful, and the whole thing needed to run for free.</p>
 
-                <p>Groq's Llama 3.3 70B Versatile has a 128k token context window. My knowledge base is well under 10,000 tokens. That means the entire thing fits in a single call without any retrieval logic. Smaller models on Groq (the 8B instant variants) only handle 8k context, which would either truncate the knowledge base or require chunking and retrieval, adding complexity for no real benefit at this scale.</p>
+                <p>Groq's Llama 3.3 70B Versatile has a 128k token context window. My knowledge base is well under 10,000 tokens. That means the entire thing fits in a single call without the need for any retrieval logic.</p>
 
-                <p>The 70B parameter count matters for quality. Smaller models give noticeably vaguer answers to open-ended questions like "what does Jonas's experience with data governance look like?" A 70B model handles those with enough nuance to be genuinely useful. Groq's LPU hardware makes the 70B model fast enough that response time is rarely over two seconds, which is acceptable for an assistant on a portfolio. And the free tier covers the traffic a personal portfolio realistically sees, making it a practical choice for a project like this.</p>
+                <p>The 70B parameter count matters for quality. Smaller models give noticeably vague answers. A 70B model handles those with enough nuance to be genuinely useful. Groq's LPU hardware makes the 70B model respond fast enough, which improves user experience. And the free tier covers the traffic a personal portfolio typically sees, making it a practical choice for a portfolio project like this.</p>
 
                 <h2>What Redis is actually doing</h2>
 
-                <p>Redis is doing two things here. First, rate limiting: each IP address is capped at 20 requests per minute. Without this, the API key is exposed on a public endpoint and anyone can drain the free tier quota. Second, response caching, which is worth explaining in a bit more detail.</p>
+                <p>Redis is doing two things here. First, rate limiting: each IP address is capped at 20 requests per minute. Without this, the API key is exposed on a public endpoint and anyone can drain the free tier quota. Second, response caching.</p>
 
-                <p>When a question comes in, it gets normalised: lowercased, stripped of punctuation, trimmed. That normalised string is then hashed into a short key and checked against Redis. If a matching key exists, the cached answer is returned immediately without touching Groq at all. If not, Groq is called, the answer comes back, and it gets written to Redis with a 24-hour expiry before being returned to the user.</p>
+                <h2>How response caching works</h2>
 
-                <p>The reason this matters is that recruiter questions repeat. "What cloud platforms does Jonas know?", "Does Jonas have AWS experience?", "What did he build at A*STAR?" are questions that will come up across different visitors. Without caching, every one of those calls Groq and counts against the rate limit. With caching, the first visitor pays the cost and every subsequent visitor with a similar question gets an instant response. The LLM is only called when it genuinely needs to be.</p>
-
-                <p>The cache HIT rate is also the clearest signal of whether the assistant is being used meaningfully. A high rate means the same questions are coming up repeatedly, which tells you something about what people actually want to know.</p>
+                <p>When a question comes in, it gets normalised: lowercased, stripped of punctuation, trimmed. That normalised string is then hashed into a short key and checked against Redis. If a matching key exists, the cached answer is returned immediately without touching Groq at all. If not, Groq is called, the answer comes back, and it gets written to Redis.</p>
 
                 <h2>Something to think about</h2>
 
-                <p>The knowledge base is a file I maintain manually. It is accurate today, but it will drift as my resume changes. The honest next step is a pipeline that fetches the portfolio site periodically and rebuilds the knowledge base automatically, so the assistant stays current without manual intervention. That is the gap between a working demo and something production-ready, and it is a smaller gap than it might seem.</p>
+                <p>The knowledge base is a file I maintain manually. It is accurate today, but it will drift as my resume changes. What I'll do next is to build a pipeline that fetches my portfolio site periodically and rebuilds the knowledge base automatically, so the assistant stays current without manual intervention.</p>
 
             </article>
 
