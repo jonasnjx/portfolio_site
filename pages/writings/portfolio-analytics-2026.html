@@ -1,13 +1,13 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="How I Built the Portfolio Site Analytics using a Modular Event Pipeline, by Jonas Ng">
+    <meta name="description" content="How I Built My Portfolio Site Analytics using an Event Pipeline and Modular Infrastructure, by Jonas Ng">
     <title>Portfolio Analytics | Jonas Ng</title>
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="How I Built the Portfolio Site Analytics using a Modular Event Pipeline">
+    <meta property="og:title" content="How I Built My Portfolio Site Analytics using an Event Pipeline and Modular Infrastructure">
     <meta property="og:description" content="A modular event pipeline tracking visitor interactions across the 3D room and classic site, built with QStash and Redis.">
     <meta property="og:image" content="/assets/og-preview.png">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -38,6 +38,7 @@
         .prose h2:first-of-type { margin-top: 2rem; }
         .prose a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
         .prose code { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; background: var(--rule); padding: 0.1rem 0.35rem; border-radius: 3px; color: var(--ink); }
+        .diagram { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; line-height: 1.8; color: var(--ink); background: var(--rule); border-radius: 6px; padding: 1.25rem 1.5rem; margin: 1.5rem 0; overflow-x: auto; white-space: pre; }
     </style>
 </head>
 <body class="min-h-screen font-sans">
@@ -86,16 +87,25 @@
 
             <header class="mb-10">
                 <p class="font-mono text-xs mb-4" style="color: var(--muted);">2026 &middot; Event Pipeline &middot; System Design</p>
-                <h1 class="text-2xl md:text-3xl font-semibold mb-4 leading-snug" style="color: var(--ink);">How I Built the Portfolio Site Analytics using a Modular Event Pipeline</h1>
+                <h1 class="text-2xl md:text-3xl font-semibold mb-4 leading-snug" style="color: var(--ink);">How I Built My Portfolio Site Analytics using an Event Pipeline and Modular Infrastructure</h1>
             </header>
 
             <article class="prose">
 
                 <p>While working on the 3D room, I realised the next logical step was to get more information on user analytics and their behaviours. What is clicked on most, what is not, so that I could iteratively improve features that are used, remove those that are not, and free up space for new ones to be built.</p>
 
-                <p>In designing this, I went with a modular infrastructure approach by building a separate analytics pipeline, completely isolated from the portfolio site itself. The portfolio site already has one job: serve the room and the classic pages. By isolating the components, if the analytics service breaks, the portfolio should still work. If the portfolio gets updated, the analytics should still collect data. Keeping them separate means each component can be deployed, updated, and function independently.</p>
+                <p>In designing this, I went with a modular infrastructure approach by building a separate analytics pipeline, completely isolated from the portfolio site itself. The portfolio site already has one job: serve the room and the classic pages. By isolating the components, if the analytics service breaks, the portfolio should still work. Keeping them separate means each component can be deployed, updated, and continue to function independently.</p>
 
                 <h2>How the site and analytics work together</h2>
+
+                <div class="diagram">  Portfolio Site          Analytics Service
+  ─────────────           ──────────────────────────────────────────
+  Visitor clicks
+       │
+       ▼
+  POST /track  ──────────►  QStash  ──────────►  POST /consume  ──►  Redis
+                                                                          │
+  Dashboard    ◄──────────────────────────────  GET /stats  ◄────────────┘</div>
 
                 <p>The analytics service has three public endpoints. <code>POST /track</code> is what the browser calls whenever a visitor does something: entering the 3D room, clicking an object, and so on. The endpoint validates the event (only known types and object IDs are accepted), rate limits by IP, and hands it off to QStash, a message queue service similar to Kafka.</p>
 
@@ -107,9 +117,17 @@
 
                 <p>QStash is Upstash's HTTP-based message queue, similar to Kafka, designed specifically for serverless environments. It fits the same pattern: publish a message, specify a delivery URL, and QStash handles the rest.</p>
 
-                <h2>Limitations</h2>
+                <h2>Why Chart.js for the dashboard and not Grafana</h2>
+
+                <p>Grafana needs a dedicated data source such as Prometheus to pull metrics from. That means running additional infrastructure just to display the counters. I wanted to keep it lightweight for my portfolio site, and Chart.js can read directly from the <code>/stats</code> endpoint and render charts without any additional backend.</p>
+
+                <h2>Current limitations</h2>
 
                 <p>This works well for a moderate load of messages, but sending events via HTTP instead of a persistent connection may throttle when load gets large. For high volume, Kafka is still the right approach.</p>
+
+                <h2>What's next</h2>
+
+                <p>With the event pipeline in place, the next step is to feed those signals back into improving the site and application. Knowing what visitors consistently click, I'm hoping that these signals could help improve how Baymax answers questions, prioritising information that visitors most frequently ask about. Longer term, a pipeline that detects patterns and surfaces recommendations automatically would make the portfolio adaptive as well.</p>
 
             </article>
 
