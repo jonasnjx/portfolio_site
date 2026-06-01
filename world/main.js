@@ -295,9 +295,15 @@ async function boot() {
         }
     }
 
+    // Chat close button
+    document.getElementById('chat-close-btn')?.addEventListener('click', () => closeChat());
+
     document.addEventListener('keydown', e => {
         if (document.activeElement?.tagName === 'INPUT') return; // ignore when chat is focused
         if (e.code === 'Escape') {
+            // Close chat if open (and input is not focused)
+            if (!chatOverlay.classList.contains('hidden')) { closeChat(); return; }
+
             const openEntry = Object.entries(modals).find(([, el]) => el && !el.classList.contains('hidden'));
             if (openEntry) {
                 closingModal = true;
