@@ -1,4 +1,14 @@
-import { ROOM, SPAWN_YAW } from './config.js';
+import { ROOM, SPAWN_YAW, COLLISION_ZONES } from './config.js';
+
+const PLAYER_R = 0.35; // player collision radius
+
+function blocked(px, pz) {
+    for (const z of COLLISION_ZONES) {
+        if (px + PLAYER_R > z.minX && px - PLAYER_R < z.maxX &&
+            pz + PLAYER_R > z.minZ && pz - PLAYER_R < z.maxZ) return true;
+    }
+    return false;
+}
 
 export function initControls(camera, canvas, character) {
     let yaw     = SPAWN_YAW;
@@ -110,13 +120,22 @@ export function initControls(camera, canvas, character) {
             const moving = mx !== 0 || mz !== 0;
             if (moving) {
                 const len = Math.sqrt(mx * mx + mz * mz);
-                character.group.position.x += (mx / len) * SPEED * dt;
-                character.group.position.z += (mz / len) * SPEED * dt;
-                character.group.rotation.y = Math.atan2(mx, mz);
+                const dx = (mx / len) * SPEED * dt;
+                const dz = (mz / len) * SPEED * dt;
+                const p  = character.group.position;
 
-                const p = character.group.position;
-                p.x = Math.max(-ROOM.boundsX, Math.min(ROOM.boundsX, p.x));
-                p.z = Math.max(-ROOM.boundsZ, Math.min(ROOM.boundsZ, p.z));
+                // Try full move, else try each axis separately (slide along objects)
+                const nx = Math.max(-ROOM.boundsX, Math.min(ROOM.boundsX, p.x + dx));
+                const nz = Math.max(-ROOM.boundsZ, Math.min(ROOM.boundsZ, p.z + dz));
+
+                if (!blocked(nx, nz)) {
+                    p.x = nx; p.z = nz;
+                } else {
+                    if (!blocked(nx, p.z)) p.x = nx;
+                    if (!blocked(p.x, nz)) p.z = nz;
+                }
+
+                character.group.rotation.y = Math.atan2(mx, mz);
             }
 
             updateCamera();

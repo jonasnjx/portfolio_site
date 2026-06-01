@@ -25,6 +25,16 @@ export const COLORS = {
     rug:      0x991b1b,
 };
 
+// Furniture collision zones — rectangular footprints in x-z space
+export const COLLISION_ZONES = [
+    { minX: -1.0,  maxX:  1.0,  minZ: -5.1,  maxZ: -3.9  }, // resume desk
+    { minX: -4.2,  maxX: -3.0,  minZ: -5.95, maxZ: -5.1  }, // arcade machine
+    { minX: -6.1,  maxX: -4.8,  minZ:  0.6,  maxZ:  3.0  }, // bookshelf
+    { minX: -5.1,  maxX: -3.5,  minZ:  2.5,  maxZ:  3.5  }, // study desk
+    { minX:  3.0,  maxX:  4.4,  minZ:  0.8,  maxZ:  3.3  }, // sofa
+    { minX:  3.9,  maxX:  5.0,  minZ: -0.4,  maxZ:  0.8  }, // telephone table
+];
+
 export const SPAWN     = { x: 0, y: 0, z: 1.0 }; // room centre, camera clears south wall
 export const SPAWN_YAW = 0;                       // camera south of player, looking north toward resume
 
