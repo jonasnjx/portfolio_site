@@ -81,7 +81,15 @@ export function initControls(camera, canvas, character) {
         updateCamera();
     }
 
-    function standUp() { isSit = false; }
+    function standUp() {
+        isSit = false;
+        // Push character just outside sofa collision zone so they can move freely
+        const p = character.group.position;
+        if (blocked(p.x, p.z)) {
+            p.x = 2.7; // step west, clear of the sofa zone
+            p.y = 0;
+        }
+    }
 
     const controls = {
         get isLocked()  { return isLocked(); },
