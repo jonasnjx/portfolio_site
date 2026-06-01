@@ -1,5 +1,5 @@
 (function () {
-    const PA_URL = 'https://portfolio-analytics-two.vercel.app/track'; // update after deploy
+    const PA_URL = 'https://portfolio-analytics-plum.vercel.app/track';
 
     function vid() {
         let v = localStorage.getItem('pa_vid');
