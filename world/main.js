@@ -421,6 +421,7 @@ async function boot() {
         enterBtn.disabled = true;
 
         const avatarOpts = readAvatarOpts();
+        window.paTrack?.('character_switch', { character: avatarOpts.type });
 
         character   = buildCharacter(scene, avatarOpts);
         controls    = initControls(camera, canvas, character);
