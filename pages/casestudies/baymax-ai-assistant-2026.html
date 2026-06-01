@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Building a Portfolio AI Assistant: Technical Design and Model Choices, by Jonas Ng">
+    <title>Building a Portfolio AI Assistant | Jonas Ng</title>
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Building a Portfolio AI Assistant: Technical Design and Model Choices">
+    <meta property="og:description" content="How I built Baymax, an AI assistant that answers recruiter questions about my background, and the technical decisions behind it.">
+    <meta property="og:image" content="/assets/og-preview.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Satisfy&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: { extend: { fontFamily: { sans: ['Space Grotesk','sans-serif'], mono: ['JetBrains Mono','monospace'], serif: ['Source Serif 4','serif'] } } }
+        }
+    </script>
+    <style>
+        :root { --paper: #f7f5f0; --ink: #1a1a1a; --muted: #6b6b6b; --rule: #e2ded5; --accent: #1d4ed8; }
+        body { background-color: var(--paper); color: var(--ink); }
+        .nav-link { position: relative; color: var(--muted); font-size: 0.875rem; transition: color 0.15s; }
+        .nav-link:hover { color: var(--ink); }
+        .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--accent); transition: width 0.2s; }
+        .nav-link:hover::after { width: 100%; }
+        .nav-link.active { color: var(--accent); }
+        .nav-link.active::after { width: 100%; }
+        .mobile-menu { transform: translateX(100%); transition: transform 0.3s ease; }
+        .mobile-menu.open { transform: translateX(0); }
+        .menu-backdrop { opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
+        .menu-backdrop.open { opacity: 1; visibility: visible; }
+        .prose { max-width: 65ch; }
+        .prose p { font-family: 'Source Serif 4', serif; font-size: 1.0625rem; line-height: 1.75; color: var(--ink); margin-bottom: 1.25rem; }
+        .prose h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; font-weight: 500; color: var(--ink); margin-top: 2.5rem; margin-bottom: 0.75rem; padding-top: 2rem; border-top: 1px solid var(--rule); }
+        .prose h2:first-of-type { margin-top: 2rem; }
+        .prose a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+        .prose a:hover { opacity: 0.8; }
+        .prose code { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; background: var(--rule); padding: 0.1rem 0.35rem; border-radius: 3px; color: var(--ink); }
+    </style>
+</head>
+<body class="min-h-screen font-sans">
+
+    <nav class="fixed top-0 left-0 w-full z-50" style="background: rgba(247,245,240,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--rule);">
+        <div class="max-w-2xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="/home" style="font-family:'Satisfy',cursive;font-size:1.3rem;color:var(--ink);">Jonas Ng</a>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="/home" class="nav-link">Home</a>
+                    <a href="/resume" class="nav-link">Resume</a>
+                    <a href="/projects" class="nav-link">Projects</a>
+                    <a href="/casestudies" class="nav-link active">Writing</a>
+                    <a href="/connect" class="nav-link">Connect</a>
+                </div>
+                <button id="menuBtn" class="md:hidden p-1" style="color: var(--ink);">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div id="menuBackdrop" class="menu-backdrop fixed inset-0 z-[100] md:hidden" style="background: rgba(0,0,0,0.2);"></div>
+    <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 h-screen w-60 z-[110] md:hidden" style="background: var(--paper); border-left: 1px solid var(--rule);">
+        <div class="p-6 h-full">
+            <button id="closeMenu" class="absolute top-4 right-4" style="color: var(--muted);">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+            <div class="flex flex-col gap-6 mt-12">
+                <a href="/home" class="text-sm" style="color: var(--muted);">Home</a>
+                <a href="/resume" class="text-sm" style="color: var(--muted);">Resume</a>
+                <a href="/projects" class="text-sm" style="color: var(--muted);">Projects</a>
+                <a href="/casestudies" class="text-sm font-medium" style="color: var(--accent);">Writing</a>
+                <a href="/connect" class="text-sm" style="color: var(--muted);">Connect</a>
+            </div>
+        </div>
+    </div>
+
+    <main class="pt-24 pb-20 px-6">
+        <div class="max-w-2xl mx-auto">
+
+            <a href="/casestudies" class="inline-flex items-center gap-2 text-sm mb-10" style="color: var(--muted);">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                Back to Writing
+            </a>
+
+            <header class="mb-10">
+                <p class="font-mono text-xs mb-4" style="color: var(--muted);">2026 &middot; AI &middot; System Design</p>
+                <h1 class="text-2xl md:text-3xl font-semibold mb-4 leading-snug" style="color: var(--ink);">Building a Portfolio AI Assistant: Technical Design and Model Choices</h1>
+            </header>
+
+            <article class="prose">
+
+                <p>The motivation was straightforward. A recruiter visiting a portfolio has specific questions: what cloud platforms does this person know, have they worked with Kafka, what did they actually build at their last job? The answers are on the site, but scattered across pages. Navigating a resume page and two articles to piece together an answer takes effort most people won't spend. An AI assistant that already knows everything about me and can answer directly is a simpler experience.</p>
+
+                <p>That is what Baymax is. A small robot in the 3D room and a chat widget on every page, both backed by the same API: send a question, get a specific answer about my background.</p>
+
+                <h2>How it works</h2>
+
+                <p>The assistant runs as a separate Vercel service. Every question goes through the same path: a rate limit check using Upstash Redis (to protect the API key from abuse), then a cache lookup keyed to a normalised hash of the question. On a cache hit, the answer comes back immediately. On a miss, the question goes to Groq with a curated knowledge base attached as context, the response is stored in Redis with a 24-hour TTL, and the answer is returned.</p>
+
+                <p>The knowledge base is a single markdown file: my work history, certifications, projects, skills, and writing. No retrieval, no chunking, no vector database. The whole file is sent with every request as part of the system prompt.</p>
+
+                <h2>Why Llama 3.3 70B on Groq</h2>
+
+                <p>The model choice came down to two requirements: the knowledge base needed to fit in the context window, and the answers needed to be good enough to actually be useful.</p>
+
+                <p>Groq's Llama 3.3 70B Versatile has a 128k token context window. My knowledge base is well under 10,000 tokens. That means the entire thing fits in a single call without any retrieval logic. Smaller models on Groq (the 8B instant variants) only handle 8k context, which would either truncate the knowledge base or require chunking and retrieval, adding complexity for no real benefit at this scale.</p>
+
+                <p>The 70B parameter count matters for quality. Smaller models give noticeably vaguer answers to open-ended questions like "what does Jonas's experience with data governance look like?" A 70B model handles those with enough nuance to be genuinely useful. Groq's LPU hardware makes the 70B model fast enough that response time is rarely over two seconds, which is acceptable for an assistant on a portfolio.</p>
+
+                <h2>What Redis is actually doing</h2>
+
+                <p>Redis is doing two things here. First, rate limiting: each IP address is capped at 20 requests per minute. Without this, the API key is exposed on a public endpoint and anyone can drain the free tier quota. Second, response caching: recruiter questions repeat. The same handful of questions come up over and over, and there is no reason to call Groq each time. After the first call, the answer is stored against a hash of the normalised question and served instantly to anyone who asks the same thing.</p>
+
+                <p>The cache is also the clearest signal of whether the assistant is being used. A high HIT rate means the same questions are being asked repeatedly, which tells you something about what people actually want to know.</p>
+
+                <h2>Something to think about</h2>
+
+                <p>The knowledge base is a file I maintain manually. It is accurate today, but it will drift as my resume changes. The honest next step is a pipeline that fetches the portfolio site periodically and rebuilds the knowledge base automatically, so the assistant stays current without manual intervention. That is the gap between a working demo and something production-ready, and it is a smaller gap than it might seem.</p>
+
+            </article>
+
+        </div>
+    </main>
+
+    <footer class="px-6 py-10" style="border-top: 1px solid var(--rule);">
+        <div class="max-w-2xl mx-auto flex flex-col md:flex-row md:justify-between md:items-center gap-2">
+            <a href="mailto:ngjingxun1997@gmail.com" class="text-sm" style="color: var(--accent);">ngjingxun1997@gmail.com</a>
+            <p class="font-mono text-xs" style="color: var(--muted);">&copy; 2026 Jonas Ng &middot; Singapore</p>
+        </div>
+    </footer>
+
+    <script src="/assets/chatbot.js"></script>
+    <script>
+        const menuBtn = document.getElementById('menuBtn');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuBackdrop = document.getElementById('menuBackdrop');
+        function openMenu() { mobileMenu.classList.add('open'); menuBackdrop.classList.add('open'); document.body.style.overflow = 'hidden'; }
+        function closeMenuFn() { mobileMenu.classList.remove('open'); menuBackdrop.classList.remove('open'); document.body.style.overflow = ''; }
+        menuBtn.addEventListener('click', openMenu);
+        closeMenu.addEventListener('click', closeMenuFn);
+        menuBackdrop.addEventListener('click', closeMenuFn);
+        document.querySelectorAll('#mobileMenu a').forEach(l => l.addEventListener('click', closeMenuFn));
+    </script>
+</body>
+</html>
