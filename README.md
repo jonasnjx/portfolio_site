@@ -2,6 +2,70 @@
 
 An interactive portfolio with a walkable 3D voxel room as the landing experience, plus a classic static site for mobile and fallback. Built with Three.js, plain HTML, and Express. No bundler.
 
+## Architecture
+
+```
+  Visitor lands on jonasnjx.github.io
+                  |
+         ┌────────▼────────┐
+         │  Mobile guard    │
+         │  main.js         │
+         │  WebGL / pointer │
+         │  lock check      │
+         └───┬─────────┬───┘
+     mobile  │         │ desktop
+     no-WebGL│         │
+             ▼         ▼
+     ┌──────────┐  ┌───────────────────────────────────┐
+     │  /home   │  │  / (3D interactive room)           │
+     │  Classic │  │                                    │
+     │  site    │  │  Three.js engine                   │
+     └────┬─────┘  │  world/scene.js                    │
+          │        │  world/room.js  (geometry, decor)   │
+          │        │  world/controls.js  (WASD, camera)  │
+          │        │  world/interaction.js  (click)       │
+          │        │  world/entities.js  (pets)           │
+          │        │                                    │
+          │        │  Clickable objects                 │
+          │        │  Resume / Arcade / Bookshelf /     │
+          │        │  Telephone / Sofa / Clock / Door   │
+          │        └──────────────┬────────────────────┘
+          │                       │
+          │              ┌────────▼────────┐
+          │              │  Baymax NPC      │
+          │              │  Chat overlay    │
+          │              └────────┬────────┘
+          │                       │
+          │              POST /ask {question}
+          │                       │
+          │        ┌──────────────┘
+          │        │
+          │        ▼
+          │  portfolio_ai_assistant
+          │  (separate Vercel service)
+          │
+          ├── /resume, /projects, /casestudies
+          │   /connect, /casestudies/*
+          │         │
+          │   ┌─────▼──────────┐
+          │   │  AI chat widget │  ──── POST /ask ──►  portfolio_ai_assistant
+          │   │  assets/chatbot.js│
+          │   └────────────────┘
+          │         │
+          │   ┌─────▼──────────────┐
+          │   │  /home (projects)   │
+          │   │  Currently Building │
+          │   └─────┬──────────────┘
+          │         │ GET /api/roadmap
+          │         ▼
+          │   Linear GraphQL API
+          │   (active tickets by project)
+          │
+          └── Deployed on Vercel
+              vercel.json handles route rewrites
+              api/roadmap.js is a serverless function
+```
+
 ## The experience
 
 Desktop visitors land on a third-person 3D room. Walk around with WASD and click on objects to explore the portfolio. Mobile and no-WebGL visitors are redirected to the classic site at `/home`.
@@ -15,6 +79,7 @@ Desktop visitors land on a third-person 3D room. Walk around with WASD and click
 | Sofa | Sit down |
 | Clock | Current Singapore time |
 | Door | Exit to classic site |
+| Baymax NPC | Talk to AI assistant |
 
 Press `M` to toggle background music. Press `T` or `Enter` to open the chat (type `/help` for commands).
 
@@ -49,7 +114,8 @@ Any new route must be added to both `server.js` and `vercel.json`.
 - **Tailwind CSS** (CDN): classic site styling
 - **Express.js**: local dev server
 - **Vercel**: production deployment
-- **Linear**: roadmap tracking via API
+- **Linear API**: roadmap tracking via `/api/roadmap` serverless function
+- **portfolio_ai_assistant**: external AI service powering Baymax and the chat widget
 
 ## File structure
 
@@ -74,7 +140,11 @@ pages/
   casestudies/
     context-engineering-2026.html
     data-ai-2025.html
-assets/                 # Images, audio, favicon, OG image
+assets/
+  chatbot.js            # AI chat widget (injected on all classic pages)
+  bg-music.mp3          # Background music
+  favicon.svg
+  og-preview.png
 api/
   roadmap.js            # Linear API route (Vercel serverless)
 ```
