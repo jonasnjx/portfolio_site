@@ -106,6 +106,10 @@
 
                 <p>The 70B parameter count matters for quality. Smaller models give noticeably vague answers. A 70B model handles those with enough nuance to be genuinely useful. Groq's LPU hardware makes the 70B model respond fast enough, which improves user experience. And the free tier covers the traffic a personal portfolio typically sees, making it a practical choice for a portfolio project like this.</p>
 
+                <h2>Why is Groq so fast?</h2>
+
+                <p>Most AI providers run models on GPUs, whereas Groq is built on custom silicon called a Language Processing Unit (LPU), designed specifically to speed up model inference by generating tokens as fast as possible. The key difference is memory: instead of repeatedly fetching model weights from slow external memory, the LPU keeps them on-chip, removing the bottleneck that slows GPU inference down.</p>
+
                 <h2>What Redis is actually doing</h2>
 
                 <p>Redis is doing two things here. First, rate limiting: each IP address is capped at 20 requests per minute. Without this, the API key is exposed on a public endpoint and anyone can drain the free tier quota. Second, response caching.</p>
