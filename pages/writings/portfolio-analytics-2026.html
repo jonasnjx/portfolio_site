@@ -99,14 +99,8 @@
 
                 <h2>How the site and analytics work together</h2>
 
-                <div class="diagram">  Portfolio Site          Analytics Service
-  â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€           â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-  Visitor clicks
-       â”‚
-       â–¼
-  POST /track  â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â–º  QStash  â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â–º  POST /consume  â”€â”€â–º  Redis
-                                                                          â”‚
-  Dashboard    â—„â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€  GET /stats  â—„â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜</div>
+                <div class=”diagram”>  Portfolio Site   ->   POST /track   ->   QStash   ->   POST /consume   ->   Redis
+  Dashboard        <-   GET /stats    <--------------------------------------------+</div>
 
                 <p>The analytics service has three public endpoints. <code>POST /track</code> is what the browser calls whenever a visitor does something: entering the 3D room, clicking an object, and so on. The endpoint validates the event (only known types and object IDs are accepted), rate limits by IP, and hands it off to QStash, a message queue service similar to Kafka.</p>
 
