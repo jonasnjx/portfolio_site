@@ -91,20 +91,40 @@ pages/
   home.html                             # Hero, background, tech stack, roadmap
   resume.html                           # Timeline layout
   projects.html                         # Index rows with status badges + Linear tooltip
-  casestudies.html                      # Writing index
+  casestudies.html                      # Writing index (listed articles with bylines)
   connect.html                          # Contact links
-  casestudies/
-    context-engineering-2026.html       # Article
-    data-ai-2025.html                   # Article (under review, not listed)
+  dashboard.html                        # Live analytics dashboard (Chart.js, polls /stats every 30s)
+  writings/                             # Article files (folder is writings/, URLs stay /casestudies/*)
+    portfolio-analytics-2026.html       # Article: 2 min read
+    baymax-ai-assistant-2026.html       # Article: 3 min read
+    context-engineering-2026.html       # Article: 2 min read
 ```
 
 **Routes** (must be in both `server.js` and `vercel.json`):
 - `/` → `index.html`
 - `/home` → `pages/home.html`
-- `/resume`, `/projects`, `/casestudies`, `/connect` → corresponding pages
-- `/casestudies/context-engineering-2026` → article
-- `/casestudies/data-ai-2025` → article
+- `/resume`, `/projects`, `/casestudies`, `/connect`, `/dashboard` → corresponding pages
+- `/casestudies/portfolio-analytics-2026` → `pages/writings/portfolio-analytics-2026.html`
+- `/casestudies/baymax-ai-assistant-2026` → `pages/writings/baymax-ai-assistant-2026.html`
+- `/casestudies/context-engineering-2026` → `pages/writings/context-engineering-2026.html`
+
+Article URLs use the `/casestudies/` prefix for backward compatibility; the physical folder is `pages/writings/`.
+
+**Article format:** header has `Jonas Ng · N min read` byline in JetBrains Mono. Reading times: portfolio-analytics = 2 min, baymax = 3 min, context-engineering = 2 min. Update both the article file and the `casestudies.html` listing when adding or changing articles.
+
+**Hero CTAs on `/home`:** three inline links: "View Resume" (button), "Enter 3D room →" (accent text), "View site analytics →" (muted text).
 
 **"Currently Building" section on `/home`:** fetches from `/api/roadmap` (Linear API, `api/roadmap.js`), groups tickets by `project.name`, shows descriptions. Requires `LINEAR_API_KEY` in `.env`.
+
+---
+
+### Analytics tracking
+
+`assets/track.js` defines `window.paTrack(type, props)` using `fetch` (fire-and-forget). It auto-fires a `page_view` event on classic pages and is loaded in both `index.html` and every `pages/*.html`.
+
+- Tracking endpoint: `https://portfolio-analytics-plum.vercel.app/track`
+- Event types: `page_view`, `room_enter`, `object_click`, etc.
+- The 3D room fires `room_enter` and `object_click` events manually via `paTrack()` calls in `world/main.js`
+- Analytics pipeline lives in a separate repo (`portfolio_analytics`): QStash → `/consume` → Redis → `/stats` → dashboard
 
 **Writing style rule:** no long dashes (em or en). Use commas, colons, or parentheses instead.

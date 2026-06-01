@@ -1,65 +1,65 @@
-# Jonas Ng | An interactive portfolio
+# Jonas Ng | Interactive Portfolio
 
 A walkable 3D voxel room as the landing experience, plus a classic static site for mobile and fallback. Built with Three.js, plain HTML, and Express. No bundler.
 
 ## Architecture
 
 ```
-  Visitor lands on jonasnjx.github.io
+  Visitor lands on jonasnjx.vercel.app
                   |
          ┌────────▼────────┐
          │  Mobile guard    │
-         │  main.js         │
-         │  WebGL / pointer │
-         │  lock check      │
+         │  WebGL check     │
          └───┬─────────┬───┘
      mobile  │         │ desktop
      no-WebGL│         │
              ▼         ▼
-     ┌──────────┐  ┌───────────────────────────────────┐
-     │  /home   │  │  / (3D interactive room)           │
-     │  Classic │  │                                    │
-     │  site    │  │  Three.js engine                   │
-     └────┬─────┘  │  world/scene.js                    │
-          │        │  world/room.js  (geometry, decor)   │
-          │        │  world/controls.js  (WASD, camera)  │
-          │        │  world/interaction.js  (click)       │
-          │        │  world/entities.js  (pets)           │
-          │        │                                    │
-          │        │  Clickable objects                 │
-          │        │  Resume / Arcade / Bookshelf /     │
-          │        │  Telephone / Sofa / Clock / Door   │
-          │        └──────────────┬────────────────────┘
+     ┌──────────┐  ┌──────────────────────────────────────┐
+     │  /home   │  │  / (3D interactive room)              │
+     │  Classic │  │                                       │
+     │  site    │  │  Three.js engine                      │
+     └────┬─────┘  │  world/scene.js                       │
+          │        │  world/room.js    (geometry, decor)    │
+          │        │  world/controls.js  (WASD, camera)     │
+          │        │  world/interaction.js  (click)          │
+          │        │  world/entities.js  (pets)              │
+          │        │                                       │
+          │        │  Clickable objects                    │
+          │        │  Resume / Arcade / Bookshelf /        │
+          │        │  Telephone / Sofa / Clock / Door      │
+          │        └──────────────┬───────────────────────┘
           │                       │
           │              ┌────────▼────────┐
           │              │  Baymax NPC      │
           │              │  Chat overlay    │
           │              └────────┬────────┘
-          │                       │
-          │              POST /ask {question}
-          │                       │
-          │        ┌──────────────┘
-          │        │
-          │        ▼
-          │  portfolio_ai_assistant
-          │  (separate Vercel service)
+          │                       │ POST /ask
+          ├───────────────────────┘
           │
-          ├── /resume, /projects, /casestudies
-          │   /connect, /casestudies/*
+          ▼
+    portfolio_ai_assistant (separate Vercel service)
+    Groq llama-3.3-70b, Upstash Redis cache, rate limiting
+          │
+          ├── /resume, /projects, /casestudies, /connect
+          │   /casestudies/*
           │         │
-          │   ┌─────▼──────────┐
-          │   │  AI chat widget │  ──── POST /ask ──►  portfolio_ai_assistant
-          │   │  assets/chatbot.js│
-          │   └────────────────┘
-          │         │
-          │   ┌─────▼──────────────┐
-          │   │  /home (projects)   │
-          │   │  Currently Building │
-          │   └─────┬──────────────┘
+          │   AI chat widget (assets/chatbot.js) ─── POST /ask
+          │
+          ├── /dashboard
+          │   Chart.js dashboard polling /stats every 30s
+          │
+          │        assets/track.js (paTrack, fire-and-forget)
+          │                       │ POST /track
+          │                       ▼
+          │        portfolio_analytics (separate Vercel service)
+          │        QStash ─► /consume ─► Redis counters
+          │                                    │
+          │                              GET /stats
+          │
+          ├── /home: Currently Building
           │         │ GET /api/roadmap
           │         ▼
-          │   Linear GraphQL API
-          │   (active tickets by project)
+          │   Linear GraphQL API (active tickets)
           │
           └── Deployed on Vercel
               vercel.json handles route rewrites
@@ -68,7 +68,7 @@ A walkable 3D voxel room as the landing experience, plus a classic static site f
 
 ## The experience
 
-Land on a third-person 3D room. Walk around with WASD and click on objects to explore the portfolio. Mobile and no-WebGL visitors are redirected to the classic site at `/home`.
+Land on a third-person 3D room. Walk with WASD and click objects to explore. Mobile and no-WebGL visitors are redirected to `/home`.
 
 | Object | Action |
 |--------|--------|
@@ -81,13 +81,13 @@ Land on a third-person 3D room. Walk around with WASD and click on objects to ex
 | Door | Exit to classic site |
 | Baymax NPC | Talk to AI assistant |
 
-Press `M` to toggle background music. Press `T` or `Enter` to open the chat (type `/help` for commands).
+`M` toggles background music. `T` or `Enter` opens chat.
 
 ## Getting started
 
 ```bash
 npm install
-npm start
+NODE_OPTIONS=--use-system-ca node server.js
 # http://localhost:3000
 ```
 
@@ -101,21 +101,22 @@ The site must be served through Express. Opening HTML files directly won't work 
 | `/home` | Classic portfolio, mobile fallback |
 | `/resume` | Work experience |
 | `/projects` | Projects |
-| `/casestudies` | Writing |
-| `/connect` | LinkedIn, GitHub, Email |
-| `/casestudies/context-engineering-2026` | Article |
-| `/casestudies/data-ai-2025` | Article |
-
-Any new route must be added to both `server.js` and `vercel.json`.
+| `/casestudies` | Writing index |
+| `/connect` | Social media |
+| `/dashboard` | Live analytics dashboard |
+| `/casestudies/<article>` | Article |
 
 ## Tech stack
 
-- **Three.js** (via CDN importmap, no bundler): 3D room, third-person camera, voxel geometry
+- **Three.js** (CDN importmap, no bundler): 3D room, third-person camera, voxel geometry
 - **Tailwind CSS** (CDN): classic site styling
 - **Express.js**: local dev server
-- **Vercel**: production deployment
-- **Linear API**: roadmap tracking via `/api/roadmap` serverless function
-- **portfolio_ai_assistant**: external AI service powering Baymax and the chat widget
+- **Vercel**: production deployment, serverless functions
+- **Groq** (llama-3.3-70b-versatile): AI assistant inference via `portfolio_ai_assistant`
+- **Upstash Redis**: response caching and rate limiting in `portfolio_ai_assistant`; event counters in `portfolio_analytics`
+- **Upstash QStash**: HTTP message queue for analytics event pipeline
+- **Chart.js**: analytics dashboard at `/dashboard`
+- **Linear API**: roadmap tracking via `/api/roadmap`
 
 ## File structure
 
@@ -135,20 +136,26 @@ pages/
   home.html             # Classic homepage
   resume.html
   projects.html
-  casestudies.html
+  casestudies.html      # Writing index
   connect.html
-  casestudies/
+  dashboard.html        # Analytics dashboard
+  writings/
+    portfolio-analytics-2026.html
+    baymax-ai-assistant-2026.html
     context-engineering-2026.html
-    data-ai-2025.html
 assets/
-  chatbot.js            # AI chat widget (injected on all classic pages)
-  bg-music.mp3          # Background music
+  track.js              # paTrack() — fire-and-forget analytics events
+  chatbot.js            # AI chat widget (all classic pages)
+  bg-music.mp3
   favicon.svg
   og-preview.png
 api/
   roadmap.js            # Linear API route (Vercel serverless)
 ```
 
-## Deployment
+## Related services
 
-Deployed on Vercel. `vercel.json` handles route rewrites.
+| Repo | Purpose |
+|------|---------|
+| `portfolio_ai_assistant` | Baymax AI backend: Groq inference, Redis caching, rate limiting |
+| `portfolio_analytics` | Event pipeline: /track, QStash, /consume, Redis, /stats |
