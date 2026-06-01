@@ -28,7 +28,7 @@ export function initInteraction(controls, registry, openModal, startPick, openCh
         if (!focused) return;
 
         if (focused.action === 'sit') {
-            controls.sit(focused.position);
+            controls.sit(focused);
         } else if (focused.action === 'chat') {
             startPick(() => { if (openChat) openChat(); }, 'default');
         } else if (focused.href) {
