@@ -16,6 +16,7 @@ app.get('/casestudies/data-ai-2025', (req, res) => res.sendFile(path.join(__dirn
 app.get('/casestudies/context-engineering-2026', (req, res) => res.sendFile(path.join(__dirname, 'pages/writings/context-engineering-2026.html')));
 app.get('/casestudies/baymax-ai-assistant-2026', (req, res) => res.sendFile(path.join(__dirname, 'pages/writings/baymax-ai-assistant-2026.html')));
 app.get('/casestudies/portfolio-analytics-2026', (req, res) => res.sendFile(path.join(__dirname, 'pages/writings/portfolio-analytics-2026.html')));
+app.get('/casestudies/enterprise-data-catalog-2026', (req, res) => res.sendFile(path.join(__dirname, 'pages/writings/enterprise-data-catalog-2026.html')));
 app.get('/dashboard', (req, res) => res.sendFile(path.join(__dirname, 'pages/dashboard.html')));
 app.get('/home', (req, res) => res.sendFile(path.join(__dirname, 'pages/home.html')));
 
