@@ -104,19 +104,13 @@
 
                 <p>But with the rise of AI, this becomes even more critical. When teams start building AI agents, one key measure is how reliable the agent is. Agents act on whatever they are given, and if data is undescribed or ambiguous, they fill in the gaps themselves, often incorrectly. Having a catalog means closing those gaps before data ever reaches the agent, so it can work on solid ground.</p>
 
-                <h2>Challenges I faced implementing a SaaS catalog</h2>
+                <h2>Challenges I faced during my project implementations</h2>
 
                 <p>In leading the implementation of the SaaS platform, the delivery itself was not the hard part. Getting approval to connect to 13 different systems within the enterprise, each with their own system owner, was the main challenge. I had to attend multiple discussion calls, show the business value to the system owner, get their approval, then hold technical discussions with their tech teams, get their sign-off, and work with their vendor to establish connectivity.</p>
 
                 <p>The other hurdle was cloud security. There were many questions: what permissions will the agent have, which databases is it connecting to, what happens with sensitive data. Most data catalogs have a masking feature that helps answer the last one. One thing I always prepared for these meetings was an architecture diagram. Technical people understand faster when there is a diagram to refer to, and it signals that you have thought things through.</p>
 
-                <p>One point worth emphasising early and often: the catalog reads metadata only and never copies the actual data. That distinction matters to security teams and has to be stated clearly.</p>
-
-                <h2>Deploying an open-source catalog</h2>
-
-                <p>The second project was different. The team wanted to validate the benefits of a catalog before committing, so we ran a POC first. We chose OpenMetadata for practical reasons: it was straightforward to deploy on ECS within our own environment, and that let us move fast. A SaaS tool at this stage would have meant a longer approval process with the cloud team before anything could even run. Deploying open-source inside our own boundary sidestepped most of that.</p>
-
-                <p>But self-hosting comes with its own set of challenges. With a SaaS tool, compatibility and upgrades are handled by the platform. When you self-host, they are yours. We ran into version compatibility issues with AWS managed OpenSearch: certain stable versions of OpenMetadata required a lower OpenSearch version rather than the latest. Ingestion is also maintained manually using Airflow scripts, one per resource type per account, and managing those scripts along with their environment variables adds a maintenance overhead that would not exist with a SaaS deployment.</p>
+                <p>On the open-source side, the challenges were different. Deploying OpenMetadata gave more flexibility over technical decisions, but deployment falls entirely on the deployer. We ran into version compatibility issues with AWS managed OpenSearch: certain stable versions of OpenMetadata required a lower OpenSearch version rather than the latest, so future upgrades need a pipeline that reconciles and upgrades all versions together. Ingestion is also maintained manually using Airflow scripts, one per resource type per account, and managing those scripts along with their environment variables adds a maintenance overhead that would not exist with a SaaS deployment.</p>
 
                 <h2>Features that make it worth the effort</h2>
 
