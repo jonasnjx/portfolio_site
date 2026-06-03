@@ -181,9 +181,9 @@ async function boot() {
 
     // ── Random pet talking ────────────────────────────────────────
     const petPhrases = {
-        giraffe:  ['My neck is a lifestyle.', 'Anyone up there?', 'I ate 30kg today.', 'Height = personality.', 'Yes I can see the resume.'],
-        dino:     ['ROAR! ...I mean hi!', 'Tiny arms, big dreams.', 'Meteor? What meteor?', 'I was here before Java.', 'Pick me up? Please?'],
-        polarbear:['Too warm in here.', 'Ice cream time?', 'Global warming is real...', 'Someone turn on AC.', 'Brrr... hello!'],
+        giraffe:  ['Anyone down there?', 'I ate 30kg today.', 'Why am I so short...'],
+        dino:     ['RAWRRR! ...I mean hi!', 'I was here before Java.', 'I need more food...'],
+        polarbear:['Too warm in here!', 'Ice cream time?', 'Someone turn on AC.'],
     };
     let petTalkTimer = 6;
     function tickPetTalk(dt) {
