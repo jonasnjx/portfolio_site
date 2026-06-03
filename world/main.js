@@ -1,5 +1,5 @@
 // Mobile / WebGL / PointerLock guard
-const isTouch  = matchMedia('(pointer: coarse)').matches;
+const hasFinePointer = matchMedia('(any-pointer: fine)').matches;
 const isNarrow = innerWidth < 820;
 const hasWebGL = (() => {
     try { const c = document.createElement('canvas');
@@ -7,7 +7,7 @@ const hasWebGL = (() => {
     catch { return false; }
 })();
 const hasPLock = 'pointerLockElement' in document;
-if (isTouch || isNarrow || !hasWebGL || !hasPLock) location.replace('/home');
+if (!hasFinePointer || isNarrow || !hasWebGL || !hasPLock) location.replace('/home');
 
 // ── UI refs ───────────────────────────────────────────────────────
 const loadingOverlay    = document.getElementById('loading-overlay');
