@@ -84,7 +84,7 @@ export function buildGiraffe(scene) {
     return {
         group,
         emoji: '🦒',
-        greeting: 'Hello! I\'m Giraffy!',
+        greeting: 'Anyone down there?',
         update(dt, elapsed) {
             const moving = wander.update(group, dt);
             const s = moving ? Math.sin(elapsed * 8) * 0.4 : 0;
@@ -134,7 +134,7 @@ export function buildDinosaur(scene) {
     return {
         group,
         emoji: '🦕',
-        greeting: 'ROAR! I mean... Hi!',
+        greeting: 'RAWRRR! ...I mean hi!',
         update(dt, elapsed) {
             const moving = wander.update(group, dt);
             const s = moving ? Math.sin(elapsed * 10) * 0.45 : 0;
@@ -183,7 +183,7 @@ export function buildPolarBear(scene) {
     return {
         group,
         emoji: '🐻‍❄️',
-        greeting: 'Brrr... Hello there!',
+        greeting: 'Too warm in here!',
         update(dt, elapsed) {
             const moving = wander.update(group, dt);
             const s = moving ? Math.sin(elapsed * 7) * 0.35 : 0;
