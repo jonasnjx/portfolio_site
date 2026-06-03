@@ -604,20 +604,28 @@
 
     <!-- â”€â”€ Resume modal â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
     <div id="resume-modal" class="modal-overlay hidden">
-        <div class="modal-box" style="max-width:560px;max-height:82vh;overflow-y:auto;">
+        <div class="modal-box" style="max-width:700px;max-height:88vh;overflow-y:auto;">
             <button class="modal-close" data-close="resume-modal">&#10005;</button>
-            <h2>Resume</h2>
+            <h2 style="margin-bottom:0.2rem;">Resume</h2>
+            <p style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--muted);margin-bottom:1.25rem;">5 years across consulting, cloud, data engineering and AI</p>
+
+            <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.75rem;">Experience</div>
+
             <div class="modal-row">
-                <div style="display:flex;justify-content:space-between;align-items:baseline;gap:0.5rem;">
+                <div style="display:flex;justify-content:space-between;align-items:baseline;gap:0.5rem;margin-bottom:0.4rem;">
                     <div>
                         <div style="font-size:0.88rem;font-weight:500;color:var(--ink);">Senior Data Engineer</div>
                         <div style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--muted);">Certis &middot; Singapore</div>
                     </div>
                     <span style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);white-space:nowrap;">Aug 2025 - Present</span>
                 </div>
+                <ul style="padding-left:1rem;color:var(--muted);font-size:0.76rem;line-height:1.65;">
+                    <li>Enterprise data engineering and AI delivery across cloud platforms</li>
+                </ul>
             </div>
+
             <div class="modal-row">
-                <div style="display:flex;justify-content:space-between;align-items:baseline;gap:0.5rem;margin-bottom:0.5rem;">
+                <div style="display:flex;justify-content:space-between;align-items:baseline;gap:0.5rem;margin-bottom:0.4rem;">
                     <div>
                         <div style="font-size:0.88rem;font-weight:500;color:var(--ink);">Senior Data Engineer</div>
                         <div style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--muted);">A*STAR &middot; Singapore</div>
@@ -625,13 +633,15 @@
                     <span style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);white-space:nowrap;">Aug 2024 - Jun 2025</span>
                 </div>
                 <ul style="padding-left:1rem;color:var(--muted);font-size:0.76rem;line-height:1.65;">
-                    <li>Led Alation data catalog integration across 13 system owners</li>
-                    <li>Built 8 ADF pipelines Blob to Snowflake; RAG app on Azure</li>
-                    <li>Multi-agent GenAI chatbot with Snowflake Cortex + AutoGen</li>
+                    <li>Led Alation data catalog integration across 13 system owners; managed agent setup, network connectivity, and IM8 governance features (sensitivity classification, lineage)</li>
+                    <li>Built 8 ADF pipelines to transform and load unstructured data from Blob storage into Snowflake daily</li>
+                    <li>Created an interactive RAG application using Node.js and Neo4j, deployed via Azure App Service</li>
+                    <li>Built a multi-agent GenAI chatbot using Snowflake Cortex Analyst and Microsoft AutoGen</li>
                 </ul>
             </div>
+
             <div class="modal-row">
-                <div style="display:flex;justify-content:space-between;align-items:baseline;gap:0.5rem;margin-bottom:0.5rem;">
+                <div style="display:flex;justify-content:space-between;align-items:baseline;gap:0.5rem;margin-bottom:0.4rem;">
                     <div>
                         <div style="font-size:0.88rem;font-weight:500;color:var(--ink);">AI Cloud Engineer</div>
                         <div style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--muted);">Accenture &middot; Singapore</div>
@@ -639,16 +649,60 @@
                     <span style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);white-space:nowrap;">Jul 2021 - Jul 2024</span>
                 </div>
                 <ul style="padding-left:1rem;color:var(--muted);font-size:0.76rem;line-height:1.65;">
-                    <li>Serverless pipelines: Lambda, S3, Redshift, SageMaker (DBSCAN)</li>
-                    <li>CI/CD with CloudFormation + CodePipeline; CloudWatch alerting</li>
-                    <li>Cloud security across AWS, GCP, Azure; Tableau &amp; Looker dashboards</li>
+                    <li>Delivered cloud and analytics solutions for finance, manufacturing, and government clients</li>
+                    <li>Serverless AWS pipelines (Lambda, S3, Redshift); CI/CD with CloudFormation and CodePipeline; DBSCAN model on SageMaker to flag suspicious traffic</li>
+                    <li>Cloud security across AWS, GCP, Azure; Tableau, Looker, and Python/Dash dashboards</li>
+                    <li>Researched NeRF image synthesis; proposed GenAI solutions for call center automation</li>
                 </ul>
             </div>
-            <div class="modal-row" style="border-bottom:1px solid rgba(226,222,213,0.1);">
-                <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);margin-bottom:0.2rem;">Internships</div>
-                <div style="font-size:0.78rem;color:var(--muted);">Vertex Holdings &middot; UPS &middot; Kuehne+Nagel &middot; Shopee &middot; Air Liquide</div>
-                <div style="margin-top:0.5rem;font-size:0.76rem;color:var(--muted);">AWS ML Specialty &middot; AWS Solutions Architect &middot; Azure Fundamentals &middot; SnowPro Associate &nbsp;&middot;&nbsp; NTU Business Analytics (Hons)</div>
+
+            <div class="modal-row">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;">Internships</div>
+                <div style="display:flex;flex-direction:column;gap:0.3rem;">
+                    <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:0.75rem;">
+                        <span style="color:var(--ink);">Vertex Holdings</span><span style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);">LightGBM + ELMo, 86% accuracy</span>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:0.75rem;">
+                        <span style="color:var(--ink);">UPS</span><span style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);">Supply chain forecasting</span>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:0.75rem;">
+                        <span style="color:var(--ink);">Kuehne+Nagel</span><span style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);">Tableau / SQL reporting</span>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:0.75rem;">
+                        <span style="color:var(--ink);">Shopee</span><span style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);">PySpark productivity reports</span>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:0.75rem;">
+                        <span style="color:var(--ink);">Air Liquide</span><span style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);">Power BI reporting</span>
+                    </div>
+                </div>
             </div>
+
+            <div class="modal-row">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;">Stack</div>
+                <div style="display:flex;flex-wrap:wrap;gap:0.35rem;">
+                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);padding:0.18rem 0.5rem;border:1px solid rgba(226,222,213,0.14);border-radius:3px;">AWS</span>
+                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);padding:0.18rem 0.5rem;border:1px solid rgba(226,222,213,0.14);border-radius:3px;">Azure</span>
+                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);padding:0.18rem 0.5rem;border:1px solid rgba(226,222,213,0.14);border-radius:3px;">Snowflake</span>
+                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);padding:0.18rem 0.5rem;border:1px solid rgba(226,222,213,0.14);border-radius:3px;">Python</span>
+                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);padding:0.18rem 0.5rem;border:1px solid rgba(226,222,213,0.14);border-radius:3px;">SQL</span>
+                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);padding:0.18rem 0.5rem;border:1px solid rgba(226,222,213,0.14);border-radius:3px;">Airflow</span>
+                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);padding:0.18rem 0.5rem;border:1px solid rgba(226,222,213,0.14);border-radius:3px;">Redis</span>
+                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);padding:0.18rem 0.5rem;border:1px solid rgba(226,222,213,0.14);border-radius:3px;">OpenSearch</span>
+                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);padding:0.18rem 0.5rem;border:1px solid rgba(226,222,213,0.14);border-radius:3px;">Docker</span>
+                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);padding:0.18rem 0.5rem;border:1px solid rgba(226,222,213,0.14);border-radius:3px;">Tableau</span>
+                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);padding:0.18rem 0.5rem;border:1px solid rgba(226,222,213,0.14);border-radius:3px;">Groq</span>
+                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);padding:0.18rem 0.5rem;border:1px solid rgba(226,222,213,0.14);border-radius:3px;">OpenMetadata</span>
+                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);padding:0.18rem 0.5rem;border:1px solid rgba(226,222,213,0.14);border-radius:3px;">Alation</span>
+                </div>
+            </div>
+
+            <div class="modal-row" style="border-bottom:1px solid rgba(226,222,213,0.1);">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.4rem;">Certifications</div>
+                <div style="font-size:0.75rem;color:var(--muted);line-height:1.7;">AWS ML Specialty &middot; AWS Solutions Architect &middot; Azure Fundamentals &middot; SnowPro Associate</div>
+                <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:0.75rem;margin-bottom:0.4rem;">Education</div>
+                <div style="font-size:0.75rem;color:var(--muted);">Business Analytics (Honours) &middot; Nanyang Technological University</div>
+            </div>
+
             <div class="modal-actions">
                 <a href="/resume" class="btn-primary" style="display:flex;align-items:center;justify-content:center;">Full Resume &rarr;</a>
             </div>
