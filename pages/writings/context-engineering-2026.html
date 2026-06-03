@@ -92,31 +92,33 @@
 
             <article class="prose">
 
-                <p>We were building an enterprise HR chatbot, and it kept getting things wrong. Not catastrophically, but consistently off in ways that were hard to narrow down. After some time of investigating, the root cause was visible to us: there were multiple date fields in the underlying data tables, and the model had no idea which one applied to which context. When we added proper context around what each field meant, the hallucinations dropped noticeably, and performance improved.</p>
+                <p>We were building an enterprise HR chatbot, and the results were consistently off in ways that were hard to narrow down. After some investigation, we realised there were multiple date fields in the underlying data tables, and the model had no idea which one applied to which context. After discussing internally, we added proper context around what each field represented, and the hallucinations dropped noticeably, which indicated a clear improvement in model performance.</p>
 
-                <p>That experience stuck with me, and it's what context engineering is really about.</p>
+                <p>That experience stuck with me, and it is what drove me to think more deeply about context engineering.</p>
 
                 <h2>The shift that changes everything</h2>
 
-                <p>Data engineering has always been about building reliable pipelines for the people who consume the data. Analytics dashboards for humans to consume, to which they can pause, question an anomaly, or check a colleague. AI agents can't do that. They simply act on whatever they're given, and if what they're given is ambiguous, they fill in the gaps themselves, often incorrectly.</p>
+                <p>Data engineering has always been about building reliable pipelines for the people who consume the data. Analytics dashboards to present to stakeholders, where they can pause, question anomalies, or verify results with a colleague. But as the audience has gradually shifted to AI agents, that ability disappears. Agents simply act on whatever they are given, and if what they are given is ambiguous, they fill in the gaps themselves, often incorrectly.</p>
 
-                <p>This is the shift. The audience for data has changed, and that changes what "good data" means.</p>
+                <p>This is a significant shift. The audience for data has changed from humans to agents, and that changes what good data actually means.</p>
 
-                <h2>What context actually is</h2>
+                <h2>What context actually refers to</h2>
 
-                <p>Context is everything an agent needs beyond its training. That includes the data itself, the semantics around it (what does "salary" mean? Does it already include fixed allowances?), memory of past decisions and corrections, the tools it can use, and the guardrails that govern its behaviour.</p>
+                <p>Context is everything an agent needs beyond its training. That includes the data itself, the semantic meaning around it (what does "salary" mean? Does it already include fixed allowances?), memory of past decisions and corrections, the tools it can use, and the guardrails that govern its behaviour.</p>
 
-                <h2>The good news</h2>
+                <p>The memory piece is underappreciated. When context is adjusted and model performance improves, are those changes and their effects being recorded? They should be. If an agent can reference what context adjustments led to better outputs, it can apply that understanding more consistently rather than rediscovering it through trial and error each time.</p>
 
-                <p>With the usage of data catalogs, lineage tracking, quality monitoring, and business glossaries, these are existing foundations that good data teams already build. The difference is that with the rise of AI, they stop being nice-to-haves and become the bare minimum for AI models to perform reliably. A business glossary that lives in a Confluence page works for humans, but AI agents need it to be machine-readable, structured, and unambiguous. (More on this in my next article.)</p>
+                <h2>The good news in this AI era</h2>
 
-                <p>The gap for most teams isn't the model. It's the infrastructure around the model.</p>
+                <p>Data catalogs, lineage tracking, quality monitoring, and business glossaries are foundations that good data teams are already building. The difference is that with the rise of AI, they stop being optional nice-to-haves and are becoming the bare minimum for AI models to perform reliably.</p>
 
-                <h2>Something to think about</h2>
+                <p>But having these foundations is not enough on its own. How context is structured matters just as much as whether it exists. A business glossary that lives in a Confluence page works for humans, but AI agents need it to be machine-readable, structured, and unambiguous. For example, a page that says "Revenue: the total income generated by the business" is readable to a person. For an agent, you need it as a structured catalog entry: the field name, how it is calculated, whether it is gross or net, what it excludes, and which system owns it. That level of specificity is what removes ambiguity at inference time.</p>
 
-                <p>Before the next AI project kicks off, it's worth asking: is our data actually ready to be context? Not just accessible, not just clean, but clearly described, correctly scoped, and properly governed. Teams that get this right from the start tend to ship faster and spend less time debugging outputs that are inexplicably wrong.</p>
+                <h2>Something to think more about</h2>
 
-                <p>Data engineers have a bigger role in AI delivery than most product teams realise. Getting them involved early, not just at the pipeline stage, makes the real difference.</p>
+                <p>Before kicking off any AI project, it is worth asking: does the data actually have the right context? Not just accessible, not just clean, but clearly described, correctly scoped, and unambiguous. Getting this right from the start makes it significantly easier to ship reliable AI agents and spend less time debugging outputs that are inexplicably wrong.</p>
+
+                <p>Who should own this? Data engineers are already doing what context engineering asks for, in the sense that they clean and process data to ensure accurate dashboards and reliable model training. With the rise of AI agents, that role extends further. Data engineers have a bigger part to play in delivering reliable AI by ensuring the context surrounding how agents are built is handled carefully and with intention.</p>
 
             </article>
 
