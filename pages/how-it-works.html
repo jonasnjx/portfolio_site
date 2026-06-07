@@ -71,7 +71,7 @@
             <div class="py-10">
                 <p class="font-mono text-xs uppercase tracking-widest mb-2" style="color: var(--muted);">How It Works</p>
                 <h1 class="text-2xl md:text-3xl font-semibold mb-2" style="color: var(--ink);">Baymax Chatbot</h1>
-                <p class="font-serif mb-3" style="color: var(--muted); font-size: 1rem; line-height: 1.7;">Answers questions about me using a curated knowledge base, orchestrated with a self-critique mechanism using LangGraph.</p>
+                <p class="font-serif mb-3" style="color: var(--muted); font-size: 1rem; line-height: 1.7;">Answers questions about me using a chain agentic workflow with self-critique mechanism, orchestrated using LangGraph.</p>
                 <a href="/baymax" class="font-mono text-xs" style="color: var(--accent); text-decoration: none;">Model Eval &rarr;</a>
             </div>
 
@@ -81,28 +81,28 @@
                 <div>
                     <div class="row" style="display:flex;justify-content:space-between;align-items:baseline;gap:1rem;">
                         <div style="min-width:0;">
-                            <p class="font-mono text-sm mb-1" style="color:var(--accent);">retrieve</p>
-                            <p class="text-sm" style="color:var(--muted);line-height:1.55;">Finds the most relevant sections from the knowledge base using keyword matching.</p>
+                            <p class="font-mono text-sm mb-1" style="color:var(--accent);">1. retrieve</p>
+                            <p class="text-sm" style="color:var(--muted);line-height:1.55;">Finds the most relevant sections from knowledge base.</p>
                         </div>
-                        <span class="font-mono text-xs flex-shrink-0" style="color:var(--muted);">No LLM, keyword based</span>
+                        <span class="font-mono text-xs flex-shrink-0" style="color:var(--muted);">keyword based</span>
                     </div>
                     <div class="row" style="display:flex;justify-content:space-between;align-items:baseline;gap:1rem;">
                         <div style="min-width:0;">
-                            <p class="font-mono text-sm mb-1" style="color:var(--accent);">generate</p>
+                            <p class="font-mono text-sm mb-1" style="color:var(--accent);">2. generate</p>
                             <p class="text-sm" style="color:var(--muted);line-height:1.55;">Produces an answer based on the retrieved context.</p>
                         </div>
                         <span class="font-mono text-xs flex-shrink-0" style="color:var(--muted);">LLM: llama-3.3-70b-versatile</span>
                     </div>
                     <div class="row" style="display:flex;justify-content:space-between;align-items:baseline;gap:1rem;">
                         <div style="min-width:0;">
-                            <p class="font-mono text-sm mb-1" style="color:var(--accent);">check</p>
-                            <p class="text-sm" style="color:var(--muted);line-height:1.55;">Reviews its own answer for completeness and accuracy (self-critique).</p>
+                            <p class="font-mono text-sm mb-1" style="color:var(--accent);">3. check</p>
+                            <p class="text-sm" style="color:var(--muted);line-height:1.55;">Reviews own answer for completeness and accuracy.</p>
                         </div>
                         <span class="font-mono text-xs flex-shrink-0" style="color:var(--muted);">LLM: llama-3.3-70b-versatile</span>
                     </div>
                     <div class="row" style="display:flex;justify-content:space-between;align-items:baseline;gap:1rem;border-bottom:1px solid var(--rule);">
                         <div style="min-width:0;">
-                            <p class="font-mono text-sm mb-1" style="color:var(--accent);">revise</p>
+                            <p class="font-mono text-sm mb-1" style="color:var(--accent);">4. revise</p>
                             <p class="text-sm" style="color:var(--muted);line-height:1.55;">If the check finds problems, rewrites the answer.</p>
                         </div>
                         <span class="font-mono text-xs flex-shrink-0" style="color:var(--muted);">LLM: llama-3.3-70b-versatile</span>
