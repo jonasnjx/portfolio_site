@@ -97,11 +97,10 @@
                 <a href="/how-it-works" class="font-mono text-xs" style="color: var(--accent); text-decoration: none;">How Baymax works &rarr;</a>
             </div>
 
-            <!-- Current scores -->
+            <!-- Setup -->
             <section class="mb-10">
-                <p class="font-mono text-xs uppercase tracking-widest mb-1" style="color: var(--muted);">Eval Scores</p>
-                <p class="text-sm mb-4" style="color: var(--muted); line-height: 1.6;">Each answer is scored 1 to 5 using an LLM-as-a-judge.</p>
-                <div style="display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1.5rem;padding-bottom:1.25rem;border-bottom:1px solid var(--rule);">
+                <p class="font-mono text-xs uppercase tracking-widest mb-4" style="color: var(--muted);">Setup</p>
+                <div style="display:flex;flex-direction:column;gap:0.5rem;">
                     <div style="display:flex;gap:1rem;">
                         <span class="font-mono text-xs w-32 flex-shrink-0" style="color:var(--muted);">Judge LLM</span>
                         <span class="text-sm" style="color:var(--ink);">Groq (llama-3.1-8b-instant)</span>
@@ -111,6 +110,12 @@
                         <span class="text-sm" style="color:var(--ink);">8 questions</span>
                     </div>
                 </div>
+            </section>
+
+            <!-- Current scores -->
+            <section class="mb-10">
+                <p class="font-mono text-xs uppercase tracking-widest mb-1" style="color: var(--muted);">Eval Scores</p>
+                <p class="text-sm mb-4" style="color: var(--muted); line-height: 1.6;">Each answer is scored 1 to 5 using an LLM-as-a-judge.</p>
                 <div id="scores-section" style="display:none;">
                     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;">
                         <div class="row" style="border-top:none;padding:0;">
