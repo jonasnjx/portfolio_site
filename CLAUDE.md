@@ -94,7 +94,9 @@ pages/
   casestudies.html                      # Writing index (listed articles with bylines)
   connect.html                          # Contact links
   dashboard.html                        # Live analytics dashboard (Chart.js, polls /stats every 30s)
+  baymax.html                           # Baymax model evaluation card (reads eval JSON from GitHub raw)
   writings/                             # Article files (folder is writings/, URLs stay /casestudies/*)
+    enterprise-data-catalog-2026.html   # Article: 4 min read
     portfolio-analytics-2026.html       # Article: 2 min read
     baymax-ai-assistant-2026.html       # Article: 3 min read
     context-engineering-2026.html       # Article: 2 min read
@@ -103,7 +105,8 @@ pages/
 **Routes** (must be in both `server.js` and `vercel.json`):
 - `/` → `index.html`
 - `/home` → `pages/home.html`
-- `/resume`, `/projects`, `/casestudies`, `/connect`, `/dashboard` → corresponding pages
+- `/resume`, `/projects`, `/casestudies`, `/connect`, `/dashboard`, `/baymax` → corresponding pages
+- `/casestudies/enterprise-data-catalog-2026` → `pages/writings/enterprise-data-catalog-2026.html`
 - `/casestudies/portfolio-analytics-2026` → `pages/writings/portfolio-analytics-2026.html`
 - `/casestudies/baymax-ai-assistant-2026` → `pages/writings/baymax-ai-assistant-2026.html`
 - `/casestudies/context-engineering-2026` → `pages/writings/context-engineering-2026.html`
@@ -126,5 +129,18 @@ Article URLs use the `/casestudies/` prefix for backward compatibility; the phys
 - Event types: `page_view`, `room_enter`, `object_click`, etc.
 - The 3D room fires `room_enter` and `object_click` events manually via `paTrack()` calls in `world/main.js`
 - Analytics pipeline lives in a separate repo (`portfolio_analytics`): QStash → `/consume` → Redis → `/stats` → dashboard
+
+---
+
+### Baymax model evaluation card (`/baymax`)
+
+`pages/baymax.html` is a public model evaluation card for the Baymax chatbot. It is a read-only dashboard that fetches eval results directly from the `portfolio_ai_assistant` repo via GitHub raw URLs (no backend, no DB).
+
+- Data source: `https://raw.githubusercontent.com/jonasnjx/portfolio_ai_assistant/master/eval/{index.json, changelog.json, results/<runId>.json}`
+- Fetches use cache-busting (`?t=<ts>` + `cache: 'no-store'`) so the latest run always shows. GitHub raw CDN still caches ~5 min after a push.
+- Shows: current scores (overall/accuracy/relevance/conciseness with hover tooltips), eval setup (LangGraph pipeline, generator/judge models, question count), and an expandable run history (per-question scores, latency, full answer, judge reasoning).
+- Discovery: "Model Card →" link in the chatbot widget header (`assets/chatbot.js`) and a "Baymax Model Card →" link on the analytics dashboard header.
+
+The eval pipeline itself (LangGraph agent, LLM-as-judge, golden dataset, runner, compare) lives in `portfolio_ai_assistant/eval/`. Jonas runs `node eval/run.js` locally after a meaningful change, adds a one-line note to `eval/changelog.json`, and commits. The card updates automatically on push.
 
 **Writing style rule:** no long dashes (em or en). Use commas, colons, or parentheses instead.
