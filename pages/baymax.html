@@ -307,13 +307,7 @@
         function buildRunDetail(runData, runMeta) {
             const configHtml = `
                 <div style="padding:1rem;border-bottom:1px solid var(--rule);">
-                    <p class="font-mono text-xs uppercase tracking-widest mb-2" style="color:var(--muted);">Pipeline config</p>
-                    <div style="display:flex;flex-direction:column;gap:0.3rem;">
-                        <div style="display:flex;gap:1rem;"><span class="font-mono text-xs w-24 flex-shrink-0" style="color:var(--muted);">Generator</span><span class="text-sm" style="color:var(--ink);">${runData.genModel}</span></div>
-                        <div style="display:flex;gap:1rem;"><span class="font-mono text-xs w-24 flex-shrink-0" style="color:var(--muted);">Judge</span><span class="text-sm" style="color:var(--ink);">${runData.judgeModel}</span></div>
-                        <div style="display:flex;gap:1rem;"><span class="font-mono text-xs w-24 flex-shrink-0" style="color:var(--muted);">Self-critique</span><span class="text-sm" style="color:var(--ink);">${runData.critique ? 'enabled (check → revise)' : 'disabled'}</span></div>
-                        <div style="display:flex;gap:1rem;"><span class="font-mono text-xs w-24 flex-shrink-0" style="color:var(--muted);">Nodes</span><span class="text-sm" style="color:var(--ink);">retrieve → generate${runData.critique ? ' → check → revise' : ''}</span></div>
-                    </div>
+                    <div style="display:flex;gap:1rem;"><span class="font-mono text-xs w-24 flex-shrink-0" style="color:var(--muted);">Judge LLM</span><span class="text-sm" style="color:var(--ink);">${runData.judgeModel}</span></div>
                 </div>`;
 
             const questions = runData.perQuestion.filter(q => q.scores).map(q => {
