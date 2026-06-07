@@ -130,7 +130,7 @@
                 <div style="display:flex;flex-direction:column;gap:0.5rem;">
                     <div style="display:flex;gap:1rem;">
                         <span class="font-mono text-xs w-32 flex-shrink-0" style="color:var(--muted);">Pipeline</span>
-                        <span class="text-sm" style="color:var(--ink);">LangGraph (<span class="metric" tabindex="0">retrieve<span class="metric-tip">Finds the most relevant sections of the knowledge base for the question using keyword matching.</span></span> → <span class="metric" tabindex="0">generate<span class="metric-tip">Calls the LLM (Groq) to produce an answer using only the retrieved context.</span></span> → <span class="metric" tabindex="0">check<span class="metric-tip">Reviews the generated answer for completeness and accuracy before it is finalised.</span></span>)</span>
+                        <span class="text-sm" style="color:var(--ink);">LangGraph (<span class="metric" tabindex="0">retrieve<span class="metric-tip">Finds the most relevant sections from the knowledge base using keyword matching.</span></span> → <span class="metric" tabindex="0">generate<span class="metric-tip">Calls the LLM to produce an answer based on the retrieved context.</span></span> → <span class="metric" tabindex="0">check<span class="metric-tip">The model reviews its own answer for completeness and accuracy (self-critique).</span></span> → <span class="metric" tabindex="0">revise<span class="metric-tip">If the check finds problems, the model rewrites the answer once to fix them.</span></span>)</span>
                     </div>
                     <div style="display:flex;gap:1rem;">
                         <span class="font-mono text-xs w-32 flex-shrink-0" style="color:var(--muted);">Generator</span>
@@ -285,7 +285,8 @@
                     <div style="display:flex;flex-direction:column;gap:0.3rem;">
                         <div style="display:flex;gap:1rem;"><span class="font-mono text-xs w-24 flex-shrink-0" style="color:var(--muted);">Generator</span><span class="text-sm" style="color:var(--ink);">${runData.genModel}</span></div>
                         <div style="display:flex;gap:1rem;"><span class="font-mono text-xs w-24 flex-shrink-0" style="color:var(--muted);">Judge</span><span class="text-sm" style="color:var(--ink);">${runData.judgeModel}</span></div>
-                        <div style="display:flex;gap:1rem;"><span class="font-mono text-xs w-24 flex-shrink-0" style="color:var(--muted);">Nodes</span><span class="text-sm" style="color:var(--ink);">retrieve → generate → check${runData.critique ? ' → revise' : ''}</span></div>
+                        <div style="display:flex;gap:1rem;"><span class="font-mono text-xs w-24 flex-shrink-0" style="color:var(--muted);">Self-critique</span><span class="text-sm" style="color:var(--ink);">${runData.critique ? 'enabled (check → revise)' : 'disabled'}</span></div>
+                        <div style="display:flex;gap:1rem;"><span class="font-mono text-xs w-24 flex-shrink-0" style="color:var(--muted);">Nodes</span><span class="text-sm" style="color:var(--ink);">retrieve → generate${runData.critique ? ' → check → revise' : ''}</span></div>
                     </div>
                 </div>`;
 
