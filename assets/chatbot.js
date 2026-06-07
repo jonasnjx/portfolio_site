@@ -11,9 +11,9 @@
     </div>
     <div id="ai-chat-panel">
       <div id="ai-chat-header">
-        <span>Jonas's Assistant</span>
+        <span>Baymax AI Chatbot</span>
         <div style="display:flex;align-items:center;gap:0.7rem;">
-          <a href="/baymax" target="_blank" id="ai-chat-modelcard">Model Card &#8594;</a>
+          <a href="/baymax" target="_blank" id="ai-chat-modelcard">Model Eval &#8594;</a>
           <button id="ai-chat-close">&times;</button>
         </div>
       </div>
