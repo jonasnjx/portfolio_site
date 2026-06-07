@@ -12,17 +12,22 @@
     <div id="ai-chat-panel">
       <div id="ai-chat-header">
         <span>Baymax AI Chatbot</span>
-        <div style="display:flex;align-items:center;gap:0.7rem;">
-          <a href="/baymax" target="_blank" id="ai-chat-modelcard">Model Eval &#8594;</a>
-          <button id="ai-chat-close">&times;</button>
-        </div>
+        <button id="ai-chat-close">&times;</button>
       </div>
       <div id="ai-chat-msgs">
-        <div class="ai-msg ai-bot">Hi! Ask anything about my background, experience, or projects. I'll answer your questions as accurately as I can.</div>
+        <div class="ai-msg ai-bot">Hi! Ask me a question about my background, experience, or projects.</div>
       </div>
       <div id="ai-chat-form">
         <input id="ai-chat-input" type="text" placeholder="Ask a question..." autocomplete="off" />
         <button id="ai-chat-send">&#8594;</button>
+      </div>
+      <div id="ai-chat-foot">
+        <div id="ai-chat-links">
+          <a href="/baymax#how-it-works" target="_blank">How it works</a>
+          <span style="color:var(--rule,#e2ded5);">&middot;</span>
+          <a href="/baymax" target="_blank">Model Eval &#8594;</a>
+        </div>
+        <p id="ai-chat-disclaimer">Responses are AI-generated, please verify important details.</p>
       </div>
     </div>
     <style>
@@ -49,7 +54,7 @@
       #ai-chat-btn:hover { opacity: 0.85; }
       #ai-chat-panel {
         display: none; position: fixed; bottom: 6rem; right: 1.5rem; z-index: 9999;
-        width: 320px; height: 420px;
+        width: 320px; height: 460px;
         background: var(--paper, var(--cb-paper));
         border: 1px solid var(--rule, var(--cb-rule));
         border-radius: 8px; flex-direction: column;
@@ -69,12 +74,23 @@
         color: var(--muted, var(--cb-muted)); line-height: 1; padding: 0 0.2rem;
       }
       #ai-chat-close:hover { color: var(--ink, var(--cb-ink)); }
-      #ai-chat-modelcard {
+      #ai-chat-foot {
+        padding: 0.55rem 1rem 0.7rem;
+        border-top: 1px solid var(--rule, var(--cb-rule));
+      }
+      #ai-chat-links {
+        display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.3rem;
+      }
+      #ai-chat-links a {
         font-family: 'JetBrains Mono', monospace; font-size: 0.62rem;
         color: var(--muted, var(--cb-muted)); text-decoration: none;
         letter-spacing: 0.02em; white-space: nowrap;
       }
-      #ai-chat-modelcard:hover { color: var(--accent, var(--cb-accent)); }
+      #ai-chat-links a:hover { color: var(--accent, var(--cb-accent)); }
+      #ai-chat-disclaimer {
+        font-family: 'JetBrains Mono', monospace; font-size: 0.56rem;
+        color: var(--muted, var(--cb-muted)); line-height: 1.4; margin: 0; opacity: 0.8;
+      }
       #ai-chat-msgs {
         flex: 1; overflow-y: auto; padding: 1rem;
         display: flex; flex-direction: column; gap: 0.75rem;
