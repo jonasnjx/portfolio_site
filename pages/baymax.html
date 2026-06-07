@@ -39,6 +39,15 @@
         .q-row:hover { background: rgba(0,0,0,0.02); }
         .q-detail { display: none; padding: 0.75rem 1rem; background: rgba(247,245,240,0.5); border-top: 1px solid var(--rule); }
         .q-detail.open { display: block; }
+        .metric { position: relative; color: var(--accent); border-bottom: 1px dotted var(--accent); cursor: help; outline: none; }
+        .metric-tip {
+            visibility: hidden; opacity: 0; position: absolute; left: 0; bottom: 140%; z-index: 20;
+            width: 230px; padding: 0.5rem 0.65rem; border-radius: 4px;
+            background: var(--ink); color: var(--paper); font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.72rem; line-height: 1.5; font-weight: 400;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.15); transition: opacity 0.15s;
+        }
+        .metric:hover .metric-tip, .metric:focus .metric-tip { visibility: visible; opacity: 1; }
     </style>
 </head>
 <body class="min-h-screen font-sans">
@@ -81,9 +90,9 @@
         <div class="max-w-2xl mx-auto">
 
             <div class="py-10">
-                <p class="font-mono text-xs uppercase tracking-widest mb-2" style="color: var(--muted);">Model Card</p>
-                <h1 class="text-2xl md:text-3xl font-semibold mb-2" style="color: var(--ink);">Baymax</h1>
-                <p class="font-serif" style="color: var(--muted); font-size: 1rem; line-height: 1.7;">An AI assistant that answers questions about Jonas's background. Evaluated regularly to track quality as the knowledge base grows.</p>
+                <p class="font-mono text-xs uppercase tracking-widest mb-2" style="color: var(--muted);">Model Evaluation Card</p>
+                <h1 class="text-2xl md:text-3xl font-semibold mb-2" style="color: var(--ink);">Baymax AI</h1>
+                <p class="font-serif" style="color: var(--muted); font-size: 1rem; line-height: 1.7;">Chatbot that answers questions about my background. Evaluated regularly to track quality of answers as the knowledge base grows.</p>
             </div>
 
             <!-- Current scores -->
@@ -128,22 +137,26 @@
                     </div>
                     <div style="display:flex;gap:1rem;">
                         <span class="font-mono text-xs w-32 flex-shrink-0" style="color:var(--muted);">Judge</span>
-                        <span class="text-sm" style="color:var(--ink);">llama-3.1-8b-instant (Groq, separate model to reduce self-preference bias)</span>
+                        <span class="text-sm" style="color:var(--ink);">llama-3.1-8b-instant (Groq)</span>
                     </div>
                     <div style="display:flex;gap:1rem;">
                         <span class="font-mono text-xs w-32 flex-shrink-0" style="color:var(--muted);">Questions</span>
-                        <span class="text-sm" style="color:var(--ink);">8 (covers bio, experience, projects, writing, out-of-scope)</span>
+                        <span class="text-sm" style="color:var(--ink);">8</span>
                     </div>
                     <div style="display:flex;gap:1rem;">
                         <span class="font-mono text-xs w-32 flex-shrink-0" style="color:var(--muted);">Scoring</span>
-                        <span class="text-sm" style="color:var(--ink);">Accuracy, Relevance, Conciseness — each 1 to 5</span>
+                        <span class="text-sm" style="color:var(--ink);">Each answer scored 1 to 5 on:
+                            <span class="metric" tabindex="0">Accuracy<span class="metric-tip">Whether the answer's facts match the reference and knowledge base, with no invented details.</span></span>,
+                            <span class="metric" tabindex="0">Relevance<span class="metric-tip">Whether the answer actually addresses the question asked.</span></span>,
+                            <span class="metric" tabindex="0">Conciseness<span class="metric-tip">Whether the answer is appropriately brief, without padding or rambling.</span></span>
+                        </span>
                     </div>
                 </div>
             </section>
 
             <!-- Run history -->
             <section>
-                <p class="font-mono text-xs uppercase tracking-widest mb-4" style="color: var(--muted);">Run history</p>
+                <p class="font-mono text-xs uppercase tracking-widest mb-4" style="color: var(--muted);">Evaluation Run History</p>
                 <div id="run-history">
                     <p class="font-mono text-xs" style="color:var(--muted);">Loading...</p>
                 </div>
