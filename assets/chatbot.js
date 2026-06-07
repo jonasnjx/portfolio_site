@@ -12,7 +12,10 @@
     <div id="ai-chat-panel">
       <div id="ai-chat-header">
         <span>Jonas's Assistant</span>
-        <button id="ai-chat-close">&times;</button>
+        <div style="display:flex;align-items:center;gap:0.7rem;">
+          <a href="/baymax" target="_blank" id="ai-chat-modelcard">Model Card &#8594;</a>
+          <button id="ai-chat-close">&times;</button>
+        </div>
       </div>
       <div id="ai-chat-msgs">
         <div class="ai-msg ai-bot">Hi! Ask me anything about my background, experience, or projects.</div>
@@ -66,6 +69,12 @@
         color: var(--muted, var(--cb-muted)); line-height: 1; padding: 0 0.2rem;
       }
       #ai-chat-close:hover { color: var(--ink, var(--cb-ink)); }
+      #ai-chat-modelcard {
+        font-family: 'JetBrains Mono', monospace; font-size: 0.62rem;
+        color: var(--muted, var(--cb-muted)); text-decoration: none;
+        letter-spacing: 0.02em; white-space: nowrap;
+      }
+      #ai-chat-modelcard:hover { color: var(--accent, var(--cb-accent)); }
       #ai-chat-msgs {
         flex: 1; overflow-y: auto; padding: 1rem;
         display: flex; flex-direction: column; gap: 0.75rem;
