@@ -91,58 +91,84 @@
         <div class="max-w-2xl mx-auto">
 
             <div class="py-10">
-                <p class="font-mono text-xs uppercase tracking-widest mb-2" style="color: var(--muted);">Model Evaluation Card</p>
-                <h1 class="text-2xl md:text-3xl font-semibold mb-2" style="color: var(--ink);">Baymax AI</h1>
-                <p class="font-serif" style="color: var(--muted); font-size: 1rem; line-height: 1.7;">Chatbot that answers questions about my background. Evaluated regularly to track quality of answers as the knowledge base grows.</p>
+                <p class="font-mono text-xs uppercase tracking-widest mb-2" style="color: var(--muted);">Model Evaluation Dashboard</p>
+                <h1 class="text-2xl md:text-3xl font-semibold mb-2" style="color: var(--ink);">Baymax AI Chatbot</h1>
+                <p class="font-serif" style="color: var(--muted); font-size: 1rem; line-height: 1.7;">Evaluated regularly to track quality of answers of the chatbot over time.</p>
             </div>
 
-            <!-- Current scores -->
-            <section id="scores-section" class="mb-10" style="display:none;">
-                <p class="font-mono text-xs uppercase tracking-widest mb-4" style="color: var(--muted);">Current scores</p>
-                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;">
-                    <div class="row" style="border-top:none;padding:0;">
-                        <p class="font-mono text-xs mb-1" style="color: var(--muted);"><span class="metric metric-muted" tabindex="0">Overall<span class="metric-tip">The mean of accuracy, relevance, and conciseness.</span></span></p>
-                        <p id="score-overall" class="text-2xl font-semibold" style="color:var(--ink);">...</p>
-                        <p class="font-mono text-xs" style="color:var(--muted);">/ 5</p>
+            <!-- How responses are generated -->
+            <section class="mb-10">
+                <p class="font-mono text-xs uppercase tracking-widest mb-1" style="color: var(--muted);">How responses are generated</p>
+                <p class="text-sm mb-5" style="color: var(--muted); line-height: 1.6;">Each question flows through a LangGraph pipeline. Self-critique is enabled, so the chatbot reviews and can revise its own answer before replying.</p>
+                <div>
+                    <div class="row" style="display:flex;justify-content:space-between;align-items:baseline;gap:1rem;">
+                        <div style="min-width:0;">
+                            <p class="font-mono text-sm mb-1" style="color:var(--accent);">retrieve</p>
+                            <p class="text-sm" style="color:var(--muted);line-height:1.55;">Finds the most relevant sections from the knowledge base using keyword matching.</p>
+                        </div>
+                        <span class="font-mono text-xs flex-shrink-0" style="color:var(--muted);">keyword based</span>
                     </div>
-                    <div class="row" style="border-top:none;padding:0;">
-                        <p class="font-mono text-xs mb-1" style="color: var(--muted);"><span class="metric metric-muted" tabindex="0">Accuracy<span class="metric-tip">Whether the answer's facts match the reference and knowledge base, with no invented details.</span></span></p>
-                        <p id="score-accuracy" class="text-2xl font-semibold" style="color:var(--ink);">...</p>
-                        <p class="font-mono text-xs" style="color:var(--muted);">/ 5</p>
+                    <div class="row" style="display:flex;justify-content:space-between;align-items:baseline;gap:1rem;">
+                        <div style="min-width:0;">
+                            <p class="font-mono text-sm mb-1" style="color:var(--accent);">generate</p>
+                            <p class="text-sm" style="color:var(--muted);line-height:1.55;">Produces an answer based on the retrieved context.</p>
+                        </div>
+                        <span class="font-mono text-xs flex-shrink-0" style="color:var(--muted);">llama-3.3-70b-versatile</span>
                     </div>
-                    <div class="row" style="border-top:none;padding:0;">
-                        <p class="font-mono text-xs mb-1" style="color: var(--muted);"><span class="metric metric-muted" tabindex="0">Relevance<span class="metric-tip">Whether the answer actually addresses the question asked.</span></span></p>
-                        <p id="score-relevance" class="text-2xl font-semibold" style="color:var(--ink);">...</p>
-                        <p class="font-mono text-xs" style="color:var(--muted);">/ 5</p>
+                    <div class="row" style="display:flex;justify-content:space-between;align-items:baseline;gap:1rem;">
+                        <div style="min-width:0;">
+                            <p class="font-mono text-sm mb-1" style="color:var(--accent);">check</p>
+                            <p class="text-sm" style="color:var(--muted);line-height:1.55;">Reviews its own answer for completeness and accuracy (self-critique).</p>
+                        </div>
+                        <span class="font-mono text-xs flex-shrink-0" style="color:var(--muted);">llama-3.3-70b-versatile</span>
                     </div>
-                    <div class="row" style="border-top:none;padding:0;">
-                        <p class="font-mono text-xs mb-1" style="color: var(--muted);"><span class="metric metric-muted" tabindex="0">Conciseness<span class="metric-tip">Whether the answer is appropriately brief, without padding or rambling.</span></span></p>
-                        <p id="score-conciseness" class="text-2xl font-semibold" style="color:var(--ink);">...</p>
-                        <p class="font-mono text-xs" style="color:var(--muted);">/ 5</p>
+                    <div class="row" style="display:flex;justify-content:space-between;align-items:baseline;gap:1rem;border-bottom:1px solid var(--rule);">
+                        <div style="min-width:0;">
+                            <p class="font-mono text-sm mb-1" style="color:var(--accent);">revise</p>
+                            <p class="text-sm" style="color:var(--muted);line-height:1.55;">If the check finds problems, rewrites the answer once to fix them.</p>
+                        </div>
+                        <span class="font-mono text-xs flex-shrink-0" style="color:var(--muted);">llama-3.3-70b-versatile</span>
                     </div>
                 </div>
-                <p id="score-meta" class="font-mono text-xs mt-4" style="color:var(--muted);"></p>
             </section>
 
-            <!-- Eval setup -->
+            <!-- Current scores -->
             <section class="mb-10">
-                <p class="font-mono text-xs uppercase tracking-widest mb-4" style="color: var(--muted);">Eval setup</p>
-                <div style="display:flex;flex-direction:column;gap:0.5rem;">
-                    <div style="display:flex;gap:1rem;">
-                        <span class="font-mono text-xs w-32 flex-shrink-0" style="color:var(--muted);">Pipeline</span>
-                        <span class="text-sm" style="color:var(--ink);">LangGraph (<span class="metric" tabindex="0">retrieve<span class="metric-tip">Finds the most relevant sections from the knowledge base using keyword matching.</span></span> → <span class="metric" tabindex="0">generate<span class="metric-tip">Calls the LLM to produce an answer based on the retrieved context.</span></span> → <span class="metric" tabindex="0">check<span class="metric-tip">The model reviews its own answer for completeness and accuracy (self-critique).</span></span> → <span class="metric" tabindex="0">revise<span class="metric-tip">If the check finds problems, the model rewrites the answer once to fix them.</span></span>)</span>
+                <p class="font-mono text-xs uppercase tracking-widest mb-1" style="color: var(--muted);">Current scores</p>
+                <p class="text-sm mb-4" style="color: var(--muted); line-height: 1.6;">Each answer is scored 1 to 5 using an LLM-as-a-judge.</p>
+                <div id="scores-section" style="display:none;">
+                    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;">
+                        <div class="row" style="border-top:none;padding:0;">
+                            <p class="font-mono text-xs mb-1" style="color: var(--muted);"><span class="metric metric-muted" tabindex="0">Overall<span class="metric-tip">The mean of accuracy, relevance, and conciseness.</span></span></p>
+                            <p id="score-overall" class="text-2xl font-semibold" style="color:var(--ink);">...</p>
+                            <p class="font-mono text-xs" style="color:var(--muted);">/ 5</p>
+                        </div>
+                        <div class="row" style="border-top:none;padding:0;">
+                            <p class="font-mono text-xs mb-1" style="color: var(--muted);"><span class="metric metric-muted" tabindex="0">Accuracy<span class="metric-tip">Whether the answer's facts match the reference and knowledge base, with no invented details.</span></span></p>
+                            <p id="score-accuracy" class="text-2xl font-semibold" style="color:var(--ink);">...</p>
+                            <p class="font-mono text-xs" style="color:var(--muted);">/ 5</p>
+                        </div>
+                        <div class="row" style="border-top:none;padding:0;">
+                            <p class="font-mono text-xs mb-1" style="color: var(--muted);"><span class="metric metric-muted" tabindex="0">Relevance<span class="metric-tip">Whether the answer actually addresses the question asked.</span></span></p>
+                            <p id="score-relevance" class="text-2xl font-semibold" style="color:var(--ink);">...</p>
+                            <p class="font-mono text-xs" style="color:var(--muted);">/ 5</p>
+                        </div>
+                        <div class="row" style="border-top:none;padding:0;">
+                            <p class="font-mono text-xs mb-1" style="color: var(--muted);"><span class="metric metric-muted" tabindex="0">Conciseness<span class="metric-tip">Whether the answer is appropriately brief, without padding or rambling.</span></span></p>
+                            <p id="score-conciseness" class="text-2xl font-semibold" style="color:var(--ink);">...</p>
+                            <p class="font-mono text-xs" style="color:var(--muted);">/ 5</p>
+                        </div>
                     </div>
+                    <p id="score-meta" class="font-mono text-xs mt-4" style="color:var(--muted);"></p>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:0.4rem;margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--rule);">
                     <div style="display:flex;gap:1rem;">
-                        <span class="font-mono text-xs w-32 flex-shrink-0" style="color:var(--muted);">Generator</span>
-                        <span class="text-sm" style="color:var(--ink);">llama-3.3-70b-versatile (Groq)</span>
-                    </div>
-                    <div style="display:flex;gap:1rem;">
-                        <span class="font-mono text-xs w-32 flex-shrink-0" style="color:var(--muted);">Judge</span>
+                        <span class="font-mono text-xs w-32 flex-shrink-0" style="color:var(--muted);">Judge LLM</span>
                         <span class="text-sm" style="color:var(--ink);">llama-3.1-8b-instant (Groq)</span>
                     </div>
                     <div style="display:flex;gap:1rem;">
-                        <span class="font-mono text-xs w-32 flex-shrink-0" style="color:var(--muted);">Questions</span>
-                        <span class="text-sm" style="color:var(--ink);">8</span>
+                        <span class="font-mono text-xs w-32 flex-shrink-0" style="color:var(--muted);">Golden dataset</span>
+                        <span class="text-sm" style="color:var(--ink);">8 questions</span>
                     </div>
                 </div>
             </section>
