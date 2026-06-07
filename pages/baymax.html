@@ -40,11 +40,12 @@
         .q-detail { display: none; padding: 0.75rem 1rem; background: rgba(247,245,240,0.5); border-top: 1px solid var(--rule); }
         .q-detail.open { display: block; }
         .metric { position: relative; color: var(--accent); border-bottom: 1px dotted var(--accent); cursor: help; outline: none; }
+        .metric.metric-muted { color: var(--muted); border-bottom-color: var(--muted); }
         .metric-tip {
-            visibility: hidden; opacity: 0; position: absolute; left: 0; bottom: 140%; z-index: 20;
-            width: 230px; padding: 0.5rem 0.65rem; border-radius: 4px;
+            visibility: hidden; opacity: 0; position: absolute; left: 50%; transform: translateX(-50%); top: 160%; z-index: 20;
+            width: 200px; padding: 0.5rem 0.65rem; border-radius: 4px;
             background: var(--ink); color: var(--paper); font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.72rem; line-height: 1.5; font-weight: 400;
+            font-size: 0.72rem; line-height: 1.5; font-weight: 400; text-transform: none; letter-spacing: normal;
             box-shadow: 0 2px 12px rgba(0,0,0,0.15); transition: opacity 0.15s;
         }
         .metric:hover .metric-tip, .metric:focus .metric-tip { visibility: visible; opacity: 1; }
@@ -100,22 +101,22 @@
                 <p class="font-mono text-xs uppercase tracking-widest mb-4" style="color: var(--muted);">Current scores</p>
                 <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;">
                     <div class="row" style="border-top:none;padding:0;">
-                        <p class="font-mono text-xs mb-1" style="color: var(--muted);">Overall</p>
+                        <p class="font-mono text-xs mb-1" style="color: var(--muted);"><span class="metric metric-muted" tabindex="0">Overall<span class="metric-tip">The mean of accuracy, relevance, and conciseness.</span></span></p>
                         <p id="score-overall" class="text-2xl font-semibold" style="color:var(--ink);">...</p>
                         <p class="font-mono text-xs" style="color:var(--muted);">/ 5</p>
                     </div>
                     <div class="row" style="border-top:none;padding:0;">
-                        <p class="font-mono text-xs mb-1" style="color: var(--muted);">Accuracy</p>
+                        <p class="font-mono text-xs mb-1" style="color: var(--muted);"><span class="metric metric-muted" tabindex="0">Accuracy<span class="metric-tip">Whether the answer's facts match the reference and knowledge base, with no invented details.</span></span></p>
                         <p id="score-accuracy" class="text-2xl font-semibold" style="color:var(--ink);">...</p>
                         <p class="font-mono text-xs" style="color:var(--muted);">/ 5</p>
                     </div>
                     <div class="row" style="border-top:none;padding:0;">
-                        <p class="font-mono text-xs mb-1" style="color: var(--muted);">Relevance</p>
+                        <p class="font-mono text-xs mb-1" style="color: var(--muted);"><span class="metric metric-muted" tabindex="0">Relevance<span class="metric-tip">Whether the answer actually addresses the question asked.</span></span></p>
                         <p id="score-relevance" class="text-2xl font-semibold" style="color:var(--ink);">...</p>
                         <p class="font-mono text-xs" style="color:var(--muted);">/ 5</p>
                     </div>
                     <div class="row" style="border-top:none;padding:0;">
-                        <p class="font-mono text-xs mb-1" style="color: var(--muted);">Conciseness</p>
+                        <p class="font-mono text-xs mb-1" style="color: var(--muted);"><span class="metric metric-muted" tabindex="0">Conciseness<span class="metric-tip">Whether the answer is appropriately brief, without padding or rambling.</span></span></p>
                         <p id="score-conciseness" class="text-2xl font-semibold" style="color:var(--ink);">...</p>
                         <p class="font-mono text-xs" style="color:var(--muted);">/ 5</p>
                     </div>
@@ -129,7 +130,7 @@
                 <div style="display:flex;flex-direction:column;gap:0.5rem;">
                     <div style="display:flex;gap:1rem;">
                         <span class="font-mono text-xs w-32 flex-shrink-0" style="color:var(--muted);">Pipeline</span>
-                        <span class="text-sm" style="color:var(--ink);">LangGraph (retrieve → generate → check)</span>
+                        <span class="text-sm" style="color:var(--ink);">LangGraph (<span class="metric" tabindex="0">retrieve<span class="metric-tip">Finds the most relevant sections of the knowledge base for the question using keyword matching.</span></span> → <span class="metric" tabindex="0">generate<span class="metric-tip">Calls the LLM (Groq) to produce an answer using only the retrieved context.</span></span> → <span class="metric" tabindex="0">check<span class="metric-tip">Reviews the generated answer for completeness and accuracy before it is finalised.</span></span>)</span>
                     </div>
                     <div style="display:flex;gap:1rem;">
                         <span class="font-mono text-xs w-32 flex-shrink-0" style="color:var(--muted);">Generator</span>
@@ -142,14 +143,6 @@
                     <div style="display:flex;gap:1rem;">
                         <span class="font-mono text-xs w-32 flex-shrink-0" style="color:var(--muted);">Questions</span>
                         <span class="text-sm" style="color:var(--ink);">8</span>
-                    </div>
-                    <div style="display:flex;gap:1rem;">
-                        <span class="font-mono text-xs w-32 flex-shrink-0" style="color:var(--muted);">Scoring</span>
-                        <span class="text-sm" style="color:var(--ink);">Each answer scored 1 to 5 on:
-                            <span class="metric" tabindex="0">Accuracy<span class="metric-tip">Whether the answer's facts match the reference and knowledge base, with no invented details.</span></span>,
-                            <span class="metric" tabindex="0">Relevance<span class="metric-tip">Whether the answer actually addresses the question asked.</span></span>,
-                            <span class="metric" tabindex="0">Conciseness<span class="metric-tip">Whether the answer is appropriately brief, without padding or rambling.</span></span>
-                        </span>
                     </div>
                 </div>
             </section>
