@@ -101,6 +101,16 @@
             <section class="mb-10">
                 <p class="font-mono text-xs uppercase tracking-widest mb-1" style="color: var(--muted);">Eval Scores</p>
                 <p class="text-sm mb-4" style="color: var(--muted); line-height: 1.6;">Each answer is scored 1 to 5 using an LLM-as-a-judge.</p>
+                <div style="display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1.5rem;padding-bottom:1.25rem;border-bottom:1px solid var(--rule);">
+                    <div style="display:flex;gap:1rem;">
+                        <span class="font-mono text-xs w-32 flex-shrink-0" style="color:var(--muted);">Judge LLM</span>
+                        <span class="text-sm" style="color:var(--ink);">Groq (llama-3.1-8b-instant)</span>
+                    </div>
+                    <div style="display:flex;gap:1rem;">
+                        <span class="font-mono text-xs w-32 flex-shrink-0" style="color:var(--muted);">Golden dataset</span>
+                        <span class="text-sm" style="color:var(--ink);">8 questions</span>
+                    </div>
+                </div>
                 <div id="scores-section" style="display:none;">
                     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;">
                         <div class="row" style="border-top:none;padding:0;">
@@ -125,16 +135,6 @@
                         </div>
                     </div>
                     <p id="score-meta" class="font-mono text-xs mt-4" style="color:var(--muted);"></p>
-                </div>
-                <div style="display:flex;flex-direction:column;gap:0.4rem;margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--rule);">
-                    <div style="display:flex;gap:1rem;">
-                        <span class="font-mono text-xs w-32 flex-shrink-0" style="color:var(--muted);">Judge LLM</span>
-                        <span class="text-sm" style="color:var(--ink);">Groq (llama-3.1-8b-instant)</span>
-                    </div>
-                    <div style="display:flex;gap:1rem;">
-                        <span class="font-mono text-xs w-32 flex-shrink-0" style="color:var(--muted);">Golden dataset</span>
-                        <span class="text-sm" style="color:var(--ink);">8 questions</span>
-                    </div>
                 </div>
             </section>
 
@@ -173,8 +173,13 @@
         const REPO = 'https://raw.githubusercontent.com/jonasnjx/portfolio_ai_assistant/master/eval';
 
         function scorePill(score) {
-            const cls = score >= 4.5 ? 'score-high' : score >= 3 ? 'score-mid' : 'score-low';
+            const cls = score >= 4.5 ? 'score-high' : score >= 3.5 ? 'score-mid' : 'score-low';
             return `<span class="score-pill ${cls}">${score.toFixed(2)}</span>`;
+        }
+
+        // Green 4.5-5, orange 3.5-4.5, red below 3.5
+        function scoreColor(score) {
+            return score >= 4.5 ? '#166534' : score >= 3.5 ? '#b45309' : '#991b1b';
         }
 
         function delta(curr, prev) {
@@ -214,10 +219,11 @@
             const latest = await loadRun(runs[0].runId);
             const agg = latest.aggregate;
 
-            document.getElementById('score-overall').textContent = agg.overall.toFixed(2);
-            document.getElementById('score-accuracy').textContent = agg.accuracy.toFixed(2);
-            document.getElementById('score-relevance').textContent = agg.relevance.toFixed(2);
-            document.getElementById('score-conciseness').textContent = agg.conciseness.toFixed(2);
+            [['score-overall', agg.overall], ['score-accuracy', agg.accuracy], ['score-relevance', agg.relevance], ['score-conciseness', agg.conciseness]].forEach(([id, val]) => {
+                const el = document.getElementById(id);
+                el.textContent = val.toFixed(2);
+                el.style.color = scoreColor(val);
+            });
             document.getElementById('score-meta').textContent =
                 `Last run: ${formatDate(runs[0].runId)} · ${agg.scoredQuestions} questions scored`;
             document.getElementById('scores-section').style.display = '';
