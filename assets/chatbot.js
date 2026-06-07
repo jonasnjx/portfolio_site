@@ -11,8 +11,13 @@
     </div>
     <div id="ai-chat-panel">
       <div id="ai-chat-header">
-        <span>Baymax AI Chatbot</span>
+        <span>Baymax Chatbot</span>
         <button id="ai-chat-close">&times;</button>
+      </div>
+      <div id="ai-chat-links">
+        <a href="/how-it-works" target="_blank">How it works</a>
+        <span style="color:var(--rule,#e2ded5);">&middot;</span>
+        <a href="/baymax" target="_blank">Model Eval &#8594;</a>
       </div>
       <div id="ai-chat-msgs">
         <div class="ai-msg ai-bot">Hi! Ask me a question about my background, experience, or projects.</div>
@@ -22,12 +27,7 @@
         <button id="ai-chat-send">&#8594;</button>
       </div>
       <div id="ai-chat-foot">
-        <div id="ai-chat-links">
-          <a href="/how-it-works" target="_blank">How it works</a>
-          <span style="color:var(--rule,#e2ded5);">&middot;</span>
-          <a href="/baymax" target="_blank">Model Eval &#8594;</a>
-        </div>
-        <p id="ai-chat-disclaimer">Responses are AI-generated, please verify important details.</p>
+        <p id="ai-chat-disclaimer">Responses are AI-generated, please verify details.</p>
       </div>
     </div>
     <style>
@@ -75,11 +75,13 @@
       }
       #ai-chat-close:hover { color: var(--ink, var(--cb-ink)); }
       #ai-chat-foot {
-        padding: 0.55rem 1rem 0.7rem;
+        padding: 0.5rem 1rem 0.65rem;
         border-top: 1px solid var(--rule, var(--cb-rule));
       }
       #ai-chat-links {
-        display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.3rem;
+        display: flex; align-items: center; gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        border-bottom: 1px solid var(--rule, var(--cb-rule));
       }
       #ai-chat-links a {
         font-family: 'JetBrains Mono', monospace; font-size: 0.62rem;
