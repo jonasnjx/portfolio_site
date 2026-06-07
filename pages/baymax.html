@@ -208,15 +208,17 @@
             return `${date} ${h}:${m}`;
         }
 
+        const BUST = () => `?t=${Date.now()}`;
+
         async function loadRun(runId) {
-            const res = await fetch(`${REPO}/results/${runId}.json`);
+            const res = await fetch(`${REPO}/results/${runId}.json${BUST()}`, { cache: 'no-store' });
             return res.json();
         }
 
         async function init() {
             const [indexRes, changelogRes] = await Promise.all([
-                fetch(`${REPO}/index.json`),
-                fetch(`${REPO}/changelog.json`)
+                fetch(`${REPO}/index.json${BUST()}`, { cache: 'no-store' }),
+                fetch(`${REPO}/changelog.json${BUST()}`, { cache: 'no-store' })
             ]);
             const index = await indexRes.json();
             const changelog = await changelogRes.json();
