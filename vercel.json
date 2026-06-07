@@ -7,6 +7,7 @@
     { "source": "/connect",                               "destination": "/pages/connect.html" },
     { "source": "/dashboard",                             "destination": "/pages/dashboard.html" },
     { "source": "/baymax",                                "destination": "/pages/baymax.html" },
+    { "source": "/how-it-works",                          "destination": "/pages/how-it-works.html" },
     { "source": "/casestudies/context-engineering-2026",  "destination": "/pages/writings/context-engineering-2026.html" },
     { "source": "/casestudies/baymax-ai-assistant-2026",  "destination": "/pages/writings/baymax-ai-assistant-2026.html" },
     { "source": "/casestudies/portfolio-analytics-2026",    "destination": "/pages/writings/portfolio-analytics-2026.html" },

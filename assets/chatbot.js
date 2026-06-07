@@ -23,7 +23,7 @@
       </div>
       <div id="ai-chat-foot">
         <div id="ai-chat-links">
-          <a href="/baymax#how-it-works" target="_blank">How it works</a>
+          <a href="/how-it-works" target="_blank">How it works</a>
           <span style="color:var(--rule,#e2ded5);">&middot;</span>
           <a href="/baymax" target="_blank">Model Eval &#8594;</a>
         </div>

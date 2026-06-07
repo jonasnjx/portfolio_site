@@ -19,6 +19,7 @@ app.get('/casestudies/portfolio-analytics-2026', (req, res) => res.sendFile(path
 app.get('/casestudies/enterprise-data-catalog-2026', (req, res) => res.sendFile(path.join(__dirname, 'pages/writings/enterprise-data-catalog-2026.html')));
 app.get('/dashboard', (req, res) => res.sendFile(path.join(__dirname, 'pages/dashboard.html')));
 app.get('/baymax', (req, res) => res.sendFile(path.join(__dirname, 'pages/baymax.html')));
+app.get('/how-it-works', (req, res) => res.sendFile(path.join(__dirname, 'pages/how-it-works.html')));
 app.get('/home', (req, res) => res.sendFile(path.join(__dirname, 'pages/home.html')));
 
 app.get('/api/roadmap', async (req, res) => {
