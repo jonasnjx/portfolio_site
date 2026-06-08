@@ -90,7 +90,7 @@
                     <div class="row" style="display:flex;justify-content:space-between;align-items:baseline;gap:1rem;border-bottom:1px solid var(--rule);">
                         <div style="min-width:0;">
                             <p class="font-mono text-sm mb-1" style="color:var(--accent);">2. semantic cache</p>
-                            <p class="text-sm" style="color:var(--muted);line-height:1.55;">Reworded questions with the same meaning reuse a stored answer, matched by similarity above a threshold (e.g., "what's my latest job" &asymp; "where does Jonas work now"). Entries older than 7 days are treated as a miss (7d soft TTL).</p>
+                            <p class="text-sm" style="color:var(--muted);line-height:1.55;">Reworded questions with the same meaning reuse a stored answer, matched by similarity above a threshold (e.g., "what's my latest job" &asymp; "where does Jonas work now"). Embedded with bge-large-en-v1.5. Entries older than 7 days are treated as a miss (7d soft TTL).</p>
                         </div>
                         <span class="font-mono text-xs flex-shrink-0" style="color:var(--muted);">Vector, 7d</span>
                     </div>
@@ -142,7 +142,7 @@
                     </div>
                     <div style="display:flex;gap:1rem;">
                         <span class="font-mono text-xs w-32 flex-shrink-0" style="color:var(--muted);">Caching</span>
-                        <span class="text-sm" style="color:var(--ink);">Upstash Redis (exact, 24h) and Upstash Vector (semantic, 7d)</span>
+                        <span class="text-sm" style="color:var(--ink);">Upstash Redis (exact, 24h) and Upstash Vector (semantic, 7d, bge-large-en-v1.5)</span>
                     </div>
                     <div style="display:flex;gap:1rem;">
                         <span class="font-mono text-xs w-32 flex-shrink-0" style="color:var(--muted);">Hosting</span>
