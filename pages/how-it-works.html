@@ -75,6 +75,28 @@
                 <a href="/baymax" class="font-mono text-xs" style="color: var(--accent); text-decoration: none;">Model Eval &rarr;</a>
             </div>
 
+            <!-- Caching -->
+            <section class="mb-10">
+                <p class="font-mono text-xs uppercase tracking-widest mb-4" style="color: var(--muted);">Caching</p>
+                <p class="text-sm mb-5" style="color: var(--muted); line-height: 1.6;">A user prompt first checks two cache layers, so repeated or reworded questions return instantly without reaching the LLM and spending tokens.</p>
+                <div>
+                    <div class="row" style="display:flex;justify-content:space-between;align-items:baseline;gap:1rem;">
+                        <div style="min-width:0;">
+                            <p class="font-mono text-sm mb-1" style="color:var(--accent);">1. exact cache</p>
+                            <p class="text-sm" style="color:var(--muted);line-height:1.55;">Identical questions are served instantly from a hashed lookup.</p>
+                        </div>
+                        <span class="font-mono text-xs flex-shrink-0" style="color:var(--muted);">Redis, 24h</span>
+                    </div>
+                    <div class="row" style="display:flex;justify-content:space-between;align-items:baseline;gap:1rem;border-bottom:1px solid var(--rule);">
+                        <div style="min-width:0;">
+                            <p class="font-mono text-sm mb-1" style="color:var(--accent);">2. semantic cache</p>
+                            <p class="text-sm" style="color:var(--muted);line-height:1.55;">Reworded questions with the same meaning reuse a stored answer, matched by similarity above a 0.92 threshold. For example, "what's my latest job" reuses the answer to "where does Jonas work now". Entries older than 7 days are treated as a miss (a soft TTL).</p>
+                        </div>
+                        <span class="font-mono text-xs flex-shrink-0" style="color:var(--muted);">Vector, 7d</span>
+                    </div>
+                </div>
+            </section>
+
             <!-- Pipeline -->
             <section class="mb-10">
                 <p class="font-mono text-xs uppercase tracking-widest mb-4" style="color: var(--muted);">Orchestration Pipeline</p>
@@ -106,28 +128,6 @@
                             <p class="text-sm" style="color:var(--muted);line-height:1.55;">If the check finds problems, rewrites the answer.</p>
                         </div>
                         <span class="font-mono text-xs flex-shrink-0" style="color:var(--muted);">LLM: llama-3.3-70b-versatile</span>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Caching -->
-            <section class="mb-10">
-                <p class="font-mono text-xs uppercase tracking-widest mb-4" style="color: var(--muted);">Caching</p>
-                <p class="text-sm mb-5" style="color: var(--muted); line-height: 1.6;">Before reaching the LLM, a question first checks two cache layers, so repeated or reworded questions return instantly without spending tokens.</p>
-                <div>
-                    <div class="row" style="display:flex;justify-content:space-between;align-items:baseline;gap:1rem;">
-                        <div style="min-width:0;">
-                            <p class="font-mono text-sm mb-1" style="color:var(--accent);">1. exact cache</p>
-                            <p class="text-sm" style="color:var(--muted);line-height:1.55;">Identical questions are served instantly from a hashed lookup.</p>
-                        </div>
-                        <span class="font-mono text-xs flex-shrink-0" style="color:var(--muted);">Redis, 24h</span>
-                    </div>
-                    <div class="row" style="display:flex;justify-content:space-between;align-items:baseline;gap:1rem;border-bottom:1px solid var(--rule);">
-                        <div style="min-width:0;">
-                            <p class="font-mono text-sm mb-1" style="color:var(--accent);">2. semantic cache</p>
-                            <p class="text-sm" style="color:var(--muted);line-height:1.55;">Reworded questions with the same meaning reuse a stored answer, matched by similarity.</p>
-                        </div>
-                        <span class="font-mono text-xs flex-shrink-0" style="color:var(--muted);">Vector, 7d</span>
                     </div>
                 </div>
             </section>
