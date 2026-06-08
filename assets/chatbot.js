@@ -15,9 +15,9 @@
         <button id="ai-chat-close">&times;</button>
       </div>
       <div id="ai-chat-links">
-        <a href="/how-it-works" target="_blank">How it works</a>
+        <a href="/how-it-works">How it works</a>
         <span style="color:var(--rule,#e2ded5);">&middot;</span>
-        <a href="/baymax" target="_blank">Model Eval &#8594;</a>
+        <a href="/baymax">Model Eval &#8594;</a>
       </div>
       <div id="ai-chat-msgs">
         <div class="ai-msg ai-bot">Hi! Ask me a question about my background, experience, or projects.</div>
