@@ -82,7 +82,7 @@
                     <div class="row" style="display:flex;justify-content:space-between;align-items:baseline;gap:1rem;">
                         <div style="min-width:0;">
                             <p class="font-mono text-sm mb-1" style="color:var(--accent);">1. retrieve</p>
-                            <p class="text-sm" style="color:var(--muted);line-height:1.55;">Gathers relevant knowledge for the question. The full knowledge base is passed while it is small; semantic hybrid search activates as it grows.</p>
+                            <p class="text-sm" style="color:var(--muted);line-height:1.55;">Gathers relevant knowledge for the question. The full knowledge base is passed while it is small; semantic search activates as it grows.</p>
                         </div>
                         <span class="font-mono text-xs flex-shrink-0" style="color:var(--muted);">full context</span>
                     </div>
@@ -110,6 +110,28 @@
                 </div>
             </section>
 
+            <!-- Caching -->
+            <section class="mb-10">
+                <p class="font-mono text-xs uppercase tracking-widest mb-4" style="color: var(--muted);">Caching</p>
+                <p class="text-sm mb-5" style="color: var(--muted); line-height: 1.6;">Before reaching the LLM, a question first checks two cache layers, so repeated or reworded questions return instantly without spending tokens.</p>
+                <div>
+                    <div class="row" style="display:flex;justify-content:space-between;align-items:baseline;gap:1rem;">
+                        <div style="min-width:0;">
+                            <p class="font-mono text-sm mb-1" style="color:var(--accent);">1. exact cache</p>
+                            <p class="text-sm" style="color:var(--muted);line-height:1.55;">Identical questions are served instantly from a hashed lookup.</p>
+                        </div>
+                        <span class="font-mono text-xs flex-shrink-0" style="color:var(--muted);">Redis, 24h</span>
+                    </div>
+                    <div class="row" style="display:flex;justify-content:space-between;align-items:baseline;gap:1rem;border-bottom:1px solid var(--rule);">
+                        <div style="min-width:0;">
+                            <p class="font-mono text-sm mb-1" style="color:var(--accent);">2. semantic cache</p>
+                            <p class="text-sm" style="color:var(--muted);line-height:1.55;">Reworded questions with the same meaning reuse a stored answer, matched by similarity.</p>
+                        </div>
+                        <span class="font-mono text-xs flex-shrink-0" style="color:var(--muted);">Vector</span>
+                    </div>
+                </div>
+            </section>
+
             <!-- Backend -->
             <section class="mb-10">
                 <p class="font-mono text-xs uppercase tracking-widest mb-4" style="color: var(--muted);">Backend</p>
@@ -120,7 +142,11 @@
                     </div>
                     <div style="display:flex;gap:1rem;">
                         <span class="font-mono text-xs w-32 flex-shrink-0" style="color:var(--muted);">Caching</span>
-                        <span class="text-sm" style="color:var(--ink);">Upstash Redis (24h), with per-IP rate limiting</span>
+                        <span class="text-sm" style="color:var(--ink);">Upstash Redis (exact, 24h) and Upstash Vector (semantic)</span>
+                    </div>
+                    <div style="display:flex;gap:1rem;">
+                        <span class="font-mono text-xs w-32 flex-shrink-0" style="color:var(--muted);">Rate limiting</span>
+                        <span class="text-sm" style="color:var(--ink);">20 requests per minute per IP (Upstash Redis)</span>
                     </div>
                     <div style="display:flex;gap:1rem;">
                         <span class="font-mono text-xs w-32 flex-shrink-0" style="color:var(--muted);">Hosting</span>
