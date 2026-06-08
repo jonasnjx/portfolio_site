@@ -145,12 +145,50 @@
                         <span class="text-sm" style="color:var(--ink);">Upstash Redis (exact, 24h) and Upstash Vector (semantic, 7d)</span>
                     </div>
                     <div style="display:flex;gap:1rem;">
-                        <span class="font-mono text-xs w-32 flex-shrink-0" style="color:var(--muted);">Rate limiting</span>
-                        <span class="text-sm" style="color:var(--ink);">20 requests per minute per IP (Upstash Redis)</span>
-                    </div>
-                    <div style="display:flex;gap:1rem;">
                         <span class="font-mono text-xs w-32 flex-shrink-0" style="color:var(--muted);">Hosting</span>
                         <span class="text-sm" style="color:var(--ink);">Vercel serverless</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Guardrails -->
+            <section class="mb-10">
+                <p class="font-mono text-xs uppercase tracking-widest mb-4" style="color: var(--muted);">Guardrails</p>
+                <div>
+                    <div class="row" style="display:flex;justify-content:space-between;align-items:baseline;gap:1rem;">
+                        <div style="min-width:0;">
+                            <p class="font-mono text-sm mb-1" style="color:var(--accent);">rate limiting</p>
+                            <p class="text-sm" style="color:var(--muted);line-height:1.55;">Each IP is capped to protect the API from abuse and runaway token use.</p>
+                        </div>
+                        <span class="font-mono text-xs flex-shrink-0" style="color:var(--muted);">20 req/min per IP</span>
+                    </div>
+                    <div class="row" style="display:flex;justify-content:space-between;align-items:baseline;gap:1rem;">
+                        <div style="min-width:0;">
+                            <p class="font-mono text-sm mb-1" style="color:var(--accent);">greeting short-circuit</p>
+                            <p class="text-sm" style="color:var(--muted);line-height:1.55;">Greetings and pleasantries (hi, thank you, bye) return a canned reply without calling the LLM.</p>
+                        </div>
+                        <span class="font-mono text-xs flex-shrink-0" style="color:var(--muted);">no LLM</span>
+                    </div>
+                    <div class="row" style="display:flex;justify-content:space-between;align-items:baseline;gap:1rem;">
+                        <div style="min-width:0;">
+                            <p class="font-mono text-sm mb-1" style="color:var(--accent);">scope limit</p>
+                            <p class="text-sm" style="color:var(--muted);line-height:1.55;">The assistant only answers questions about Jonas; off-topic questions get a polite refusal.</p>
+                        </div>
+                        <span class="font-mono text-xs flex-shrink-0" style="color:var(--muted);">on-topic only</span>
+                    </div>
+                    <div class="row" style="display:flex;justify-content:space-between;align-items:baseline;gap:1rem;">
+                        <div style="min-width:0;">
+                            <p class="font-mono text-sm mb-1" style="color:var(--accent);">input limit</p>
+                            <p class="text-sm" style="color:var(--muted);line-height:1.55;">Questions over 300 characters are rejected before reaching the model.</p>
+                        </div>
+                        <span class="font-mono text-xs flex-shrink-0" style="color:var(--muted);">300 char max</span>
+                    </div>
+                    <div class="row" style="display:flex;justify-content:space-between;align-items:baseline;gap:1rem;border-bottom:1px solid var(--rule);">
+                        <div style="min-width:0;">
+                            <p class="font-mono text-sm mb-1" style="color:var(--accent);">graceful failure</p>
+                            <p class="text-sm" style="color:var(--muted);line-height:1.55;">If the model is rate-limited or unavailable, it returns a friendly message quickly instead of hanging.</p>
+                        </div>
+                        <span class="font-mono text-xs flex-shrink-0" style="color:var(--muted);">fail-fast</span>
                     </div>
                 </div>
             </section>
