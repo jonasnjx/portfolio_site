@@ -101,11 +101,11 @@
 
                 <h2>Why Llama 3.3 70B on Groq</h2>
 
-                <p>The model choice came down to three requirements: the knowledge base needed to fit in the context window, the answers needed to be good enough to actually be useful, and the whole thing needed to run for free.</p>
+                <p>The model choice came down to three requirements: the knowledge base needed to fit in the context window, the answers needed to be good enough to be useful, and the whole thing needed to run for free.</p>
 
                 <p>Groq's Llama 3.3 70B Versatile has a 128k token context window. My knowledge base is well under 10,000 tokens. That means the entire thing fits in a single call without the need for any retrieval logic.</p>
 
-                <p>The 70B parameter count matters for quality. Smaller models give noticeably vague answers. A 70B model handles those with enough nuance to be genuinely useful. Groq's LPU hardware makes the 70B model respond fast enough, which improves user experience. And the free tier covers the traffic a personal portfolio typically sees, making it a practical choice for a portfolio project like this.</p>
+                <p>The 70B parameter count matters for quality. Smaller models give noticeably vague answers. A 70B model handles those with enough nuance to be useful. Groq's LPU hardware makes the 70B model respond fast enough, which improves user experience. And the free tier covers the traffic a personal portfolio typically sees, making it a practical choice for a portfolio project like this.</p>
 
                 <h2>Why is Groq so fast?</h2>
 
@@ -121,7 +121,7 @@
 
                 <h2>Why Upstash for Redis specifically</h2>
 
-                <p>Upstash is an independent company that offers serverless Redis and Kafka over HTTP, designed specifically for serverless and edge environments. In this case, the AI assistant runs on Vercel serverless functions, where there is no persistent process between calls. Comparatively, regular Redis uses a TCP connection that stays open, which does not work in a serverless environment where each invocation starts fresh. Upstash exposes Redis over plain HTTP instead, so every call is a self-contained request with no persistent connection needed.</p>
+                <p>Upstash is an independent company that offers serverless Redis and Kafka over HTTP, designed for serverless and edge environments. In this case, the AI assistant runs on Vercel serverless functions, where there is no persistent process between calls. Comparatively, regular Redis uses a TCP connection that stays open, which does not work in a serverless environment where each invocation starts fresh. Upstash exposes Redis over plain HTTP instead, so every call is a self-contained request with no persistent connection needed.</p>
 
                 <h2>Something to think about</h2>
 

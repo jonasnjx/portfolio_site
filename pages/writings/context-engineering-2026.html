@@ -92,23 +92,23 @@
 
             <article class="prose">
 
-                <p>We were building an enterprise HR chatbot, and the results were consistently off in ways that were hard to narrow down. After some investigation, we realised there were multiple date fields in the underlying data tables, and the model had no idea which one applied to which context. After discussing internally, we added proper context around what each field represented, and the hallucinations dropped noticeably, which indicated a clear improvement in model performance.</p>
+                <p>We were building an enterprise HR chatbot, and the results were consistently off in ways that were hard to narrow down. After some investigation, we realised there were multiple date fields in the underlying data tables, and the model had no idea which one applied to which context. After discussing internally, we added proper context around what each field represented, and the hallucinations dropped noticeably.</p>
 
                 <p>That experience stuck with me, and it is what drove me to think more deeply about context engineering.</p>
 
-                <h2>The shift that changes everything</h2>
+                <h2>Data's audience is no longer human</h2>
 
                 <p>Data engineering has always been about building reliable pipelines for the people who consume the data. Analytics dashboards to present to stakeholders, where they can pause, question anomalies, or verify results with a colleague. But as the audience has gradually shifted to AI agents, that ability disappears. Agents simply act on whatever they are given, and if what they are given is ambiguous, they fill in the gaps themselves, often incorrectly.</p>
 
-                <p>This is a significant shift. The audience for data has changed from humans to agents, and that changes what good data actually means.</p>
+                <p>The safety net of human judgement is gone. The audience for data has changed from humans to agents, and that changes what good data means.</p>
 
-                <h2>What context actually refers to</h2>
+                <h2>What context refers to</h2>
 
                 <p>Context is everything an agent needs beyond its training. That includes the data itself, the semantic meaning around it (what does "salary" mean? Does it already include fixed allowances?), memory of past decisions and corrections, the tools it can use, and the guardrails that govern its behaviour.</p>
 
                 <p>Specifically for past decisions and corrections: when field descriptions are adjusted to be more concise and unambiguous, and model performance actually improves, are those changes and their effects being recorded? If these context adjustments and their effects are recorded and fed back into the system for the agent to consume, perhaps through a memory layer or updated prompts, the agent can apply the same understanding to produce better outputs consistently.</p>
 
-                <h2>What it means for teams working in this AI landscape</h2>
+                <h2>What it means for teams working with AI</h2>
 
                 <p>Data catalogs, data quality monitoring, glossaries and the like are basic foundations that effective teams are already building. The only difference is that with the rise of AI, they stop being optional nice-to-haves and are simply the bare minimum to allow AI solutions to perform consistently and reliably.</p>
 
@@ -116,7 +116,7 @@
 
                 <h2>Something to think more about</h2>
 
-                <p>Before starting any AI-related project, it is worth asking: does the data actually already have the right context? If yes, where does it come from and how do we feed it to the agents. If no, how do we create it for the agents to consume. Getting this right from the start makes it significantly easier to deploy reliable AI agents and models, and organisations can spend less time debugging outputs that are costly.</p>
+                <p>Before starting any AI-related project, ask: does the data actually already have the right context? If yes, where does it come from and how do we feed it to the agents. If no, how do we create it for the agents to consume. Getting this right from the start makes it easier to deploy reliable AI agents and models, and organisations can spend less time debugging outputs that are costly.</p>
 
                 <p>And finally, who should own this? In my opinion, data engineers, because they are already doing what context engineering asks for. Traditionally they clean and process data to ensure accurate dashboards and reliable model training. With the rise of AI agents, their role extends further: they now have a part to play in feeding the right data for AI and agents to consume.</p>
 
