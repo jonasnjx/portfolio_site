@@ -643,9 +643,9 @@ function buildSign(scene, text, x, y, z, w = 1.3, h = 0.50, faceYaw = 0, index =
 
     const cx = W / 2;
 
-    // Index number — JetBrains Mono, accent
+    // Index number — IBM Plex Mono, accent
     ctx.fillStyle = '#d4b878';
-    ctx.font = '400 15px "JetBrains Mono", monospace';
+    ctx.font = '400 15px "IBM Plex Mono", monospace';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'alphabetic';
     ctx.fillText(index, cx, 30);

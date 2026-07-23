@@ -48,7 +48,7 @@ No gradient fills, no box-shadow glows, no `border-radius: 16px` cards, no gradi
 `--accent: #1d4ed8` (classic site) and `--accent: #1d4ed8` (3D UI) appear on links and accent ticks only. Never as button fills, border highlights, or text colors for non-links.
 
 **Font rule (3D UI).**
-No Press Start 2P in UI chrome. Use Bricolage Grotesque 500 (headings), JetBrains Mono (labels/dates), Source Serif 4 (prose).
+No Press Start 2P in UI chrome. Use Bricolage Grotesque 500 (headings), IBM Plex Mono (labels/dates), Source Serif 4 (prose).
 
 **Music toggle is M key.**
 Background music starts on "Enter World" click. M key toggles mute. No clickable button (pointer is locked during gameplay).

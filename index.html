@@ -16,7 +16,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400&family=Press+Start+2P&display=swap" rel="stylesheet">
     <script type="importmap">
     {
         "imports": {
@@ -31,7 +31,7 @@
                 extend: {
                     fontFamily: {
                         sans: ['Bricolage Grotesque', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
+                        mono: ['IBM Plex Mono', 'monospace'],
                     },
                     colors: {
                         dark: {
@@ -129,7 +129,7 @@
 
         .loading-label {
             margin-top: 1.25rem;
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'IBM Plex Mono', monospace;
             font-size: 0.72rem;
             color: var(--muted);
             letter-spacing: 0.05em;
@@ -147,7 +147,7 @@
         }
 
         #onboarding-overlay .eyebrow {
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'IBM Plex Mono', monospace;
             font-size: 0.68rem;
             color: var(--muted);
             text-transform: uppercase;
@@ -163,7 +163,7 @@
         }
 
         #onboarding-overlay .role {
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'IBM Plex Mono', monospace;
             font-size: 0.72rem;
             color: var(--muted);
             margin-bottom: 1rem;
@@ -201,7 +201,7 @@
             background: var(--bg-2);
             border: 1px solid rgba(226,222,213,0.14);
             border-radius: 3px;
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'IBM Plex Mono', monospace;
             font-size: 0.68rem;
             padding: 2px 6px;
             min-width: 24px;
@@ -246,7 +246,7 @@
         }
 
         .customizer-title {
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'IBM Plex Mono', monospace;
             font-size: 0.68rem;
             color: var(--muted);
             text-transform: uppercase;
@@ -283,7 +283,7 @@
 
         .char-card span {
             font-size: 0.68rem;
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'IBM Plex Mono', monospace;
             color: var(--muted);
         }
 
@@ -336,7 +336,7 @@
             border: 1px solid rgba(226,222,213,0.2);
             border-radius: 4px;
             padding: 0.55rem 1.2rem;
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'IBM Plex Mono', monospace;
             font-size: 0.72rem;
             color: var(--ink);
             display: flex;
@@ -354,7 +354,7 @@
             background: var(--bg-2);
             border: 1px solid rgba(226,222,213,0.14);
             border-radius: 3px;
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'IBM Plex Mono', monospace;
             font-size: 0.68rem;
             padding: 1px 5px;
             color: var(--accent);
@@ -365,7 +365,7 @@
             position: absolute;
             top: 1.25rem;
             left: 1.25rem;
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'IBM Plex Mono', monospace;
             font-size: 0.62rem;
             color: rgba(236,236,236,0.4);
             line-height: 1.8;
@@ -474,17 +474,17 @@
         border:2px solid #d4b878;
         border-radius:4px;
         padding:0.75rem;
-        font-family:'JetBrains Mono',monospace;
+        font-family:'IBM Plex Mono',monospace;
     ">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">
-            <span style="font-size:0.62rem;color:#d4b878;font-family:'JetBrains Mono',monospace;opacity:0.7;">Baymax AI</span>
+            <span style="font-size:0.62rem;color:#d4b878;font-family:'IBM Plex Mono',monospace;opacity:0.7;">Baymax AI</span>
             <button id="chat-close-btn" style="background:none;border:none;color:#9a9a9a;font-size:1rem;cursor:pointer;line-height:1;padding:0 0.1rem;" title="Close (Esc)">&times;</button>
         </div>
         <div id="chat-output" style="max-height:80px;overflow-y:auto;font-size:0.75rem;color:var(--muted);margin-bottom:0.5rem;line-height:1.7;"></div>
         <div style="display:flex;align-items:center;gap:0.6rem;">
             <span style="color:#d4b878;font-size:0.75rem;">></span>
             <input id="chat-input" type="text" placeholder="ask anything to learn more about Jonas, or type /help"
-                   style="flex:1;background:none;border:none;outline:none;color:#e2e8f0;font-family:'JetBrains Mono',monospace;font-size:0.75rem;">
+                   style="flex:1;background:none;border:none;outline:none;color:#e2e8f0;font-family:'IBM Plex Mono',monospace;font-size:0.75rem;">
         </div>
     </div>
 
@@ -530,7 +530,7 @@
             <p class="value-prop">I build scalable data and cloud infrastructure to deploy AI into production.</p>
             <p class="value-prop" style="margin-top:-0.5rem;">Check out my interactive portfolio site:</p>
 
-            <p style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--muted);margin-bottom:1rem;">Inside: my resume, projects, and writing.</p>
+            <p style="font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--muted);margin-bottom:1rem;">Inside: my resume, projects, and writing.</p>
             <button class="btn-primary" id="enter-btn">Enter 3D World</button>
             <a href="/home" class="btn-skip">Prefer the quick read? View classic site.</a>
 
@@ -593,17 +593,17 @@
         <div class="modal-box" style="max-width:700px;max-height:88vh;overflow-y:auto;">
             <button class="modal-close" data-close="resume-modal">&#10005;</button>
             <h2 style="margin-bottom:0.2rem;">Resume</h2>
-            <p style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--muted);margin-bottom:1.25rem;">5 years across consulting, cloud, data engineering and AI</p>
+            <p style="font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--muted);margin-bottom:1.25rem;">5 years across consulting, cloud, data engineering and AI</p>
 
-            <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.75rem;">Experience</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.75rem;">Experience</div>
 
             <div class="modal-row">
                 <div style="display:flex;justify-content:space-between;align-items:baseline;gap:0.5rem;margin-bottom:0.4rem;">
                     <div>
                         <div style="font-size:0.88rem;font-weight:500;color:var(--ink);">Senior Data Engineer</div>
-                        <div style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--muted);">Certis &middot; Singapore</div>
+                        <div style="font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--muted);">Certis &middot; Singapore</div>
                     </div>
-                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);white-space:nowrap;">Aug 2025 - Present</span>
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:0.68rem;color:var(--muted);white-space:nowrap;">Aug 2025 - Present</span>
                 </div>
                 <ul style="padding-left:1rem;color:var(--muted);font-size:0.76rem;line-height:1.65;">
                     <li>Enterprise data engineering and AI delivery across cloud platforms</li>
@@ -614,9 +614,9 @@
                 <div style="display:flex;justify-content:space-between;align-items:baseline;gap:0.5rem;margin-bottom:0.4rem;">
                     <div>
                         <div style="font-size:0.88rem;font-weight:500;color:var(--ink);">Senior Data Engineer</div>
-                        <div style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--muted);">A*STAR &middot; Singapore</div>
+                        <div style="font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--muted);">A*STAR &middot; Singapore</div>
                     </div>
-                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);white-space:nowrap;">Aug 2024 - Jun 2025</span>
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:0.68rem;color:var(--muted);white-space:nowrap;">Aug 2024 - Jun 2025</span>
                 </div>
                 <ul style="padding-left:1rem;color:var(--muted);font-size:0.76rem;line-height:1.65;">
                     <li>Led Alation data catalog integration across 13 system owners; managed agent setup, network connectivity, and IM8 governance features (sensitivity classification, lineage)</li>
@@ -630,9 +630,9 @@
                 <div style="display:flex;justify-content:space-between;align-items:baseline;gap:0.5rem;margin-bottom:0.4rem;">
                     <div>
                         <div style="font-size:0.88rem;font-weight:500;color:var(--ink);">AI Cloud Engineer</div>
-                        <div style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--muted);">Accenture &middot; Singapore</div>
+                        <div style="font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--muted);">Accenture &middot; Singapore</div>
                     </div>
-                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);white-space:nowrap;">Jul 2021 - Jul 2024</span>
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:0.68rem;color:var(--muted);white-space:nowrap;">Jul 2021 - Jul 2024</span>
                 </div>
                 <ul style="padding-left:1rem;color:var(--muted);font-size:0.76rem;line-height:1.65;">
                     <li>Delivered cloud and analytics solutions for finance, manufacturing, and government clients</li>
@@ -643,49 +643,49 @@
             </div>
 
             <div class="modal-row">
-                <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;">Internships</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;">Internships</div>
                 <div style="display:flex;flex-direction:column;gap:0.3rem;">
                     <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:0.75rem;">
-                        <span style="color:var(--ink);">Vertex Holdings</span><span style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);">LightGBM + ELMo, 86% accuracy</span>
+                        <span style="color:var(--ink);">Vertex Holdings</span><span style="font-family:'IBM Plex Mono',monospace;font-size:0.68rem;color:var(--muted);">LightGBM + ELMo, 86% accuracy</span>
                     </div>
                     <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:0.75rem;">
-                        <span style="color:var(--ink);">UPS</span><span style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);">Supply chain forecasting</span>
+                        <span style="color:var(--ink);">UPS</span><span style="font-family:'IBM Plex Mono',monospace;font-size:0.68rem;color:var(--muted);">Supply chain forecasting</span>
                     </div>
                     <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:0.75rem;">
-                        <span style="color:var(--ink);">Kuehne+Nagel</span><span style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);">Tableau / SQL reporting</span>
+                        <span style="color:var(--ink);">Kuehne+Nagel</span><span style="font-family:'IBM Plex Mono',monospace;font-size:0.68rem;color:var(--muted);">Tableau / SQL reporting</span>
                     </div>
                     <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:0.75rem;">
-                        <span style="color:var(--ink);">Shopee</span><span style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);">PySpark productivity reports</span>
+                        <span style="color:var(--ink);">Shopee</span><span style="font-family:'IBM Plex Mono',monospace;font-size:0.68rem;color:var(--muted);">PySpark productivity reports</span>
                     </div>
                     <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:0.75rem;">
-                        <span style="color:var(--ink);">Air Liquide</span><span style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);">Power BI reporting</span>
+                        <span style="color:var(--ink);">Air Liquide</span><span style="font-family:'IBM Plex Mono',monospace;font-size:0.68rem;color:var(--muted);">Power BI reporting</span>
                     </div>
                 </div>
             </div>
 
             <div class="modal-row">
-                <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;">Stack</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;">Stack</div>
                 <div style="display:flex;flex-wrap:wrap;gap:0.35rem;">
-                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);padding:0.18rem 0.5rem;border:1px solid rgba(226,222,213,0.14);border-radius:3px;">AWS</span>
-                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);padding:0.18rem 0.5rem;border:1px solid rgba(226,222,213,0.14);border-radius:3px;">Azure</span>
-                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);padding:0.18rem 0.5rem;border:1px solid rgba(226,222,213,0.14);border-radius:3px;">Snowflake</span>
-                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);padding:0.18rem 0.5rem;border:1px solid rgba(226,222,213,0.14);border-radius:3px;">Python</span>
-                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);padding:0.18rem 0.5rem;border:1px solid rgba(226,222,213,0.14);border-radius:3px;">SQL</span>
-                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);padding:0.18rem 0.5rem;border:1px solid rgba(226,222,213,0.14);border-radius:3px;">Airflow</span>
-                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);padding:0.18rem 0.5rem;border:1px solid rgba(226,222,213,0.14);border-radius:3px;">Redis</span>
-                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);padding:0.18rem 0.5rem;border:1px solid rgba(226,222,213,0.14);border-radius:3px;">OpenSearch</span>
-                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);padding:0.18rem 0.5rem;border:1px solid rgba(226,222,213,0.14);border-radius:3px;">Docker</span>
-                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);padding:0.18rem 0.5rem;border:1px solid rgba(226,222,213,0.14);border-radius:3px;">Tableau</span>
-                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);padding:0.18rem 0.5rem;border:1px solid rgba(226,222,213,0.14);border-radius:3px;">Groq</span>
-                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);padding:0.18rem 0.5rem;border:1px solid rgba(226,222,213,0.14);border-radius:3px;">OpenMetadata</span>
-                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);padding:0.18rem 0.5rem;border:1px solid rgba(226,222,213,0.14);border-radius:3px;">Alation</span>
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:var(--muted);padding:0.18rem 0.5rem;border:1px solid rgba(226,222,213,0.14);border-radius:3px;">AWS</span>
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:var(--muted);padding:0.18rem 0.5rem;border:1px solid rgba(226,222,213,0.14);border-radius:3px;">Azure</span>
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:var(--muted);padding:0.18rem 0.5rem;border:1px solid rgba(226,222,213,0.14);border-radius:3px;">Snowflake</span>
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:var(--muted);padding:0.18rem 0.5rem;border:1px solid rgba(226,222,213,0.14);border-radius:3px;">Python</span>
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:var(--muted);padding:0.18rem 0.5rem;border:1px solid rgba(226,222,213,0.14);border-radius:3px;">SQL</span>
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:var(--muted);padding:0.18rem 0.5rem;border:1px solid rgba(226,222,213,0.14);border-radius:3px;">Airflow</span>
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:var(--muted);padding:0.18rem 0.5rem;border:1px solid rgba(226,222,213,0.14);border-radius:3px;">Redis</span>
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:var(--muted);padding:0.18rem 0.5rem;border:1px solid rgba(226,222,213,0.14);border-radius:3px;">OpenSearch</span>
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:var(--muted);padding:0.18rem 0.5rem;border:1px solid rgba(226,222,213,0.14);border-radius:3px;">Docker</span>
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:var(--muted);padding:0.18rem 0.5rem;border:1px solid rgba(226,222,213,0.14);border-radius:3px;">Tableau</span>
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:var(--muted);padding:0.18rem 0.5rem;border:1px solid rgba(226,222,213,0.14);border-radius:3px;">Groq</span>
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:var(--muted);padding:0.18rem 0.5rem;border:1px solid rgba(226,222,213,0.14);border-radius:3px;">OpenMetadata</span>
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:var(--muted);padding:0.18rem 0.5rem;border:1px solid rgba(226,222,213,0.14);border-radius:3px;">Alation</span>
                 </div>
             </div>
 
             <div class="modal-row" style="border-bottom:1px solid rgba(226,222,213,0.1);">
-                <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.4rem;">Certifications</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.4rem;">Certifications</div>
                 <div style="font-size:0.75rem;color:var(--muted);line-height:1.7;">AWS ML Specialty &middot; AWS Solutions Architect &middot; Azure Fundamentals &middot; SnowPro Associate</div>
-                <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:0.75rem;margin-bottom:0.4rem;">Education</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:0.75rem;margin-bottom:0.4rem;">Education</div>
                 <div style="font-size:0.75rem;color:var(--muted);">Business Analytics (Honours) &middot; Nanyang Technological University</div>
             </div>
 
@@ -700,33 +700,33 @@
         <div class="modal-box" style="max-width:650px;">
             <button class="modal-close" data-close="terminal-modal">&#10005;</button>
             <h2 style="margin-bottom:0.2rem;">Projects</h2>
-            <p style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--muted);margin-bottom:1.25rem;">Side projects and games worked on during personal time</p>
+            <p style="font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--muted);margin-bottom:1.25rem;">Side projects and games worked on during personal time</p>
 
             <div class="modal-row" style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;">
                 <div style="flex:1;">
                     <div style="font-size:0.88rem;font-weight:500;color:var(--ink);margin-bottom:0.2rem;">3D Interactive Portfolio Room</div>
-                    <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);margin-bottom:0.4rem;">Three.js &middot; WebGL &middot; Express &middot; Vercel &middot; 2026</div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:0.68rem;color:var(--muted);margin-bottom:0.4rem;">Three.js &middot; WebGL &middot; Express &middot; Vercel &middot; 2026</div>
                     <p style="font-size:0.76rem;color:var(--muted);line-height:1.6;">A walkable voxel room with third-person controls, pixel art, interactive objects, and an AI chatbot assistant. You are currently inside it. Desktop only.</p>
                 </div>
-                <a href="https://github.com/jonasnjx/portfolio_site" target="_blank" style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--accent);white-space:nowrap;text-decoration:none;flex-shrink:0;">GitHub &rarr;</a>
+                <a href="https://github.com/jonasnjx/portfolio_site" target="_blank" style="font-family:'IBM Plex Mono',monospace;font-size:0.68rem;color:var(--accent);white-space:nowrap;text-decoration:none;flex-shrink:0;">GitHub &rarr;</a>
             </div>
 
             <div class="modal-row" style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;">
                 <div style="flex:1;">
                     <div style="font-size:0.88rem;font-weight:500;color:var(--ink);margin-bottom:0.2rem;">Baymax AI Chatbot Assistant</div>
-                    <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);margin-bottom:0.4rem;">Node.js &middot; Groq &middot; Llama 3.3 &middot; Redis &middot; Vercel &middot; 2026</div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:0.68rem;color:var(--muted);margin-bottom:0.4rem;">Node.js &middot; Groq &middot; Llama 3.3 &middot; Redis &middot; Vercel &middot; 2026</div>
                     <p style="font-size:0.76rem;color:var(--muted);line-height:1.6;">AI-assisted backend powering Baymax in this room. Answers questions about my experiences using Groq (Llama 3.3) which references a curated knowledge base. Per-IP rate limiting and 24h Redis response caching.</p>
                 </div>
-                <a href="https://github.com/jonasnjx/portfolio_ai_assistant" target="_blank" style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--accent);white-space:nowrap;text-decoration:none;flex-shrink:0;">GitHub &rarr;</a>
+                <a href="https://github.com/jonasnjx/portfolio_ai_assistant" target="_blank" style="font-family:'IBM Plex Mono',monospace;font-size:0.68rem;color:var(--accent);white-space:nowrap;text-decoration:none;flex-shrink:0;">GitHub &rarr;</a>
             </div>
 
             <div class="modal-row" style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;border-bottom:1px solid rgba(226,222,213,0.1);">
                 <div style="flex:1;">
                     <div style="font-size:0.88rem;font-weight:500;color:var(--ink);margin-bottom:0.2rem;">Portfolio Analytics</div>
-                    <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);margin-bottom:0.4rem;">Node.js &middot; QStash &middot; Redis &middot; Chart.js &middot; Vercel &middot; 2026</div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:0.68rem;color:var(--muted);margin-bottom:0.4rem;">Node.js &middot; QStash &middot; Redis &middot; Chart.js &middot; Vercel &middot; 2026</div>
                     <p style="font-size:0.76rem;color:var(--muted);line-height:1.6;">Event-driven and modular analytics tracking visitor interactions across both this 3D room and the classic site. Events are queued via QStash, aggregated into Redis, and displayed on a live public dashboard.</p>
                 </div>
-                <a href="https://github.com/jonasnjx/portfolio_analytics" target="_blank" style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--accent);white-space:nowrap;text-decoration:none;flex-shrink:0;">GitHub &rarr;</a>
+                <a href="https://github.com/jonasnjx/portfolio_analytics" target="_blank" style="font-family:'IBM Plex Mono',monospace;font-size:0.68rem;color:var(--accent);white-space:nowrap;text-decoration:none;flex-shrink:0;">GitHub &rarr;</a>
             </div>
 
             <div class="modal-actions">
@@ -740,41 +740,41 @@
         <div class="modal-box" style="max-width:650px;max-height:88vh;overflow-y:auto;">
             <button class="modal-close" data-close="casestudies-modal">&#10005;</button>
             <h2 style="margin-bottom:0.2rem;">Writing</h2>
-            <p style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--muted);margin-bottom:1.25rem;">Articles on AI, data engineering, and system design</p>
+            <p style="font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--muted);margin-bottom:1.25rem;">Articles on AI, data engineering, and system design</p>
 
             <a href="/casestudies/enterprise-data-catalog-2026" target="_blank" class="modal-row" style="display:block;text-decoration:none;">
                 <div style="display:flex;justify-content:space-between;align-items:baseline;gap:0.5rem;margin-bottom:0.2rem;">
                     <div style="font-size:0.88rem;font-weight:500;color:var(--ink);">I Led Deliveries for Enterprise Data Catalogs End-to-End. Here Is What I Learned.</div>
-                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent);white-space:nowrap;flex-shrink:0;">Read &rarr;</span>
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--accent);white-space:nowrap;flex-shrink:0;">Read &rarr;</span>
                 </div>
-                <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);margin-bottom:0.25rem;">Data Catalog &middot; Data Governance &middot; 2026 &middot; 4 min</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:0.68rem;color:var(--muted);margin-bottom:0.25rem;">Data Catalog &middot; Data Governance &middot; 2026 &middot; 4 min</div>
                 <p style="font-size:0.76rem;color:var(--muted);line-height:1.6;">A quick reflection on leading two catalog implementations: Alation (SaaS) and OpenMetadata (open-source), covering approvals, cloud security, version compatibility, and tool selection.</p>
             </a>
 
             <a href="/casestudies/portfolio-analytics-2026" target="_blank" class="modal-row" style="display:block;text-decoration:none;">
                 <div style="display:flex;justify-content:space-between;align-items:baseline;gap:0.5rem;margin-bottom:0.2rem;">
                     <div style="font-size:0.88rem;font-weight:500;color:var(--ink);">How I Built Analytics for my Portfolio Site using a Modular Approach and Event-driven Pipeline</div>
-                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent);white-space:nowrap;flex-shrink:0;">Read &rarr;</span>
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--accent);white-space:nowrap;flex-shrink:0;">Read &rarr;</span>
                 </div>
-                <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);margin-bottom:0.25rem;">Event Pipeline &middot; System Design &middot; 2026 &middot; 2 min</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:0.68rem;color:var(--muted);margin-bottom:0.25rem;">Event Pipeline &middot; System Design &middot; 2026 &middot; 2 min</div>
                 <p style="font-size:0.76rem;color:var(--muted);line-height:1.6;">Tracking visitor interactions across this 3D room and the classic site using QStash, Redis, and a modular service architecture.</p>
             </a>
 
             <a href="/casestudies/baymax-ai-assistant-2026" target="_blank" class="modal-row" style="display:block;text-decoration:none;">
                 <div style="display:flex;justify-content:space-between;align-items:baseline;gap:0.5rem;margin-bottom:0.2rem;">
                     <div style="font-size:0.88rem;font-weight:500;color:var(--ink);">Building an AI Chatbot Assistant: Technical Design and Model Choices</div>
-                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent);white-space:nowrap;flex-shrink:0;">Read &rarr;</span>
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--accent);white-space:nowrap;flex-shrink:0;">Read &rarr;</span>
                 </div>
-                <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);margin-bottom:0.25rem;">AI &middot; System Design &middot; 2026 &middot; 3 min</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:0.68rem;color:var(--muted);margin-bottom:0.25rem;">AI &middot; System Design &middot; 2026 &middot; 3 min</div>
                 <p style="font-size:0.76rem;color:var(--muted);line-height:1.6;">How I built Baymax: model selection, why Groq and Llama 3.3, Redis caching strategy, and rate limiting design.</p>
             </a>
 
             <a href="/casestudies/context-engineering-2026" target="_blank" class="modal-row" style="display:block;text-decoration:none;border-bottom:1px solid rgba(226,222,213,0.1);">
                 <div style="display:flex;justify-content:space-between;align-items:baseline;gap:0.5rem;margin-bottom:0.2rem;">
                     <div style="font-size:0.88rem;font-weight:500;color:var(--ink);">Context Engineering: The Deciding Factor for AI to be Reliable and Consistent</div>
-                    <span style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent);white-space:nowrap;flex-shrink:0;">Read &rarr;</span>
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--accent);white-space:nowrap;flex-shrink:0;">Read &rarr;</span>
                 </div>
-                <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);margin-bottom:0.25rem;">Context Engineering &middot; 2026 &middot; 2 min</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:0.68rem;color:var(--muted);margin-bottom:0.25rem;">Context Engineering &middot; 2026 &middot; 2 min</div>
                 <p style="font-size:0.76rem;color:var(--muted);line-height:1.6;">How the audience for good data has shifted from humans to agents, and what that means for teams building reliable AI products.</p>
             </a>
 
@@ -792,23 +792,23 @@
             <a href="https://www.linkedin.com/in/jonasnjx/" target="_blank" class="modal-row" style="display:flex;justify-content:space-between;align-items:center;text-decoration:none;">
                 <div>
                     <div style="font-size:0.88rem;font-weight:500;color:var(--ink);">LinkedIn</div>
-                    <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);">linkedin.com/in/jonasnjx</div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:0.68rem;color:var(--muted);">linkedin.com/in/jonasnjx</div>
                 </div>
-                <span style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent);">&rarr;</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--accent);">&rarr;</span>
             </a>
             <a href="https://github.com/jonasnjx" target="_blank" class="modal-row" style="display:flex;justify-content:space-between;align-items:center;text-decoration:none;">
                 <div>
                     <div style="font-size:0.88rem;font-weight:500;color:var(--ink);">GitHub</div>
-                    <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);">github.com/jonasnjx</div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:0.68rem;color:var(--muted);">github.com/jonasnjx</div>
                 </div>
-                <span style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent);">&rarr;</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--accent);">&rarr;</span>
             </a>
             <a href="mailto:ngjingxun1997@gmail.com" class="modal-row" style="display:flex;justify-content:space-between;align-items:center;text-decoration:none;border-bottom:1px solid rgba(226,222,213,0.1);">
                 <div>
                     <div style="font-size:0.88rem;font-weight:500;color:var(--ink);">Email</div>
-                    <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);">ngjingxun1997@gmail.com</div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:0.68rem;color:var(--muted);">ngjingxun1997@gmail.com</div>
                 </div>
-                <span style="font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent);">&rarr;</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--accent);">&rarr;</span>
             </a>
         </div>
     </div>
@@ -818,8 +818,8 @@
         <div class="modal-box" style="max-width:360px;text-align:center;">
             <button class="modal-close" data-close="clock-modal">&#10005;</button>
             <h2 style="margin-bottom:0.5rem;">Singapore Time</h2>
-            <div id="clock-date" style="font-size:0.72rem;color:var(--muted);margin-bottom:0.75rem;font-family:'JetBrains Mono',monospace;"></div>
-            <div id="clock-time" style="font-size:2.2rem;font-family:'JetBrains Mono',monospace;color:var(--ink);letter-spacing:0.04em;line-height:1.3;"></div>
+            <div id="clock-date" style="font-size:0.72rem;color:var(--muted);margin-bottom:0.75rem;font-family:'IBM Plex Mono',monospace;"></div>
+            <div id="clock-time" style="font-size:2.2rem;font-family:'IBM Plex Mono',monospace;color:var(--ink);letter-spacing:0.04em;line-height:1.3;"></div>
         </div>
     </div>
 

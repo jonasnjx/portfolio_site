@@ -37,7 +37,7 @@
         display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
       }
       #ai-chat-label {
-        font-family: 'JetBrains Mono', monospace; font-size: 0.62rem;
+        font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem;
         color: var(--muted, #6b6b6b);
         background: var(--paper, #f7f5f0);
         border: 1px solid var(--rule, #e2ded5);
@@ -84,13 +84,13 @@
         border-bottom: 1px solid var(--rule, var(--cb-rule));
       }
       #ai-chat-links a {
-        font-family: 'JetBrains Mono', monospace; font-size: 0.62rem;
+        font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem;
         color: var(--muted, var(--cb-muted)); text-decoration: none;
         letter-spacing: 0.02em; white-space: nowrap;
       }
       #ai-chat-links a:hover { color: var(--accent, var(--cb-accent)); }
       #ai-chat-disclaimer {
-        font-family: 'JetBrains Mono', monospace; font-size: 0.56rem;
+        font-family: 'IBM Plex Mono', monospace; font-size: 0.56rem;
         color: var(--muted, var(--cb-muted)); line-height: 1.4; margin: 0; opacity: 0.8;
       }
       #ai-chat-msgs {
@@ -117,7 +117,7 @@
         border-top: 1px solid var(--rule, var(--cb-rule));
       }
       #ai-chat-input {
-        flex: 1; font-family: 'JetBrains Mono', monospace; font-size: 0.73rem;
+        flex: 1; font-family: 'IBM Plex Mono', monospace; font-size: 0.73rem;
         border: 1px solid var(--rule, var(--cb-rule)); border-radius: 4px;
         padding: 0.4rem 0.6rem;
         background: var(--paper, var(--cb-paper));
