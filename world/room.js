@@ -644,7 +644,7 @@ function buildSign(scene, text, x, y, z, w = 1.3, h = 0.50, faceYaw = 0, index =
     const cx = W / 2;
 
     // Index number — JetBrains Mono, accent
-    ctx.fillStyle = '#1d4ed8';
+    ctx.fillStyle = '#d4b878';
     ctx.font = '400 15px "JetBrains Mono", monospace';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'alphabetic';
@@ -665,7 +665,7 @@ function buildSign(scene, text, x, y, z, w = 1.3, h = 0.50, faceYaw = 0, index =
     ctx.stroke();
 
     // Accent tick on the left of the rule
-    ctx.strokeStyle = '#1d4ed8';
+    ctx.strokeStyle = '#d4b878';
     ctx.lineWidth = 3;
     ctx.beginPath();
     ctx.moveTo(cx - ruleHalf, ruleY + 0.5);
@@ -673,7 +673,7 @@ function buildSign(scene, text, x, y, z, w = 1.3, h = 0.50, faceYaw = 0, index =
     ctx.stroke();
 
     // Downward chevron baked in — replaces the separate cube arrow mesh
-    ctx.strokeStyle = '#1d4ed8';
+    ctx.strokeStyle = '#d4b878';
     ctx.lineWidth = 2.5;
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';

@@ -41,8 +41,8 @@
                             600: '#1e293b',
                         },
                         accent: {
-                            DEFAULT: '#3b82f6',
-                            dark: '#2563eb',
+                            DEFAULT: '#8a6a1c',
+                            dark: '#d4b878',
                         }
                     }
                 }
@@ -56,7 +56,7 @@
             --ink:    #ececec;
             --muted:  #9a9a9a;
             --rule:   #e2ded5;
-            --accent: #1d4ed8;
+            --accent: #d4b878;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -213,7 +213,7 @@
             display: inline-block;
             width: 100%;
             padding: 0.8rem 1.5rem;
-            background: var(--accent);
+            background: #8a6a1c;
             color: #fff;
             font-weight: 500;
             font-size: 0.95rem;
@@ -471,18 +471,18 @@
         position:fixed; bottom:1.5rem; left:50%; transform:translateX(-50%);
         z-index:150; width:min(500px, 90vw);
         background:rgba(10,13,24,0.95);
-        border:2px solid #60a5fa;
+        border:2px solid #d4b878;
         border-radius:4px;
         padding:0.75rem;
         font-family:'JetBrains Mono',monospace;
     ">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">
-            <span style="font-size:0.62rem;color:#60a5fa;font-family:'JetBrains Mono',monospace;opacity:0.7;">Baymax AI</span>
+            <span style="font-size:0.62rem;color:#d4b878;font-family:'JetBrains Mono',monospace;opacity:0.7;">Baymax AI</span>
             <button id="chat-close-btn" style="background:none;border:none;color:#9a9a9a;font-size:1rem;cursor:pointer;line-height:1;padding:0 0.1rem;" title="Close (Esc)">&times;</button>
         </div>
         <div id="chat-output" style="max-height:80px;overflow-y:auto;font-size:0.75rem;color:var(--muted);margin-bottom:0.5rem;line-height:1.7;"></div>
         <div style="display:flex;align-items:center;gap:0.6rem;">
-            <span style="color:#60a5fa;font-size:0.75rem;">></span>
+            <span style="color:#d4b878;font-size:0.75rem;">></span>
             <input id="chat-input" type="text" placeholder="ask anything to learn more about Jonas, or type /help"
                    style="flex:1;background:none;border:none;outline:none;color:#e2e8f0;font-family:'JetBrains Mono',monospace;font-size:0.75rem;">
         </div>

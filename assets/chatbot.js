@@ -31,7 +31,7 @@
       </div>
     </div>
     <style>
-      :root { --cb-paper: #f7f5f0; --cb-ink: #1a1a1a; --cb-muted: #6b6b6b; --cb-rule: #e2ded5; --cb-accent: #1d4ed8; }
+      :root { --cb-paper: #f7f5f0; --cb-ink: #1a1a1a; --cb-muted: #6b6b6b; --cb-rule: #e2ded5; --cb-accent: #8a6a1c; }
       #ai-chat-wrap {
         position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 9999;
         display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
