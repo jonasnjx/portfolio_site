@@ -20,7 +20,7 @@
         <a href="/baymax">Model Eval &#8594;</a>
       </div>
       <div id="ai-chat-msgs">
-        <div class="ai-msg ai-bot">Welcome! Ask me anything about Jonas's background, experience, or projects.</div>
+        <div class="ai-msg ai-bot">Ask me about Jonas's work: I answer from a knowledge base he maintains himself.</div>
       </div>
       <div id="ai-chat-form">
         <input id="ai-chat-input" type="text" placeholder="Ask a question..." autocomplete="off" />
