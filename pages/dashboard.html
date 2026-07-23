@@ -17,7 +17,7 @@
         }
     </script>
     <style>
-        :root { --paper: #f7f5f0; --ink: #1a1a1a; --muted: #6b6b6b; --rule: #e2ded5; --accent: #8a6a1c; }
+        :root { --paper: #f2ede3; --ink: #1a1a1a; --muted: #6b6b6b; --rule: #c9bda3; --accent: #8a6a1c; }
         body { background-color: var(--paper); color: var(--ink); }
         .nav-link { position: relative; color: var(--muted); font-size: 0.875rem; transition: color 0.15s; }
         .nav-link:hover { color: var(--ink); }
@@ -31,13 +31,13 @@
         .stat-card .tip { display: none; position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%); background: var(--ink); color: var(--paper); font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; line-height: 1.5; padding: 0.4rem 0.65rem; border-radius: 4px; white-space: nowrap; z-index: 10; pointer-events: none; }
         .stat-card .tip::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 5px solid transparent; border-top-color: var(--ink); }
         .stat-card:hover .tip { display: block; }
-        .data-row { border-top: 1px solid var(--rule); padding: 0.6rem 0; display: flex; justify-content: space-between; align-items: baseline; }
-        .data-row:last-child { border-bottom: 1px solid var(--rule); }
+        .data-row { border-top: 1px dotted var(--rule); padding: 0.6rem 0; display: flex; justify-content: space-between; align-items: baseline; }
+        .data-row:last-child { border-bottom: 1px dotted var(--rule); }
     </style>
 </head>
 <body class="min-h-screen font-sans">
 
-    <nav class="fixed top-0 left-0 w-full z-50" style="background: rgba(247,245,240,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--rule);">
+    <nav class="fixed top-0 left-0 w-full z-50" style="background: rgba(242,237,227,0.95); backdrop-filter: blur(8px); border-bottom: 1px dotted var(--rule);">
         <div class="max-w-3xl mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
                 <a href="/home" style="font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:1.15rem;letter-spacing:-0.01em;color:var(--ink);">jonas ng</a>
@@ -144,7 +144,7 @@
         </div>
     </main>
 
-    <footer class="px-6 py-10" style="border-top: 1px solid var(--rule);">
+    <footer class="px-6 py-10" style="border-top: 1px dotted var(--rule);">
         <div class="max-w-3xl mx-auto flex flex-col md:flex-row md:justify-between md:items-center gap-2">
             <a href="mailto:ngjingxun1997@gmail.com" class="text-sm" style="color: var(--accent);">ngjingxun1997@gmail.com</a>
             <p class="font-mono text-xs" style="color: var(--muted);">&copy; 2026 Jonas Ng &middot; Singapore</p>
