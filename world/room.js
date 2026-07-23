@@ -650,9 +650,9 @@ function buildSign(scene, text, x, y, z, w = 1.3, h = 0.50, faceYaw = 0, index =
     ctx.textBaseline = 'alphabetic';
     ctx.fillText(index, cx, 30);
 
-    // Label — Space Grotesk 500, ink
+    // Label — Bricolage Grotesque 500, ink
     ctx.fillStyle = '#ececec';
-    ctx.font = '500 30px "Space Grotesk", sans-serif';
+    ctx.font = '500 30px "Bricolage Grotesque", sans-serif';
     ctx.fillText(text, cx, 66);
 
     // Hairline rule — muted at 40% alpha
@@ -1135,7 +1135,7 @@ function buildBaymax(scene) {
     const ctx = cvs.getContext('2d');
     ctx.clearRect(0, 0, 256, 48);
     ctx.fillStyle = '#ececec';
-    ctx.font = '500 18px "Space Grotesk", sans-serif';
+    ctx.font = '500 18px "Bricolage Grotesque", sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillText('Virtual AI Assistant', 128, 24);

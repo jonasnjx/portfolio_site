@@ -66,7 +66,7 @@ world/
 --bg: #0f1117  --bg-2: #161922  --ink: #ececec
 --muted: #9a9a9a  --rule: #e2ded5  --accent: #1d4ed8
 ```
-No gradients, no glows. Hairline `rgba(226,222,213,0.14)` borders. No Press Start 2P anywhere in UI chrome. Fonts: Space Grotesk 500 (headings), JetBrains Mono (labels), Source Serif 4 (prose). Accent (#1d4ed8) on links only.
+No gradients, no glows. Hairline `rgba(226,222,213,0.14)` borders. No Press Start 2P anywhere in UI chrome. Fonts: Bricolage Grotesque 500 (headings), JetBrains Mono (labels), Source Serif 4 (prose). Accent (#1d4ed8) on links only.
 
 **Keyboard shortcuts in-game:** WASD move, Space jump, M mute/unmute, T or Enter open chat, Esc close modal or pause.
 
@@ -81,7 +81,7 @@ No gradients, no glows. Hairline `rgba(226,222,213,0.14)` borders. No Press Star
 --rule: #e2ded5  --accent: #1d4ed8
 ```
 
-Fonts: Space Grotesk 500 (headings), Source Serif 4 (body prose), JetBrains Mono (dates, labels, mono). No gradients, no glows, no dark cards. Hairline `1px solid var(--rule)` dividers. Accent on links only, never fills.
+Fonts: Bricolage Grotesque 500 (headings), Source Serif 4 (body prose), JetBrains Mono (dates, labels, mono). No gradients, no glows, no dark cards. Hairline `1px solid var(--rule)` dividers. Accent on links only, never fills.
 
 No component system. Every page is self-contained HTML. Nav markup, Tailwind config, CSS tokens, and font links are copy-pasted into each file. When changing a shared element, update every HTML file.
 

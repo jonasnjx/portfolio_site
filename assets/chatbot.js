@@ -65,7 +65,7 @@
         display: flex; justify-content: space-between; align-items: center;
         padding: 0.75rem 1rem;
         border-bottom: 1px solid var(--rule, var(--cb-rule));
-        font-family: 'Space Grotesk', sans-serif;
+        font-family: 'Bricolage Grotesque', sans-serif;
         font-size: 0.875rem; font-weight: 500;
         color: var(--ink, var(--cb-ink));
       }
@@ -103,7 +103,7 @@
       }
       .ai-bot { color: var(--ink, var(--cb-ink)); align-self: flex-start; }
       .ai-user {
-        font-family: 'Space Grotesk', sans-serif;
+        font-family: 'Bricolage Grotesque', sans-serif;
         padding: 0.35rem 0.7rem;
         border-radius: 12px 12px 2px 12px;
         background: var(--accent, var(--cb-accent)); color: #fff;
